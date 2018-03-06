@@ -1,31 +1,17 @@
-import {
-  Route,
-  BrowserRouter as Router,
-  Switch,
-} from 'react-router-dom';
-
-import Bye from '../Bye';
+import HelloButton from '../../containers/HelloButton';
 import Menu from '../Menu';
+import Message from '../../containers/Message';
 import React from 'react';
-import { hot, } from 'react-hot-loader';
+import Routes from '../../containers/Routes';
 import styles from './styles.scss';
 
 const App = () => (
-  <Router>
-    <div className={ styles.body }>
-      <Menu />
-      <Switch>
-        <Route
-          path='/welcome'
-          render={ () => ( <div>
-            {'Well then'}
-          </div> ) } />
-        <Route
-          path='/bye'
-          render={ () => <Bye /> } />
-      </Switch>
-    </div>
-  </Router>
+  <div className={ styles.body }>
+    <Menu />
+    <Message />
+    <HelloButton />
+    <Routes />
+  </div>
 );
 
-export default hot( module )( App );
+export default App;

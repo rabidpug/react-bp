@@ -2,7 +2,9 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:flowtype/recommended"
+    "plugin:flowtype/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings"
   ],
   "env": {
     "browser": true,
@@ -13,6 +15,7 @@
   },
   "plugins": [
     "flowtype",
+    "import",
     "compat",
     "react"
   ],
@@ -96,6 +99,8 @@
         "minItems": 2
       }
     ],
+    "import/no-duplicates":"error",
+    "import/extensions": ["error","always",{"js":"never"}],
     "indent": [
       "warn",
       2,
@@ -155,7 +160,6 @@
     "no-dupe-class-members": "error",
     "no-dupe-keys": "error",
     "no-duplicate-case": "error",
-    "no-duplicate-imports": "error",
     "no-empty": "error",
     "no-empty-character-class": "error",
     "no-empty-function": "error",

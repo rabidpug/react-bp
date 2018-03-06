@@ -1,7 +1,7 @@
-import App from './components/App';
+import AppWrap from './containers/AppWrap';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 ReactDOM.render(
-  <App />, document.getElementById( 'root' )
+  <AppWrap />, document.getElementById( 'root' )
 );

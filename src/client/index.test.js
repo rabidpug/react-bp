@@ -1,4 +1,4 @@
-import App from './components/App';
+import AppWrap from './containers/AppWrap';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -7,7 +7,7 @@ describe(
     it(
       'renders without crashing', () => {
         ReactDOM.render(
-          <App />, document.getElementById( 'root' ) || document.createElement( 'div' )
+          <AppWrap />, document.getElementById( 'root' ) || document.createElement( 'div' )
         );
       }
     );

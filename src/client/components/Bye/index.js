@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './styles.scss';
 
 const Bye = () => ( <div className={ styles.bye }>
-  {'data'}
+  {'Bye'}
 </div> );
 
 export default Bye;
