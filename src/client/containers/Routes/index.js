@@ -4,7 +4,7 @@ import Loadable from 'react-loadable';
 import Loading from '../../components/Loading';
 import React from 'react';
 
-const LoadableComponent = Loadable( { loader  : () => import( '../Bye' ),
+const LoadableComponent = Loadable( { loader  : () => import( '../../components/Bye' ),
                                       loading : Loading,  } );
 const Routes = () => (
   <Switch>
