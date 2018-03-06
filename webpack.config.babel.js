@@ -2,6 +2,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebPackPlugin from 'html-webpack-plugin';
 import path from 'path';
 import webpack from 'webpack';
+
 const ENV = process.env.NODE_ENV;
 const isTest = ENV === 'test';
 const isProd = ENV === 'production';
@@ -80,7 +81,7 @@ const config = {
     new ExtractTextPlugin( { disable  : !isProd,
                              filename : 'styles/[name].styles.css',  } ),
   ],
-  watch: true,
+  watch: !isProd,
 };
 
 export default config;
