@@ -1,5 +1,6 @@
 // @flow
 
+import { Button, } from 'semantic-ui-react';
 import React from 'react';
 
 type Props = {
@@ -8,14 +9,13 @@ type Props = {
   isDisabled: boolean,
 };
 
-const Button: Function = ( {
+const SimpleButton: Function = ( {
   label, handleClick, isDisabled,
 }: Props ) =>
-  ( <button
+  ( <Button
+    content={ label }
     disabled={ isDisabled }
-    onClick={ handleClick } >
-    {label}
-  </button> );
+    onClick={ handleClick } /> );
 
-export default Button;
+export default SimpleButton;
 

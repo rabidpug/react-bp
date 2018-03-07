@@ -1,6 +1,6 @@
 // @flow
 
-import Button from '../../components/Button';
+import SimpleButton from '../../components/SimpleButton';
 import { connect, } from 'react-redux';
 import { sayHello, } from '../../store/greeter/creators';
 
@@ -13,4 +13,4 @@ const mapDispatchToProps = dispatch => ( { handleClick () {
 
 export default connect(
   mapStateToProps, mapDispatchToProps
-)( Button );
+)( SimpleButton );

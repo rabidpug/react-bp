@@ -1,5 +1,7 @@
 // @flow
 
+import { Button, Form, } from 'semantic-ui-react';
+
 import React from 'react';
 
 type Props = {
@@ -10,28 +12,27 @@ type Props = {
 const InputSubmit: Function = ( { label, onSubmit, }: Props ) => {
   let input;
 
-  return ( <div>
-    <form
-      onSubmit={ e => {
-        e.preventDefault();
+  return ( <Form
+    onSubmit={ e => {
+      e.preventDefault();
 
-        if ( !input || !input.value.trim() ) return;
+      if ( !input || !input.value.trim() ) return;
 
-        onSubmit( input.value );
+      onSubmit( input.value );
 
-        input.value = '';
-      } }
-    >
+      input.value = '';
+    } }
+  >
+    <Form.Field>
       <input
         ref={ node => {
           input = node;
-        } }
-      />
-      <button type='submit'>
-        {label}
-      </button>
-    </form>
-  </div> );
+        } } />
+    </Form.Field>
+    <Button type='submit'>
+      {label}
+    </Button>
+  </Form> );
 };
 
 export default InputSubmit;
