@@ -1,11 +1,11 @@
 import HelloButton from '../../containers/HelloButton';
-import Menu from '../Menu';
+import Menu from '../../containers/Menu';
 import Message from '../../containers/Message';
 import React from 'react';
 import Routes from '../../containers/Routes';
 import styles from './styles.scss';
 
-const App = () => (
+const Home = () => (
   <div className={ styles.body }>
     <Menu />
     <Message />
@@ -14,4 +14,4 @@ const App = () => (
   </div>
 );
 
-export default App;
+export default Home;

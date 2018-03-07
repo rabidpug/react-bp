@@ -4,7 +4,6 @@ import path from 'path';
 import webpack from 'webpack';
 
 const ENV = process.env.NODE_ENV;
-const isTest = ENV === 'test';
 const isProd = ENV === 'production';
 
 const config = {
@@ -13,11 +12,6 @@ const config = {
     hot                : true,
     inline             : true,
   },
-  devtool: isTest
-    ? 'inline-source-map'
-    : isProd
-      ? 'cheap-module-source-map'
-      : 'cheap-module-eval-source-map',
   entry: { index: [
     'babel-polyfill',
     'react-hot-loader/babel',
@@ -37,17 +31,17 @@ const config = {
     { test : /\.html$/,
       use  : [
         { loader  : 'html-loader',
-          options : { minimize: true, },  },
+          options : { minimize: isProd, },  },
       ],  },
     { test : /\.(sass|scss)$/,
       use  : [
         { loader: 'style-loader', },
         { loader  : 'css-loader',
           options : { modules   : true,
-                      sourceMap : true,  },  },
+                      sourceMap : !isProd,  },  },
         { loader  : 'sass-loader',
           options : { modules   : true,
-                      sourceMap : true,  },  },
+                      sourceMap : !isProd,  },  },
       ],  },
     { test : /\.css$/,
       use  : ExtractTextPlugin.extract( { fallback : 'style-loader',
@@ -58,24 +52,28 @@ const config = {
     {
       loader  : require.resolve( 'url-loader' ),
       options : { limit : 10000,
-                  name  : 'dist/assets/[name].[hash:8].[ext]',  },
+                  name  : 'assets/[name].[hash:8].[ext]',  },
       test: [
         /\.bmp$/,
         /\.gif$/,
+        /\.svg$/,
         /\.jpe?g$/,
         /\.png$/,
       ],
     },
   ],  },
+  optimization: { splitChunks: { cacheGroups: { commons: {
+    chunks : 'all',
+    name   : 'vendors',
+    test   : /[\\/]node_modules[\\/]/,
+  },  },  },  },
   output: {
-    chunkFilename : '[name].bundle.js',
-    filename      : '[name].bundle.js',
-    path          : path.resolve( 'dist' ),
-    publicPath    : '/',
+    filename   : 'js/[name].bundle.js',
+    path       : path.resolve( 'dist' ),
+    publicPath : '/',
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
     new HtmlWebPackPlugin( { filename : 'index.html',
                              template : './src/client/index.html',  } ),
     new ExtractTextPlugin( { disable  : !isProd,

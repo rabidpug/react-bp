@@ -1,6 +1,8 @@
+// @flow
+
 import React from 'react';
 
-const Loading = () => ( <div>
+const Loading: Function = () => ( <div>
   {'Loading...'}
 </div> );
 

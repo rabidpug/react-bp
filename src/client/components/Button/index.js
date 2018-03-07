@@ -5,10 +5,15 @@ import React from 'react';
 type Props = {
   label: string,
   handleClick: Function,
-}
+  isDisabled: boolean,
+};
 
-const Button = ( { label, handleClick, }: Props ) =>
-  ( <button onClick={ handleClick }>
+const Button: Function = ( {
+  label, handleClick, isDisabled,
+}: Props ) =>
+  ( <button
+    disabled={ isDisabled }
+    onClick={ handleClick } >
     {label}
   </button> );
 

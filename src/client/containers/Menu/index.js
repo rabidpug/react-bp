@@ -12,6 +12,9 @@ const Menu = () =>
     <NavLink to='/bye'>
       {'Bye'}
     </NavLink>
+    <NavLink to='/todo'>
+      {'Todo'}
+    </NavLink>
   </nav> );
 
 export default Menu;

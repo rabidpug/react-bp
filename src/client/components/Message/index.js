@@ -6,7 +6,7 @@ type Props = {
   message: string,
 }
 
-const Message = ( { message, }: Props ) =>
+const Message: Function = ( { message, }: Props ) =>
   ( <p>
     {message}
   </p> );

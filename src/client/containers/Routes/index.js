@@ -4,8 +4,11 @@ import Loadable from 'react-loadable';
 import Loading from '../../components/Loading';
 import React from 'react';
 
-const LoadableComponent = Loadable( { loader  : () => import( '../../components/Bye' ),
-                                      loading : Loading,  } );
+const LoadableBye = Loadable( { loader  : () => import( '../../scenes/Bye' ),
+                                loading : Loading,  } );
+const LoadableTodoPage = Loadable( { loader  : () => import( '../../scenes/TodoPage' ),
+                                     loading : Loading,  } );
+
 const Routes = () => (
   <Switch>
     <Route
@@ -15,7 +18,10 @@ const Routes = () => (
       </div> ) } />
     <Route
       path='/bye'
-      render={ () => <LoadableComponent /> } />
+      render={ () => <LoadableBye /> } />
+    <Route
+      path='/todo'
+      render={ () => <LoadableTodoPage /> } />
   </Switch>
 );
 
