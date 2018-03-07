@@ -6,16 +6,12 @@ import React from 'react';
 type Props = {
   active: boolean,
   children: Node,
-  onClick: Function
-}
+  onClick: Function,
+};
 const Link: Function = ( {
   active, children, onClick,
 }: Props ) => {
-  if ( active ) {
-    return ( <span>
-      {children}
-    </span> );
-  }
+  if ( active ) return <span>{children}</span>;
 
   return (
     <a
@@ -24,8 +20,7 @@ const Link: Function = ( {
         e.preventDefault();
 
         onClick();
-      } }
-    >
+      } }>
       {children}
     </a>
   );

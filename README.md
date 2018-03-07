@@ -2,6 +2,9 @@
 
 [![Build Status](https://img.shields.io/travis/rabidpug/react-bp.svg?style=flat-square)](https://travis-ci.org/rabidpug/react-bp)
 [![Coverage Status](https://img.shields.io/coveralls/rabidpug/react-bp.svg?style=flat-square)](https://coveralls.io/github/rabidpug/react-bp?branch=master)
+![license](https://img.shields.io/github/license/mashape/apistatus.svg)
+![GitHub repo size in bytes](https://img.shields.io/github/repo-size/badges/shields.svg)
+![GitHub last commit](https://img.shields.io/github/last-commit/google/skia.svg)
 
 A React Boilerplate
 
@@ -70,9 +73,7 @@ import App from './App';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-ReactDOM.render(
-  <App />, document.getElementById( 'root' )
-);
+ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
 #### Loadable
@@ -80,8 +81,10 @@ ReactDOM.render(
 [React Loadable](https://github.com/jamiebuilds/react-loadable) provides Code splitting for React components. See github for usage guide.
 
 ```javascript
-const LoadableComponent = Loadable( { loader  : () => import( '../../components/Bye' ),
-                                      loading : Loading,  } );
+const LoadableComponent = Loadable({
+  loader: () => import('../../components/Bye'),
+  loading: Loading,
+});
 ```
 
 #### Router
@@ -96,36 +99,40 @@ import {
   routerMiddleware,
   routerReducer,
 } from 'react-router-redux';
-import { configureStore, createDefaultMiddleware, } from '@acemarke/redux-starter-kit';
+import {
+  configureStore,
+  createDefaultMiddleware,
+} from '@acemarke/redux-starter-kit';
 
 import Home from './scenes/Home';
-import { Provider, } from 'react-redux';
+import { Provider } from 'react-redux';
 import React from 'react';
 import createHistory from 'history/createBrowserHistory';
-import { hot, } from 'react-hot-loader';
+import { hot } from 'react-hot-loader';
 
 const history = createHistory();
-const middleware = createDefaultMiddleware( routerMiddleware( history ) );
-const preloadedState = { message: 'Do you wanna say hi?', };
-const reducer = { ...reducers,
-                  router: routerReducer, };
-const store = configureStore( {
+const middleware = createDefaultMiddleware(routerMiddleware(history));
+const preloadedState = { message: 'Do you wanna say hi?' };
+const reducer = {
+  ...reducers,
+  router: routerReducer,
+};
+const store = configureStore({
   devTools: process.env.NODE_ENV !== 'production',
   middleware,
   preloadedState,
   reducer,
-} );
+});
 
 const App = () => (
-
-  <Provider store={ store }>
-    <ConnectedRouter history={ history }>
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
       <Home />
     </ConnectedRouter>
   </Provider>
 );
 
-export default hot( module )( App );
+export default hot(module)(App);
 ```
 
 #### Redux
@@ -134,23 +141,21 @@ export default hot( module )( App );
 
 ```javascript
 //actions/hello.js
-export const sayHello = (
-  state, message
-) => ( { ...state,
-         message,  } );
+export const sayHello = (state, message) => ({
+  ...state,
+  message,
+});
 
 //reducers/hello.js
-import { createReducer, } from '@acemarke/redux-starter-kit';
-import { sayHello, } from '../actions/hello';
+import { createReducer } from '@acemarke/redux-starter-kit';
+import { sayHello } from '../actions/hello';
 
-const helloReducer = createReducer(
-  [], { SAY_HELLO: sayHello,  }
-);
+const helloReducer = createReducer([], { SAY_HELLO: sayHello });
 
 export default helloReducer;
 
 //reducers/index.js
-export { default as hello, } from './hello';
+export { default as hello } from './hello';
 ```
 
 #### Semantic UI

@@ -5,17 +5,15 @@ import Loading from '../../components/Loading';
 import React from 'react';
 
 const LoadableBye = Loadable( { loader  : () => import( '../../scenes/Bye' ),
-                                loading : Loading,  } );
+                                loading : Loading, } );
 const LoadableTodoPage = Loadable( { loader  : () => import( '../../scenes/TodoPage' ),
-                                     loading : Loading,  } );
+                                     loading : Loading, } );
 
 const Routes = () => (
   <Switch>
     <Route
       path='/welcome'
-      render={ () => ( <div>
-        {'Well then'}
-      </div> ) } />
+      render={ () => <div>Well then</div> } />
     <Route
       path='/bye'
       render={ () => <LoadableBye /> } />

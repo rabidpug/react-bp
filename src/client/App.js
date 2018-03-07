@@ -23,7 +23,7 @@ const history = createHistory();
 const routerware = routerMiddleware( history );
 const middleware = createDefaultMiddleware( routerware );
 const reducer = combineReducers( { ...reducers,
-                                   router: routerReducer,  } );
+                                   router: routerReducer, } );
 
 const store = configureStore( {
   devTools: process.env.NODE_ENV !== 'production',
@@ -32,7 +32,6 @@ const store = configureStore( {
 } );
 
 const App = () => (
-
   <Provider store={ store }>
     <ConnectedRouter history={ history }>
       <Home />

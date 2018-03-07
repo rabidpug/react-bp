@@ -6,7 +6,7 @@ import { todosInitialState, } from './initialState';
 
 const todo = createReducer(
   todosInitialState, { [ADD_TODO]    : addTodoAction,
-                       [TOGGLE_TODO] : toggleTodoAction,  }
+                       [TOGGLE_TODO] : toggleTodoAction, }
 );
 
 export default todo;

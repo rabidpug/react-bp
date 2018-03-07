@@ -1,5 +1,9 @@
 {
   "presets":["env","stage-0","react","flow"],
-  "plugins": ["react-hot-loader/babel","transform-decorators-legacy","syntax-dynamic-import",
-    "dynamic-import-node"]
+  "plugins": ["react-hot-loader/babel","transform-decorators-legacy"],
+    "env": {
+      "test": {
+        "plugins": ["dynamic-import-node"]
+      }
+    }
 }

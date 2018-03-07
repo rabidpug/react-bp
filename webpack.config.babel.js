@@ -76,7 +76,8 @@ const config = {
     path       : path.resolve( 'dist' ),
     publicPath : '/',
   },
-  plugins: [
+  performance : { hints: false,  },
+  plugins     : [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebPackPlugin( { filename : 'index.html',
                              template : './src/client/index.html',  } ),

@@ -18,4 +18,3 @@ const SimpleButton: Function = ( {
     onClick={ handleClick } /> );
 
 export default SimpleButton;
-

@@ -6,7 +6,7 @@ import Routes from '../../containers/Routes';
 import styles from './styles.scss';
 
 const Home = () => (
-  <div className={ styles.body }>
+  <div className={ styles.bodyStyle }>
     <Menu />
     <Message />
     <HelloButton />

@@ -5,8 +5,8 @@ import Todo from '../Todo';
 
 type Props = {
   onTodoClick: Function,
-  todos: Array<{completed: boolean, id: number, text: string}>
-}
+  todos: Array<{ completed: boolean, id: number, text: string }>,
+};
 const TodoList: Function = ( { todos, onTodoClick, }: Props ) => (
   <ul>
     {todos.map( todo =>

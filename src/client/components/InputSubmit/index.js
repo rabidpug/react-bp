@@ -6,33 +6,33 @@ import React from 'react';
 
 type Props = {
   label: string,
-  onSubmit: Function
+  onSubmit: Function,
 };
 
 const InputSubmit: Function = ( { label, onSubmit, }: Props ) => {
   let input;
 
-  return ( <Form
-    onSubmit={ e => {
-      e.preventDefault();
+  return (
+    <Form
+      onSubmit={ e => {
+        e.preventDefault();
 
-      if ( !input || !input.value.trim() ) return;
+        if ( !input || !input.value.trim() ) return;
 
-      onSubmit( input.value );
+        onSubmit( input.value );
 
-      input.value = '';
-    } }
-  >
-    <Form.Field>
-      <input
-        ref={ node => {
-          input = node;
-        } } />
-    </Form.Field>
-    <Button type='submit'>
-      {label}
-    </Button>
-  </Form> );
+        input.value = '';
+      } }>
+      <Form.Field>
+        <input
+          ref={ node => {
+            input = node;
+          } }
+        />
+      </Form.Field>
+      <Button type='submit'>{label}</Button>
+    </Form>
+  );
 };
 
 export default InputSubmit;
