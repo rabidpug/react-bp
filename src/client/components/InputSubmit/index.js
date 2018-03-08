@@ -1,38 +1,59 @@
 // @flow
 
-import { Button, Form, } from 'semantic-ui-react';
+import {
+  Button,
+  Form,
+  Input,
+} from 'antd';
 
 import React from 'react';
 
+const FormItem = Form.Item;
 type Props = {
   label: string,
   onSubmit: Function,
+  form: any,
 };
 
-const InputSubmit: Function = ( { label, onSubmit, }: Props ) => {
-  let input;
+const InputSubmit: Function = ( {
+  label, onSubmit, form,
+}: Props ) => {
+  const {
+    getFieldDecorator, resetFields, getFieldValue, getFieldError, isFieldTouched,
+  } = form;
+
+  const fieldError = isFieldTouched( label ) && getFieldError( label );
 
   return (
     <Form
       onSubmit={ e => {
         e.preventDefault();
 
-        if ( !input || !input.value.trim() ) return;
+        const value = getFieldValue( label );
 
-        onSubmit( input.value );
+        if ( !value.trim() ) return;
 
-        input.value = '';
+        onSubmit( value );
+
+        resetFields();
       } }>
-      <Form.Field>
-        <input
-          ref={ node => {
-            input = node;
-          } }
-        />
-      </Form.Field>
-      <Button type='submit'>{label}</Button>
+      <FormItem
+        help={ fieldError || '' }
+        validateStatus={ fieldError ? 'error' : '' }>
+        {getFieldDecorator(
+          label, { rules: [
+            { message  : `Fill me out first!`,
+              required : true, },
+          ], }
+        )( <Input placeholder={ `${label}` } /> )}
+      </FormItem>
+      <Button
+        htmlType='submit'
+        type='primary'>
+        {label}
+      </Button>
     </Form>
   );
 };
 
-export default InputSubmit;
+export default Form.create()( InputSubmit );

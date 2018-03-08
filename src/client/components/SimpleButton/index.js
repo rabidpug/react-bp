@@ -1,6 +1,6 @@
 // @flow
 
-import { Button, } from 'semantic-ui-react';
+import { Button, } from 'antd';
 import React from 'react';
 
 type Props = {
@@ -11,10 +11,13 @@ type Props = {
 
 const SimpleButton: Function = ( {
   label, handleClick, isDisabled,
-}: Props ) =>
-  ( <Button
-    content={ label }
+}: Props ) => (
+  <Button
     disabled={ isDisabled }
-    onClick={ handleClick } /> );
+    onClick={ handleClick }
+    type='primary'>
+    {label}
+  </Button>
+);
 
 export default SimpleButton;

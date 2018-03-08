@@ -13,8 +13,7 @@ app.get(
   '/api', (
     req, res
   ) => {
-    res.send( { message:
-      'I am a server route and can also be hot reloaded! LIKE THIS!!! hmm', } );
+    res.send( { message: 'I am a server route and can also be hot reloaded! LIKE THIS!!! hmmhehehe', } );
   }
 );
 

@@ -1,6 +1,10 @@
 {
   "presets": [["env", { "modules": false }], "stage-0", "react", "flow"],
-  "plugins": ["react-hot-loader/babel", "transform-decorators-legacy"],
+  "plugins": [
+    "react-hot-loader/babel",
+    "transform-decorators-legacy",
+    ["import", { "libraryName": "antd", "style": "css" }]
+  ],
   "env": {
     "test": {
       "presets": ["env", "stage-0", "react", "flow"],
