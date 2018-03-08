@@ -96,12 +96,12 @@
   "scripts": {
     "build": "npm-run-all clean test build:*",
     "build:client":
-      "cross-env NODE_ENV=production webpack --config webpack.config.client.js --mode production --progress",
+      "cross-env NODE_ENV=production webpack --config webpack/webpack.config.client.js --mode production --progress",
+      "build:server":
+        "cross-env NODE_ENV=production webpack --config webpack/webpack.config.server.js --mode production",
+        "start": "npm-run-all clean start:*",
     "start:server":
-      "cross-env NODE_ENV=development webpack --config webpack.config.server.js --mode development",
-    "build:server":
-      "cross-env NODE_ENV=production webpack --config webpack.config.server.js --mode production",
-    "start": "npm-run-all clean start:*",
+      "cross-env NODE_ENV=development webpack --config webpack/webpack.config.server.js --mode development",
     "clean": "rimraf ./dist",
     "test": "eslint src && flow && jest --coverage"
   },

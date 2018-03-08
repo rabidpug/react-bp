@@ -1,4 +1,4 @@
-import config from '../../webpack.config.client';
+import config from '../../webpack/webpack.config.client';
 import express from 'express';
 import path from 'path';
 import webpack from 'webpack';

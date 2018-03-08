@@ -3,9 +3,10 @@ import Menu from '../../containers/Menu';
 import Message from '../../containers/Message';
 import React from 'react';
 import Routes from '../../containers/Routes';
+import { hot, } from 'react-hot-loader';
 import styles from './styles.scss';
 
-const Home = () => (
+const App = () => (
   <div className={ styles.bodyStyle }>
     <Menu />
     <Message />
@@ -14,4 +15,4 @@ const Home = () => (
   </div>
 );
 
-export default Home;
+export default hot( module )( App );
