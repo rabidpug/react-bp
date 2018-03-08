@@ -5,25 +5,25 @@ const path = require( 'path' );
 const glob = require( 'glob' );
 const webpack = require( 'webpack' );
 
-const PATHS = { src: path.join(
-  __dirname, 'src'
-), };
+const PATHS = { src: path.resolve( 'src' ), };
 
 const ENV = process.env.NODE_ENV;
 const isProd = ENV === 'production';
 
-const config = {
-  devServer: {
-    historyApiFallback : true,
-    hot                : true,
-    inline             : true,
-  },
+module.exports = {
+  // devServer: {
+  //   historyApiFallback : true,
+  //   hot                : true,
+  //   inline             : true,
+  // },
   entry: { index: [
     'babel-polyfill',
     'react-hot-loader/babel',
+    'webpack-hot-middleware/client',
     './src/client/index.js',
   ], },
-  module: { rules: [
+  mode   : isProd ? 'production' : 'development',
+  module : { rules: [
     {
       exclude : /node_modules/,
       loader  : 'babel-loader',
@@ -92,8 +92,7 @@ const config = {
     new PurgecssPlugin( { paths: glob.sync(
       `${PATHS.src}/**/*`, { nodir: true, }
     ), } ),
+    new webpack.DefinePlugin( { 'process.env': { NODE_ENV: JSON.stringify( isProd ? 'production' : 'development' ), }, } ),
   ],
-  watch: !isProd,
+  // watch: !isProd,
 };
-
-module.exports = config;

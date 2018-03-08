@@ -113,7 +113,6 @@
         "max": 2
       }
     ],
-    "multiline-ternary": "error",
     "new-cap": [
       "error",
       {

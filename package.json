@@ -1,8 +1,6 @@
 {
   "author": "Matt Cuneo",
-  "browserslist": [
-    "> 1%"
-  ],
+  "browserslist": ["> 1%"],
   "bugs": {
     "url": "https://github.com/rabidpug/react-bp/issues"
   },
@@ -83,13 +81,11 @@
   "jest": {
     "moduleNameMapper": {
       "\\.(css|less|scss)$": "identity-obj-proxy",
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+        "<rootDir>/__mocks__/fileMock.js"
     }
   },
-  "keywords": [
-    "react",
-    "boilerplate"
-  ],
+  "keywords": ["react", "boilerplate"],
   "license": "ISC",
   "main": "index.js",
   "name": "react-bp",
@@ -99,9 +95,14 @@
   },
   "scripts": {
     "build": "npm-run-all clean test build:*",
-    "build:client": "cross-env NODE_ENV=production webpack --mode production --progress",
+    "build:client":
+      "cross-env NODE_ENV=production webpack --config webpack.config.client.js --mode production --progress",
+    "start:server":
+      "cross-env NODE_ENV=development webpack --config webpack.config.server.js --mode development",
+    "build:server":
+      "cross-env NODE_ENV=production webpack --config webpack.config.server.js --mode production",
+    "start": "npm-run-all clean start:*",
     "clean": "rimraf ./dist",
-    "start": "cross-env NODE_ENV=development webpack-dev-server --mode development --open",
     "test": "eslint src && flow && jest --coverage"
   },
   "version": "0.1.0"

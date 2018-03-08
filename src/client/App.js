@@ -31,6 +31,18 @@ const store = configureStore( {
   reducer,
 } );
 
+if ( module.hot ) {
+  // Enable Webpack hot module replacement for reducers
+  module.hot.accept(
+    './store', () => {
+      const nextReducers = require( './store' );
+      const nextReducer = combineReducers( { ...nextReducers,
+                                             router: routerReducer, } );
+
+      store.replaceReducer( nextReducer );
+    }
+  );
+}
 const App = () => (
   <Provider store={ store }>
     <ConnectedRouter history={ history }>
