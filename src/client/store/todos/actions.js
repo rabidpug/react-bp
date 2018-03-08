@@ -1,3 +1,14 @@
+import { createAction, } from 'redux-actions';
+
+//Types
+export const ADD_TODO = 'ADD_TODO';
+export const TOGGLE_TODO = 'TOGGLE_TODO';
+
+//Action Creators
+export const addTodo = createAction( ADD_TODO );
+export const toggleTodo = createAction( TOGGLE_TODO );
+
+//Actions
 export const addTodoAction = (
   state, action
 ) => {

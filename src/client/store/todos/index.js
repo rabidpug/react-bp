@@ -1,8 +1,13 @@
-import { ADD_TODO, TOGGLE_TODO, } from './types';
-import { addTodoAction, toggleTodoAction, } from './actions';
+import {
+  ADD_TODO,
+  TOGGLE_TODO,
+  addTodoAction,
+  toggleTodoAction,
+} from './actions';
 
 import { createReducer, } from '@acemarke/redux-starter-kit';
-import { todosInitialState, } from './initialState';
+
+const todosInitialState = [];
 
 const todo = createReducer(
   todosInitialState, { [ADD_TODO]    : addTodoAction,

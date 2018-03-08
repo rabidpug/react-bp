@@ -2,7 +2,7 @@
 
 import SimpleButton from '../../components/SimpleButton';
 import { connect, } from 'react-redux';
-import { sayHello, } from '../../store/greeter/creators';
+import { sayHello, } from '../../store/greeter/actions';
 
 const mapStateToProps = state => ( { isDisabled : state.greeter.isDisabled,
                                      label      : state.greeter.label, } );

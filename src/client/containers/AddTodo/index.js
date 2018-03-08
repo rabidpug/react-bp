@@ -1,5 +1,5 @@
 import InputSubmit from '../../components/InputSubmit';
-import { addTodo, } from '../../store/todos/creators';
+import { addTodo, } from '../../store/todos/actions';
 import { connect, } from 'react-redux';
 
 const mapStateToProps = () => ( { label: 'Add Todo', } );
