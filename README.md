@@ -1,10 +1,10 @@
 # React BoilerPlate
 
+![GitHub last commit](https://img.shields.io/github/last-commit/google/skia.svg)
 [![Build Status](https://img.shields.io/travis/rabidpug/react-bp.svg?style=flat-square)](https://travis-ci.org/rabidpug/react-bp)
 [![Coverage Status](https://img.shields.io/coveralls/rabidpug/react-bp.svg?style=flat-square)](https://coveralls.io/github/rabidpug/react-bp?branch=master)
-![license](https://img.shields.io/github/license/mashape/apistatus.svg)
 ![GitHub repo size in bytes](https://img.shields.io/github/repo-size/badges/shields.svg)
-![GitHub last commit](https://img.shields.io/github/last-commit/google/skia.svg)
+![license](https://img.shields.io/github/license/mashape/apistatus.svg)
 
 A React Boilerplate
 

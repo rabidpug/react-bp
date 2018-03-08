@@ -7,7 +7,8 @@ describe(
     it(
       'renders without crashing', () => {
         ReactDOM.render(
-          <App />, document.getElementById( 'root' ) || document.createElement( 'div' )
+          <App />,
+          document.getElementById( 'root' ) || document.createElement( 'div' )
         );
       }
     );

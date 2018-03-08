@@ -1,7 +1,13 @@
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import HtmlWebPackPlugin from 'html-webpack-plugin';
-import path from 'path';
-import webpack from 'webpack';
+const PurgecssPlugin = require( 'purgecss-webpack-plugin' );
+const ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
+const HtmlWebPackPlugin = require( 'html-webpack-plugin' );
+const path = require( 'path' );
+const glob = require( 'glob' );
+const webpack = require( 'webpack' );
+
+const PATHS = { src: path.join(
+  __dirname, 'src'
+), };
 
 const ENV = process.env.NODE_ENV;
 const isProd = ENV === 'production';
@@ -16,7 +22,7 @@ const config = {
     'babel-polyfill',
     'react-hot-loader/babel',
     './src/client/index.js',
-  ],  },
+  ], },
   module: { rules: [
     {
       exclude : /node_modules/,
@@ -31,28 +37,28 @@ const config = {
     { test : /\.html$/,
       use  : [
         { loader  : 'html-loader',
-          options : { minimize: isProd, },  },
-      ],  },
+          options : { minimize: isProd, }, },
+      ], },
     { test : /\.(sass|scss)$/,
       use  : [
         { loader: 'style-loader', },
         { loader  : 'css-loader',
           options : { modules   : true,
-                      sourceMap : !isProd,  },  },
+                      sourceMap : !isProd, }, },
         { loader  : 'sass-loader',
           options : { modules   : true,
-                      sourceMap : !isProd,  },  },
-      ],  },
+                      sourceMap : !isProd, }, },
+      ], },
     { test : /\.css$/,
       use  : ExtractTextPlugin.extract( { fallback : 'style-loader',
                                           use      : [
           { loader: 'css-loader', },
           { loader: 'sass-loader', },
-        ],  } ),  },
+        ], } ), },
     {
       loader  : require.resolve( 'url-loader' ),
       options : { limit : 10000,
-                  name  : 'assets/[name].[hash:8].[ext]',  },
+                  name  : 'assets/[name].[hash:8].[ext]', },
       test: [
         /\.bmp$/,
         /\.gif$/,
@@ -65,26 +71,29 @@ const config = {
         /\.eot$/,
       ],
     },
-  ],  },
+  ], },
   optimization: { splitChunks: { cacheGroups: { commons: {
     chunks : 'all',
     name   : 'vendors',
     test   : /[\\/]node_modules[\\/]/,
-  },  },  },  },
+  }, }, }, },
   output: {
     filename   : 'js/[name].bundle.js',
     path       : path.resolve( 'dist' ),
     publicPath : '/',
   },
-  performance : { hints: false,  },
+  performance : { hints: false, },
   plugins     : [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebPackPlugin( { filename : 'index.html',
-                             template : './src/client/index.html',  } ),
+                             template : './src/client/index.html', } ),
     new ExtractTextPlugin( { disable  : !isProd,
-                             filename : 'styles/[name].styles.css',  } ),
+                             filename : 'styles/[name].styles.css', } ),
+    new PurgecssPlugin( { paths: glob.sync(
+      `${PATHS.src}/**/*`, { nodir: true, }
+    ), } ),
   ],
   watch: !isProd,
 };
 
-export default config;
+module.exports = config;
