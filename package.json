@@ -107,9 +107,9 @@
     "build:client":
       "cross-env NODE_ENV=production webpack --config webpack/webpack.config.client.js --mode production --progress",
     "build:server": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.server.js --mode production",
-    "start": "npm-run-all clean start:*",
-    "start:server":
-      "cross-env NODE_ENV=development webpack --config webpack/webpack.config.server.js --mode development",
+    "dev": "npm-run-all clean dev:*",
+    "start": "node dist/server",
+    "dev:server": "cross-env NODE_ENV=development webpack --config webpack/webpack.config.server.js --mode development",
     "prod": "heroku local",
     "clean": "rimraf ./dist",
     "test": "eslint src && flow && jest --coverage",
