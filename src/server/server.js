@@ -5,10 +5,11 @@ import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
+const { NODE_ENV, } = process.env;
 const app = express(),
-  isDevelopment = process.env.NODE_ENV !== 'production';
+  isDev = NODE_ENV !== 'production';
 
-if ( isDevelopment ) {
+if ( isDev ) {
   const compiler = webpack( config );
 
   const DEV_HTML_FILE = path.resolve(

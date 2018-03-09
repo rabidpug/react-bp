@@ -1,10 +1,13 @@
 import { Server, } from 'http';
 import app from './server';
 
-const isDevelopment = process.env.NODE_ENV !== 'production';
-const SERVER_PORT = process.env.PORT || 3000;
+const { NODE_ENV, PORT, } = process.env;
+const isDev = NODE_ENV !== 'production';
+console.log(NODE_ENV, PORT); //eslint-disable-line
 
-if ( isDevelopment ) {
+const SERVER_PORT = PORT || 3000;
+
+if ( isDev ) {
   const server = Server( app );
   let currentApp = app;
 
