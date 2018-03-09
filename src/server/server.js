@@ -8,6 +8,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 const { NODE_ENV, } = process.env;
 const app = express(),
   isDev = NODE_ENV !== 'production';
+console.log(NODE_ENV); //eslint-disable-line
 
 if ( isDev ) {
   const compiler = webpack( config );
@@ -62,14 +63,8 @@ if ( isDev ) {
     }
   );
 
-  app.get(
-    '*', (
-      req, res
-    ) => {
-      res.sendFile(
-        'index.html', { root: '/', }
-      );
-    }
+  app.use(
+    '*', express.static( 'dist' )
   );
 }
 
