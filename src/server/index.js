@@ -1,10 +1,10 @@
+import { Server, } from 'http';
 import app from './server';
-import http from 'http';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 if ( isDevelopment ) {
-  const server = http.createServer( app );
+  const server = Server( app );
   let currentApp = app;
 
   server.listen( 3000 );
