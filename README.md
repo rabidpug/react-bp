@@ -5,6 +5,7 @@
 [![Coverage Status](https://img.shields.io/coveralls/rabidpug/react-bp.svg?style=flat-square)](https://coveralls.io/github/rabidpug/react-bp?branch=master)
 ![GitHub repo size in bytes](https://img.shields.io/github/repo-size/badges/shields.svg)
 ![license](https://img.shields.io/github/license/mashape/apistatus.svg)
+[![Heroku Staging](https://img.shields.io/badge/heroku-staging-yellow.svg)](https://react-bp-staging.herokuapp.com/)
 
 A React Boilerplate
 
@@ -94,15 +95,8 @@ const LoadableComponent = Loadable({
 ```javascript
 import * as reducers from './reducers';
 
-import {
-  ConnectedRouter,
-  routerMiddleware,
-  routerReducer,
-} from 'react-router-redux';
-import {
-  configureStore,
-  createDefaultMiddleware,
-} from '@acemarke/redux-starter-kit';
+import { ConnectedRouter, routerMiddleware, routerReducer } from 'react-router-redux';
+import { configureStore, createDefaultMiddleware } from '@acemarke/redux-starter-kit';
 
 import Home from './scenes/Home';
 import { Provider } from 'react-redux';
