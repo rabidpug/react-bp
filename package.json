@@ -81,12 +81,12 @@
     "webpack-node-externals": "^1.6.0"
   },
   "homepage": "https://github.com/rabidpug/react-bp#readme",
-  "husky" : {
-  "hooks": {
-    "pre-commit": "yarn test",
-    "pre-push": "yarn test"
-  }
-},
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn test",
+      "pre-push": "yarn test"
+    }
+  },
   "jest": {
     "moduleNameMapper": {
       "\\.(css|less|scss)$": "identity-obj-proxy",
@@ -110,9 +110,15 @@
     "start": "npm-run-all clean start:*",
     "start:server":
       "cross-env NODE_ENV=development webpack --config webpack/webpack.config.server.js --mode development",
+    "prod": "heroku local",
     "clean": "rimraf ./dist",
     "test": "eslint src && flow && jest --coverage",
-    "dist": "cross-env NODE_ENV=production node dist/server.js"
+    "dist": "cross-env NODE_ENV=production node dist/server.js",
+    "heroku-postbuild": "yarn build"
+  },
+  "engines": {
+    "node": "9.x",
+    "yarn": "1.5.1"
   },
   "version": "0.1.0"
 }

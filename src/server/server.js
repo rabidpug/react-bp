@@ -7,7 +7,6 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 
 const app = express(),
   isDevelopment = process.env.NODE_ENV !== 'production';
-console.log(req.headers.host); //eslint-disable-line
 
 if ( isDevelopment ) {
   const compiler = webpack( config );
@@ -52,14 +51,13 @@ if ( isDevelopment ) {
     }
   );
 } else {
-  const DIST_DIR = path.join(
-      __dirname, '/'
-    ),
-    HTML_FILE = path.join(
-      DIST_DIR, '/index.html'
-    );
+  const HTML_FILE = path.join(
+    __dirname, '/index.html'
+  );
 
-  app.use( express.static( DIST_DIR ) );
+  app.use( express.static( path.join(
+    __dirname, '/'
+  ) ) );
 
   app.get(
     '/api', (
@@ -73,7 +71,11 @@ if ( isDevelopment ) {
     '*', (
       req, res
     ) => {
-      res.sendFile( HTML_FILE );
+      res.sendFile(
+        HTML_FILE, { root: path.join(
+          __dirname, '/'
+        ), }
+      );
     }
   );
 }
