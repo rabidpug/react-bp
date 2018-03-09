@@ -7,12 +7,12 @@ console.log(NODE_ENV, PORT); //eslint-disable-line
 
 const SERVER_PORT = PORT || 3000;
 
+const server = Server( app );
+let currentApp = app;
+
+server.listen( SERVER_PORT );
+
 if ( isDev ) {
-  const server = Server( app );
-  let currentApp = app;
-
-  server.listen( SERVER_PORT );
-
   if ( module.hot ) {
     module.hot.accept(
       './server', () => {
@@ -28,4 +28,5 @@ if ( isDev ) {
       }
     );
   }
-} else app.listen( SERVER_PORT );
+}
+// else server.on('request', app)
