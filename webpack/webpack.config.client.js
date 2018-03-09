@@ -1,13 +1,9 @@
-const PurgecssPlugin = require( 'purgecss-webpack-plugin' );
 const ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
 const HtmlWebPackPlugin = require( 'html-webpack-plugin' );
 const fs = require( 'fs' );
 const lessToJs = require( 'less-vars-to-js' );
 const path = require( 'path' );
-const glob = require( 'glob' );
 const webpack = require( 'webpack' );
-
-const PATHS = { src: path.resolve( 'src' ), };
 
 const themeVariables = lessToJs( fs.readFileSync(
   path.resolve( 'theme.less' ), 'utf8'
@@ -17,9 +13,9 @@ const isProd = ENV === 'production';
 const extractSass = new ExtractTextPlugin( { disable  : !isProd,
                                              filename : 'styles/[name].styles.css', } );
 const extractLess = new ExtractTextPlugin( { disable  : !isProd,
-                                             filename : 'styles/[name].styles.css', } );
+                                             filename : 'styles/[name].theme.css', } );
 const extractCSS = new ExtractTextPlugin( { disable  : !isProd,
-                                            filename : 'styles/[name].styles.css', } );
+                                            filename : 'styles/[name].other.css', } );
 
 module.exports = {
   // devServer: {
@@ -51,23 +47,27 @@ module.exports = {
           options : { minimize: isProd, }, },
       ], },
     { test : /\.(sass|scss)$/,
-      use  : extractSass.extract( { use: [
-        { loader: 'style-loader', },
-        { loader  : 'css-loader',
-          options : { modules   : true,
-                      sourceMap : !isProd, }, },
-        { loader  : 'sass-loader',
-          options : { modules   : true,
-                      sourceMap : !isProd, }, },
-      ], } ), },
+      use  : extractSass.extract( { fallback : 'style-loader',
+                                    use      : [
+          { loader  : 'css-loader',
+            options : { modules   : true,
+                        sourceMap : !isProd, }, },
+          { loader  : 'sass-loader',
+            options : { modules   : true,
+                        sourceMap : !isProd, }, },
+        ], } ), },
     { test : /\.less$/,
-      use  : extractLess.extract( { use: [
-        { loader: 'style-loader', },
-        { loader: 'css-loader', },
-        { loader  : 'less-loader',
-          options : { javascriptEnabled : true,
-                      modifyVars        : themeVariables, }, },
-      ], } ), },
+      use  : extractLess.extract( { fallback : 'style-loader',
+                                    use      : [
+          { loader  : 'css-loader',
+            options : { sourceMap: !isProd, }, },
+          { loader  : 'less-loader',
+            options : {
+              javascriptEnabled : true,
+              modifyVars        : themeVariables,
+              sourceMap         : !isProd,
+            }, },
+        ], } ), },
     { test : /\.css$/,
       use  : extractCSS.extract( { fallback : 'style-loader',
                                    use      : [ { loader: 'css-loader', }, ], } ), },
@@ -106,9 +106,6 @@ module.exports = {
     extractSass,
     extractLess,
     extractCSS,
-    new PurgecssPlugin( { paths: glob.sync(
-      `${PATHS.src}/**/*`, { nodir: true, }
-    ), } ),
     new webpack.DefinePlugin( { 'process.env': { NODE_ENV: JSON.stringify( isProd ? 'production' : 'development' ), }, } ),
   ],
   resolve: { extensions: [

@@ -6,18 +6,12 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
 const app = express(),
-  compiler = webpack( config ),
   isDevelopment = process.env.NODE_ENV !== 'production';
-
-app.get(
-  '/api', (
-    req, res
-  ) => {
-    res.send( { message: 'I am a server route and can also be hot reloaded! LIKE THIS!!! hmmhehehe', } );
-  }
-);
+console.log(req.headers.host); //eslint-disable-line
 
 if ( isDevelopment ) {
+  const compiler = webpack( config );
+
   const DEV_HTML_FILE = path.resolve(
     compiler.outputPath, 'index.html'
   );
@@ -27,6 +21,14 @@ if ( isDevelopment ) {
   ) );
 
   app.use( webpackHotMiddleware( compiler ) );
+
+  app.get(
+    '/api', (
+      req, res
+    ) => {
+      res.send( { message: 'I am a server route and can also be hot reloaded! LIKE THIS!!! hmmhehehe', } );
+    }
+  );
 
   app.get(
     '*', (
@@ -60,9 +62,19 @@ if ( isDevelopment ) {
   app.use( express.static( DIST_DIR ) );
 
   app.get(
+    '/api', (
+      req, res
+    ) => {
+      res.send( { message: 'I am a server route and can also be hot reloaded! LIKE THIS!!! hmmhehehe', } );
+    }
+  );
+
+  app.get(
     '*', (
       req, res
-    ) => res.sendFile( HTML_FILE )
+    ) => {
+      res.sendFile( HTML_FILE );
+    }
   );
 }
 

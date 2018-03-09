@@ -25,7 +25,7 @@ if ( isDevelopment ) {
     );
   }
 } else {
-  server.on(
-    'request', app
-  );
+  // server.on(
+  //   'request', app
+  // );
 }
