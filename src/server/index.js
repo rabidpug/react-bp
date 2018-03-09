@@ -1,14 +1,14 @@
 import app from './server';
 import http from 'http';
 
-const server = http.createServer( app );
-let currentApp = app;
-
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
-server.listen( 3000 );
-
 if ( isDevelopment ) {
+  const server = http.createServer( app );
+  let currentApp = app;
+
+  server.listen( 3000 );
+
   if ( module.hot ) {
     module.hot.accept(
       './server', () => {
@@ -24,8 +24,4 @@ if ( isDevelopment ) {
       }
     );
   }
-} else {
-  // server.on(
-  //   'request', app
-  // );
-}
+} else app.listen( 3000 );

@@ -16,6 +16,17 @@ const extractLess = new ExtractTextPlugin( { disable  : !isProd,
                                              filename : 'styles/[name].theme.css', } );
 const extractCSS = new ExtractTextPlugin( { disable  : !isProd,
                                             filename : 'styles/[name].other.css', } );
+const entry = isProd
+  ? [
+    'babel-polyfill',
+    './src/client/index.js',
+  ]
+  : [
+    'babel-polyfill',
+    'react-hot-loader/babel',
+    'webpack-hot-middleware/client',
+    './src/client/index.js',
+  ];
 
 module.exports = {
   // devServer: {
@@ -23,12 +34,7 @@ module.exports = {
   //   hot                : true,
   //   inline             : true,
   // },
-  entry: { index: [
-    'babel-polyfill',
-    'react-hot-loader/babel',
-    'webpack-hot-middleware/client',
-    './src/client/index.js',
-  ], },
+  entry  : { index: entry, },
   mode   : isProd ? 'production' : 'development',
   module : { rules: [
     {

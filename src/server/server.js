@@ -51,13 +51,7 @@ if ( isDevelopment ) {
     }
   );
 } else {
-  const filepath = './dist/index.html';
-
-  const HTML_FILE = path.resolve( filepath );
-
-  app.use( express.static( path.join(
-    __dirname, '/'
-  ) ) );
+  app.use( express.static( 'dist' ) );
 
   app.get(
     '/api', (
@@ -71,7 +65,7 @@ if ( isDevelopment ) {
     '*', (
       req, res
     ) => {
-      res.sendFile( HTML_FILE );
+      res.sendFile( '/index.html' );
     }
   );
 }
