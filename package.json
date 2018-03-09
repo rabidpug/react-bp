@@ -1,6 +1,8 @@
 {
   "author": "Matt Cuneo",
-  "browserslist": ["> 1%"],
+  "browserslist": [
+    "> 1%"
+  ],
   "bugs": {
     "url": "https://github.com/rabidpug/react-bp/issues"
   },
@@ -55,7 +57,7 @@
     "flow-bin": "^0.66.0",
     "html-loader": "^1.0.0-alpha.0",
     "html-webpack-plugin": "^3.0.6",
-    "husky": "^0.15.0-rc.8",
+    "husky": "^0.14.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^22.4.2",
     "less": "^3.0.1",
@@ -90,11 +92,13 @@
   "jest": {
     "moduleNameMapper": {
       "\\.(css|less|scss)$": "identity-obj-proxy",
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
-        "<rootDir>/__mocks__/fileMock.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js"
     }
   },
-  "keywords": ["react", "boilerplate"],
+  "keywords": [
+    "react",
+    "boilerplate"
+  ],
   "license": "ISC",
   "main": "index.js",
   "name": "react-bp",
@@ -104,8 +108,7 @@
   },
   "scripts": {
     "build": "npm-run-all clean test build:*",
-    "build:client":
-      "cross-env NODE_ENV=production webpack --config webpack/webpack.config.client.js --mode production --progress",
+    "build:client": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.client.js --mode production --progress",
     "build:server": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.server.js --mode production",
     "dev": "npm-run-all clean dev:*",
     "start": "node dist/server",

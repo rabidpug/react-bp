@@ -17,8 +17,9 @@ A React Boilerplate
   * [Loadable](#loadable)
   * [Router](#router)
   * [Redux](#redux)
-  * [Semantic UI](#semantic-ui)
+  * [Ant Design](#ant-design)
 * [Server Libraries](#server-libraries)
+  * [Express](#express)
 * [Dev Libraries](#dev-libraries)
 
 ## Folder Structure
@@ -152,17 +153,17 @@ export default helloReducer;
 export { default as hello } from './hello';
 ```
 
-#### Semantic UI
+#### Ant Design
 
-[Semantic UI React](https://react.semantic-ui.com/) provides a library of components to use for simple User Interface work, no need to build and style from scratch. Make sure to:
-
-```javascript
-import 'semantic-ui-css/semantic.min.css';
-```
+[Ant Design](https://ant.design/) provides a library of components to use for simple User Interface work, no need to build and style from scratch. Theme can be completely customised in theme.less
 
 ## Server Libraries
 
 Server Libraries stuff
+
+### Express
+
+Express stuff
 
 ## Dev Libraries
 
