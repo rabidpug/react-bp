@@ -51,7 +51,7 @@ if ( isDevelopment ) {
     }
   );
 } else {
-  const filepath = './index.html';
+  const filepath = './dist/index.html';
 
   const HTML_FILE = path.resolve( filepath );
 
@@ -71,11 +71,7 @@ if ( isDevelopment ) {
     '*', (
       req, res
     ) => {
-      res.sendFile(
-        HTML_FILE, { root: path.join(
-          __dirname, '/'
-        ), }
-      );
+      res.sendFile( HTML_FILE );
     }
   );
 }
