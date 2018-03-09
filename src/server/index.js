@@ -5,7 +5,7 @@ const { NODE_ENV, PORT, } = process.env;
 const isDev = NODE_ENV !== 'production';
 console.log(NODE_ENV, PORT); //eslint-disable-line
 
-const SERVER_PORT = PORT || 3000;
+const SERVER_PORT = PORT || 8080;
 
 const server = Server( app );
 let currentApp = app;
