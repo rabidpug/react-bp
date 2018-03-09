@@ -62,11 +62,8 @@ module.exports = {
           { loader  : 'css-loader',
             options : { sourceMap: !isProd, }, },
           { loader  : 'less-loader',
-            options : {
-              javascriptEnabled : true,
-              modifyVars        : themeVariables,
-              sourceMap         : !isProd,
-            }, },
+            options : { modifyVars : themeVariables,
+                        sourceMap  : !isProd, }, },
         ], } ), },
     { test : /\.css$/,
       use  : extractCSS.extract( { fallback : 'style-loader',
