@@ -2,12 +2,13 @@ import { Server, } from 'http';
 import app from './server';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
+const SERVER_PORT = process.env.PORT || 3000;
 
 if ( isDevelopment ) {
   const server = Server( app );
   let currentApp = app;
 
-  server.listen( 3000 );
+  server.listen( SERVER_PORT );
 
   if ( module.hot ) {
     module.hot.accept(
@@ -24,4 +25,4 @@ if ( isDevelopment ) {
       }
     );
   }
-} else app.listen( 3000 );
+} else app.listen( SERVER_PORT );
