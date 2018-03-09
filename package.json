@@ -81,6 +81,12 @@
     "webpack-node-externals": "^1.6.0"
   },
   "homepage": "https://github.com/rabidpug/react-bp#readme",
+  "husky" : {
+  "hooks": {
+    "pre-commit": "yarn test",
+    "pre-push": "yarn test"
+  }
+},
   "jest": {
     "moduleNameMapper": {
       "\\.(css|less|scss)$": "identity-obj-proxy",
