@@ -51,9 +51,9 @@ if ( isDevelopment ) {
     }
   );
 } else {
-  const HTML_FILE = path.join(
-    __dirname, '/index.html'
-  );
+  const filepath = './index.html';
+
+  const HTML_FILE = path.resolve( filepath );
 
   app.use( express.static( path.join(
     __dirname, '/'
