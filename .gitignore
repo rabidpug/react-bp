@@ -3,7 +3,6 @@
 node_modules/
 
 #project
-.vscode/
 coverage/
 dist/
 *.code-workspace
