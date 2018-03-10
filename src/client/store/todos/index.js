@@ -7,11 +7,9 @@ import {
 
 import { createReducer, } from '@acemarke/redux-starter-kit';
 
-const todosInitialState = [];
+export const todosInitialState = [];
 
-const todo = createReducer(
+export const todos = createReducer(
   todosInitialState, { [ADD_TODO]    : addTodoAction,
                        [TOGGLE_TODO] : toggleTodoAction, }
 );
-
-export default todo;

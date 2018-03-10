@@ -16,25 +16,19 @@ const extractLess = new ExtractTextPlugin( { disable  : !isProd,
                                              filename : 'styles/[name].theme.css', } );
 const extractCSS = new ExtractTextPlugin( { disable  : !isProd,
                                             filename : 'styles/[name].other.css', } );
-const entry = isProd
-  ? [
-    'babel-polyfill',
-    './src/client/index.js',
-  ]
-  : [
-    'babel-polyfill',
-    'react-hot-loader/babel',
-    'webpack-hot-middleware/client',
-    './src/client/index.js',
-  ];
 
 module.exports = {
-  // devServer: {
-  //   historyApiFallback : true,
-  //   hot                : true,
-  //   inline             : true,
-  // },
-  entry  : { index: entry, },
+  entry: { index: isProd
+    ? [
+      'babel-polyfill',
+      './src/client/index.js',
+    ]
+    : [
+      'babel-polyfill',
+      'react-hot-loader/babel',
+      'webpack-hot-middleware/client',
+      './src/client/index.js',
+    ], },
   mode   : isProd ? 'production' : 'development',
   module : { rules: [
     {
@@ -94,26 +88,30 @@ module.exports = {
       ],
     },
   ], },
-  optimization: { splitChunks: { cacheGroups: { commons: {
-    chunks : 'all',
-    name   : 'vendors',
-    test   : /[\\/]node_modules[\\/]/,
-  }, }, }, },
+  optimization: { runtimeChunk : { name: 'runtime', },
+                  splitChunks  : { cacheGroups: { commons: { chunks : 'all',
+                                                             test   : /[\\/]node_modules[\\/]/, }, }, }, },
   output: {
     filename   : 'js/[name].bundle.js',
     path       : path.resolve( 'dist' ),
     publicPath : '/',
   },
-  performance : { hints: false, },
-  plugins     : [
-    new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebPackPlugin( { filename : 'index.html',
-                             template : './src/client/index.html', } ),
-    extractSass,
-    extractLess,
-    extractCSS,
-    new webpack.DefinePlugin( { 'process.env': { NODE_ENV: JSON.stringify( isProd ? 'production' : 'development' ), }, } ),
-  ],
+  plugins: isProd
+    ? [
+      new HtmlWebPackPlugin( { filename : 'index.html',
+                               template : './src/client/index.html', } ),
+      extractSass,
+      extractLess,
+      extractCSS,
+    ]
+    : [
+      new webpack.HotModuleReplacementPlugin(),
+      new HtmlWebPackPlugin( { filename : 'index.html',
+                               template : './src/client/index.html', } ),
+      extractSass,
+      extractLess,
+      extractCSS,
+    ],
   resolve: { extensions: [
     '.less',
     '.js',

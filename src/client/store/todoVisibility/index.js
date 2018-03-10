@@ -8,10 +8,8 @@ import { createReducer, } from '@acemarke/redux-starter-kit';
 
 const { SHOW_ALL, } = VisibilityFilters;
 
-const todoVisibilityInitialState = SHOW_ALL;
+export const todoVisibilityInitialState = SHOW_ALL;
 
-const todoVisibility = createReducer(
+export const todoVisibility = createReducer(
   todoVisibilityInitialState, { [SET_VISIBILITY_FILTER]: setVisibilityFilterAction, }
 );
-
-export default todoVisibility;

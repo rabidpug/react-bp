@@ -1,3 +1,3 @@
-export { default as greeter, } from './greeter';
-export { default as todos, } from './todos';
-export { default as todoVisibility, } from './todoVisibility';
+export { greeter, } from './greeter';
+export { todos, } from './todos';
+export { todoVisibility, } from './todoVisibility';
