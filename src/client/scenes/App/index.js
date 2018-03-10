@@ -11,7 +11,9 @@ const { Header, Content, } = Layout;
 const isSidebarCollapsed = false;
 //TODO: set up HomeTopBar container, content as routes
 const App = () => (
-  <Layout>
+  <Layout
+    style={ { height   : '100vh',
+              overflow : 'hidden', } }>
     <HomeSideBar />
     <Layout>
       <Header
@@ -25,8 +27,9 @@ const App = () => (
       <Content
         style={ {
           background : 'whitesmoke',
-          margin     : '24px 16px',
+          margin     : '12px 8px',
           minHeight  : 280,
+          overflow   : 'auto',
           padding    : 24,
         } }>
         <Message />

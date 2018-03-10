@@ -14,5 +14,6 @@
     "**/Procfile": false
   },
   "travis.username": "rabidpug",
-  "travis.repository": "react-bp"
+  "travis.repository": "react-bp",
+  "todo-tree.flat": true
 }

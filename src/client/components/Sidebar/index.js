@@ -10,25 +10,27 @@ const { Item, } = Menu;
 const { Sider, } = Layout;
 
 const Sidebar = ( {
-  isSidebarCollapsed, menuItems, goToPath,
+  isSidebarCollapsed, menuItems, goToPath, toggleSideBar,
 } ) => (
   <Sider
     collapsed={ isSidebarCollapsed }
     collapsible
+    onMouseEnter={ () => isSidebarCollapsed && toggleSideBar() }
+    onMouseLeave={ () => !isSidebarCollapsed && toggleSideBar() }
     trigger={ null }>
     <div className='logo' />
     <Menu
       defaultSelectedKeys={ [ '1', ] }
       mode='inline'
-      onClick={({ item }) => goToPath(item.props.path)} //eslint-disable-line
+      onClick={ ( { item, } ) => goToPath( item.props.path ) }
       style={ { height: '100%', } }
-      theme='light'>
+      theme='dark'>
       {menuItems.map( item => (
         <Item
           key={ item.key }
           path={ item.path }>
           <Icon type={ item.icon } />
-          <span style={ { display: isSidebarCollapsed ? 'none' : '', } }>{item.label}</span>
+          <span>{item.label}</span>
         </Item>
       ) )}
     </Menu>
