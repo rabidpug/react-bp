@@ -5,7 +5,7 @@
 [![Coverage Status](https://img.shields.io/coveralls/rabidpug/react-bp.svg?style=flat-square)](https://coveralls.io/github/rabidpug/react-bp?branch=master)
 ![GitHub repo size in bytes](https://img.shields.io/github/repo-size/badges/shields.svg)
 ![license](https://img.shields.io/github/license/mashape/apistatus.svg)
-[![Heroku Staging](https://img.shields.io/badge/heroku-staging-yellow.svg)](https://react-bp-staging.herokuapp.com/)
+[![Heroku Staging](https://heroku-badge.herokuapp.com/?app=react-bp-staging)](https://react-bp-staging.herokuapp.com/)
 
 * [Folder Structure](#folder-structure)
 * [Client Libraries](#client-libraries)
