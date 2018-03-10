@@ -7,10 +7,6 @@
 ![license](https://img.shields.io/github/license/mashape/apistatus.svg)
 [![Heroku Staging](https://img.shields.io/badge/heroku-staging-yellow.svg)](https://react-bp-staging.herokuapp.com/)
 
-A React Boilerplate
-
-## Table of Contents
-
 * [Folder Structure](#folder-structure)
 * [Client Libraries](#client-libraries)
   * [React](#react)
@@ -78,7 +74,7 @@ import ReactDOM from 'react-dom';
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
-#### Loadable
+### Loadable
 
 [React Loadable](https://github.com/jamiebuilds/react-loadable) provides Code splitting for React components. See github for usage guide.
 
@@ -89,7 +85,7 @@ const LoadableComponent = Loadable({
 });
 ```
 
-#### Router
+### Router
 
 [React Router](https://reacttraining.com/react-router/) provides route management for React. See link for usage guide. Integrated with Redux using [React Router Redux](https://github.com/reactjs/react-router-redux).
 
@@ -130,7 +126,7 @@ const App = () => (
 export default hot(module)(App);
 ```
 
-#### Redux
+### Redux
 
 [Redux](https://redux.js.org/) provides state management for React. See link for usage guide. Also using [Redux Thunk](https://github.com/gaearon/redux-thunk) for async actions and [Redux Starter Kit](https://github.com/markerikson/redux-starter-kit) for simplified reducer creation. See [Router](#router) section for initialising example.
 
@@ -153,7 +149,7 @@ export default helloReducer;
 export { default as hello } from './hello';
 ```
 
-#### Ant Design
+### Ant Design
 
 [Ant Design](https://ant.design/) provides a library of components to use for simple User Interface work, no need to build and style from scratch. Theme can be completely customised in theme.less
 
