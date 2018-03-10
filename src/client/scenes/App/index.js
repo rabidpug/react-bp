@@ -24,7 +24,7 @@ const App = () => (
       </Header>
       <Content
         style={ {
-          background : '#fff',
+          background : 'whitesmoke',
           margin     : '24px 16px',
           minHeight  : 280,
           padding    : 24,
