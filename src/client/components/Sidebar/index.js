@@ -8,7 +8,6 @@ import React from 'react';
 
 const { Item, } = Menu;
 const { Sider, } = Layout;
-
 const Sidebar = ( {
   isSidebarCollapsed, menuItems, goToPath, toggleSideBar,
 } ) => (
