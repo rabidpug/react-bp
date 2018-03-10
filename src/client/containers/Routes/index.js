@@ -4,9 +4,9 @@ import Loadable from 'react-loadable';
 import Loading from '../../components/Loading';
 import React from 'react';
 
-const LoadableBye = Loadable( { loader  : () => import( '../../scenes/Bye' ),
+const LoadableBye = Loadable( { loader  : () => import( /* webpackChunkName: "Bye" */ '../../scenes/Bye' ),
                                 loading : Loading, } );
-const LoadableTodoPage = Loadable( { loader  : () => import( '../../scenes/TodoPage' ),
+const LoadableTodoPage = Loadable( { loader  : () => import( /* webpackChunkName: "TodoPage" */ '../../scenes/TodoPage' ),
                                      loading : Loading, } );
 
 const Routes = () => (

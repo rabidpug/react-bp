@@ -88,9 +88,11 @@ module.exports = {
       ],
     },
   ], },
-  optimization: { runtimeChunk : { name: 'runtime', },
-                  splitChunks  : { cacheGroups: { commons: { chunks : 'all',
-                                                             test   : /[\\/]node_modules[\\/]/, }, }, }, },
+  optimization: { splitChunks: { cacheGroups: { commons: {
+    chunks : 'all',
+    name   : 'vendor',
+    test   : /[\\/]node_modules[\\/]/,
+  }, }, }, },
   output: {
     filename   : 'js/[name].bundle.js',
     path       : path.resolve( 'dist' ),
