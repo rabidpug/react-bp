@@ -25,7 +25,6 @@ module.exports = {
     ]
     : [
       'babel-polyfill',
-      'react-hot-loader/babel',
       'webpack-hot-middleware/client',
       './src/client/index.js',
     ], },
