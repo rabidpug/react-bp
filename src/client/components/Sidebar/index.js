@@ -22,7 +22,7 @@ const Sidebar = ( {
       trigger={ null }>
       <div className='logo' />
       <Menu
-        defaultSelectedKeys={ [ currentPath ? currentPath.key : 1, ] }
+        defaultSelectedKeys={ [ currentPath ? currentPath.key.toString() : '1', ] }
         mode='inline'
         onClick={ ( { item, } ) => goToPath( item.props.path ) }
         style={ { height: '100%', } }

@@ -9,6 +9,13 @@
       "script": "dev",
       "auto": true,
       "problemMatcher": []
+    },
+    {
+      "label": "css flow watch",
+      "type": "npm",
+      "script": "cssflow",
+      "auto": true,
+      "problemMatcher": []
     }
   ]
 }
