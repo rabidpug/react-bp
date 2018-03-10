@@ -1,5 +1,5 @@
 [ignore]
 .*/node_modules/editions/es2015/.*
-
 [options]
 suppress_comment= \\(.\\|\n\\)*\\flow-disable-next-line
+module.name_mapper='.+\.s?css' -> 'empty/object'

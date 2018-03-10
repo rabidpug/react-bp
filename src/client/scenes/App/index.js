@@ -1,11 +1,10 @@
 import { Icon, Layout, } from 'antd';
 
-import HelloButton from '../../containers/HelloButton';
 import HomeSideBar from '../../containers/HomeSideBar';
-import Message from '../../containers/Message';
 import React from 'react';
-import Routes from '../../containers/Routes';
 import { hot, } from 'react-hot-loader';
+import { renderRoutes, } from 'react-router-config';
+import routes from '../../routes';
 import styles from './styles.scss';
 
 const { Header, Content, } = Layout;
@@ -26,11 +25,7 @@ const App = () => (
           onClick={ () => null }
           type={ isSidebarCollapsed ? 'menu-unfold' : 'menu-fold' } />
       </Header>
-      <Content className={ styles.bodyStyle }>
-        <Message />
-        <HelloButton />
-        <Routes />
-      </Content>
+      <Content className={ styles.bodyStyle }>{renderRoutes( routes )}</Content>
     </Layout>
   </Layout>
 );
