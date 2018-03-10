@@ -49,17 +49,20 @@ module.exports = {
       use  : extractSass.extract( { fallback : 'style-loader',
                                     use      : [
           { loader  : 'css-loader',
-            options : { modules   : true,
-                        sourceMap : !isProd, }, },
+            options : {
+              camelCase : true,
+              modules   : true,
+              sourceMap : !isProd,
+            }, },
           { loader  : 'sass-loader',
-            options : { modules   : true,
-                        sourceMap : !isProd, }, },
+            options : { sourceMap: !isProd, }, },
         ], } ), },
     { test : /\.less$/,
       use  : extractLess.extract( { fallback : 'style-loader',
                                     use      : [
           { loader  : 'css-loader',
-            options : { sourceMap: !isProd, }, },
+            options : { camelCase : true,
+                        sourceMap : !isProd, }, },
           { loader  : 'less-loader',
             options : {
               javascriptEnabled : true,

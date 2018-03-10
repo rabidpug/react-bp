@@ -6,9 +6,11 @@ import Message from '../../containers/Message';
 import React from 'react';
 import Routes from '../../containers/Routes';
 import { hot, } from 'react-hot-loader';
+import styles from './styles.scss';
 
 const { Header, Content, } = Layout;
 const isSidebarCollapsed = false;
+
 //TODO: set up HomeTopBar container, content as routes
 const App = () => (
   <Layout
@@ -20,18 +22,11 @@ const App = () => (
         style={ { background : '#fff',
                   padding    : 0, } }>
         <Icon
-          className='trigger'
+          className={ styles.trigger }
           onClick={ () => null }
           type={ isSidebarCollapsed ? 'menu-unfold' : 'menu-fold' } />
       </Header>
-      <Content
-        style={ {
-          background : 'whitesmoke',
-          margin     : '12px 8px',
-          minHeight  : 280,
-          overflow   : 'auto',
-          padding    : 24,
-        } }>
+      <Content className={ styles.bodyStyle }>
         <Message />
         <HelloButton />
         <Routes />
