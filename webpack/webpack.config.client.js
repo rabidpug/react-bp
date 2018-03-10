@@ -49,11 +49,8 @@ module.exports = {
       use  : extractSass.extract( { fallback : 'style-loader',
                                     use      : [
           { loader  : 'css-loader',
-            options : {
-              camelCase : true,
-              modules   : true,
-              sourceMap : !isProd,
-            }, },
+            options : { modules   : true,
+                        sourceMap : !isProd, }, },
           { loader  : 'sass-loader',
             options : { sourceMap: !isProd, }, },
         ], } ), },
