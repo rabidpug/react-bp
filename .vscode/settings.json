@@ -14,6 +14,7 @@
     "**/Procfile": true,
     "**/*.scss.flow": true
   },
+  "javascript.validate.enable": false,
   "travis.username": "rabidpug",
   "travis.repository": "react-bp",
   "todo-tree.flat": true
