@@ -1,5 +1,6 @@
 // @flow
 
+import { getIsSidebarCollapsed, getOpenKeys, } from '../../store/ui/selectors';
 import { toggleKey, toggleSidebar, } from '../../store/ui/actions';
 
 import Sidebar from '../../components/Sidebar';
@@ -9,9 +10,9 @@ import { push, } from 'react-router-redux';
 const mapStateToProps = (
   state, ownProps
 ) => ( {
-  isSidebarCollapsed : state.ui.isSidebarCollapsed,
+  isSidebarCollapsed : getIsSidebarCollapsed( state ),
   menuItems          : ownProps.route.menuItems,
-  openKeys           : state.ui.openKeys,
+  openKeys           : getOpenKeys( state ),
   router             : state.router,
 } );
 

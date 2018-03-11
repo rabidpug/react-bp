@@ -1,7 +1,7 @@
 import FilterLink from '../containers/FilterLink';
 import HomeTopBar from '../containers/HomeTopBar';
 import TodoTopBar from '../containers/TodoTopBar';
-import { VisibilityFilters, } from '../store/todoVisibility/actions';
+import { VisibilityFilters, } from '../store/todoVisibility/types';
 
 const actionMenu = [
   {

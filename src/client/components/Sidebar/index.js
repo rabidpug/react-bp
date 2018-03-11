@@ -58,7 +58,7 @@ const Sidebar = ( {
       <Menu
         mode='inline'
         onClick={ ( { item, } ) => goToPath( item.props.path ) }
-        openKeys={ !isSidebarCollapsed && openSelectedKeys }
+        openKeys={ isSidebarCollapsed ? [] : openSelectedKeys }
         selectedKeys={ selectedKeys }
         style={ { height: '100%', } }
         theme='dark'>

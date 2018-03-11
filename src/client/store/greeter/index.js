@@ -1,8 +1,8 @@
 // @flow
 
-import { SAY_HELLO, sayHelloAction, } from './actions';
-
+import { SAY_HELLO, } from './types';
 import { createReducer, } from '@acemarke/redux-starter-kit';
+import { sayHelloReducer, } from './reducers';
 
 export const greeterInitialState = {
   isDisabled : false,
@@ -11,5 +11,5 @@ export const greeterInitialState = {
 };
 
 export const greeter = createReducer(
-  greeterInitialState, { [SAY_HELLO]: sayHelloAction, }
+  greeterInitialState, { [SAY_HELLO]: sayHelloReducer, }
 );

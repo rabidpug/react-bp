@@ -10,7 +10,6 @@ import styles from './styles.scss';
 
 const { Content, } = Layout;
 
-//TODO: set up HomeTopBar container, content as routes
 const App = () => (
   <Layout className={ styles.layoutStyle }>
     {renderRoutes( navMenu )}
