@@ -4,8 +4,17 @@ import { TOGGLE_SIDEBAR, toggleSidebarAction, } from './actions';
 
 import { createReducer, } from '@acemarke/redux-starter-kit';
 
-export const uiInitialState = { isSidebarCollapsed : true,
-                                menuItems          : [
+export const uiInitialState = {
+  actionMenuItems: [
+    {
+      action : () => alert( 'Have an action' ),
+      icon   : '',
+      key    : '1',
+      label  : 'Some Action',
+    },
+  ],
+  isSidebarCollapsed : true,
+  menuItems          : [
     {
       icon  : 'home',
       key   : '1',
@@ -30,7 +39,8 @@ export const uiInitialState = { isSidebarCollapsed : true,
       label : 'Todo',
       path  : '/todo',
     },
-  ], };
+  ],
+};
 
 export const ui = createReducer(
   uiInitialState, { [TOGGLE_SIDEBAR]: toggleSidebarAction, }

@@ -1,30 +1,20 @@
-import { Icon, Layout, } from 'antd';
-
 import HomeSideBar from '../../containers/HomeSideBar';
+import HomeTopBar from '../../containers/HomeTopBar';
+import { Layout, } from 'antd';
 import React from 'react';
 import { hot, } from 'react-hot-loader';
 import { renderRoutes, } from 'react-router-config';
 import routes from '../../routes';
 import styles from './styles.scss';
 
-const { Header, Content, } = Layout;
-const isSidebarCollapsed = false;
+const { Content, } = Layout;
 
 //TODO: set up HomeTopBar container, content as routes
 const App = () => (
-  <Layout
-    style={ { height   : '100vh',
-              overflow : 'hidden', } }>
+  <Layout className={ styles.layoutStyle }>
     <HomeSideBar />
     <Layout>
-      <Header
-        style={ { background : '#fff',
-                  padding    : 0, } }>
-        <Icon
-          className={ styles.trigger }
-          onClick={ () => null }
-          type={ isSidebarCollapsed ? 'menu-unfold' : 'menu-fold' } />
-      </Header>
+      <HomeTopBar />
       <Content className={ styles.bodyStyle }>{renderRoutes( routes )}</Content>
     </Layout>
   </Layout>
