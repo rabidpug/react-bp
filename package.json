@@ -118,7 +118,7 @@
     "prod": "heroku local",
     "clean": "rimraf ./dist",
     "cssflow": "css-modules-flow-types src -e scss --watch",
-    "test": "css-modules-flow-types src -e scss && eslint src && flow status coverage && jest --coverage",
+    "test": "css-modules-flow-types src -e scss && eslint src && flow && jest --coverage",
     "dist": "cross-env NODE_ENV=production node dist/server.js",
     "heroku-postbuild": "npm-run-all clean build:*"
   },
