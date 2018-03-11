@@ -4,7 +4,8 @@ import { setVisibilityFilter, } from '../../store/todoVisibility/actions';
 
 const mapStateToProps = (
   state, ownProps
-) => ( { active: ownProps.filter === state.todoVisibility, } );
+) => ( { icon  : ownProps.icon,
+         label : ownProps.label, } );
 
 const mapDispatchToProps = (
   dispatch, ownProps

@@ -1,47 +1,18 @@
 // @flow
 
-import { TOGGLE_SIDEBAR, toggleSidebarAction, } from './actions';
+import {
+  TOGGLE_KEY,
+  TOGGLE_SIDEBAR,
+  toggleKeyAction,
+  toggleSidebarAction,
+} from './actions';
 
 import { createReducer, } from '@acemarke/redux-starter-kit';
 
-export const uiInitialState = {
-  actionMenuItems: [
-    {
-      action : () => alert( 'Have an action' ),
-      icon   : '',
-      key    : '1',
-      label  : 'Some Action',
-    },
-  ],
-  isSidebarCollapsed : true,
-  menuItems          : [
-    {
-      icon  : 'home',
-      key   : '1',
-      label : 'Home',
-      path  : '/',
-    },
-    {
-      icon  : 'smile-o',
-      key   : '2',
-      label : 'Welcome',
-      path  : '/welcome',
-    },
-    {
-      icon  : 'frown-o',
-      key   : '3',
-      label : 'Bye',
-      path  : '/bye',
-    },
-    {
-      icon  : 'file-text',
-      key   : '4',
-      label : 'Todo',
-      path  : '/todo',
-    },
-  ],
-};
+export const uiInitialState = { isSidebarCollapsed : true,
+                                openKeys           : [], };
 
 export const ui = createReducer(
-  uiInitialState, { [TOGGLE_SIDEBAR]: toggleSidebarAction, }
+  uiInitialState, { [TOGGLE_KEY]     : toggleKeyAction,
+                    [TOGGLE_SIDEBAR] : toggleSidebarAction, }
 );

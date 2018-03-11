@@ -5,7 +5,7 @@ import {
   Welcome,
 } from '../Loadables';
 
-const routes = [
+const content = [
   {
     component : Home,
     exact     : true,
@@ -28,4 +28,4 @@ const routes = [
   },
 ];
 
-export default routes;
+export default content;

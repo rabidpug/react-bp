@@ -1,29 +1,23 @@
 // @flow
 
-import type { Node, } from 'react';
+import { Icon, } from 'antd';
 import React from 'react';
 
 type Props = {
-  active: boolean,
-  children: Node,
+  label: string,
+  icon: string,
+  key: string,
   onClick: Function,
 };
 const Link: Function = ( {
-  active, children, onClick,
-}: Props ) => {
-  if ( active ) return <span>{children}</span>;
-
-  return (
-    <a
-      href=''
-      onClick={ e => {
-        e.preventDefault();
-
-        onClick();
-      } }>
-      {children}
-    </a>
-  );
-};
+  label, icon, onClick,
+}: Props ) => (
+  <div
+    onClick={ onClick }
+    style={ { width: '100%', } }>
+    <Icon type={ icon } />
+    {label}
+  </div>
+);
 
 export default Link;

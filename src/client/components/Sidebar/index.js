@@ -6,12 +6,46 @@ import {
 
 import React from 'react';
 
-const { Item, } = Menu;
+const { Item, SubMenu, } = Menu;
 const { Sider, } = Layout;
 const Sidebar = ( {
-  isSidebarCollapsed, menuItems, goToPath, toggleSideBar, router,
+  isSidebarCollapsed, menuItems, goToPath, toggleSideBar, router, toggleKey, openKeys,
 } ) => {
-  const [ currentPath, ] = menuItems.filter( item => item.path === router.location.pathname );
+  const selectedKeys = [];
+  const openSelectedKeys = [ ...openKeys, ];
+  const determineIfOpen = item => {
+    if ( item.path === router.location.pathname ) {
+      if ( item.subMenu ) {
+        openSelectedKeys.push( item.key );
+
+        item.subMenu.forEach( determineIfOpen );
+      } else selectedKeys.push( item.key );
+    }
+  };
+
+  menuItems.forEach( determineIfOpen );
+
+  const menuItemMap = item =>
+    item.subMenu ? (
+      <SubMenu
+        key={ item.key }
+        onTitleClick={ ( { key, } ) => toggleKey( key ) }
+        title={
+          <span>
+            <Icon type={ item.icon } />
+            <span>{item.label}</span>
+          </span>
+        }>
+        {item.subMenu.map( menuItemMap )}
+      </SubMenu>
+    ) : (
+      <Item
+        key={ item.key }
+        path={ item.path }>
+        <Icon type={ item.icon } />
+        <span>{item.label}</span>
+      </Item>
+    );
 
   return (
     <Sider
@@ -22,19 +56,13 @@ const Sidebar = ( {
       trigger={ null }>
       <div className='logo' />
       <Menu
-        defaultSelectedKeys={ [ currentPath ? currentPath.key.toString() : '1', ] }
         mode='inline'
         onClick={ ( { item, } ) => goToPath( item.props.path ) }
+        openKeys={ !isSidebarCollapsed && openSelectedKeys }
+        selectedKeys={ selectedKeys }
         style={ { height: '100%', } }
         theme='dark'>
-        {menuItems.map( item => (
-          <Item
-            key={ item.key }
-            path={ item.path }>
-            <Icon type={ item.icon } />
-            <span>{item.label}</span>
-          </Item>
-        ) )}
+        {menuItems.map( menuItemMap )}
       </Menu>
     </Sider>
   );

@@ -9,7 +9,7 @@ const mapStateToProps = (
 ) => ( {
   actionMenuItems    : ownProps.route.actionMenuItems,
   isSidebarCollapsed : state.ui.isSidebarCollapsed,
-  selectedActionKeys : '',
+  selectedActionKeys : state.todoVisibility,
 } );
 
 const mapDispatchToProps = dispatch => ( { toggleSideBar () {

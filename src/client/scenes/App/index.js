@@ -1,10 +1,11 @@
-import HomeSideBar from '../../containers/HomeSideBar';
-import HomeTopBar from '../../containers/HomeTopBar';
 import { Layout, } from 'antd';
 import React from 'react';
+import { Switch, } from 'react-router-dom';
+import actionMenu from '../../routes/actionMenu';
+import content from '../../routes/content';
 import { hot, } from 'react-hot-loader';
+import navMenu from '../../routes/navMenu';
 import { renderRoutes, } from 'react-router-config';
-import routes from '../../routes';
 import styles from './styles.scss';
 
 const { Content, } = Layout;
@@ -12,10 +13,10 @@ const { Content, } = Layout;
 //TODO: set up HomeTopBar container, content as routes
 const App = () => (
   <Layout className={ styles.layoutStyle }>
-    <HomeSideBar />
+    {renderRoutes( navMenu )}
     <Layout>
-      <HomeTopBar />
-      <Content className={ styles.bodyStyle }>{renderRoutes( routes )}</Content>
+      <Switch>{renderRoutes( actionMenu )}</Switch>
+      <Content className={ styles.bodyStyle }>{renderRoutes( content )}</Content>
     </Layout>
   </Layout>
 );
