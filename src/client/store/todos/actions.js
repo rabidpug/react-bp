@@ -1,16 +1,28 @@
+//@flow
+
 import { createAction, } from 'redux-actions';
+
+type stateType = Array<{ completed: boolean, id: number, text: string }>;
+type toggleTodoActionType = {
+  payload: number,
+  type: string,
+};
+type addTodoActionType = {
+  payload: string,
+  type: string,
+};
 
 //Types
 export const ADD_TODO = 'ADD_TODO';
 export const TOGGLE_TODO = 'TOGGLE_TODO';
 
 //Action Creators
-export const addTodo = createAction( ADD_TODO );
-export const toggleTodo = createAction( TOGGLE_TODO );
+export const addTodo: Function = createAction( ADD_TODO );
+export const toggleTodo: Function = createAction( TOGGLE_TODO );
 
 //Actions
 export const addTodoAction = (
-  state, action
+  state: stateType, action: addTodoActionType
 ) => {
   const text = action.payload;
   const completed = false;
@@ -23,7 +35,7 @@ export const addTodoAction = (
   } );
 };
 export const toggleTodoAction = (
-  state, action
+  state: stateType, action: toggleTodoActionType
 ) => {
   const index = action.payload;
 

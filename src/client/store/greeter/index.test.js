@@ -1,20 +1,5 @@
-import {
-  SAY_HELLO,
-  sayHello,
-  sayHelloAction,
-} from './actions';
-
-import { createReducer, } from '@acemarke/redux-starter-kit';
-
-export const greeterInitialState = {
-  isDisabled : false,
-  label      : 'Say hi!',
-  message    : 'Do you want to say hi?',
-};
-
-export const greeter = createReducer(
-  greeterInitialState, { [SAY_HELLO]: sayHelloAction, }
-);
+import { SAY_HELLO, sayHello, } from './actions';
+import { greeter, greeterInitialState, } from '.';
 
 describe(
   'sayHello', () => {
@@ -25,6 +10,25 @@ describe(
                                  type    : SAY_HELLO, };
 
         expect( sayHello( message ) ).toEqual( expectedAction );
+      }
+    );
+  }
+);
+
+describe(
+  'greeter', () => {
+    it(
+      'should handle saying hello', () => {
+        const message = 'Hello!';
+        const expectedAction = {
+          isDisabled : true,
+          label      : 'Thanks!',
+          message,
+        };
+
+        expect( greeter(
+          greeterInitialState, sayHello( message )
+        ) ).toEqual( expectedAction );
       }
     );
   }

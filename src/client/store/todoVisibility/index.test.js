@@ -2,18 +2,10 @@ import {
   SET_VISIBILITY_FILTER,
   VisibilityFilters,
   setVisibilityFilter,
-  setVisibilityFilterAction,
 } from './actions';
+import { todoVisibility, todoVisibilityInitialState, } from '.';
 
-import { createReducer, } from '@acemarke/redux-starter-kit';
-
-const { SHOW_ALL, SHOW_ACTIVE, } = VisibilityFilters;
-
-export const todoVisibilityInitialState = SHOW_ALL;
-
-export const todoVisibility = createReducer(
-  todoVisibilityInitialState, { [SET_VISIBILITY_FILTER]: setVisibilityFilterAction, }
-);
+const { SHOW_ACTIVE, } = VisibilityFilters;
 
 describe(
   'setVisibilityFilter', () => {
@@ -24,6 +16,21 @@ describe(
                                  type    : SET_VISIBILITY_FILTER, };
 
         expect( setVisibilityFilter( filter ) ).toEqual( expectedAction );
+      }
+    );
+  }
+);
+
+describe(
+  'todoVisibility', () => {
+    it(
+      'should handle setting the visibility filter', () => {
+        const filter = SHOW_ACTIVE;
+        const expectedAction = SHOW_ACTIVE;
+
+        expect( todoVisibility(
+          todoVisibilityInitialState, setVisibilityFilter( filter )
+        ) ).toEqual( expectedAction );
       }
     );
   }

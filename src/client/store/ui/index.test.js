@@ -2,20 +2,9 @@ import {
   TOGGLE_KEY,
   TOGGLE_SIDEBAR,
   toggleKey,
-  toggleKeyAction,
   toggleSidebar,
-  toggleSidebarAction,
 } from './actions';
-
-import { createReducer, } from '@acemarke/redux-starter-kit';
-
-export const uiInitialState = { isSidebarCollapsed : true,
-                                openKeys           : [], };
-
-export const ui = createReducer(
-  uiInitialState, { [TOGGLE_KEY]     : toggleKeyAction,
-                    [TOGGLE_SIDEBAR] : toggleSidebarAction, }
-);
+import { ui, uiInitialState, } from '.';
 
 describe(
   'toggleKey', () => {
@@ -38,6 +27,33 @@ describe(
         const expectedAction = { type: TOGGLE_SIDEBAR, };
 
         expect( toggleSidebar() ).toEqual( expectedAction );
+      }
+    );
+  }
+);
+
+describe(
+  'ui', () => {
+    it(
+      'should handle toggling the open keys', () => {
+        const key = '1';
+        const expectedAction = { isSidebarCollapsed : true,
+                                 openKeys           : [ '1', ], };
+
+        expect( ui(
+          uiInitialState, toggleKey( key )
+        ) ).toEqual( expectedAction );
+      }
+    );
+
+    it(
+      'should handle toggling the sidebar', () => {
+        const expectedAction = { isSidebarCollapsed : false,
+                                 openKeys           : [], };
+
+        expect( ui(
+          uiInitialState, toggleSidebar()
+        ) ).toEqual( expectedAction );
       }
     );
   }

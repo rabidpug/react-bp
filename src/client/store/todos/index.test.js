@@ -2,19 +2,9 @@ import {
   ADD_TODO,
   TOGGLE_TODO,
   addTodo,
-  addTodoAction,
   toggleTodo,
-  toggleTodoAction,
 } from './actions';
-
-import { createReducer, } from '@acemarke/redux-starter-kit';
-
-export const todosInitialState = [];
-
-export const todos = createReducer(
-  todosInitialState, { [ADD_TODO]    : addTodoAction,
-                       [TOGGLE_TODO] : toggleTodoAction, }
-);
+import { todos, todosInitialState, } from '.';
 
 describe(
   'addTodo', () => {
@@ -39,6 +29,51 @@ describe(
                                  type    : TOGGLE_TODO, };
 
         expect( toggleTodo( id ) ).toEqual( expectedAction );
+      }
+    );
+  }
+);
+
+describe(
+  'todos reducer', () => {
+    it(
+      'should handle ADD_TODO', () => {
+        const todo = 'Todo 1';
+        const expectedAction = [
+          {
+            completed : false,
+            id        : 0,
+            text      : todo,
+          },
+        ];
+
+        expect( todos(
+          todosInitialState, addTodo( todo )
+        ) ).toEqual( expectedAction );
+      }
+    );
+
+    it(
+      'should handle TOGGLE_TODO', () => {
+        const id = 0;
+        const initialState = [
+          {
+            completed : false,
+            id,
+            text      : 'Todo 1',
+          },
+        ];
+        const expectedAction = [
+          {
+            completed : true,
+            id,
+            text      : 'Todo 1',
+          },
+        ];
+
+        expect( todos(
+          initialState, toggleTodo( id )
+        ) ).toEqual( expectedAction );
       }
     );
   }
