@@ -10,10 +10,10 @@ import { push, } from 'react-router-redux';
 const mapStateToProps = (
   state, ownProps
 ) => ( {
+  currentPath        : ownProps.location.pathname,
   isSidebarCollapsed : getIsSidebarCollapsed( state ),
   menuItems          : ownProps.route.menuItems,
   openKeys           : getOpenKeys( state ),
-  router             : state.router,
 } );
 
 const mapDispatchToProps = dispatch => ( {

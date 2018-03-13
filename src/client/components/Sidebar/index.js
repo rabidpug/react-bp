@@ -9,12 +9,12 @@ import React from 'react';
 const { Item, SubMenu, } = Menu;
 const { Sider, } = Layout;
 const Sidebar = ( {
-  isSidebarCollapsed, menuItems, goToPath, toggleSideBar, router, toggleKey, openKeys,
+  isSidebarCollapsed, menuItems, goToPath, toggleSideBar, currentPath, toggleKey, openKeys,
 } ) => {
   const selectedKeys = [];
   const openSelectedKeys = [ ...openKeys, ];
   const determineIfOpen = item => {
-    if ( item.path === router.location.pathname ) {
+    if ( item.path === currentPath ) {
       if ( item.subMenu ) {
         openSelectedKeys.push( item.key );
 
