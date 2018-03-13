@@ -8,7 +8,7 @@ import { sayHello, } from '../../store/greeter/actions';
 const mapStateToProps = state => ( { ...getGreeterButton( state ), } );
 
 const mapDispatchToProps = dispatch => ( { handleClick () {
-  dispatch( sayHello( 'Hello there!' ) );
+  dispatch( sayHello( Math.random() ) );
 }, } );
 
 export default connect(

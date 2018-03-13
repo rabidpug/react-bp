@@ -3,7 +3,6 @@ import app from './server';
 
 const { NODE_ENV, PORT, } = process.env;
 const isDev = NODE_ENV !== 'production';
-console.log(NODE_ENV, PORT, process.env); //eslint-disable-line
 
 const SERVER_PORT = PORT || 8080;
 const SERVER_HOST = PORT ? '0.0.0.0' : 'localhost';

@@ -347,5 +347,8 @@
     ],
     "vars-on-top": "error",
     "yoda": "error"
+  },
+  "settings": {
+    "polyfills": ["fetch"]
   }
 }
