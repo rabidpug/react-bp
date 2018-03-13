@@ -56,10 +56,10 @@ if ( isDev ) {
   app.use( express.static( 'dist' ) );
 
   app.get(
-    '/api', (
+    helloEndpointRoute(), (
       req, res
     ) => {
-      res.send( { message: 'I am a server route and can also be hot reloaded! LIKE THIS!!!', } );
+      res.json( { message: `Hello from the server! (received ${req.params.num})`, } );
     }
   );
 
