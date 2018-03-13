@@ -1,14 +1,12 @@
 {
   "author": "Matt Cuneo",
-  "browserslist": [
-    "> 1%"
-  ],
+  "browserslist": ["> 1%"],
   "bugs": {
     "url": "https://github.com/rabidpug/react-bp/issues"
   },
   "dependencies": {
     "@acemarke/redux-starter-kit": "0.0.6",
-    "antd": "^3.2.3",
+    "antd": "^3.3.0",
     "babel-plugin-import": "^1.6.6",
     "body-parser": "^1.18.2",
     "compression": "^1.7.2",
@@ -98,13 +96,11 @@
   "jest": {
     "moduleNameMapper": {
       "\\.(css|less|scss)$": "identity-obj-proxy",
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+        "<rootDir>/__mocks__/fileMock.js"
     }
   },
-  "keywords": [
-    "react",
-    "boilerplate"
-  ],
+  "keywords": ["react", "boilerplate"],
   "license": "ISC",
   "main": "index.js",
   "name": "react-bp",
@@ -114,11 +110,12 @@
   },
   "scripts": {
     "build": "npm-run-all clean test build:*",
-    "build:client": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.client.js --mode production --progress",
+    "build:client":
+      "cross-env NODE_ENV=production webpack --config webpack/webpack.config.client.js --mode production --progress",
     "build:server": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.server.js --mode production",
     "dev": "npm-run-all clean dev:* --parallel",
     "start": "node dist/server",
-    "dev:server": "cross-env NODE_ENV=development webpack --config webpack/webpack.config.server.js --mode development",
+    "dev:server": "cross-env NODE_ENV=development  webpack --config webpack/webpack.config.server.js --mode development",
     "prod": "heroku local",
     "clean": "rimraf ./dist",
     "cssflow": "css-modules-flow-types src -e scss --watch",

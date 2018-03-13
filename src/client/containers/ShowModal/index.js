@@ -1,20 +1,18 @@
 import Link from '../../components/Link';
 import { connect, } from 'react-redux';
-import { setVisibilityFilter, } from '../../store/todoVisibility/actions';
+import { toggleTodoModal, } from '../../store/ui/actions';
 
 const mapStateToProps = (
   state, ownProps
 ) => ( { icon  : ownProps.icon,
          label : ownProps.label, } );
 
-const mapDispatchToProps = (
-  dispatch, ownProps
-) => ( { onClick () {
-  dispatch( setVisibilityFilter( ownProps.filter ) );
+const mapDispatchToProps = dispatch => ( { onClick () {
+  dispatch( toggleTodoModal() );
 }, } );
 
-const FilterLink = connect(
+const ShowModal = connect(
   mapStateToProps, mapDispatchToProps
 )( Link );
 
-export default FilterLink;
+export default ShowModal;

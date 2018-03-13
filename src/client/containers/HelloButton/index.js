@@ -1,16 +1,19 @@
 // @flow
 
-import SimpleButton from '../../components/SimpleButton';
+import { Button, } from 'antd';
 import { connect, } from 'react-redux';
 import { getGreeterButton, } from '../../store/greeter/selectors';
 import { sayHello, } from '../../store/greeter/actions';
 
-const mapStateToProps = state => ( { ...getGreeterButton( state ), } );
+const mapStateToProps = state => ( { ...getGreeterButton( state ),
+                                     type: 'primary', } );
 
-const mapDispatchToProps = dispatch => ( { handleClick () {
+const mapDispatchToProps = dispatch => ( { onClick () {
   dispatch( sayHello( Math.random() ) );
 }, } );
 
-export default connect(
+const HelloButton = connect(
   mapStateToProps, mapDispatchToProps
-)( SimpleButton );
+)( Button );
+
+export default HelloButton;

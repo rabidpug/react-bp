@@ -17,6 +17,8 @@ const mapDispatchToProps = dispatch => ( { toggleSideBar () {
   dispatch( toggleSidebar() );
 }, } );
 
-export default connect(
+const HomeTopBar = connect(
   mapStateToProps, mapDispatchToProps
 )( TopBar );
+
+export default HomeTopBar;

@@ -28,6 +28,8 @@ const mapDispatchToProps = dispatch => ( {
   },
 } );
 
-export default connect(
+const HomeSideBar = connect(
   mapStateToProps, mapDispatchToProps
 )( Sidebar );
+
+export default HomeSideBar;

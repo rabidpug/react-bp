@@ -10,9 +10,9 @@ describe(
     it(
       'should handle a hello request', () => {
         const expectedAction = {
-          isDisabled : true,
-          label      : 'Loading...',
-          message    : 'Loading...',
+          isLoading : true,
+          label     : 'Loading...',
+          message   : 'Loading...',
         };
 
         expect( greeter(
@@ -24,9 +24,9 @@ describe(
     it(
       'should handle a hello failure', () => {
         const expectedAction = {
-          isDisabled : false,
-          label      : 'Try saying hi again!',
-          message    : 'No message received, please check your connection and try again',
+          isLoading : false,
+          label     : 'Try saying hi again!',
+          message   : 'No message received, please check your connection and try again',
         };
 
         expect( greeter(
@@ -39,8 +39,8 @@ describe(
       'should handle a hello success', () => {
         const message = 'Hai :3';
         const expectedAction = {
-          isDisabled : false,
-          label      : 'Say it again!',
+          isLoading : false,
+          label     : 'Say it again!',
           message,
         };
 

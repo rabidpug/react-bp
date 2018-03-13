@@ -1,4 +1,5 @@
 import {
+  Button,
   Icon,
   Layout,
   Menu,
@@ -44,11 +45,9 @@ const TopBar = ( {
     <Header
       style={ { background : '#fff',
                 padding    : 0, } }>
-      <Icon
-        className={ styles.trigger }
-        onClick={ toggleSideBar }
-        type={ isSidebarCollapsed ? 'menu-unfold' : 'menu-fold' }
-      />
+      <Button
+        icon={ isSidebarCollapsed ? 'menu-unfold' : 'menu-fold' }
+        onClick={ toggleSideBar } />
       {actionMenuItems && (
         <Menu
           className={ styles.topBarMenu }

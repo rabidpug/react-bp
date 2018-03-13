@@ -1,11 +1,14 @@
-import AddTodo from '../../containers/AddTodo';
+import AddTodoInput from '../../containers/AddTodoInput';
+import AddTodoModal from '../../containers/AddTodoModal';
 import React from 'react';
 import VisibleTodoList from '../../containers/VisibleTodoList';
 
 const TodoPage = () => (
   <div>
-    <AddTodo />
     <VisibleTodoList />
+    <AddTodoModal>
+      <AddTodoInput />
+    </AddTodoModal>
   </div>
 );
 

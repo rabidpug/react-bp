@@ -14,9 +14,9 @@ import {
 import { createReducer, } from '@acemarke/redux-starter-kit';
 
 export const greeterInitialState = {
-  isDisabled : false,
-  label      : 'Say hi!',
-  message    : 'Do you want to say hi?',
+  isLoading : false,
+  label     : 'Say hi!',
+  message   : 'Do you want to say hi?',
 };
 
 export const greeter = createReducer(

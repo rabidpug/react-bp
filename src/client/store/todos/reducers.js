@@ -1,32 +1,49 @@
 //@flow
 
-type stateType = Array<{ completed: boolean, id: number, text: string }>;
+type stateType = {
+  newTodoValue: string,
+  todosArray: Array<{ completedDate: Date | string, id: number, text: string, createdDate: Date }>,
+};
 type toggleTodoActionType = {
-  payload: number,
+  payload: Object,
   type: string,
 };
 type addTodoActionType = {
+  payload: Date,
+  type: string,
+};
+type newTodoValueActionType = {
   payload: string,
   type: string,
 };
-
 export const addTodoReducer = (
   state: stateType, action: addTodoActionType
 ) => {
-  const text = action.payload;
-  const completed = false;
-  const id = state.length;
+  const text = state.newTodoValue;
+  const createdDate = action.payload;
+  const id = state.todosArray.length;
+  const completedDate = '';
 
-  state.push( {
-    completed,
+  state.todosArray.push( {
+    completedDate,
+    createdDate,
     id,
     text,
   } );
+
+  state.newTodoValue = '';
 };
 export const toggleTodoReducer = (
   state: stateType, action: toggleTodoActionType
 ) => {
-  const index = action.payload;
+  const { id, completedDate, } = action.payload;
 
-  state[index].completed = !state[index].completed;
+  state.todosArray[id].completedDate = state.todosArray[id].completedDate ? '' : completedDate;
+};
+export const newTodoValueReducer = (
+  state: stateType, action: newTodoValueActionType
+) => {
+  const newTodoValue = action.payload;
+
+  state.newTodoValue = newTodoValue;
 };

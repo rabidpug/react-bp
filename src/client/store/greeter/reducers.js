@@ -3,7 +3,7 @@
 type stateType = {
   message: string,
   label: string,
-  isDisabled: boolean,
+  isLoading: boolean,
 };
 type sayHelloActionType = {
   payload: string,
@@ -15,7 +15,7 @@ export const sayHelloRequestReducer = ( state: stateType ) => {
 
   state.label = 'Loading...';
 
-  state.isDisabled = true;
+  state.isLoading = true;
 };
 
 export const sayHelloSuccessReducer = (
@@ -25,7 +25,7 @@ export const sayHelloSuccessReducer = (
 
   state.label = 'Say it again!';
 
-  state.isDisabled = false;
+  state.isLoading = false;
 };
 
 export const sayHelloFailureReducer = ( state: stateType ) => {
@@ -33,5 +33,5 @@ export const sayHelloFailureReducer = ( state: stateType ) => {
 
   state.label = 'Try saying hi again!';
 
-  state.isDisabled = false;
+  state.isLoading = false;
 };

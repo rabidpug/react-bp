@@ -1,6 +1,6 @@
 //@flow
 
-type stateType = { isSidebarCollapsed: boolean, openKeys: Array<string> };
+type stateType = { isSidebarCollapsed: boolean, openKeys: Array<string>, todoModalVisibility: boolean };
 type toggleKeyActionType = {
   payload: string,
   type: string,
@@ -17,4 +17,8 @@ export const toggleKeyReducer = (
   state.openKeys.includes( key ) ? state.openKeys.splice(
     state.openKeys.indexOf( key ), 1
   ) : state.openKeys.push( key );
+};
+
+export const toggleTodoModalReducer = ( state: stateType ) => {
+  state.todoModalVisibility = !state.todoModalVisibility;
 };

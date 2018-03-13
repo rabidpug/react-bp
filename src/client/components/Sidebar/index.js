@@ -53,6 +53,7 @@ const Sidebar = ( {
       collapsible
       onMouseEnter={ () => isSidebarCollapsed && toggleSideBar() }
       onMouseLeave={ () => !isSidebarCollapsed && toggleSideBar() }
+      style={ { backgroundColor: '#fff', } }
       trigger={ null }>
       <div className='logo' />
       <Menu

@@ -1,5 +1,6 @@
 import FilterLink from '../containers/FilterLink';
 import HomeTopBar from '../containers/HomeTopBar';
+import ShowModal from '../containers/ShowModal';
 import TodoTopBar from '../containers/TodoTopBar';
 import { VisibilityFilters, } from '../store/todoVisibility/types';
 
@@ -7,10 +8,10 @@ const actionMenu = [
   {
     actionMenuItems: [
       {
-        action : () => alert( 'We Will Add A Todo' ),
-        icon   : 'plus',
-        key    : '1',
-        label  : 'Add Todo',
+        component : ShowModal,
+        icon      : 'plus',
+        key       : '1',
+        label     : 'Add Todo',
       },
       {
         icon    : 'eye-o',

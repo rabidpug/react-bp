@@ -7,8 +7,8 @@ describe(
     it(
       'should get the required fields for the Greeter Button', () => {
         const state = { greeter: greeterInitialState, };
-        const expectedAction = { isDisabled : greeterInitialState.isDisabled,
-                                 label      : greeterInitialState.label, };
+        const expectedAction = { children : greeterInitialState.label,
+                                 loading  : greeterInitialState.isLoading, };
 
         expect( getGreeterButton( state ) ).toEqual( expectedAction );
       }

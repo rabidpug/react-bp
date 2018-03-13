@@ -18,6 +18,8 @@ const mapDispatchToProps = dispatch => ( { toggleSideBar () {
   dispatch( toggleSidebar() );
 }, } );
 
-export default connect(
+const TodoTopBar = connect(
   mapStateToProps, mapDispatchToProps
 )( TopBar );
+
+export default TodoTopBar;
