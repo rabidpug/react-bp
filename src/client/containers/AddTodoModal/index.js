@@ -16,7 +16,7 @@ const mapDispatchToProps = dispatch => ( { onCancel () {
                                            onOk () {
     dispatch( toggleTodoModal() );
 
-    dispatch( addTodo( new Date() ) );
+    dispatch( addTodo( new Date().toString() ) );
   }, } );
 
 const AddTodoModal = connect(

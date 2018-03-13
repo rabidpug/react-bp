@@ -14,7 +14,7 @@ const mapDispatchToProps = dispatch => ( { onChange ( e ) {
                                            onPressEnter () {
     dispatch( toggleTodoModal() );
 
-    dispatch( addTodo( new Date() ) );
+    dispatch( addTodo( new Date().toString() ) );
   }, } );
 
 const AddTodoInput = connect(

@@ -1,10 +1,12 @@
 import {
   ADD_TODO,
+  DELETE_TODO,
   NEW_TODO_VALUE,
   TOGGLE_TODO,
 } from './types';
 import {
   addTodoReducer,
+  deleteTodoReducer,
   newTodoValueReducer,
   toggleTodoReducer,
 } from './reducers';
@@ -17,6 +19,7 @@ export const todosInitialState = { newTodoValue : '',
 export const todos = createReducer(
   todosInitialState, {
     [ADD_TODO]       : addTodoReducer,
+    [DELETE_TODO]    : deleteTodoReducer,
     [NEW_TODO_VALUE] : newTodoValueReducer,
     [TOGGLE_TODO]    : toggleTodoReducer,
   }

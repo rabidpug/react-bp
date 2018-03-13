@@ -15,7 +15,7 @@ describe(
             {
               completedDate : '',
               createdDate   : date,
-              id            : 0,
+              id            : todoValue + date,
               text          : todoValue,
             },
           ], };
@@ -28,9 +28,9 @@ describe(
 
     it(
       'should handle TOGGLE_TODO', () => {
-        const id = 0;
         const completedDate = new Date();
         const createdDate = new Date( new Date().getTime() - 1e10 );
+        const id = `Todo 1${createdDate}`;
         const actionFeed = { completedDate,
                              id, };
         const initialState = { newTodoValue : '',

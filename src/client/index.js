@@ -1,13 +1,22 @@
 import { ConnectedRouter, routerMiddleware, } from 'react-router-redux';
 import { configureStore, createDefaultMiddleware, } from '@acemarke/redux-starter-kit';
+import { persistReducer, persistStore, } from 'redux-persist';
 
 import App from './scenes/App';
+import Loading from './components/Loading';
+import { PersistGate, } from 'redux-persist/integration/react';
 import { Provider, } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import createHistory from 'history/createBrowserHistory';
-import reducer from './store/rootReducer';
+import rootReducer from './store/rootReducer';
+import storage from 'redux-persist/lib/storage';
 
+const persistConfig = { key: 'root',
+                        storage, };
+const reducer = persistReducer(
+  persistConfig, rootReducer
+);
 const history = createHistory();
 const routerware = routerMiddleware( history );
 const middleware = createDefaultMiddleware( routerware );
@@ -16,6 +25,7 @@ const store = configureStore( {
   middleware,
   reducer,
 } );
+const persistor = persistStore( store );
 
 if ( process.env.NODE_ENV !== 'production' ) {
   if ( module.hot ) {
@@ -27,9 +37,13 @@ if ( process.env.NODE_ENV !== 'production' ) {
 
 ReactDOM.render(
   <Provider store={ store }>
-    <ConnectedRouter history={ history }>
-      <App />
-    </ConnectedRouter>
+    <PersistGate
+      loading={ <Loading /> }
+      persistor={ persistor }>
+      <ConnectedRouter history={ history }>
+        <App />
+      </ConnectedRouter>
+    </PersistGate>
   </Provider>,
   document.getElementById( 'root' )
 );
