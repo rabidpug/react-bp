@@ -1,4 +1,8 @@
-import { toggleKey, toggleSidebar, } from './actions';
+import {
+  toggleKey,
+  toggleSidebar,
+  toggleTodoModal,
+} from './actions';
 import { ui, uiInitialState, } from '.';
 
 describe(
@@ -13,6 +17,20 @@ describe(
 
         expect( ui(
           uiInitialState, toggleSidebar()
+        ) ).toEqual( expectedAction );
+      }
+    );
+
+    it(
+      'should handle toggling the visibility state of the todo modal', () => {
+        const expectedAction = {
+          isSidebarCollapsed  : true,
+          openKeys            : [],
+          todoModalVisibility : true,
+        };
+
+        expect( ui(
+          uiInitialState, toggleTodoModal()
         ) ).toEqual( expectedAction );
       }
     );

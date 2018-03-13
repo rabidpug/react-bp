@@ -1,5 +1,13 @@
-import { TOGGLE_KEY, TOGGLE_SIDEBAR, } from './types';
-import { toggleKey, toggleSidebar, } from './actions';
+import {
+  TOGGLE_KEY,
+  TOGGLE_SIDEBAR,
+  TOGGLE_TODO_MODAL,
+} from './types';
+import {
+  toggleKey,
+  toggleSidebar,
+  toggleTodoModal,
+} from './actions';
 
 describe(
   'toggleKey', () => {
@@ -22,6 +30,18 @@ describe(
         const expectedAction = { type: TOGGLE_SIDEBAR, };
 
         expect( toggleSidebar() ).toEqual( expectedAction );
+      }
+    );
+  }
+);
+
+describe(
+  'toggleTodoModal', () => {
+    it(
+      'should create an action to toggle the todo modal', () => {
+        const expectedAction = { type: TOGGLE_TODO_MODAL, };
+
+        expect( toggleTodoModal() ).toEqual( expectedAction );
       }
     );
   }

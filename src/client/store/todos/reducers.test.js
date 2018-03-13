@@ -1,4 +1,8 @@
-import { addTodo, toggleTodo, } from './actions';
+import {
+  addTodo,
+  deleteTodo,
+  toggleTodo,
+} from './actions';
 
 import { todos, } from '.';
 
@@ -54,6 +58,28 @@ describe(
 
         expect( todos(
           initialState, toggleTodo( actionFeed )
+        ) ).toEqual( expectedAction );
+      }
+    );
+
+    it(
+      'should handle DELETE_TODO', () => {
+        const createdDate = new Date( new Date().getTime() - 1e10 );
+        const id = `Todo 1${createdDate}`;
+        const initialState = { newTodoValue : '',
+                               todosArray   : [
+            {
+              completedDate : '',
+              createdDate,
+              id,
+              text          : 'Todo 1',
+            },
+          ], };
+        const expectedAction = { newTodoValue : '',
+                                 todosArray   : [], };
+
+        expect( todos(
+          initialState, deleteTodo( id )
         ) ).toEqual( expectedAction );
       }
     );
