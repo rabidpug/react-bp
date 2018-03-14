@@ -25,7 +25,8 @@ export const addTodoReducer = (
 ) => {
   const text = state.newTodoValue;
   const createdDate = action.payload;
-  const id = text + createdDate;
+  const id = text + new Date( createdDate ).getTime()
+    .toString( 36 );
   const completedDate = '';
 
   state.todosArray.push( {

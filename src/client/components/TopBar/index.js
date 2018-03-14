@@ -46,8 +46,10 @@ const TopBar = ( {
       style={ { background : '#fff',
                 padding    : 0, } }>
       <Button
+        className={ styles.trigger }
         icon={ isSidebarCollapsed ? 'menu-unfold' : 'menu-fold' }
-        onClick={ toggleSideBar } />
+        onClick={ toggleSideBar }
+      />
       {actionMenuItems && (
         <Menu
           className={ styles.topBarMenu }

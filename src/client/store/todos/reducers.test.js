@@ -1,10 +1,10 @@
 import {
   addTodo,
   deleteTodo,
+  newTodoValue,
   toggleTodo,
 } from './actions';
-
-import { todos, } from '.';
+import { todos, todosInitialState, } from '.';
 
 describe(
   'todos reducer', () => {
@@ -19,8 +19,9 @@ describe(
             {
               completedDate : '',
               createdDate   : date,
-              id            : todoValue + date,
-              text          : todoValue,
+              id            : todoValue + new Date( date ).getTime()
+                .toString( 36 ),
+              text: todoValue,
             },
           ], };
 
@@ -34,7 +35,8 @@ describe(
       'should handle TOGGLE_TODO', () => {
         const completedDate = new Date();
         const createdDate = new Date( new Date().getTime() - 1e10 );
-        const id = `Todo 1${createdDate}`;
+        const id = `Todo 1${new Date( createdDate ).getTime()
+          .toString( 36 )}`;
         const actionFeed = { completedDate,
                              id, };
         const initialState = { newTodoValue : '',
@@ -65,7 +67,8 @@ describe(
     it(
       'should handle DELETE_TODO', () => {
         const createdDate = new Date( new Date().getTime() - 1e10 );
-        const id = `Todo 1${createdDate}`;
+        const id = `Todo 1${new Date( createdDate ).getTime()
+          .toString( 36 )}`;
         const initialState = { newTodoValue : '',
                                todosArray   : [
             {
@@ -80,6 +83,18 @@ describe(
 
         expect( todos(
           initialState, deleteTodo( id )
+        ) ).toEqual( expectedAction );
+      }
+    );
+
+    it(
+      'should handle NEW_TODO_VALUE', () => {
+        const value = 'T';
+        const expectedAction = { newTodoValue : value,
+                                 todosArray   : [], };
+
+        expect( todos(
+          todosInitialState, newTodoValue( value )
         ) ).toEqual( expectedAction );
       }
     );
