@@ -8,159 +8,173 @@
 [![Heroku Staging](https://heroku-badge.herokuapp.com/?app=react-bp-staging)](https://react-bp-staging.herokuapp.com/)
 
 * [Folder Structure](#folder-structure)
-* [Client Libraries](#client-libraries)
-  * [React](#react)
-  * [Loadable](#loadable)
-  * [Router](#router)
-  * [Redux](#redux)
-  * [Ant Design](#ant-design)
-* [Server Libraries](#server-libraries)
-  * [Express](#express)
-* [Dev Libraries](#dev-libraries)
+* [Libraries](#libraries)
 
 ## Folder Structure
 
-```javascript
-|--src //primary dev folder
-| |--client //client-side stuff
-| | |--assets //images and files
-| | |--components //simple adaptable components, no care for redux store
-| | | |--Button //example component
-| | | | |--index.js //use index.js for simple imports
-| | | | |--styles.scss //style modules
-| | |--containers //components linked to redux store
-| | | |--HelloButton //example container, wraps Button with redux store)
-| | | | |--index.js //use index.js for simple imports
-| | |--scenes //collections of containers and other scenes
-| | | |--Home //example scene
-| | | | |--index.js //use index.js for simple imports
-| | | | |--styles.scss //style modules
-| | |--store //redux store actions and reducers
-| | | |--greeter //example split reducer
-| | | | |--actions.js //the action functions which make up the reducer
-| | | | |--creators.js //the action creators to be used by containers
-| | | | |--index.js //creates reducer from actions and initial state
-| | | | |--initialState.js //initial state for reducer
-| | | | |--types.js //action types
-| | | |--index.js //exports all split reducers for combining
-| | |--index.html //html template
-| | |--index.js //js entry point
-| | |--index.test.js //index jest test. Doesn't do much...
-|--.babelrc //babel config
-|--.eslintrc //eslint config
-|--.flowconfig //flow config
-|--webpack.config.babel.js //webpack config
-```
+* [Client](#client)
 
-## Client Libraries
+### Client
 
-Client side uses React with Loadable for code-splitting, Router for route management, Redux for state management, and Semantic UI for user interface.
+* [Assets](#assets)
+* [Components](#components)
+* [Containers](#containers)
+* [Scenes](#scenes)
+* [Loadables](#loadables)
+* [Routes](#routes)
+* [Store](#store)
 
-* [React](#react)
-* [Loadable](#loadable)
-* [Router](#router)
-* [Redux](#redux)
-* [Semantic UI](#semantic-ui)
+#### Assets
 
-### React
-
-[ReactJS](https://reactjs.org/) library for client SPA. See link for intro to React and Folder Structure for breakdown of structure in this Boilerplate.
+File assets used by client, eg images. Webpack config will copy to /dist or convert to base64 string if <10,000 bytes
 
 ```javascript
-import App from './App';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import myImage from '../../assets/myImage.png';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const ImgComponent = () => <img src={myImage} />;
 ```
 
-### Loadable
+#### Components
 
-[React Loadable](https://github.com/jamiebuilds/react-loadable) provides Code splitting for React components. See github for usage guide.
+Components => Simple React components not concerned by state, used by containers and scenes. Most styling will be here.
 
 ```javascript
-const LoadableComponent = Loadable({
-  loader: () => import('../../components/Bye'),
+// scr/client/components/Message/index.js
+import React from 'react';
+import styles from './styles.scss';
+
+const SimpleComponent = ({ message }) => <p className={styles.message}>{message}</p>;
+```
+
+#### Containers
+
+Containers => linking Components to state and dispatch, used by containers and scenes.
+
+```javascript
+// scr/client/containers/HelloMessage/index.js
+import Message from '../../components/Message';
+import { connect } from 'react-redux';
+import { getGreeterMessage } from '../../store/greeter/selectors';
+
+const mapStateToProps = state => ({ message: getGreeterMessage(state) });
+
+const HelloMessage = connect(mapStateToProps)(Message);
+
+export default HelloMessage;
+```
+
+#### Scenes
+
+Scenes => combining containers and components together to make a page. Routes will generally point here.
+
+```javascript
+// scr/client/scenes/Welcome/index.js
+import HelloButton from '../../containers/HelloButton';
+import HelloMessage from '../../containers/HelloMessage';
+import React from 'react';
+
+const Welcome = () => (
+  <div>
+    <HelloMessage />
+    <HelloButton />
+  </div>
+);
+
+export default Welcome;
+```
+
+#### Loadables
+
+Loadables => wrappers for scenes to enable code-splitting in webpack.
+
+```javascript
+// src/client/loadables/index.js
+import Loadable from 'react-loadable';
+import Loading from '../components/Loading';
+
+export const Welcome = Loadable({
+  loader: () => import(/*webpackChunkName: "Welcome" */ '../scenes/Welcome/'),
+  loading: Loading,
+});
+export const Home = Loadable({
+  loader: () => import(/*webpackChunkName: "Home" */ '../scenes/Home/'),
   loading: Loading,
 });
 ```
 
-### Router
+#### Routes
 
-[React Router](https://reacttraining.com/react-router/) provides route management for React. See link for usage guide. Integrated with Redux using [React Router Redux](https://github.com/reactjs/react-router-redux).
+Routes are rendered from configuration objects. Any additional object properties will be passed to the rendered component.
 
 ```javascript
-import * as reducers from './reducers';
+// src/client/routes/content.js
+import { Home, Welcome } from '../loadables';
 
-import { ConnectedRouter, routerMiddleware, routerReducer } from 'react-router-redux';
-import { configureStore, createDefaultMiddleware } from '@acemarke/redux-starter-kit';
+const content = [
+  {
+    component: Home,
+    exact: true,
+    path: '/',
+  },
+  {
+    component: Welcome,
+    exact: true,
+    path: '/welcome',
+  },
+];
 
-import Home from './scenes/Home';
-import { Provider } from 'react-redux';
-import React from 'react';
-import createHistory from 'history/createBrowserHistory';
-import { hot } from 'react-hot-loader';
+export default content;
+```
 
-const history = createHistory();
-const middleware = createDefaultMiddleware(routerMiddleware(history));
-const preloadedState = { message: 'Do you wanna say hi?' };
-const reducer = {
-  ...reducers,
-  router: routerReducer,
+#### Store
+
+Configure actions and reducers for global store.
+
+```javascript
+// src/client/store/greeter/types.js
+export const SAY_HELLO = 'SAY_HELLO';
+
+// src/client/store/greeter/actions.js
+import { SAY_HELLO } from './types';
+import { createAction } from 'redux-actions';
+
+export const sayHello = createAction(SAY_HELLO);
+
+//src/client/store/greeter/reducers.js
+export const sayHelloReducer = (state, action) => {
+  state.message = action.payload;
 };
-const store = configureStore({
-  devTools: process.env.NODE_ENV !== 'production',
-  middleware,
-  preloadedState,
-  reducer,
-});
 
-const App = () => (
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <Home />
-    </ConnectedRouter>
-  </Provider>
-);
+// src/client/store/greeter/selectors.js
+import { createSelector } from '@acemarke/redux-starter-kit';
 
-export default hot(module)(App);
-```
+export const getGreeterMessage = createSelector(['greeter.message']);
 
-### Redux
-
-[Redux](https://redux.js.org/) provides state management for React. See link for usage guide. Also using [Redux Thunk](https://github.com/gaearon/redux-thunk) for async actions and [Redux Starter Kit](https://github.com/markerikson/redux-starter-kit) for simplified reducer creation. See [Router](#router) section for initialising example.
-
-```javascript
-//actions/hello.js
-export const sayHello = (state, message) => ({
-  ...state,
-  message,
-});
-
-//reducers/hello.js
+// src/client/store/greeter/index.js
+import { SAY_HELLO } from './types';
+import { sayHelloReducer } from './reducers';
 import { createReducer } from '@acemarke/redux-starter-kit';
-import { sayHello } from '../actions/hello';
 
-const helloReducer = createReducer([], { SAY_HELLO: sayHello });
-
-export default helloReducer;
-
-//reducers/index.js
-export { default as hello } from './hello';
+export const greeter = createReducer(greeterInitialState, {
+  [SAY_HELLO]: sayHelloReducer,
+});
 ```
 
-### Ant Design
+## Libraries
 
-[Ant Design](https://ant.design/) provides a library of components to use for simple User Interface work, no need to build and style from scratch. Theme can be completely customised in theme.less
+* [Development Libraries](#development-libraries)
+* [Client Libraries](#client-libraries)
+* [Server Libraries](#server-libraries)
 
-## Server Libraries
+### Development Libraries
 
-Server Libraries stuff
+Development libraries
 
-### Express
+### Client Libraries
 
-Express stuff
+Client libraries
 
-## Dev Libraries
+### Server Libraries
 
-Dev Libraries stuff
+Server libraries

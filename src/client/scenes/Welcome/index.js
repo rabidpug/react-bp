@@ -1,10 +1,10 @@
 import HelloButton from '../../containers/HelloButton';
-import Message from '../../containers/Message';
+import HelloMessage from '../../containers/HelloMessage';
 import React from 'react';
 
 const Welcome = () => (
   <div>
-    <Message />
+    <HelloMessage />
     <HelloButton />
   </div>
 );

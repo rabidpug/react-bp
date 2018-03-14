@@ -3,7 +3,7 @@ import {
   Home,
   TodoPage,
   Welcome,
-} from '../Loadables';
+} from '../loadables';
 
 const content = [
   {

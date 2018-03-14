@@ -1,17 +1,13 @@
 {
   "git.ignoreLimitWarning": true,
   "files.exclude": {
-    "**/__mocks__": true,
-    "**/.vscode": true,
     "**/coverage": true,
     "**/dist": true,
     "**/node_modules": true,
     "**/package-lock.json": true,
     "**/yarn-error.log": true,
     "**/yarn.lock": true,
-    "**/.env": true,
     "**/app.json": true,
-    "**/Procfile": true,
     "**/*.scss.flow": true
   },
   "javascript.validate.enable": false,
