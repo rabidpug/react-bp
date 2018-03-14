@@ -115,7 +115,7 @@
   },
   "scripts": {
     "coverage": "jest --coverage",
-    "build": "npm-run-all clean test build:*",
+    "build": "npm-run-all clean build:*",
     "build:client":
       "cross-env NODE_ENV=production webpack --config webpack/webpack.config.client.js --mode production --progress",
     "build:server": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.server.js --mode production",
