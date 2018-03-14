@@ -20,7 +20,6 @@
 * [Components](#components)
 * [Containers](#containers)
 * [Scenes](#scenes)
-* [Loadables](#loadables)
 * [Routes](#routes)
 * [Store](#store)
 
@@ -82,25 +81,6 @@ const Welcome = () => (
 );
 
 export default Welcome;
-```
-
-#### Loadables
-
-Loadables => wrappers for scenes to enable code-splitting in webpack.
-
-```javascript
-// src/client/loadables/index.js
-import Loadable from 'react-loadable';
-import Loading from '../components/Loading';
-
-export const Welcome = Loadable({
-  loader: () => import(/*webpackChunkName: "Welcome" */ '../scenes/Welcome/'),
-  loading: Loading,
-});
-export const Home = Loadable({
-  loader: () => import(/*webpackChunkName: "Home" */ '../scenes/Home/'),
-  loading: Loading,
-});
 ```
 
 #### Routes
