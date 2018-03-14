@@ -1,6 +1,8 @@
 {
   "author": "Matt Cuneo",
-  "browserslist": ["> 1%"],
+  "browserslist": [
+    "> 1%"
+  ],
   "bugs": {
     "url": "https://github.com/rabidpug/react-bp/issues"
   },
@@ -10,6 +12,7 @@
     "babel-plugin-import": "^1.6.6",
     "body-parser": "^1.18.2",
     "compression": "^1.7.2",
+    "enzyme-to-json": "^3.3.1",
     "express": "^4.16.2",
     "history": "^4.7.2",
     "mongoose": "^5.0.9",
@@ -22,6 +25,7 @@
     "react-router-config": "^1.0.0-beta.4",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
+    "react-test-renderer": "^16.2.0",
     "react-transition-group": "^2.3.0-beta.0",
     "redux": "^4.0.0-beta.2",
     "redux-actions": "^2.3.0",
@@ -97,15 +101,23 @@
     }
   },
   "jest": {
-    "collectCoverageFrom": ["src/**/*.{js,jsx}"],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ],
+    "coveragePathIgnorePatterns": [
+      "src/client/index.js",
+      "src/server/index.js"
+    ],
     "moduleNameMapper": {
       "\\.(css|less|scss)$": "identity-obj-proxy",
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
-        "<rootDir>/__mocks__/fileMock.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js"
     },
     "setupTestFrameworkScriptFile": "./testConfig.js"
   },
-  "keywords": ["react", "boilerplate"],
+  "keywords": [
+    "react",
+    "boilerplate"
+  ],
   "license": "ISC",
   "main": "index.js",
   "name": "react-bp",
@@ -116,13 +128,11 @@
   "scripts": {
     "coverage": "jest --coverage",
     "build": "npm-run-all clean build:*",
-    "build:client":
-      "cross-env NODE_ENV=production webpack --config webpack/webpack.config.client.js --mode production --progress",
+    "build:client": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.client.js --mode production --progress",
     "build:server": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.server.js --mode production",
     "dev": "npm-run-all clean dev:* --parallel",
     "start": "node dist/server",
-    "dev:server":
-      "cross-env NODE_ENV=development  webpack --config webpack/webpack.config.server.js --mode development",
+    "dev:server": "cross-env NODE_ENV=development  webpack --config webpack/webpack.config.server.js --mode development",
     "prod": "heroku local",
     "clean": "rimraf ./dist",
     "cssflow": "css-modules-flow-types src -e scss --watch",
