@@ -8,7 +8,7 @@ import { uiInitialState, } from '../../../../src/client/store/ui';
 const mockStore = configureStore();
 
 describe(
-  'HomeTopBar Container', () => {
+  'VisibleTodoList Container', () => {
     let store,
       wrapper;
 

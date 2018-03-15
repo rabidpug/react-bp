@@ -1,4 +1,5 @@
 import React from 'react';
+import { TOGGLE_SIDEBAR, } from '../../../../src/client/store/ui/types';
 import TodoTopBar from '../../../../src/client/containers/TodoTopBar';
 import actionMenu from '../../../../src/client/routes/actionMenu';
 import configureStore from 'redux-mock-store';
@@ -8,7 +9,7 @@ import { uiInitialState, } from '../../../../src/client/store/ui';
 const mockStore = configureStore();
 
 describe(
-  'HomeTopBar Container', () => {
+  'TodoTopBar Container', () => {
     let store,
       wrapper;
     const ownProps = { route: actionMenu[0], };
@@ -36,7 +37,7 @@ describe(
       'toggleSideBar', () => {
         it(
           'maps TOGGLE_SIDEBAR to dispatch action', () => {
-            const expectedAction = { type: 'TOGGLE_SIDEBAR', };
+            const expectedAction = { type: TOGGLE_SIDEBAR, };
 
             wrapper.props().toggleSideBar();
 

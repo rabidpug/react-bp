@@ -8,7 +8,7 @@ import { shallow, } from 'enzyme';
 const mockStore = configureStore();
 
 describe(
-  'HelloButton Container', () => {
+  'ShowModal Container', () => {
     let store,
       wrapper;
 
