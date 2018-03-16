@@ -3,11 +3,11 @@ import {
   sayHelloFailure,
   sayHelloRequest,
   sayHelloSuccess,
-} from '../../../../src/client/store/greeter/actions';
+} from 'Store/greeter/actions';
 
 import configureMockStore from 'redux-mock-store';
 import fetchMock from 'fetch-mock';
-import { helloEndpointRoute, } from '../../../../src/shared/routes';
+import { helloEndpointRoute, } from 'Shared/routes';
 import thunkMiddleware from 'redux-thunk';
 
 const mockStore = configureMockStore( [ thunkMiddleware, ] );

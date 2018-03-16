@@ -1,8 +1,8 @@
-import FilterLink from '../containers/FilterLink';
-import HomeTopBar from '../containers/HomeTopBar';
-import ShowModal from '../containers/ShowModal';
-import TodoTopBar from '../containers/TodoTopBar';
-import { VisibilityFilters, } from '../store/todoVisibility/types';
+import FilterLink from 'Containers/FilterLink';
+import HomeTopBar from 'Containers/HomeTopBar';
+import ShowModal from 'Containers/ShowModal';
+import TodoTopBar from 'Containers/TodoTopBar';
+import { VisibilityFilters, } from 'Store/todoVisibility/types';
 
 const actionMenu = [
   {

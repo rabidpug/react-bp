@@ -348,7 +348,14 @@
     "vars-on-top": "error",
     "yoda": "error"
   },
+  "root": true,
   "settings": {
-    "polyfills": ["fetch"]
+    "polyfills": ["fetch"],
+    "import/resolver": {
+      "babel-module": {},
+      "webpack": {
+        "config": "webpack/webpack.config.client.js"
+      }
+    }
   }
 }

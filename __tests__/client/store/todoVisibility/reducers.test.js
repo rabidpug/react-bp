@@ -1,7 +1,7 @@
-import { todoVisibility, todoVisibilityInitialState, } from '../../../../src/client/store/todoVisibility';
+import { todoVisibility, todoVisibilityInitialState, } from 'Store/todoVisibility';
 
-import { VisibilityFilters, } from '../../../../src/client/store/todoVisibility/types';
-import { setVisibilityFilter, } from '../../../../src/client/store/todoVisibility/actions';
+import { VisibilityFilters, } from 'Store/todoVisibility/types';
+import { setVisibilityFilter, } from 'Store/todoVisibility/actions';
 
 const { SHOW_ACTIVE, } = VisibilityFilters;
 

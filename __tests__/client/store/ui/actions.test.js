@@ -2,12 +2,12 @@ import {
   TOGGLE_KEY,
   TOGGLE_SIDEBAR,
   TOGGLE_TODO_MODAL,
-} from '../../../../src/client/store/ui/types';
+} from 'Store/ui/types';
 import {
   toggleKey,
   toggleSidebar,
   toggleTodoModal,
-} from '../../../../src/client/store/ui/actions';
+} from 'Store/ui/actions';
 
 describe(
   'toggleKey', () => {

@@ -1,6 +1,6 @@
-import { getNewTodoValue, getTodos, } from '../../../../src/client/store/todos/selectors';
+import { getNewTodoValue, getTodos, } from 'Store/todos/selectors';
 
-import { todosInitialState, } from '../../../../src/client/store/todos';
+import { todosInitialState, } from 'Store/todos';
 
 describe(
   'getTodos', () => {

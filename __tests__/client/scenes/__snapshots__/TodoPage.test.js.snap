@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TopBar Should render the TopBar 1`] = `
+<div>
+  <Connect(List) />
+  <Connect(Modal)>
+    <Connect(Input) />
+  </Connect(Modal)>
+</div>
+`;

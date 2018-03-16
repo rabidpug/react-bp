@@ -8,6 +8,7 @@
       "type": "npm",
       "script": "dev",
       "auto": true,
+      "group": { "kind": "test", "isDefault": true },
       "problemMatcher": []
     },
     {

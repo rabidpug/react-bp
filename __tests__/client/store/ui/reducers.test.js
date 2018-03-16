@@ -2,8 +2,8 @@ import {
   toggleKey,
   toggleSidebar,
   toggleTodoModal,
-} from '../../../../src/client/store/ui/actions';
-import { ui, uiInitialState, } from '../../../../src/client/store/ui';
+} from 'Store/ui/actions';
+import { ui, uiInitialState, } from 'Store/ui';
 
 describe(
   'ui', () => {

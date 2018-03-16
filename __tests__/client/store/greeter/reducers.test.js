@@ -1,9 +1,9 @@
-import { greeter, greeterInitialState, } from '../../../../src/client/store/greeter';
+import { greeter, greeterInitialState, } from 'Store/greeter';
 import {
   sayHelloFailure,
   sayHelloRequest,
   sayHelloSuccess,
-} from '../../../../src/client/store/greeter/actions';
+} from 'Store/greeter/actions';
 
 describe(
   'greeter', () => {

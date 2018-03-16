@@ -31,6 +31,39 @@ const config = {
     new webpack.HotModuleReplacementPlugin(),
     new StartServerPlugin( 'server.js' ),
   ],
+  resolve: { alias: {
+    Assets: path.resolve(
+      'src', 'client', 'assets'
+    ),
+    Client: path.resolve(
+      'src', 'client'
+    ),
+    Components: path.resolve(
+      'src', 'client', 'components'
+    ),
+    Containers: path.resolve(
+      'src', 'client', 'containers'
+    ),
+    Routes: path.resolve(
+      'src', 'client', 'routes'
+    ),
+    Scenes: path.resolve(
+      'src', 'client', 'scenes'
+    ),
+    Server: path.resolve(
+      'src', 'server'
+    ),
+    Shared: path.resolve(
+      'src', 'shared'
+    ),
+    Store: path.resolve(
+      'src', 'client', 'store'
+    ),
+  },
+             extensions: [
+      '.less',
+      '.js',
+    ], },
   target : 'node',
   watch  : !isProd,
 };

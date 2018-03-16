@@ -2,12 +2,12 @@ import {
   ADD_TODO,
   NEW_TODO_VALUE,
   TOGGLE_TODO,
-} from '../../../../src/client/store/todos/types';
+} from 'Store/todos/types';
 import {
   addTodo,
   newTodoValue,
   toggleTodo,
-} from '../../../../src/client/store/todos/actions';
+} from 'Store/todos/actions';
 
 describe(
   'addTodo', () => {

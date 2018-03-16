@@ -1,5 +1,5 @@
-import { getTodoVisibility, } from '../../../../src/client/store/todoVisibility/selectors';
-import { todoVisibilityInitialState, } from '../../../../src/client/store/todoVisibility';
+import { getTodoVisibility, } from 'Store/todoVisibility/selectors';
+import { todoVisibilityInitialState, } from 'Store/todoVisibility';
 
 describe(
   'getTodoVisibility', () => {

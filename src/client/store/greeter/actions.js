@@ -9,7 +9,7 @@ import {
 } from './types';
 
 import { createAction, } from 'redux-actions';
-import { helloEndpointRoute, } from '../../../shared/routes';
+import { helloEndpointRoute, } from 'Shared/routes';
 
 export const sayHelloRequest = createAction( SAY_HELLO_REQUEST );
 export const sayHelloSuccess = createAction( SAY_HELLO_SUCCESS );

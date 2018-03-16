@@ -1,6 +1,6 @@
 import config from '../../webpack/webpack.config.client';
 import express from 'express';
-import { helloEndpointRoute, } from '../shared/routes';
+import { helloEndpointRoute, } from 'Shared/routes';
 import path from 'path';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';

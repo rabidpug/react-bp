@@ -1,6 +1,6 @@
-import { getGreeterButton, getGreeterMessage, } from '../../../../src/client/store/greeter/selectors';
+import { getGreeterButton, getGreeterMessage, } from 'Store/greeter/selectors';
 
-import { greeterInitialState, } from '../../../../src/client/store/greeter';
+import { greeterInitialState, } from 'Store/greeter';
 
 describe(
   'getGreeterButton', () => {

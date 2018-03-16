@@ -1,4 +1,4 @@
-import HomeSideBar from '../containers/HomeSideBar';
+import HomeSideBar from 'Containers/HomeSideBar';
 
 const navMenu = [
   {

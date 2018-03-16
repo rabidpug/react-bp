@@ -3,8 +3,8 @@ import {
   deleteTodo,
   newTodoValue,
   toggleTodo,
-} from '../../../../src/client/store/todos/actions';
-import { todos, todosInitialState, } from '../../../../src/client/store/todos';
+} from 'Store/todos/actions';
+import { todos, todosInitialState, } from 'Store/todos';
 
 describe(
   'todos reducer', () => {

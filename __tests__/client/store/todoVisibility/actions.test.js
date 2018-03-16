@@ -1,6 +1,6 @@
-import { SET_VISIBILITY_FILTER, VisibilityFilters, } from '../../../../src/client/store/todoVisibility/types';
+import { SET_VISIBILITY_FILTER, VisibilityFilters, } from 'Store/todoVisibility/types';
 
-import { setVisibilityFilter, } from '../../../../src/client/store/todoVisibility/actions';
+import { setVisibilityFilter, } from 'Store/todoVisibility/actions';
 
 const { SHOW_ACTIVE, } = VisibilityFilters;
 

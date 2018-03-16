@@ -2,14 +2,14 @@ import { ConnectedRouter, routerMiddleware, } from 'react-router-redux';
 import { configureStore, createDefaultMiddleware, } from '@acemarke/redux-starter-kit';
 import { persistReducer, persistStore, } from 'redux-persist';
 
-import App from './scenes/App';
-import Loading from './components/Loading';
+import App from 'Scenes/App';
+import Loading from 'Components/Loading';
 import { PersistGate, } from 'redux-persist/integration/react';
 import { Provider, } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import createHistory from 'history/createBrowserHistory';
-import rootReducer from './store/rootReducer';
+import rootReducer from 'Store/rootReducer';
 import storage from 'redux-persist/lib/storage';
 
 const persistConfig = { key: 'root',
