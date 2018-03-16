@@ -1,4 +1,8 @@
-import { getNewTodoValue, getTodos, } from 'Store/todos/selectors';
+import {
+  getNewTodoValue,
+  getTodos,
+  getVisibleTodos,
+} from 'Store/todos/selectors';
 
 import { todosInitialState, } from 'Store/todos';
 
@@ -23,6 +27,19 @@ describe(
         const expectedAction = '';
 
         expect( getNewTodoValue( state ) ).toEqual( expectedAction );
+      }
+    );
+  }
+);
+
+describe(
+  'getNewTodoValue', () => {
+    it(
+      'should get the the todos matching the selected filter', () => {
+        const state = { todos: todosInitialState, };
+        const expectedAction = [];
+
+        expect( getVisibleTodos( state ) ).toEqual( expectedAction );
       }
     );
   }
