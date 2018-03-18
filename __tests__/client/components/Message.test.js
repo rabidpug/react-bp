@@ -1,6 +1,7 @@
 import Message from 'Components/Message';
 import React from 'react';
 import { shallow, } from 'enzyme';
+import { shallowToJson, } from 'enzyme-to-json';
 
 describe(
   'Message', () => {
@@ -8,7 +9,7 @@ describe(
       'Should render the Message', () => {
         const wrapper = shallow( <Message /> );
 
-        expect( wrapper ).toMatchSnapshot();
+        expect( shallowToJson( wrapper ) ).toMatchSnapshot();
       }
     );
   }

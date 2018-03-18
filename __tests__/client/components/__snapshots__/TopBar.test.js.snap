@@ -1,760 +1,90 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TopBar Should render the TopBar 1`] = `
-ShallowWrapper {
-  "length": 1,
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <TopBar
-    actionMenuItems={
+<Adapter
+  style={
+    Object {
+      "background": "#fff",
+      "padding": 0,
+    }
+  }
+>
+  <Button
+    className="trigger"
+    ghost={false}
+    icon="menu-fold"
+    loading={false}
+    prefixCls="ant-btn"
+  />
+  <Menu
+    className="topBarMenu"
+    mode="horizontal"
+    onClick={[Function]}
+    prefixCls="ant-menu"
+    selectedKeys={
       Array [
-        Object {
-          "component": [Function],
-          "icon": "plus",
-          "key": "1",
-          "label": "Add Todo",
-        },
-        Object {
-          "icon": "eye-o",
-          "key": "2",
-          "label": "Show...",
-          "subMenu": Array [
-            Object {
-              "component": [Function],
-              "filter": "SHOW_ALL",
-              "icon": "bars",
-              "key": "SHOW_ALL",
-              "label": "All",
-            },
-            Object {
-              "component": [Function],
-              "filter": "SHOW_ACTIVE",
-              "icon": "exclamation-circle-o",
-              "key": "SHOW_ACTIVE",
-              "label": "Active",
-            },
-            Object {
-              "component": [Function],
-              "filter": "SHOW_COMPLETED",
-              "icon": "check",
-              "key": "SHOW_COMPLETED",
-              "label": "Completed",
-            },
-          ],
-        },
+        undefined,
       ]
     }
-  />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "class",
-    "props": Object {
-      "children": Array [
-        <Button
-          className="trigger"
-          ghost={false}
-          icon="menu-fold"
-          loading={false}
-          onClick={undefined}
-          prefixCls="ant-btn"
-        />,
-        <Menu
-          className="topBarMenu"
-          mode="horizontal"
-          onClick={[Function]}
-          prefixCls="ant-menu"
-          selectedKeys={
-            Array [
-              undefined,
-            ]
-          }
-          theme="light"
-        >
-          <MenuItem
-            action={undefined}
-          >
-            <Connect(Link)
-              component={[Function]}
-              icon="plus"
-              label="Add Todo"
-            />
-          </MenuItem>
-          <SubMenu
-            title={
-              <span>
-                <Icon
-                  type="eye-o"
-                />
-                <span>
-                  Show...
-                </span>
-              </span>
-            }
-          >
-            <MenuItem
-              action={undefined}
-            >
-              <Connect(Link)
-                component={[Function]}
-                filter="SHOW_ALL"
-                icon="bars"
-                label="All"
-              />
-            </MenuItem>
-            <MenuItem
-              action={undefined}
-            >
-              <Connect(Link)
-                component={[Function]}
-                filter="SHOW_ACTIVE"
-                icon="exclamation-circle-o"
-                label="Active"
-              />
-            </MenuItem>
-            <MenuItem
-              action={undefined}
-            >
-              <Connect(Link)
-                component={[Function]}
-                filter="SHOW_COMPLETED"
-                icon="check"
-                label="Completed"
-              />
-            </MenuItem>
-          </SubMenu>
-        </Menu>,
-      ],
-      "style": Object {
-        "background": "#fff",
-        "padding": 0,
-      },
-    },
-    "ref": null,
-    "rendered": Array [
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "className": "trigger",
-          "ghost": false,
-          "icon": "menu-fold",
-          "loading": false,
-          "onClick": undefined,
-          "prefixCls": "ant-btn",
-        },
-        "ref": null,
-        "rendered": null,
-        "type": [Function],
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "children": Array [
-            <MenuItem
-              action={undefined}
-            >
-              <Connect(Link)
-                component={[Function]}
-                icon="plus"
-                label="Add Todo"
-              />
-            </MenuItem>,
-            <SubMenu
-              title={
-                <span>
-                  <Icon
-                    type="eye-o"
-                  />
-                  <span>
-                    Show...
-                  </span>
-                </span>
-              }
-            >
-              <MenuItem
-                action={undefined}
-              >
-                <Connect(Link)
-                  component={[Function]}
-                  filter="SHOW_ALL"
-                  icon="bars"
-                  label="All"
-                />
-              </MenuItem>
-              <MenuItem
-                action={undefined}
-              >
-                <Connect(Link)
-                  component={[Function]}
-                  filter="SHOW_ACTIVE"
-                  icon="exclamation-circle-o"
-                  label="Active"
-                />
-              </MenuItem>
-              <MenuItem
-                action={undefined}
-              >
-                <Connect(Link)
-                  component={[Function]}
-                  filter="SHOW_COMPLETED"
-                  icon="check"
-                  label="Completed"
-                />
-              </MenuItem>
-            </SubMenu>,
-          ],
-          "className": "topBarMenu",
-          "mode": "horizontal",
-          "onClick": [Function],
-          "prefixCls": "ant-menu",
-          "selectedKeys": Array [
-            undefined,
-          ],
-          "theme": "light",
-        },
-        "ref": null,
-        "rendered": Array [
-          Object {
-            "instance": null,
-            "key": "1",
-            "nodeType": "class",
-            "props": Object {
-              "action": undefined,
-              "children": <Connect(Link)
-                component={[Function]}
-                icon="plus"
-                label="Add Todo"
-              />,
-            },
-            "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": "1",
-              "nodeType": "class",
-              "props": Object {
-                "component": [Function],
-                "icon": "plus",
-                "label": "Add Todo",
-              },
-              "ref": null,
-              "rendered": null,
-              "type": [Function],
-            },
-            "type": [Function],
-          },
-          Object {
-            "instance": null,
-            "key": "2",
-            "nodeType": "class",
-            "props": Object {
-              "children": Array [
-                <MenuItem
-                  action={undefined}
-                >
-                  <Connect(Link)
-                    component={[Function]}
-                    filter="SHOW_ALL"
-                    icon="bars"
-                    label="All"
-                  />
-                </MenuItem>,
-                <MenuItem
-                  action={undefined}
-                >
-                  <Connect(Link)
-                    component={[Function]}
-                    filter="SHOW_ACTIVE"
-                    icon="exclamation-circle-o"
-                    label="Active"
-                  />
-                </MenuItem>,
-                <MenuItem
-                  action={undefined}
-                >
-                  <Connect(Link)
-                    component={[Function]}
-                    filter="SHOW_COMPLETED"
-                    icon="check"
-                    label="Completed"
-                  />
-                </MenuItem>,
-              ],
-              "title": <span>
-                <Icon
-                  type="eye-o"
-                />
-                <span>
-                  Show...
-                </span>
-              </span>,
-            },
-            "ref": null,
-            "rendered": Array [
-              Object {
-                "instance": null,
-                "key": "SHOW_ALL",
-                "nodeType": "class",
-                "props": Object {
-                  "action": undefined,
-                  "children": <Connect(Link)
-                    component={[Function]}
-                    filter="SHOW_ALL"
-                    icon="bars"
-                    label="All"
-                  />,
-                },
-                "ref": null,
-                "rendered": Object {
-                  "instance": null,
-                  "key": "SHOW_ALL",
-                  "nodeType": "class",
-                  "props": Object {
-                    "component": [Function],
-                    "filter": "SHOW_ALL",
-                    "icon": "bars",
-                    "label": "All",
-                  },
-                  "ref": null,
-                  "rendered": null,
-                  "type": [Function],
-                },
-                "type": [Function],
-              },
-              Object {
-                "instance": null,
-                "key": "SHOW_ACTIVE",
-                "nodeType": "class",
-                "props": Object {
-                  "action": undefined,
-                  "children": <Connect(Link)
-                    component={[Function]}
-                    filter="SHOW_ACTIVE"
-                    icon="exclamation-circle-o"
-                    label="Active"
-                  />,
-                },
-                "ref": null,
-                "rendered": Object {
-                  "instance": null,
-                  "key": "SHOW_ACTIVE",
-                  "nodeType": "class",
-                  "props": Object {
-                    "component": [Function],
-                    "filter": "SHOW_ACTIVE",
-                    "icon": "exclamation-circle-o",
-                    "label": "Active",
-                  },
-                  "ref": null,
-                  "rendered": null,
-                  "type": [Function],
-                },
-                "type": [Function],
-              },
-              Object {
-                "instance": null,
-                "key": "SHOW_COMPLETED",
-                "nodeType": "class",
-                "props": Object {
-                  "action": undefined,
-                  "children": <Connect(Link)
-                    component={[Function]}
-                    filter="SHOW_COMPLETED"
-                    icon="check"
-                    label="Completed"
-                  />,
-                },
-                "ref": null,
-                "rendered": Object {
-                  "instance": null,
-                  "key": "SHOW_COMPLETED",
-                  "nodeType": "class",
-                  "props": Object {
-                    "component": [Function],
-                    "filter": "SHOW_COMPLETED",
-                    "icon": "check",
-                    "label": "Completed",
-                  },
-                  "ref": null,
-                  "rendered": null,
-                  "type": [Function],
-                },
-                "type": [Function],
-              },
-            ],
-            "type": [Function],
-          },
-        ],
-        "type": [Function],
-      },
-    ],
-    "type": [Function],
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "class",
-      "props": Object {
-        "children": Array [
-          <Button
-            className="trigger"
-            ghost={false}
-            icon="menu-fold"
-            loading={false}
-            onClick={undefined}
-            prefixCls="ant-btn"
-          />,
-          <Menu
-            className="topBarMenu"
-            mode="horizontal"
-            onClick={[Function]}
-            prefixCls="ant-menu"
-            selectedKeys={
-              Array [
-                undefined,
-              ]
-            }
-            theme="light"
-          >
-            <MenuItem
-              action={undefined}
-            >
-              <Connect(Link)
-                component={[Function]}
-                icon="plus"
-                label="Add Todo"
-              />
-            </MenuItem>
-            <SubMenu
-              title={
-                <span>
-                  <Icon
-                    type="eye-o"
-                  />
-                  <span>
-                    Show...
-                  </span>
-                </span>
-              }
-            >
-              <MenuItem
-                action={undefined}
-              >
-                <Connect(Link)
-                  component={[Function]}
-                  filter="SHOW_ALL"
-                  icon="bars"
-                  label="All"
-                />
-              </MenuItem>
-              <MenuItem
-                action={undefined}
-              >
-                <Connect(Link)
-                  component={[Function]}
-                  filter="SHOW_ACTIVE"
-                  icon="exclamation-circle-o"
-                  label="Active"
-                />
-              </MenuItem>
-              <MenuItem
-                action={undefined}
-              >
-                <Connect(Link)
-                  component={[Function]}
-                  filter="SHOW_COMPLETED"
-                  icon="check"
-                  label="Completed"
-                />
-              </MenuItem>
-            </SubMenu>
-          </Menu>,
-        ],
-        "style": Object {
-          "background": "#fff",
-          "padding": 0,
-        },
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "className": "trigger",
-            "ghost": false,
-            "icon": "menu-fold",
-            "loading": false,
-            "onClick": undefined,
-            "prefixCls": "ant-btn",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "children": Array [
-              <MenuItem
-                action={undefined}
-              >
-                <Connect(Link)
-                  component={[Function]}
-                  icon="plus"
-                  label="Add Todo"
-                />
-              </MenuItem>,
-              <SubMenu
-                title={
-                  <span>
-                    <Icon
-                      type="eye-o"
-                    />
-                    <span>
-                      Show...
-                    </span>
-                  </span>
-                }
-              >
-                <MenuItem
-                  action={undefined}
-                >
-                  <Connect(Link)
-                    component={[Function]}
-                    filter="SHOW_ALL"
-                    icon="bars"
-                    label="All"
-                  />
-                </MenuItem>
-                <MenuItem
-                  action={undefined}
-                >
-                  <Connect(Link)
-                    component={[Function]}
-                    filter="SHOW_ACTIVE"
-                    icon="exclamation-circle-o"
-                    label="Active"
-                  />
-                </MenuItem>
-                <MenuItem
-                  action={undefined}
-                >
-                  <Connect(Link)
-                    component={[Function]}
-                    filter="SHOW_COMPLETED"
-                    icon="check"
-                    label="Completed"
-                  />
-                </MenuItem>
-              </SubMenu>,
-            ],
-            "className": "topBarMenu",
-            "mode": "horizontal",
-            "onClick": [Function],
-            "prefixCls": "ant-menu",
-            "selectedKeys": Array [
-              undefined,
-            ],
-            "theme": "light",
-          },
-          "ref": null,
-          "rendered": Array [
-            Object {
-              "instance": null,
-              "key": "1",
-              "nodeType": "class",
-              "props": Object {
-                "action": undefined,
-                "children": <Connect(Link)
-                  component={[Function]}
-                  icon="plus"
-                  label="Add Todo"
-                />,
-              },
-              "ref": null,
-              "rendered": Object {
-                "instance": null,
-                "key": "1",
-                "nodeType": "class",
-                "props": Object {
-                  "component": [Function],
-                  "icon": "plus",
-                  "label": "Add Todo",
-                },
-                "ref": null,
-                "rendered": null,
-                "type": [Function],
-              },
-              "type": [Function],
-            },
-            Object {
-              "instance": null,
-              "key": "2",
-              "nodeType": "class",
-              "props": Object {
-                "children": Array [
-                  <MenuItem
-                    action={undefined}
-                  >
-                    <Connect(Link)
-                      component={[Function]}
-                      filter="SHOW_ALL"
-                      icon="bars"
-                      label="All"
-                    />
-                  </MenuItem>,
-                  <MenuItem
-                    action={undefined}
-                  >
-                    <Connect(Link)
-                      component={[Function]}
-                      filter="SHOW_ACTIVE"
-                      icon="exclamation-circle-o"
-                      label="Active"
-                    />
-                  </MenuItem>,
-                  <MenuItem
-                    action={undefined}
-                  >
-                    <Connect(Link)
-                      component={[Function]}
-                      filter="SHOW_COMPLETED"
-                      icon="check"
-                      label="Completed"
-                    />
-                  </MenuItem>,
-                ],
-                "title": <span>
-                  <Icon
-                    type="eye-o"
-                  />
-                  <span>
-                    Show...
-                  </span>
-                </span>,
-              },
-              "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": "SHOW_ALL",
-                  "nodeType": "class",
-                  "props": Object {
-                    "action": undefined,
-                    "children": <Connect(Link)
-                      component={[Function]}
-                      filter="SHOW_ALL"
-                      icon="bars"
-                      label="All"
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": "SHOW_ALL",
-                    "nodeType": "class",
-                    "props": Object {
-                      "component": [Function],
-                      "filter": "SHOW_ALL",
-                      "icon": "bars",
-                      "label": "All",
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": "SHOW_ACTIVE",
-                  "nodeType": "class",
-                  "props": Object {
-                    "action": undefined,
-                    "children": <Connect(Link)
-                      component={[Function]}
-                      filter="SHOW_ACTIVE"
-                      icon="exclamation-circle-o"
-                      label="Active"
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": "SHOW_ACTIVE",
-                    "nodeType": "class",
-                    "props": Object {
-                      "component": [Function],
-                      "filter": "SHOW_ACTIVE",
-                      "icon": "exclamation-circle-o",
-                      "label": "Active",
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": "SHOW_COMPLETED",
-                  "nodeType": "class",
-                  "props": Object {
-                    "action": undefined,
-                    "children": <Connect(Link)
-                      component={[Function]}
-                      filter="SHOW_COMPLETED"
-                      icon="check"
-                      label="Completed"
-                    />,
-                  },
-                  "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": "SHOW_COMPLETED",
-                    "nodeType": "class",
-                    "props": Object {
-                      "component": [Function],
-                      "filter": "SHOW_COMPLETED",
-                      "icon": "check",
-                      "label": "Completed",
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  "type": [Function],
-                },
-              ],
-              "type": [Function],
-            },
-          ],
-          "type": [Function],
-        },
-      ],
-      "type": [Function],
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-      },
-    },
-  },
-}
+    theme="light"
+  >
+    <MenuItem
+      key="1"
+    >
+      <Connect(Link)
+        component={[Function]}
+        icon="plus"
+        key="1"
+        label="Add Todo"
+      />
+    </MenuItem>
+    <SubMenu
+      key="2"
+      title={
+        <span>
+          <Icon
+            type="eye-o"
+          />
+          <span>
+            Show...
+          </span>
+        </span>
+      }
+    >
+      <MenuItem
+        key="SHOW_ALL"
+      >
+        <Connect(Link)
+          component={[Function]}
+          filter="SHOW_ALL"
+          icon="bars"
+          key="SHOW_ALL"
+          label="All"
+        />
+      </MenuItem>
+      <MenuItem
+        key="SHOW_ACTIVE"
+      >
+        <Connect(Link)
+          component={[Function]}
+          filter="SHOW_ACTIVE"
+          icon="exclamation-circle-o"
+          key="SHOW_ACTIVE"
+          label="Active"
+        />
+      </MenuItem>
+      <MenuItem
+        key="SHOW_COMPLETED"
+      >
+        <Connect(Link)
+          component={[Function]}
+          filter="SHOW_COMPLETED"
+          icon="check"
+          key="SHOW_COMPLETED"
+          label="Completed"
+        />
+      </MenuItem>
+    </SubMenu>
+  </Menu>
+</Adapter>
 `;

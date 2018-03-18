@@ -2,6 +2,7 @@ import React from 'react';
 import SideBar from 'Components/SideBar';
 import navMenu from 'Routes/navMenu';
 import { shallow, } from 'enzyme';
+import { shallowToJson, } from 'enzyme-to-json';
 
 describe(
   'SideBar', () => {
@@ -13,7 +14,7 @@ describe(
           menuItems={ menuItems }
           openKeys={ [] } /> );
 
-        expect( wrapper ).toMatchSnapshot();
+        expect( shallowToJson( wrapper ) ).toMatchSnapshot();
       }
     );
   }

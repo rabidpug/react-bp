@@ -1,6 +1,7 @@
 import Loading from 'Components/Loading';
 import React from 'react';
 import { shallow, } from 'enzyme';
+import { shallowToJson, } from 'enzyme-to-json';
 
 describe(
   'Loading', () => {
@@ -8,7 +9,7 @@ describe(
       'Should render the Loading', () => {
         const wrapper = shallow( <Loading /> );
 
-        expect( wrapper ).toMatchSnapshot();
+        expect( shallowToJson( wrapper ) ).toMatchSnapshot();
       }
     );
   }

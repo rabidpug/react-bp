@@ -1,6 +1,7 @@
 import Link from 'Components/Link';
 import React from 'react';
 import { shallow, } from 'enzyme';
+import { shallowToJson, } from 'enzyme-to-json';
 
 describe(
   'Link', () => {
@@ -8,7 +9,7 @@ describe(
       'Should render the Link', () => {
         const wrapper = shallow( <Link /> );
 
-        expect( wrapper ).toMatchSnapshot();
+        expect( shallowToJson( wrapper ) ).toMatchSnapshot();
       }
     );
   }

@@ -1,101 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`IconText Should render the IconText 1`] = `
-ShallowWrapper {
-  "length": 1,
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <IconText />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "host",
-    "props": Object {
-      "children": Array [
-        <Icon
-          style={
-            Object {
-              "marginRight": 8,
-            }
-          }
-          type={undefined}
-        />,
-        undefined,
-      ],
-      "onClick": undefined,
-    },
-    "ref": null,
-    "rendered": Array [
+<span>
+  <Icon
+    style={
       Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "function",
-        "props": Object {
-          "style": Object {
-            "marginRight": 8,
-          },
-          "type": undefined,
-        },
-        "ref": null,
-        "rendered": null,
-        "type": [Function],
-      },
-      undefined,
-    ],
-    "type": "span",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": Array [
-          <Icon
-            style={
-              Object {
-                "marginRight": 8,
-              }
-            }
-            type={undefined}
-          />,
-          undefined,
-        ],
-        "onClick": undefined,
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "function",
-          "props": Object {
-            "style": Object {
-              "marginRight": 8,
-            },
-            "type": undefined,
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        undefined,
-      ],
-      "type": "span",
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-      },
-    },
-  },
-}
+        "marginRight": 8,
+      }
+    }
+  />
+</span>
 `;
