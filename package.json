@@ -115,10 +115,6 @@
     },
     "setupTestFrameworkScriptFile": "./testConfig.js"
   },
-  "jestWebpackResolver": {
-    "silent": true,
-    "webpackConfig": "./webpack/webpack.config.client.js"
-  },
   "keywords": ["react", "boilerplate"],
   "license": "ISC",
   "main": "index.js",
