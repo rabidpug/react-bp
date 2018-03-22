@@ -24,6 +24,7 @@ const extractCSS = new ExtractTextPlugin( { disable  : !isProd,
 
 const prodPlugs = [
   new HtmlWebPackPlugin( {
+    favicon  : 'src/client/assets/favicon.ico',
     filename : 'index.html',
     template : './src/client/index.html',
     title    : projectTitle || 'configure env PROJECT_TITLE',

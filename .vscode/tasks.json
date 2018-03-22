@@ -8,7 +8,10 @@
       "type": "npm",
       "script": "dev",
       "auto": true,
-      "group": { "kind": "test", "isDefault": true },
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
       "problemMatcher": []
     },
     {
@@ -16,6 +19,11 @@
       "type": "npm",
       "script": "cssflow",
       "auto": true,
+      "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "script": "build",
       "problemMatcher": []
     }
   ]
