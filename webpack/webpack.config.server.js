@@ -2,6 +2,9 @@ const webpack = require( 'webpack' );
 const path = require( 'path' );
 const nodeExternals = require( 'webpack-node-externals' );
 const StartServerPlugin = require( 'start-server-webpack-plugin' );
+const dotenv = require( 'dotenv' );
+
+dotenv.config();
 
 const ENV = process.env.NODE_ENV;
 const isProd = ENV === 'production';

@@ -15,5 +15,6 @@
       "Shared/*": ["src/shared/*"],
       "Store/*": ["src/client/store/*"]
     }
-  }
+  },
+  "exclude": ["node_modules", "**/node_modules/**", "dist/", "__tests__"]
 }
