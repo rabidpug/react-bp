@@ -62,17 +62,24 @@ module.exports = {
       use  : extractSass.extract( { fallback : 'style-loader',
                                     use      : [
           { loader  : 'css-loader',
+            options : {
+              importLoaders : 2,
+              modules       : true,
+              sourceMap     : !isProd,
+            }, },
+          { loader  : 'postcss-loader',
+            options : { sourceMap: !isProd, }, },
+          { loader  : 'sass-loader',
             options : { modules   : true,
                         sourceMap : !isProd, }, },
-          { loader  : 'sass-loader',
-            options : { sourceMap: !isProd, }, },
         ], } ), },
     { test : /\.less$/,
       use  : extractLess.extract( { fallback : 'style-loader',
                                     use      : [
           { loader  : 'css-loader',
-            options : { camelCase : true,
-                        sourceMap : !isProd, }, },
+            options : { sourceMap: !isProd, }, },
+          { loader  : 'postcss-loader',
+            options : { sourceMap: !isProd, }, },
           { loader  : 'less-loader',
             options : {
               javascriptEnabled : true,
@@ -82,7 +89,16 @@ module.exports = {
         ], } ), },
     { test : /\.css$/,
       use  : extractCSS.extract( { fallback : 'style-loader',
-                                   use      : [ { loader: 'css-loader', }, ], } ), },
+                                   use      : [
+          { loader  : 'css-loader',
+            options : {
+              importLoaders : 1,
+              modules       : true,
+              sourceMap     : !isProd,
+            }, },
+          { loader  : 'postcss-loader',
+            options : { sourceMap: !isProd, }, },
+        ], } ), },
     {
       loader  : require.resolve( 'url-loader' ),
       options : { limit : 10000,
