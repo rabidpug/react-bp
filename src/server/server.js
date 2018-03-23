@@ -64,6 +64,10 @@ if ( isDev ) {
   );
 
   app.use(
+    '/favicon.ico', express.static( 'dist/favicon.ico' )
+  );
+
+  app.use(
     '*', express.static( 'dist' )
   );
 }
