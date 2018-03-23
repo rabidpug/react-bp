@@ -1,8 +1,5 @@
 {
   "author": "Matt Cuneo",
-  "browserslist": [
-    "> 1%"
-  ],
   "bugs": {
     "url": "https://github.com/rabidpug/react-bp/issues"
   },
@@ -109,35 +106,18 @@
     "webpack-node-externals": "^1.6.0"
   },
   "homepage": "https://github.com/rabidpug/react-bp#readme",
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn test",
-      "pre-push": "yarn test",
-      "post-merge": "yarn"
-    }
-  },
   "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx}"
-    ],
-    "coveragePathIgnorePatterns": [
-      "src/client/index.js",
-      "src/server/index.js"
-    ],
-    "modulePaths": [
-      "<rootDir/src",
-      "<rootDir>/node_modules"
-    ],
+    "collectCoverageFrom": ["src/**/*.{js,jsx}"],
+    "coveragePathIgnorePatterns": ["src/client/index.js", "src/server/index.js"],
+    "modulePaths": ["<rootDir/src", "<rootDir>/node_modules"],
     "moduleNameMapper": {
       "\\.(css|less|scss)$": "identity-obj-proxy",
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+        "<rootDir>/__mocks__/fileMock.js"
     },
     "setupTestFrameworkScriptFile": "./testConfig.js"
   },
-  "keywords": [
-    "react",
-    "boilerplate"
-  ],
+  "keywords": ["react", "boilerplate"],
   "license": "ISC",
   "main": "index.js",
   "name": "react-bp",
@@ -148,11 +128,13 @@
   "scripts": {
     "coverage": "jest --coverage",
     "build": "npm-run-all clean build:*",
-    "build:client": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.client.js --mode production --progress",
+    "build:client":
+      "cross-env NODE_ENV=production webpack --config webpack/webpack.config.client.js --mode production --progress",
     "build:server": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.server.js --mode production",
     "dev": "npm-run-all clean dev:* --parallel",
     "start": "node dist/server",
-    "dev:server": "cross-env NODE_ENV=development  webpack --config webpack/webpack.config.server.js --mode development",
+    "dev:server":
+      "cross-env NODE_ENV=development  webpack --config webpack/webpack.config.server.js --mode development",
     "prod": "heroku local",
     "clean": "rimraf ./dist",
     "dev:cssflow": "css-modules-flow-types src -e scss --watch",
