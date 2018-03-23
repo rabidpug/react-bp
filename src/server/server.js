@@ -53,6 +53,10 @@ if ( isDev ) {
     }
   );
 } else {
+  const HTML = path.resolve(
+    __dirname, 'index.html'
+  );
+
   app.use( express.static( __dirname ) );
 
   app.get(
@@ -63,8 +67,16 @@ if ( isDev ) {
     }
   );
 
-  app.use(
-    '*', express.static( __dirname )
+  app.get(
+    '*', (
+      req, res
+    ) => {
+      res.set(
+        'content-type', 'text/html'
+      );
+
+      res.sendFile( HTML );
+    }
   );
 }
 
