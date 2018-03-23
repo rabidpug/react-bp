@@ -53,6 +53,10 @@ if ( isDev ) {
     }
   );
 } else {
+  app.use(
+    '/favicon.ico', express.static( 'dist/favicon.ico' )
+  );
+
   app.use( express.static( 'dist' ) );
 
   app.get(
@@ -61,10 +65,6 @@ if ( isDev ) {
     ) => {
       res.json( { message: `Hello from the server! (received ${req.params.num})`, } );
     }
-  );
-
-  app.use(
-    '/favicon.ico', express.static( 'dist/favicon.ico' )
   );
 
   app.use(
