@@ -1,6 +1,5 @@
 import config from '../../webpack/webpack.config.client';
 import express from 'express';
-import favicon from 'serve-favicon';
 import { helloEndpointRoute, } from 'Shared/routes';
 import path from 'path';
 import webpack from 'webpack';
