@@ -53,9 +53,7 @@ if ( isDev ) {
     }
   );
 } else {
-  app.use(
-    '/favicon.ico', express.static( 'dist/favicon.ico' )
-  );
+  app.use( express.favicon( 'dist/favicon.ico' ) );
 
   app.use( express.static( 'dist' ) );
 
