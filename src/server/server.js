@@ -1,5 +1,6 @@
 import config from '../../webpack/webpack.config.client';
 import express from 'express';
+import favicon from 'serve-favicon';
 import { helloEndpointRoute, } from 'Shared/routes';
 import path from 'path';
 import webpack from 'webpack';
@@ -53,9 +54,7 @@ if ( isDev ) {
     }
   );
 } else {
-  app.use( express.favicon( 'dist/favicon.ico' ) );
-
-  app.use( express.static( 'dist' ) );
+  app.use( express.static( __dirname ) );
 
   app.get(
     helloEndpointRoute(), (
@@ -66,7 +65,7 @@ if ( isDev ) {
   );
 
   app.use(
-    '*', express.static( 'dist' )
+    '*', express.static( __dirname )
   );
 }
 

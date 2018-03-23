@@ -27,6 +27,8 @@ const config = {
       use     : 'babel-loader',
     },
   ], },
+  node: { __dirname  : false,
+          __filename : false, },
   optimization : { minimize: false, },
   output       : { filename : '[name].js',
                    path     : path.resolve( 'dist' ), },
