@@ -2,9 +2,9 @@ import HomeTopBar from 'Containers/HomeTopBar';
 
 const actionMenu = [
   {
-    actionMenuItems: [],
-    component: HomeTopBar,
-    path: '*',
+    actionMenuItems : [],
+    component       : HomeTopBar,
+    path            : '*',
   },
 ];
 

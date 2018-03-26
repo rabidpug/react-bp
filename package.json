@@ -115,19 +115,22 @@
     "url": "git+https://rabidpug@github.com/rabidpug/react-bp.git"
   },
   "scripts": {
-    "coverage": "jest --coverage",
     "build": "npm-run-all clean build:*",
     "build:client":
       "cross-env NODE_ENV=production webpack --config webpack/webpack.config.client.js --mode production --progress",
     "build:server": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.server.js --mode production",
     "dev": "npm-run-all clean dev:* --parallel",
-    "start": "node dist/server",
     "dev:server":
       "cross-env NODE_ENV=development  webpack --config webpack/webpack.config.server.js --mode development",
+    "dev:cssflow": "css-modules-flow-types src -e scss --watch",
+    "test": "npm-run-all test:*",
+    "test:cssflow": "cross-env NODE_ENV=test css-modules-flow-types src -e scss",
+    "test:lint": "cross-env NODE_ENV=test eslint src",
+    "test:flow": "cross-env NODE_ENV=test flow",
+    "test:jest": "cross-env NODE_ENV=test jest --coverage",
+    "start": "node dist/server",
     "prod": "heroku local",
     "clean": "rimraf ./dist",
-    "dev:cssflow": "css-modules-flow-types src -e scss --watch",
-    "test": "cross-env NODE_ENV=test css-modules-flow-types src -e scss && eslint src && flow && jest --coverage",
     "dist": "cross-env NODE_ENV=production node dist/server.js",
     "heroku-postbuild": "npm-run-all clean build:*"
   },

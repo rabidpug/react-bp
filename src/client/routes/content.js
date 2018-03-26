@@ -1,15 +1,15 @@
-import { Bye, Home, TodoPage, Welcome } from 'Containers/Loadables';
+import { Home, Welcome, } from 'Containers/Loadables';
 
 const content = [
   {
-    component: Home,
-    exact: true,
-    path: '/',
+    component : Home,
+    exact     : true,
+    path      : '/',
   },
   {
-    component: Welcome,
-    exact: true,
-    path: '/welcome',
+    component : Welcome,
+    exact     : true,
+    path      : '/welcome',
   },
 ];
 
