@@ -2,6 +2,6 @@
 
 exports[`TopBar Should render the TopBar 1`] = `
 <div>
-  Welcome to React BoilerPlate!
+  Welcome to React ENFRAMR!
 </div>
 `;

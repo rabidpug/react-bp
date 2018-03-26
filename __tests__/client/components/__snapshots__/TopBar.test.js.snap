@@ -27,64 +27,6 @@ exports[`TopBar Should render the TopBar 1`] = `
       ]
     }
     theme="light"
-  >
-    <MenuItem
-      key="1"
-    >
-      <Connect(Link)
-        component={[Function]}
-        icon="plus"
-        key="1"
-        label="Add Todo"
-      />
-    </MenuItem>
-    <SubMenu
-      key="2"
-      title={
-        <span>
-          <Icon
-            type="eye-o"
-          />
-          <span>
-            Show...
-          </span>
-        </span>
-      }
-    >
-      <MenuItem
-        key="SHOW_ALL"
-      >
-        <Connect(Link)
-          component={[Function]}
-          filter="SHOW_ALL"
-          icon="bars"
-          key="SHOW_ALL"
-          label="All"
-        />
-      </MenuItem>
-      <MenuItem
-        key="SHOW_ACTIVE"
-      >
-        <Connect(Link)
-          component={[Function]}
-          filter="SHOW_ACTIVE"
-          icon="exclamation-circle-o"
-          key="SHOW_ACTIVE"
-          label="Active"
-        />
-      </MenuItem>
-      <MenuItem
-        key="SHOW_COMPLETED"
-      >
-        <Connect(Link)
-          component={[Function]}
-          filter="SHOW_COMPLETED"
-          icon="check"
-          key="SHOW_COMPLETED"
-          label="Completed"
-        />
-      </MenuItem>
-    </SubMenu>
-  </Menu>
+  />
 </Adapter>
 `;

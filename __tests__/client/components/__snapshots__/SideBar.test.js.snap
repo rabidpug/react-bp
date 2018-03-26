@@ -79,28 +79,6 @@ exports[`SideBar Should render the SideBar 1`] = `
         Welcome
       </span>
     </MenuItem>
-    <MenuItem
-      key="item2"
-      path="/bye"
-    >
-      <Icon
-        type="frown-o"
-      />
-      <span>
-        Bye
-      </span>
-    </MenuItem>
-    <MenuItem
-      key="item3"
-      path="/todo"
-    >
-      <Icon
-        type="file-text"
-      />
-      <span>
-        Todo
-      </span>
-    </MenuItem>
   </Menu>
 </Sider>
 `;

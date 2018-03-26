@@ -15,13 +15,7 @@ exports[`App Should render the App 1`] = `
     <Switch>
       <Switch>
         <Route
-          exact={true}
           key="0"
-          path="/todo"
-          render={[Function]}
-        />
-        <Route
-          key="1"
           path="*"
           render={[Function]}
         />
@@ -41,18 +35,6 @@ exports[`App Should render the App 1`] = `
           exact={true}
           key="1"
           path="/welcome"
-          render={[Function]}
-        />
-        <Route
-          exact={true}
-          key="2"
-          path="/bye"
-          render={[Function]}
-        />
-        <Route
-          exact={true}
-          key="3"
-          path="/todo"
           render={[Function]}
         />
       </Switch>

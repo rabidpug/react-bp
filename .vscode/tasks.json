@@ -15,13 +15,6 @@
       "problemMatcher": []
     },
     {
-      "label": "css flow watch",
-      "type": "npm",
-      "script": "cssflow",
-      "auto": true,
-      "problemMatcher": []
-    },
-    {
       "type": "npm",
       "script": "build",
       "problemMatcher": []

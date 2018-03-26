@@ -1,5 +1,5 @@
 import React from 'react';
 
-const Home = () => <div>Welcome to React BoilerPlate!</div>;
+const Home = () => <div>Welcome to React ENFRAMR!</div>;
 
 export default Home;

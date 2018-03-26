@@ -8,7 +8,7 @@ describe(
   'TopBar', () => {
     it(
       'Should render the TopBar', () => {
-        const [ { actionMenuItems, }, ] = actionMenu.filter( menu => menu.path === '/todo' );
+        const [ { actionMenuItems, }, ] = actionMenu.filter( menu => menu.path === '*' );
         const wrapper = shallow( <TopBar actionMenuItems={ actionMenuItems } /> );
 
         expect( shallowToJson( wrapper ) ).toMatchSnapshot();
