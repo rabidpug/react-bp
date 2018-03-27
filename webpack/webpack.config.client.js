@@ -100,7 +100,7 @@ module.exports = {
             options : { sourceMap: !isProd, }, },
         ], } ), },
     {
-      loader  : require.resolve( 'url-loader' ),
+      loader  : 'url-loader',
       options : { limit : 10000,
                   name  : 'assets/[name].[hash:8].[ext]', },
       test: [
