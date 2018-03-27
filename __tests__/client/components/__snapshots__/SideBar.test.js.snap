@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SideBar Should render the SideBar 1`] = `
+exports[`SideBar Should render the SideBar with a menu 1`] = `
 <Sider
+  collapsed={false}
   collapsedWidth={80}
   collapsible={true}
   defaultCollapsed={false}
