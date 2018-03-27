@@ -6,12 +6,24 @@ import { shallowToJson, } from 'enzyme-to-json';
 
 describe(
   'TopBar', () => {
+    const [ { actionMenuItems, }, ] = actionMenu.filter( menu => menu.path === '*' );
+    const wrapper = shallow( <TopBar actionMenuItems={ actionMenuItems } /> );
+
     it(
       'Should render the TopBar', () => {
-        const [ { actionMenuItems, }, ] = actionMenu.filter( menu => menu.path === '*' );
-        const wrapper = shallow( <TopBar actionMenuItems={ actionMenuItems } /> );
-
         expect( shallowToJson( wrapper ) ).toMatchSnapshot();
+      }
+    );
+
+    it(
+      'Should perform the action of the menu item clicked', () => {
+        const action = jest.fn();
+
+        wrapper.find( 'Menu' ).simulate(
+          'click', { item: { props: { action, }, }, }
+        );
+
+        expect( action ).toBeCalled();
       }
     );
   }
