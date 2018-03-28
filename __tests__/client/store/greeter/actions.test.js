@@ -1,13 +1,7 @@
-import {
-  sayHello,
-  sayHelloFailure,
-  sayHelloRequest,
-  sayHelloSuccess,
-} from 'Store/greeter/actions';
-
+import { SAY_HELLO_REQUEST, } from 'Store/greeter/types';
 import configureMockStore from 'redux-mock-store';
 import fetchMock from 'fetch-mock';
-import { helloEndpointRoute, } from 'Shared/routes';
+import { sayHello, } from 'Store/greeter/actions';
 import thunkMiddleware from 'redux-thunk';
 
 const mockStore = configureMockStore( [ thunkMiddleware, ] );
@@ -20,52 +14,15 @@ describe(
   'sayHello', () => {
     it(
       'Succeeds', () => {
-        fetchMock.get(
-          helloEndpointRoute( 666 ), { message: 'Async hello success', }
-        );
+        // fetchMock.get(
+        //   helloEndpointRoute( 666 ), { message: 'Async hello success', }
+        // );
 
-        const store = mockStore();
+        const store = mockStore( {} );
 
-        return store.dispatch( sayHello( 666 ) ).then( () => {
-          expect( store.getActions() ).toEqual( [
-            sayHelloRequest(),
-            sayHelloSuccess( 'Async hello success' ),
-          ] );
-        } );
-      }
-    );
+        store.dispatch( sayHello( 666 ) );
 
-    it(
-      '404s', () => {
-        fetchMock.get(
-          helloEndpointRoute( 666 ), 404
-        );
-
-        const store = mockStore();
-
-        return store.dispatch( sayHello( 666 ) ).then( () => {
-          expect( store.getActions() ).toEqual( [
-            sayHelloRequest(),
-            sayHelloFailure(),
-          ] );
-        } );
-      }
-    );
-
-    it(
-      'data errors', () => {
-        fetchMock.get(
-          helloEndpointRoute( 666 ), {}
-        );
-
-        const store = mockStore();
-
-        return store.dispatch( sayHello( 666 ) ).then( () => {
-          expect( store.getActions() ).toEqual( [
-            sayHelloRequest(),
-            sayHelloFailure(),
-          ] );
-        } );
+        expect( store.getActions() ).toEqual( [ { type: SAY_HELLO_REQUEST, }, ] );
       }
     );
   }

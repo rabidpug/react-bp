@@ -1,4 +1,4 @@
-const { PASSPORT_SECRET, } = process.env;
+const { PASSPORT_SECRET = 'secret', } = process.env;
 const settings = { secret: PASSPORT_SECRET, };
 
 export default settings;

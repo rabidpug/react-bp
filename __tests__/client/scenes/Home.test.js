@@ -6,7 +6,7 @@ import { shallowToJson, } from 'enzyme-to-json';
 describe(
   'TopBar', () => {
     it(
-      'Should render the TopBar', () => {
+      'Should render the Home page', () => {
         const wrapper = shallow( <Home /> );
 
         expect( shallowToJson( wrapper ) ).toMatchSnapshot();
