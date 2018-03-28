@@ -33,10 +33,12 @@ const UserPassRaw = ( {
               required : true, },
           ], }
         )( <Input
+          autoComplete='username'
           placeholder='Username'
           prefix={ <Icon
             style={ { color: 'rgba(0,0,0,.25)', } }
-            type='user' /> } /> )}
+            type='user' /> }
+        /> )}
       </Item>
       <Item>
         {getFieldDecorator(
@@ -45,9 +47,9 @@ const UserPassRaw = ( {
               required : true, },
           ], }
         )( <Input
+          autoComplete='current-password'
           placeholder='Password'
           prefix={ <Icon
-            autoComplete='current-password'
             style={ { color: 'rgba(0,0,0,.25)', } }
             type='lock' /> }
           type='password'
