@@ -27,18 +27,6 @@ exports[`TopBar Should render the TopBar 1`] = `
       ]
     }
     theme="light"
-  >
-    <MenuItem
-      action={[Function]}
-      key="1"
-    >
-      <span>
-        <Icon
-          type="eye-o"
-        />
-        Hello
-      </span>
-    </MenuItem>
-  </Menu>
+  />
 </Adapter>
 `;
