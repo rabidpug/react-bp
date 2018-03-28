@@ -1,13 +1,12 @@
 //@flow
 
-import 'isomorphic-fetch';
-
 import {
   SAY_HELLO_FAILURE,
   SAY_HELLO_REQUEST,
   SAY_HELLO_SUCCESS,
 } from './types';
 
+import axios from 'axios';
 import { createAction, } from 'redux-actions';
 import { helloEndpointRoute, } from 'Shared/routes';
 
@@ -17,17 +16,12 @@ export const sayHelloFailure = createAction( SAY_HELLO_FAILURE );
 export const sayHello: Function = ( num: number ) => ( dispatch: Function ) => {
   dispatch( sayHelloRequest() );
 
-  return fetch(
-    helloEndpointRoute( num ), { method: 'GET', }
-  )
+  axios
+    .get( helloEndpointRoute( num ) )
     .then( res => {
-      if ( !res.ok ) throw Error( res.statusText );
-      return res.json();
-    } )
-    .then( data => {
-      if ( !data.message ) throw Error( 'No message received' );
+      if ( !res.data && !res.data.message ) throw Error( 'No message received' );
 
-      dispatch( sayHelloSuccess( data.message ) );
+      dispatch( sayHelloSuccess( res.data.message ) );
     } )
     .catch( () => {
       dispatch( sayHelloFailure() );

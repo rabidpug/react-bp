@@ -1,4 +1,4 @@
-import config from '../../webpack/webpack.config.client';
+import config from '../../../webpack/webpack.config.client';
 import path from 'path';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';

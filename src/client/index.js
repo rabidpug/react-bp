@@ -1,3 +1,5 @@
+import 'react-hot-loader';
+
 import { ConnectedRouter, routerMiddleware, } from 'react-router-redux';
 import { configureStore, createDefaultMiddleware, } from '@acemarke/redux-starter-kit';
 import { persistReducer, persistStore, } from 'redux-persist';
