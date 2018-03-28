@@ -28,7 +28,11 @@ export const authUser = (
       if ( res.data.success ) {
         dispatch( authSuccess( res.data ) );
 
-        dispatch( push( '/' ) );
+        if ( authType === 'register' ) {
+          dispatch( authUser(
+            'login', payload
+          ) );
+        } else dispatch( push( '/' ) );
       } else dispatch( authFailure( res.data ) );
     } )
     .catch( e => dispatch( authFailure( e.response.data ) ) );

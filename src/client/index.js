@@ -14,8 +14,11 @@ import createHistory from 'history/createBrowserHistory';
 import rootReducer from 'Store/rootReducer';
 import storage from 'redux-persist/lib/storage';
 
-const persistConfig = { key: 'root',
-                        storage, };
+const persistConfig = {
+  blacklist : [ 'user', ],
+  key       : 'root',
+  storage,
+};
 const reducer = persistReducer(
   persistConfig, rootReducer
 );

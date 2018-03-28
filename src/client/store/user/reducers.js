@@ -13,6 +13,10 @@ export const authSuccessReducer = (
 
   state.isGettingAuth = false;
 
+  payload.token && localStorage.setItem(
+    'jwtToken', payload.token
+  );
+
   state.token = payload.token;
 };
 

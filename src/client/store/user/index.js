@@ -11,7 +11,7 @@ import {
 
 import { createReducer, } from '@acemarke/redux-starter-kit';
 
-export const userInitialState = {};
+export const userInitialState = { token: localStorage.getItem( 'jwtToken' ), };
 
 export const user = createReducer(
   userInitialState, {
