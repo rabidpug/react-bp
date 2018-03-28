@@ -3,7 +3,5 @@
 exports[`TopBar Should render the Home page 1`] = `
 <div>
   Welcome to React ENFRAMR!
-  <br />
-  <Connect(Form(UserPassRaw)) />
 </div>
 `;
