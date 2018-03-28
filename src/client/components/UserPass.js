@@ -47,6 +47,7 @@ const UserPassRaw = ( {
         )( <Input
           placeholder='Password'
           prefix={ <Icon
+            autoComplete='current-password'
             style={ { color: 'rgba(0,0,0,.25)', } }
             type='lock' /> }
           type='password'

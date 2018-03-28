@@ -3343,12 +3343,6 @@ eslint-plugin-flowtype@^2.46.1:
   dependencies:
     lodash "^4.15.0"
 
-eslint-plugin-html@^4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-html/-/eslint-plugin-html-4.0.2.tgz#0e56149e42c2ffc3f0df6261a8bb96b1a9f2280d"
-  dependencies:
-    htmlparser2 "^3.8.2"
-
 eslint-plugin-import@^2.9.0:
   version "2.9.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.9.0.tgz#26002efbfca5989b7288ac047508bd24f217b169"
@@ -4609,7 +4603,7 @@ htmlnano@^0.1.6:
     svgo "^1.0.5"
     uglify-js "^3.3.14"
 
-htmlparser2@^3.8.2, htmlparser2@^3.9.1, htmlparser2@^3.9.2:
+htmlparser2@^3.9.1, htmlparser2@^3.9.2:
   version "3.9.2"
   resolved "https://registry.yarnpkg.com/htmlparser2/-/htmlparser2-3.9.2.tgz#1bdf87acca0f3f9e53fa4fcceb0f4b4cbb00b338"
   dependencies:
@@ -8284,12 +8278,13 @@ pupa@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/pupa/-/pupa-1.0.0.tgz#9a9568a5af7e657b8462a6e9d5328743560ceff6"
 
-purgecss-webpack-plugin@^0.22.0:
-  version "0.22.0"
-  resolved "https://registry.yarnpkg.com/purgecss-webpack-plugin/-/purgecss-webpack-plugin-0.22.0.tgz#b1e7e1a6b798678552097a6e0cae34b11f81f1ac"
+purgecss-webpack-plugin@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/purgecss-webpack-plugin/-/purgecss-webpack-plugin-1.0.2.tgz#8a5419848dc03f1bb3638dd71665b9f13ed8a72f"
   dependencies:
-    eslint-plugin-html "^4.0.2"
+    extract-text-webpack-plugin "^4.0.0-beta.0"
     purgecss "^0.21.0"
+    webpack "^4.2.0"
     webpack-sources "^1.1.0"
 
 purgecss@^0.21.0:
@@ -10081,9 +10076,9 @@ stack-utils@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/stack-utils/-/stack-utils-1.0.1.tgz#d4f33ab54e8e38778b0ca5cfd3b3afb12db68620"
 
-start-server-webpack-plugin@^2.2.5:
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/start-server-webpack-plugin/-/start-server-webpack-plugin-2.2.5.tgz#4a2838759b0f36acd11b0b2f5f196f289ae29d31"
+start-server-webpack-plugin@^3.0.0-rc3:
+  version "3.0.0-rc3"
+  resolved "https://registry.yarnpkg.com/start-server-webpack-plugin/-/start-server-webpack-plugin-3.0.0-rc3.tgz#20fabee64114f3833a3a7241896967ae3de0d4d5"
 
 state-toggle@^1.0.0:
   version "1.0.0"
@@ -11284,7 +11279,7 @@ webpack-sources@^1.0.1, webpack-sources@^1.1.0:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
-webpack@^4.3.0:
+webpack@^4.2.0, webpack@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/webpack/-/webpack-4.3.0.tgz#0b0c1e211311b3995dd25aed47ab46ea658be070"
   dependencies:

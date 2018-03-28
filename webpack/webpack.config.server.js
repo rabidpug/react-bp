@@ -34,7 +34,7 @@ const config = {
                    path     : path.resolve( 'dist' ), },
   plugins: isProd ? [] : [
     new webpack.HotModuleReplacementPlugin(),
-    new StartServerPlugin( 'server.js' ),
+    new StartServerPlugin( { entryName: 'server', } ),
   ],
   resolve: { alias: {
     Assets: path.resolve(
