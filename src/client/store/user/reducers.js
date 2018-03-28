@@ -1,7 +1,7 @@
 export const authFailureReducer = (
   state, { payload, }
 ) => {
-  state.authMessage = payload;
+  state.authMessage = payload.msg;
 
   state.isGettingAuth = false;
 };
@@ -9,9 +9,11 @@ export const authFailureReducer = (
 export const authSuccessReducer = (
   state, { payload, }
 ) => {
-  state.token = payload;
+  state.authMessage = payload.msg;
 
   state.isGettingAuth = false;
+
+  state.token = payload.token;
 };
 
 export const authRequestReducer = state => {

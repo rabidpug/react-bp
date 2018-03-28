@@ -8,6 +8,7 @@ import {
 import { authEndpointRoute, } from 'Shared/routes';
 import axios from 'axios';
 import { createAction, } from 'redux-actions';
+import { push, } from 'react-router-redux';
 
 export const authSuccess = createAction( AUTH_SUCCESS );
 export const authFailure = createAction( AUTH_FAILURE );
@@ -24,7 +25,11 @@ export const authUser = (
       authEndpointRoute( authType ), payload
     )
     .then( res => {
-      dispatch( authSuccess( res.data.token ) );
+      if ( res.data.success ) {
+        dispatch( authSuccess( res.data ) );
+
+        dispatch( push( '/' ) );
+      } else dispatch( authFailure( res.data ) );
     } )
-    .catch( e => dispatch( authFailure( e.response.data.msg ) ) );
+    .catch( e => dispatch( authFailure( e.response.data ) ) );
 };

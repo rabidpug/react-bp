@@ -9,7 +9,14 @@ import React from 'react';
 const { Item, SubMenu, } = Menu;
 const { Sider, } = Layout;
 const SideBar = ( {
-  isSidebarCollapsed, menuItems, goToPath, toggleSideBar, currentPath, toggleKey, openKeys,
+  isSidebarCollapsed,
+  menuItems,
+  goToPath,
+  toggleSideBar,
+  currentPath,
+  toggleKey,
+  openKeys,
+  isAuthenticated,
 } ) => {
   const selectedKeys = [];
   const openSelectedKeys = [ ...openKeys, ];
@@ -63,7 +70,9 @@ const SideBar = ( {
         selectedKeys={ selectedKeys }
         style={ { height: '100%', } }
         theme='dark'>
-        {menuItems.map( menuItemMap )}
+        {menuItems
+          .filter( item => typeof item.isAuthenticated !== 'boolean' || item.isAuthenticated === isAuthenticated )
+          .map( menuItemMap )}
       </Menu>
     </Sider>
   );
