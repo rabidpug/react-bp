@@ -9,13 +9,9 @@ export const authFailureReducer = (
 export const authSuccessReducer = (
   state, { payload, }
 ) => {
-  state.authMessage = payload.msg;
+  state.authMessage = '';
 
   state.isGettingAuth = false;
-
-  payload.token && localStorage.setItem(
-    'jwtToken', payload.token
-  );
 
   state.token = payload.token;
 };
@@ -23,3 +19,5 @@ export const authSuccessReducer = (
 export const authRequestReducer = state => {
   state.isGettingAuth = true;
 };
+
+export const logoutUserReducer = () => ( {} );

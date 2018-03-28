@@ -1,35 +1,16 @@
 import 'react-hot-loader';
 
-import { ConnectedRouter, routerMiddleware, } from 'react-router-redux';
-import { configureStore, createDefaultMiddleware, } from '@acemarke/redux-starter-kit';
-import { persistReducer, persistStore, } from 'redux-persist';
+import store, { history, } from 'Store';
 
 import App from 'Scenes/App';
+import { ConnectedRouter, } from 'react-router-redux';
 import Loading from 'Components/Loading';
 import { PersistGate, } from 'redux-persist/integration/react';
 import { Provider, } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import createHistory from 'history/createBrowserHistory';
-import rootReducer from 'Store/rootReducer';
-import storage from 'redux-persist/lib/storage';
+import { persistStore, } from 'redux-persist';
 
-const persistConfig = {
-  blacklist : [ 'user', ],
-  key       : 'root',
-  storage,
-};
-const reducer = persistReducer(
-  persistConfig, rootReducer
-);
-const history = createHistory();
-const routerware = routerMiddleware( history );
-const middleware = createDefaultMiddleware( routerware );
-const store = configureStore( {
-  devTools: process.env.NODE_ENV !== 'production',
-  middleware,
-  reducer,
-} );
 const persistor = persistStore( store );
 
 if ( process.env.NODE_ENV !== 'production' ) {

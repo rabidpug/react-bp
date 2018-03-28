@@ -12,8 +12,10 @@ const { Item, SubMenu, } = Menu;
 
 const { Header, } = Layout;
 const TopBar = ( {
-  isSidebarCollapsed, toggleSideBar, actionMenuItems, selectedActionKeys,
+  isSidebarCollapsed, toggleSideBar, actionMenuItems, selectedActionKeys, isAuthenticated,
 } ) => {
+  const filterAuth = item => typeof item.isAuthenticated !== 'boolean' || item.isAuthenticated === isAuthenticated;
+
   const menuItemMap = item =>
     item.subMenu ? (
       <SubMenu
@@ -24,7 +26,7 @@ const TopBar = ( {
             <span>{item.label}</span>
           </span>
         }>
-        {item.subMenu.map( menuItemMap )}
+        {item.subMenu.filter( filterAuth ).map( menuItemMap )}
       </SubMenu>
     ) : (
       <Item
@@ -56,7 +58,7 @@ const TopBar = ( {
           mode='horizontal'
           onClick={ ( { item, } ) => item.props.action && item.props.action() }
           selectedKeys={ typeof selectedActionKeys === 'object' ? selectedActionKeys : [ selectedActionKeys, ] }>
-          {actionMenuItems.map( menuItemMap )}
+          {actionMenuItems.filter( filterAuth ).map( menuItemMap )}
         </Menu>
       )}
     </Header>

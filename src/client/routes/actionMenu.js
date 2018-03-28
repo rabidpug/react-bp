@@ -1,13 +1,16 @@
 import HomeTopBar from 'Containers/HomeTopBar';
+import { logoutUser, } from 'Store/user/actions';
+import store from 'Store';
 
 const actionMenu = [
   {
     actionMenuItems: [
       {
-        action: () => console.log('hi'), //eslint-disable-line
-        icon   : 'eye-o',
-        key    : '1',
-        label  : 'Hello',
+        action          : () => store.dispatch( logoutUser() ),
+        icon            : 'logout',
+        isAuthenticated : true,
+        key             : '1',
+        label           : 'Log Out',
       },
     ],
     component : HomeTopBar,

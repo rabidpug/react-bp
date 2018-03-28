@@ -32,6 +32,7 @@ const SideBar = ( {
 
   menuItems.forEach( determineIfOpen );
 
+  const filterAuth = item => typeof item.isAuthenticated !== 'boolean' || item.isAuthenticated === isAuthenticated;
   const menuItemMap = item =>
     item.subMenu ? (
       <SubMenu
@@ -43,7 +44,7 @@ const SideBar = ( {
             <span>{item.label}</span>
           </span>
         }>
-        {item.subMenu.map( menuItemMap )}
+        {item.subMenu.filter( filterAuth ).map( menuItemMap )}
       </SubMenu>
     ) : (
       <Item
@@ -70,9 +71,7 @@ const SideBar = ( {
         selectedKeys={ selectedKeys }
         style={ { height: '100%', } }
         theme='dark'>
-        {menuItems
-          .filter( item => typeof item.isAuthenticated !== 'boolean' || item.isAuthenticated === isAuthenticated )
-          .map( menuItemMap )}
+        {menuItems.filter( filterAuth ).map( menuItemMap )}
       </Menu>
     </Sider>
   );
