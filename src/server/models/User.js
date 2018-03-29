@@ -39,10 +39,10 @@ function saveUser ( next ) {
   } else return next();
 }
 function comparePassword (
-  passw, cb
+  password, cb
 ) {
   bcrypt.compare(
-    passw, this.local.password, (
+    password, this.local.password, (
       err, isMatch
     ) => {
       if ( err ) return cb( err );
