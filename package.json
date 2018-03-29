@@ -31,6 +31,7 @@
     "react-router-config": "^1.0.0-beta.4",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
+    "react-spring": "^3.1.0",
     "react-transition-group": "^2.3.0-beta.0",
     "redux": "^4.0.0-beta.2",
     "redux-actions": "^2.3.0",
@@ -119,7 +120,10 @@
     "webpack-node-externals": "^1.6.0"
   },
   "homepage": "https://github.com/rabidpug/react-bp#readme",
-  "keywords": ["react", "boilerplate"],
+  "keywords": [
+    "react",
+    "boilerplate"
+  ],
   "license": "ISC",
   "main": "index.js",
   "name": "react-bp",
@@ -129,12 +133,10 @@
   },
   "scripts": {
     "build": "npm-run-all clean build:*",
-    "build:client":
-      "cross-env NODE_ENV=production webpack --config webpack/webpack.config.client.js --mode production --progress",
+    "build:client": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.client.js --mode production --progress",
     "build:server": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.server.js --mode production",
     "dev": "npm-run-all clean dev:* --parallel",
-    "dev:server":
-      "cross-env NODE_ENV=development  webpack --config webpack/webpack.config.server.js --mode development",
+    "dev:server": "cross-env NODE_ENV=development  webpack --config webpack/webpack.config.server.js --mode development",
     "dev:cssflow": "css-modules-flow-types src -e scss --watch",
     "test": "npm-run-all test:*",
     "test:cssflow": "cross-env NODE_ENV=test css-modules-flow-types src -e scss",

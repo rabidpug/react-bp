@@ -7,6 +7,7 @@ import { hot, } from 'react-hot-loader';
 import navMenu from 'Routes/navMenu';
 import { renderRoutes, } from 'react-router-config';
 import styles from './App.scss';
+
 const { Content, } = Layout;
 
 const App = () => (

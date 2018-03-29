@@ -19,7 +19,6 @@ const googleStrategy =
         id, name, photos,
       } = profile;
 
-      // See if this user already exists
       User.findOne(
         { 'google.id': id, }, (
           e, user
@@ -49,7 +48,7 @@ const googleStrategy =
                 );
               } else {
                 done(
-                  null, user
+                  null, newUser
                 );
               }
             } );
