@@ -42,26 +42,27 @@ const passConfig = passport => {
     }
   ) );
 
-  passport.use( new GoogleStrategy(
-    googleOpts, (
-      request, accessToken, refreshToken, profile, done
-    ) => {
-    // See if this user already exists
-      let user = User.getUserByExternalId(
-        'google', profile.id
-      );
+  googleOpts.clientID &&
+    passport.use( new GoogleStrategy(
+      googleOpts, (
+        request, accessToken, refreshToken, profile, done
+      ) => {
+      // See if this user already exists
+        let user = User.getUserByExternalId(
+          'google', profile.id
+        );
 
-      if ( !user ) {
-      // They don't, so register them
-        user = User.createUser(
-          profile.displayName, 'google', profile.id
+        if ( !user ) {
+        // They don't, so register them
+          user = User.createUser(
+            profile.displayName, 'google', profile.id
+          );
+        }
+        return done(
+          null, user
         );
       }
-      return done(
-        null, user
-      );
-    }
-  ) );
+    ) );
 };
 
 export const getToken = headers => {
