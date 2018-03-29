@@ -49,6 +49,12 @@ exports[`App Should render the App 1`] = `
           path="/register"
           render={[Function]}
         />
+        <Route
+          exact={false}
+          key="4"
+          path="*"
+          render={[Function]}
+        />
       </Switch>
     </Adapter>
   </Adapter>

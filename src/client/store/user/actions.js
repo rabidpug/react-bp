@@ -9,6 +9,7 @@ import { authEndpointRoute, } from 'Shared/routes';
 import axios from 'axios';
 import { createAction, } from 'redux-actions';
 import { push, } from 'react-router-redux';
+import queryString from 'query-string';
 import store from '..';
 
 export const authSuccess = createAction( AUTH_SUCCESS );
@@ -21,8 +22,8 @@ export const authUser = (
 ) => dispatch => {
   dispatch( authRequest() );
 
-  const params = new URLSearchParams( store.getState().routing.location.search );
-  const redirect = params.get( 'redirect' ) || '/';
+  const params = queryString.parse( store.getState().routing.location.search );
+  const { redirect = '/', } = params;
 
   axios
     .post(

@@ -9,7 +9,7 @@ describe(
         request( app )
           .get( helloEndpointRoute( 123 ) )
           .then( result => {
-            expect( result.body ).toEqual( { message: 'Hello from the server! (received 123)', } );
+            expect( result.body ).toEqual( {} );
 
             done();
           } )
