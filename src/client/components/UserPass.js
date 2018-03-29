@@ -65,6 +65,18 @@ const UserPassRaw = ( {
         </Button>
         <p>{authMessage}</p>
       </Item>
+      <Item>
+        <Button
+          className='login-form-button'
+          href='api/auth/google'
+          htmlType='button'
+          icon='google'
+          loading={ isGettingAuth }
+          type='dashed'>
+          {'Sign In With Google'}
+        </Button>
+        <p>{authMessage}</p>
+      </Item>
     </Form>
   );
 };

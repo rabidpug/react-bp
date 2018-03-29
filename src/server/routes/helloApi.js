@@ -1,4 +1,4 @@
-import { getToken, } from '../config/passConfig';
+import { getToken, } from '../config/helpers';
 import { helloEndpointRoute, } from 'Shared/routes';
 import passport from 'passport';
 const helloApi = app => {

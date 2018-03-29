@@ -1,6 +1,7 @@
 import User from '../models/User';
 import express from 'express';
 import jwt from 'jsonwebtoken';
+import passport from '../config/passport';
 import settings from '../config/settings';
 const auth = express.Router();
 
@@ -64,6 +65,38 @@ auth.post(
         }
       }
     );
+  }
+);
+
+auth.get(
+  '/google',
+  passport.authenticate(
+    'google', { scope   : [ 'profile', ],
+                session : false, }
+  )
+);
+
+auth.get(
+  '/google/callback',
+  passport.authenticate(
+    'google', { failureRedirect : '/login',
+                session         : false, }
+  ),
+  (
+    req, res
+  ) => {
+    const token = jwt.sign(
+      req.user.toJSON(), settings.secret
+    );
+    const htmlRedirector = `
+    <html>
+      <script>
+        window.localStorage.setItem('JWT', 'JWT ${token}');
+        window.location.href = '/';
+      </script>
+    </html>`;
+
+    res.send( htmlRedirector );
   }
 );
 
