@@ -9,3 +9,6 @@ export const Login = Loadable( { loader  : () => import( /*webpackChunkName: "Lo
                                  loading : Loading, } );
 export const Register = Loadable( { loader  : () => import( /*webpackChunkName: "Register" */ 'Containers/RegisterUserPass' ),
                                     loading : Loading, } );
+
+export const UserProfile = Loadable( { loader  : () => import( /*webpackChunkName: "UserProfile" */ 'Containers/UserProfile' ),
+                                       loading : Loading, } );

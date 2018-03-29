@@ -2,6 +2,7 @@ import {
   Home,
   Login,
   Register,
+  UserProfile,
   Welcome,
 } from 'Containers/Loadables';
 
@@ -52,6 +53,11 @@ const content = [
     component : userIsNotAuthenticated( Register ),
     exact     : true,
     path      : '/register',
+  },
+  {
+    component : userIsAuthenticated( UserProfile ),
+    exact     : true,
+    path      : '/profile',
   },
   {
     component : NotFound,

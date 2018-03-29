@@ -1,8 +1,14 @@
 import bcrypt from 'bcrypt-nodejs';
 import mongoose from 'mongoose';
 const UserSchema = mongoose.Schema( {
-  firstName: { required : false,
-               type     : String, },
+  facebook: { id: {
+    index    : true,
+    required : false,
+    sparse   : true,
+    trim     : true,
+    type     : String,
+    unique   : true,
+  }, },
   google: { id: {
     index    : true,
     required : false,
@@ -11,8 +17,6 @@ const UserSchema = mongoose.Schema( {
     type     : String,
     unique   : true,
   }, },
-  lastName: { required : false,
-              type     : String, },
   local: { password: { required : false,
                        type     : String, },
            username: {
@@ -23,8 +27,19 @@ const UserSchema = mongoose.Schema( {
              type     : String,
              unique   : true,
            }, },
-  photos: { required : false,
-            type     : Array, },
+  profile: {
+    firstName: { required : false,
+                 type     : String, },
+    lastName: { required : false,
+                type     : String, },
+    photos: { required : false,
+              type     : Array, },
+    providers: {
+      facebook : { type: Boolean, },
+      google   : { type: Boolean, },
+      local    : { type: Boolean, },
+    },
+  },
 } );
 
 function saveUser ( next ) {

@@ -14,6 +14,8 @@ export const authSuccessReducer = (
   state.isGettingAuth = false;
 
   state.token = payload.token;
+
+  state.profile = payload.profile;
 };
 
 export const authRequestReducer = state => {

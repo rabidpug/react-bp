@@ -15,8 +15,11 @@ auth.post(
       res.json( { msg     : 'Username and password required',
                   success : false, } );
     } else {
-      const newUser = new User( { 'local.password' : password,
-                                  'local.username' : username, } );
+      const newUser = new User( {
+        'local.password'          : password,
+        'local.username'          : username,
+        'profile.providers.local' : true,
+      } );
 
       newUser.save( e => {
         if ( e ) {
@@ -29,6 +32,21 @@ auth.post(
       } );
     }
   }
+);
+
+auth.post(
+  '/usercheck', (
+    req, res
+  ) =>
+    User.findOne(
+      { 'local.username': req.body.username, }, (
+        e, user
+      ) => {
+        if ( e ) throw e;
+        if ( user ) res.json( { userExists: true, } );
+        else res.json( { userExists: false, } );
+      }
+    )
 );
 
 auth.post(
@@ -51,8 +69,11 @@ auth.post(
                   user.toJSON(), settings.secret
                 );
 
-                res.json( { success : true,
-                            token   : `JWT ${token}`, } );
+                res.json( {
+                  profile : user.profile,
+                  success : true,
+                  token   : `JWT ${token}`,
+                } );
               } else {
                 res.status( 401 ).send( { msg     : 'Incorrect password!',
                                           success : false, } );
@@ -71,8 +92,11 @@ auth.post(
 auth.get(
   '/google',
   passport.authenticate(
-    'google', { scope   : [ 'profile', ],
-                session : false, }
+    'google', { scope: [
+      'https://www.googleapis.com/auth/plus.login',
+      'https://www.googleapis.com/auth/plus.profile.emails.read',
+    ],
+                session: false, }
   )
 );
 
@@ -88,10 +112,51 @@ auth.get(
     const token = jwt.sign(
       req.user.toJSON(), settings.secret
     );
+    const { profile, } = req.user;
+
     const htmlRedirector = `
     <html>
       <script>
         window.localStorage.setItem('JWT', 'JWT ${token}');
+        window.localStorage.setItem('profile', JSON.stringify(${profile}));
+        window.location.href = '/';
+      </script>
+    </html>`;
+
+    res.send( htmlRedirector );
+  }
+);
+
+auth.get(
+  '/facebook',
+  passport.authenticate(
+    'facebook', { scope: [
+      'email',
+      'public_profile',
+    ],
+                  session: false, }
+  )
+);
+
+auth.get(
+  '/facebook/callback',
+  passport.authenticate(
+    'facebook', { failureRedirect : '/login',
+                  session         : false, }
+  ),
+  (
+    req, res
+  ) => {
+    const token = jwt.sign(
+      req.user.toJSON(), settings.secret
+    );
+    const { profile, } = req.user;
+
+    const htmlRedirector = `
+    <html>
+      <script>
+        window.localStorage.setItem('JWT', 'JWT ${token}');
+        window.localStorage.setItem('profile', JSON.stringify(${profile}));
         window.location.href = '/';
       </script>
     </html>`;

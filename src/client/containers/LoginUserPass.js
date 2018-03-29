@@ -2,6 +2,7 @@
 
 import { getAuthMessage, getIsGettingAuth, } from 'Store/user/selectors';
 
+import FadeWrap from '../animations/FadeWrap';
 import UserPass from '../components/UserPass';
 import { authUser, } from 'Store/user/actions';
 import { connect, } from 'react-redux';
@@ -12,7 +13,7 @@ const mapStateToProps = state => ( {
   isGettingAuth : getIsGettingAuth( state ),
 } );
 
-const mapDispatchToProps = dispatch => ( { handleSubmit ( payload ) {
+const mapDispatchToProps = dispatch => ( { onSubmit ( payload ) {
   dispatch( authUser(
     'login', payload
   ) );
@@ -20,6 +21,6 @@ const mapDispatchToProps = dispatch => ( { handleSubmit ( payload ) {
 
 const LoginUserPass = connect(
   mapStateToProps, mapDispatchToProps
-)( UserPass );
+)( FadeWrap( UserPass ) );
 
 export default LoginUserPass;

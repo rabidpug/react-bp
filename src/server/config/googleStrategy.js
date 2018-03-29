@@ -13,7 +13,7 @@ const googleStrategy =
   googleOpts.clientID &&
   new GoogleStrategy(
     googleOpts, (
-      request, accessToken, refreshToken, profile, done
+      req, accessToken, refreshToken, profile, done
     ) => {
       const {
         id, name, photos,
@@ -35,10 +35,11 @@ const googleStrategy =
             );
           } else {
             const newUser = new User( {
-              firstName   : name.givenName,
-              'google.id' : id,
-              lastName    : name.familyName,
-              photos,
+              'google.id'                : id,
+              'profile.firstName'        : name.givenName,
+              'profile.lastName'         : name.familyName,
+              'profile.photos'           : photos,
+              'profile.providers.google' : true,
             } );
 
             newUser.save( e => {

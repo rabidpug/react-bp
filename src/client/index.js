@@ -15,11 +15,15 @@ import { persistStore, } from 'redux-persist';
 const persistor = persistStore(
   store, null, () => {
     const token = localStorage.getItem( 'JWT' );
+    const profile = localStorage.getItem( 'profile' );
 
     if ( token ) {
-      store.dispatch( authSuccess( { token, } ) );
+      store.dispatch( authSuccess( { profile: profile && JSON.parse( profile ),
+                                     token, } ) );
 
       localStorage.removeItem( 'JWT' );
+
+      localStorage.removeItem( 'profile' );
     }
   }
 );

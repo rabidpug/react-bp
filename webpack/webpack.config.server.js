@@ -66,9 +66,9 @@ const config = {
     ),
   },
              extensions: [
-      '.less',
-      '.js',
-    ], },
+               '.less',
+               '.js',
+             ], },
   target : 'node',
   watch  : !isProd,
 };
