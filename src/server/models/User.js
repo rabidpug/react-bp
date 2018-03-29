@@ -3,18 +3,14 @@ import mongoose from 'mongoose';
 const UserSchema = mongoose.Schema( {
   firstName: { required : false,
                type     : String, },
-  google: { id: {
-    required : false,
-    type     : String,
-  }, },
+  google: { id: { required : false,
+                  type     : String, }, },
   lastName: { required : false,
               type     : String, },
   local: { password: { required : false,
                        type     : String, },
-           username: {
-      required : false,
-      type     : String,
-    }, },
+           username: { required : false,
+                       type     : String, }, },
   photos: { required : false,
             type     : Array, },
 } );
