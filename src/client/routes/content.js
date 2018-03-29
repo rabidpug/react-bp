@@ -6,6 +6,7 @@ import {
 } from 'Containers/Loadables';
 
 import Loading from 'Components/Loading';
+import NotFound from 'Scenes/NotFound';
 import { connectedReduxRedirect, } from 'redux-auth-wrapper/history4/redirect';
 import { replace, } from 'react-router-redux';
 
@@ -19,6 +20,7 @@ const userIsAuthenticated = connectedReduxRedirect( {
   redirectPath       : '/login',
   wrapperDisplayName : 'userIsAuthenticated',
 } );
+
 const userIsNotAuthenticated = connectedReduxRedirect( {
   AuthenticatingComponent : Loading,
   authenticatedSelector   : state => !state.user.token,
@@ -50,6 +52,11 @@ const content = [
     component : userIsNotAuthenticated( Register ),
     exact     : true,
     path      : '/register',
+  },
+  {
+    component : NotFound,
+    exact     : false,
+    path      : '*',
   },
 ];
 

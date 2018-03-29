@@ -4,3 +4,4 @@ export const getAuthMessage = createSelector( [ 'user.authMessage', ] );
 export const getIsAuthenticated = createSelector(
   [ 'user.token', ], token => !!token
 );
+export const getJWTToken = createSelector( [ 'user.token', ] );

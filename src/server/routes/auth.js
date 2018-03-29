@@ -1,12 +1,8 @@
 import User from '../models/User';
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import passConfig from '../config/passConfig';
-import passport from 'passport';
 import settings from '../config/settings';
 const auth = express.Router();
-
-passConfig( passport );
 
 auth.post(
   '/register', (

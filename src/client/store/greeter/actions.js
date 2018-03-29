@@ -8,13 +8,17 @@ import {
 
 import axios from 'axios';
 import { createAction, } from 'redux-actions';
+import { getJWTToken, } from '../user/selectors';
 import { helloEndpointRoute, } from 'Shared/routes';
+import store from '..';
 
 export const sayHelloRequest = createAction( SAY_HELLO_REQUEST );
 export const sayHelloSuccess = createAction( SAY_HELLO_SUCCESS );
 export const sayHelloFailure = createAction( SAY_HELLO_FAILURE );
 export const sayHello: Function = ( num: number ) => ( dispatch: Function ) => {
   dispatch( sayHelloRequest() );
+
+  axios.defaults.headers.common.Authorization = getJWTToken( store.getState() );
 
   axios
     .get( helloEndpointRoute( num ) )

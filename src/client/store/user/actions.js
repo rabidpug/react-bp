@@ -9,6 +9,7 @@ import { authEndpointRoute, } from 'Shared/routes';
 import axios from 'axios';
 import { createAction, } from 'redux-actions';
 import { push, } from 'react-router-redux';
+import store from '..';
 
 export const authSuccess = createAction( AUTH_SUCCESS );
 export const authFailure = createAction( AUTH_FAILURE );
@@ -19,6 +20,9 @@ export const authUser = (
   authType, payload
 ) => dispatch => {
   dispatch( authRequest() );
+
+  const params = new URLSearchParams( store.getState().routing.location.search );
+  const redirect = params.get( 'redirect' ) || '/';
 
   axios
     .post(
@@ -32,7 +36,7 @@ export const authUser = (
           dispatch( authUser(
             'login', payload
           ) );
-        } else dispatch( push( '/' ) );
+        } else dispatch( push( redirect ) );
       } else dispatch( authFailure( res.data ) );
     } )
     .catch( e => dispatch( authFailure( e.response.data ) ) );

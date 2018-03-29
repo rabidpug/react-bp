@@ -7,6 +7,8 @@ import express from 'express';
 import helloApi from './routes/helloApi';
 import logger from 'morgan';
 import mongoose from 'mongoose';
+import passConfig from './config/passConfig';
+import passport from 'passport';
 
 mongoose.Promise = bluebird;
 
@@ -21,6 +23,10 @@ mongoose
 
 const app = express(),
   isDev = NODE_ENV === 'development';
+
+passConfig( passport );
+
+app.use( passport.initialize() );
 
 app.use( logger( 'dev' ) );
 
