@@ -6,7 +6,6 @@ const UserSchema = mongoose.Schema( {
   google: { id: {
     required : false,
     type     : String,
-    unique   : true,
   }, },
   lastName: { required : false,
               type     : String, },
@@ -15,7 +14,6 @@ const UserSchema = mongoose.Schema( {
            username: {
       required : false,
       type     : String,
-      unique   : true,
     }, },
   photos: { required : false,
             type     : Array, },
