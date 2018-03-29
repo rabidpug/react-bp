@@ -1,17 +1,22 @@
 import bcrypt from 'bcrypt-nodejs';
 import mongoose from 'mongoose';
-const UserSchema = mongoose.Schema( { password: { required : true,
-                                                  type     : String, },
-                                      username: {
-    required : true,
-    type     : String,
-    unique   : true,
-  }, } );
+const UserSchema = mongoose.Schema( { google: { id: {
+  required : false,
+  type     : String,
+  unique   : true,
+}, },
+                                      local: { password: { required : false,
+                                                           type     : String, },
+                                               username: {
+      required : false,
+      type     : String,
+      unique   : true,
+    }, }, } );
 
 function saveUser ( next ) {
   const user = this;
 
-  if ( this.isModified( 'password' ) || this.isNew ) {
+  if ( this.isModified( 'local.password' ) || this.isNew ) {
     bcrypt.genSalt(
       10, (
         err, salt
@@ -19,12 +24,12 @@ function saveUser ( next ) {
         if ( err ) return next( err );
 
         bcrypt.hash(
-          user.password, salt, null, (
+          user.local.password, salt, null, (
             err, hash
           ) => {
             if ( err ) return next( err );
 
-            user.password = hash;
+            user.local.password = hash;
 
             next();
           }
@@ -37,7 +42,7 @@ function comparePassword (
   passw, cb
 ) {
   bcrypt.compare(
-    passw, this.password, (
+    passw, this.local.password, (
       err, isMatch
     ) => {
       if ( err ) return cb( err );

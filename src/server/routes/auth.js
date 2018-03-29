@@ -8,12 +8,14 @@ auth.post(
   '/register', (
     req, res
   ) => {
-    if ( !req.body.username || !req.body.password ) {
+    const { username, password, } = req.body;
+
+    if ( !username || !password ) {
       res.json( { msg     : 'Username and password required',
                   success : false, } );
     } else {
-      const newUser = new User( { password : req.body.password,
-                                  username : req.body.username, } );
+      const newUser = new User( { 'local.password' : password,
+                                  'local.username' : username, } );
 
       newUser.save( e => {
         if ( e ) {
@@ -33,7 +35,7 @@ auth.post(
     req, res
   ) => {
     User.findOne(
-      { username: req.body.username, }, (
+      { 'local.username': req.body.username, }, (
         e, user
       ) => {
         if ( e ) throw e;
