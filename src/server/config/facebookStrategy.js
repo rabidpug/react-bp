@@ -1,12 +1,20 @@
+/*eslint-disable camelcase */
 import FacebookStrategy from 'passport-facebook';
 import User from '../models/User';
 
 const { FACEBOOK_CLIENT_ID, FACEBOOK_CLIENT_SECRET, } = process.env;
 
 const facebookOpts = {
-  callbackURL  : '/api/auth/facebook/callback',
-  clientID     : FACEBOOK_CLIENT_ID,
-  clientSecret : FACEBOOK_CLIENT_SECRET,
+  callbackURL   : '/api/auth/facebook/callback',
+  clientID      : FACEBOOK_CLIENT_ID,
+  clientSecret  : FACEBOOK_CLIENT_SECRET,
+  profileFields : [
+    'id',
+    'first_name',
+    'last_name',
+    'email',
+    'photos',
+  ],
 };
 
 const facebookStrategy =
@@ -18,7 +26,7 @@ const facebookStrategy =
     console.log(profile); //eslint-disable-line
 
       const {
-        id, name, photos,
+        id, first_name, last_name, photos,
       } = profile;
 
       User.findOne(
@@ -38,8 +46,8 @@ const facebookStrategy =
           } else {
             const newUser = new User( {
               'facebook.id'                : id,
-              'profile.firstName'          : name.givenName,
-              'profile.lastName'           : name.familyName,
+              'profile.firstName'          : first_name,
+              'profile.lastName'           : last_name,
               'profile.photos'             : photos,
               'profile.providers.facebook' : true,
             } );
