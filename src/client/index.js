@@ -12,7 +12,7 @@ import ReactDOM from 'react-dom';
 import { authSuccess, } from 'Store/user/actions';
 import { persistStore, } from 'redux-persist';
 
-// import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker';
 
 const persistor = persistStore(
   store, null, () => {
@@ -51,4 +51,4 @@ ReactDOM.render(
   document.getElementById( 'root' )
 );
 
-// registerServiceWorker();
+registerServiceWorker();

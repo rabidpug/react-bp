@@ -47,6 +47,7 @@ const prodPlugs = [
     },
     minify                        : true,
     navigateFallback              : '/index.html',
+    navigateFallbackWhitelist     : [ /^(?!.*api)/, ],
     staticFileGlobsIgnorePatterns : [
       /\.map$/,
       /asset-manifest\.json$/,
