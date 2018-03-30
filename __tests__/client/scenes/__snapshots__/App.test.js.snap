@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App Should render the App 1`] = `
+<Adapter
+  className="layoutStyle"
+>
+  <Switch>
+    <Route
+      key="0"
+      path="*"
+      render={[Function]}
+    />
+  </Switch>
+  <Adapter>
+    <Switch>
+      <Switch>
+        <Route
+          key="0"
+          path="*"
+          render={[Function]}
+        />
+      </Switch>
+    </Switch>
+    <Adapter
+      className="bodyStyle"
+    >
+      <Switch>
+        <Route
+          exact={true}
+          key="0"
+          path="/"
+          render={[Function]}
+        />
+        <Route
+          exact={true}
+          key="1"
+          path="/welcome"
+          render={[Function]}
+        />
+        <Route
+          exact={true}
+          key="2"
+          path="/login"
+          render={[Function]}
+        />
+        <Route
+          exact={true}
+          key="3"
+          path="/register"
+          render={[Function]}
+        />
+        <Route
+          exact={true}
+          key="4"
+          path="/profile"
+          render={[Function]}
+        />
+        <Route
+          exact={false}
+          key="5"
+          path="*"
+          render={[Function]}
+        />
+      </Switch>
+    </Adapter>
+  </Adapter>
+</Adapter>
+`;

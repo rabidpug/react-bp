@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TopBar Should render the TopBar 1`] = `
+<Animate
+  enter={
+    Object {
+      "opacity": Array [
+        1,
+      ],
+      "timing": Object {
+        "duration": 300,
+        "ease": [Function],
+      },
+    }
+  }
+  leave={
+    Array [
+      Object {
+        "opacity": Array [
+          0,
+        ],
+        "timing": Object {
+          "duration": 300,
+          "ease": [Function],
+        },
+      },
+    ]
+  }
+  show={true}
+  start={
+    Object {
+      "opacity": 0,
+    }
+  }
+  update={
+    Object {
+      "opacity": Array [
+        1,
+      ],
+      "timing": Object {
+        "duration": 500,
+        "ease": [Function],
+      },
+    }
+  }
+/>
+`;

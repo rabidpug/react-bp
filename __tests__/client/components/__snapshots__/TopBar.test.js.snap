@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TopBar Should render the TopBar 1`] = `
+<Adapter
+  style={
+    Object {
+      "background": "#fff",
+      "padding": 0,
+    }
+  }
+>
+  <Button
+    className="trigger"
+    ghost={false}
+    icon="menu-fold"
+    loading={false}
+    prefixCls="ant-btn"
+  />
+  <Menu
+    className="topBarMenu"
+    mode="horizontal"
+    onClick={[Function]}
+    prefixCls="ant-menu"
+    selectedKeys={
+      Array [
+        undefined,
+      ]
+    }
+    theme="light"
+  />
+</Adapter>
+`;
