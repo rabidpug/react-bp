@@ -1,10 +1,10 @@
+import { NODE_ENV, PORT, } from 'Shared/env';
+
 /*eslint-disable no-console */
 import { Server, } from 'http';
 import app from './server';
 import setUpSocket from './config/socket';
 import socketIO from 'socket.io';
-
-const { NODE_ENV, PORT, } = process.env;
 const isDev = NODE_ENV !== 'production';
 
 const SERVER_PORT = PORT || 8080;

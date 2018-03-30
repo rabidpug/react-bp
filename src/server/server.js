@@ -1,3 +1,5 @@
+import { MONGODB_URI, NODE_ENV, } from 'Shared/env';
+
 /*eslint-disable no-console */
 import authApi from './routes/authApi';
 import bluebird from 'bluebird';
@@ -10,10 +12,9 @@ import helloApi from './routes/helloApi';
 import logger from 'morgan';
 import mongoose from 'mongoose';
 import passport from './config/passport';
+import path from 'path';
 
 mongoose.Promise = bluebird;
-
-const { NODE_ENV, MONGODB_URI, } = process.env;
 
 mongoose
   .connect(
@@ -40,10 +41,18 @@ authApi( app );
 helloApi( app );
 
 app.use(
-  '/api/*', (
+  '*service-worker.js', (
     req, res
   ) => {
-    res.statusCode( 404 );
+    res.set(
+      'content-type', 'application/javascript'
+    );
+
+    res.send( path.resolve(
+      __dirname, 'service-worker.js'
+    ) );
+
+    res.end();
   }
 );
 

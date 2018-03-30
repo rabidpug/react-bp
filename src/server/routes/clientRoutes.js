@@ -1,7 +1,7 @@
+import { NODE_ENV, } from 'Shared/env';
 import express from 'express';
 import favicon from 'serve-favicon';
 import path from 'path';
-const { NODE_ENV, } = process.env;
 const clientRoutes = app => {
   const HTML_FILE = path.resolve(
     __dirname, 'index.html'
@@ -21,7 +21,9 @@ const clientRoutes = app => {
         'content-type', 'text/html'
       );
 
-      res.sendFile( HTML_FILE );
+      res.send( HTML_FILE );
+
+      res.end();
     }
   );
 };
