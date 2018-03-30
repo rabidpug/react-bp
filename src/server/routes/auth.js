@@ -1,8 +1,8 @@
+import { PASSPORT_SECRET, } from 'Shared/env';
 import User from '../models/User';
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import passport from '../config/passport';
-import settings from '../config/settings';
 const auth = express.Router();
 
 auth.post(
@@ -66,7 +66,7 @@ auth.post(
             ) => {
               if ( isMatch && !e ) {
                 const token = jwt.sign(
-                  user.toJSON(), settings.secret
+                  user.toJSON(), PASSPORT_SECRET || 'secret'
                 );
 
                 res.json( {
@@ -110,7 +110,7 @@ auth.get(
     req, res
   ) => {
     const token = jwt.sign(
-      req.user.toJSON(), settings.secret
+      req.user.toJSON(), PASSPORT_SECRET || 'secret'
     );
     const { profile, } = req.user;
 
@@ -148,7 +148,7 @@ auth.get(
     req, res
   ) => {
     const token = jwt.sign(
-      req.user.toJSON(), settings.secret
+      req.user.toJSON(), PASSPORT_SECRET || 'secret'
     );
     const { profile, } = req.user;
 

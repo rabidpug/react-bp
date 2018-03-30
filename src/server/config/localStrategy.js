@@ -1,10 +1,10 @@
 import { ExtractJwt, Strategy as JWTStrategy, } from 'passport-jwt';
 
+import { PASSPORT_SECRET, } from 'Shared/env';
 import User from '../models/User';
-import settings from './settings';
 
 const jwtOpts = { jwtFromRequest : ExtractJwt.fromAuthHeaderWithScheme( 'jwt' ),
-                  secretOrKey    : settings.secret, };
+                  secretOrKey    : PASSPORT_SECRET || 'secret', };
 
 const localStrategy = new JWTStrategy(
   jwtOpts, (
