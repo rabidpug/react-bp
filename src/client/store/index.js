@@ -4,6 +4,7 @@ import createHistory from 'history/createBrowserHistory';
 import { persistReducer, } from 'redux-persist';
 import rootReducer from './rootReducer';
 import { routerMiddleware, } from 'react-router-redux';
+import setUpSocket from '../socket';
 import storage from 'redux-persist/lib/storage';
 
 const persistConfig = { key: 'root',
@@ -20,5 +21,7 @@ const store = configureStore( {
   middleware,
   reducer,
 } );
+
+setUpSocket( store );
 
 export default store;

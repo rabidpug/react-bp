@@ -1,5 +1,7 @@
 import { Server, } from 'http';
 import app from './server';
+import setUpSocket from './config/socket';
+import socketIO from 'socket.io';
 
 const { NODE_ENV, PORT, } = process.env;
 const isDev = NODE_ENV !== 'production';
@@ -9,6 +11,9 @@ const SERVER_HOST = PORT ? '0.0.0.0' : 'localhost';
 
 const server = Server( app );
 let currentApp = app;
+const io = socketIO( server );
+
+setUpSocket( io );
 
 server.listen(
   SERVER_PORT,

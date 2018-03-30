@@ -2,6 +2,7 @@ import authApi from './routes/authApi';
 import bluebird from 'bluebird';
 import bodyParser from 'body-parser';
 import clientRoutes from './routes/clientRoutes';
+import compression from 'compression';
 import dev from './routes/dev';
 import express from 'express';
 import helloApi from './routes/helloApi';
@@ -22,6 +23,8 @@ mongoose
 
 const app = express(),
   isDev = NODE_ENV === 'development';
+
+app.use( compression() );
 
 app.use( passport.initialize() );
 

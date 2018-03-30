@@ -41,7 +41,9 @@
     "redux-auth-wrapper": "^2.0.2",
     "redux-persist": "^5.9.1",
     "redux-thunk": "^2.2.0",
-    "serve-favicon": "^2.4.5"
+    "serve-favicon": "^2.4.5",
+    "socket.io": "^2.1.0",
+    "socket.io-client": "^2.1.0"
   },
   "description": "A react boilerplate",
   "devDependencies": {
@@ -123,7 +125,10 @@
     "webpack-node-externals": "^1.6.0"
   },
   "homepage": "https://github.com/rabidpug/react-bp#readme",
-  "keywords": ["react", "boilerplate"],
+  "keywords": [
+    "react",
+    "boilerplate"
+  ],
   "license": "ISC",
   "main": "index.js",
   "name": "react-bp",
@@ -133,12 +138,10 @@
   },
   "scripts": {
     "build": "npm-run-all clean build:*",
-    "build:client":
-      "cross-env NODE_ENV=production webpack --config webpack/webpack.config.client.js --mode production --progress",
+    "build:client": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.client.js --mode production --progress",
     "build:server": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.server.js --mode production",
     "dev": "npm-run-all clean dev:* --parallel",
-    "dev:server":
-      "cross-env NODE_ENV=development  webpack --config webpack/webpack.config.server.js --mode development",
+    "dev:server": "cross-env NODE_ENV=development  webpack --config webpack/webpack.config.server.js --mode development",
     "dev:cssflow": "css-modules-flow-types src -e scss --watch",
     "test": "npm-run-all test:*",
     "test:cssflow": "cross-env NODE_ENV=test css-modules-flow-types src -e scss",
