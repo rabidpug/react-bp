@@ -15,6 +15,8 @@ const facebookStrategy =
     facebookOpts, (
       accessToken, refreshToken, profile, done
     ) => {
+    console.log(profile); //eslint-disable-line
+
       const {
         id, name, photos,
       } = profile;
