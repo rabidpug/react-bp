@@ -3,12 +3,7 @@ const ManifestPlugin = require( 'webpack-manifest-plugin' );
 const SWPrecacheWebpackPlugin = require( 'sw-precache-webpack-plugin' );
 const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
-const PurgecssPlugin = require( 'purgecss-webpack-plugin' );
 const path = require( 'path' );
-const glob = require( 'glob' );
-const PATHS = { src: path.join(
-  __dirname, '../src'
-), };
 
 const fs = require( 'fs' );
 const lessToJs = require( 'less-vars-to-js' );
@@ -52,9 +47,6 @@ const prodPlugs = [
     ],
   } ),
   new CopyWebpackPlugin( [ { from: 'src/client/pwa', }, ] ),
-  new PurgecssPlugin( { paths: glob.sync(
-    `${PATHS.src}/**/*`, { nodir: true, }
-  ), } ),
 ];
 const devPlugs = [ new webpack.HotModuleReplacementPlugin(), ];
 const cssLoader = isProd ? MiniCssExtractPlugin.loader : 'style-loader';
