@@ -19,8 +19,6 @@ const facebookStrategy =
         id, name, photos,
       } = profile;
 
-    console.log(profile); //eslint-disable-line
-
       User.findOne(
         { 'facebook.id': id, }, (
           e, user
