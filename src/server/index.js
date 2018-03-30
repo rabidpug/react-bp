@@ -1,21 +1,11 @@
 /*eslint-disable no-console */
 import { Server, } from 'http';
 import app from './server';
-import dotenv from 'dotenv';
-import path from 'path';
 import setUpSocket from './config/socket';
 import socketIO from 'socket.io';
 
 const { NODE_ENV, PORT, } = process.env;
 const isDev = NODE_ENV !== 'production';
-
-dotenv.config( path.resolve(
-  __dirname, '../.env'
-) );
-
-console.log(
-  NODE_ENV, PORT
-);
 
 const SERVER_PORT = PORT || 8080;
 const SERVER_HOST = PORT ? '0.0.0.0' : 'localhost';

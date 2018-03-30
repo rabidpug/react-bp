@@ -15,8 +15,6 @@ mongoose.Promise = bluebird;
 
 const { NODE_ENV, MONGODB_URI, } = process.env;
 
-console.log( MONGODB_URI );
-
 mongoose
   .connect(
     MONGODB_URI, { promiseLibrary: bluebird, }
@@ -40,6 +38,14 @@ app.use( bodyParser.urlencoded( { extended: 'false', } ) );
 authApi( app );
 
 helloApi( app );
+
+app.use(
+  '/api/*', (
+    req, res
+  ) => {
+    res.statusCode( 404 );
+  }
+);
 
 if ( isDev ) dev( app );
 else clientRoutes( app );
