@@ -169,19 +169,17 @@ class UserPassRaw extends Component {
             type='dashed'>
             {`Sign In With Google`}
           </Button>
-          {
-            <Item>
-              <Button
-                className={ styles.loginFormButton }
-                href='api/auth/facebook'
-                htmlType='button'
-                icon='facebook'
-                loading={ isGettingAuth }
-                type='dashed'>
-                {`${buttonLabel} With Facebook`}
-              </Button>
-            </Item>
-          }
+          <Item>
+            <Button
+              className={ styles.loginFormButton }
+              href='api/auth/facebook'
+              htmlType='button'
+              icon='facebook'
+              loading={ isGettingAuth }
+              type='dashed'>
+              {`${buttonLabel} With Facebook`}
+            </Button>
+          </Item>
         </Item>
         <Link to={ buttonLabel === 'Register' ? '/login' : '/register' }>{`${
           buttonLabel === 'Register' ? 'Log In' : 'Register'

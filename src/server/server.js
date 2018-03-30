@@ -25,6 +25,8 @@ mongoose
 const app = express(),
   isDev = NODE_ENV === 'development';
 
+app.enable( 'trust proxy' );
+
 app.use( compression() );
 
 app.use( passport.initialize() );
