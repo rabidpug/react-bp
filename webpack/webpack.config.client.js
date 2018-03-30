@@ -1,5 +1,8 @@
 const ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
 const HtmlWebPackPlugin = require( 'html-webpack-plugin' );
+const ManifestPlugin = require( 'webpack-manifest-plugin' );
+const SWPrecacheWebpackPlugin = require( 'sw-precache-webpack-plugin' );
+const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
 
 const fs = require( 'fs' );
 const lessToJs = require( 'less-vars-to-js' );
@@ -33,6 +36,23 @@ const prodPlugs = [
   extractSass,
   extractLess,
   extractCSS,
+  new ManifestPlugin( { fileName: 'asset-manifest.json', } ),
+  new SWPrecacheWebpackPlugin( {
+    dontCacheBustUrlsMatching : /\.\w{8}\./,
+    filename                  : 'service-worker.js',
+    logger ( message ) {
+      if ( message.indexOf( 'Total precache size is' ) === 0 ) return;
+
+      console.log(message); //eslint-disable-line
+    },
+    minify                        : true,
+    navigateFallback              : '/index.html',
+    staticFileGlobsIgnorePatterns : [
+      /\.map$/,
+      /asset-manifest\.json$/,
+    ],
+  } ),
+  new CopyWebpackPlugin( [ { from: 'src/client/pwa', }, ] ),
 ];
 const devPlugs = [ new webpack.HotModuleReplacementPlugin(), ];
 
@@ -62,44 +82,44 @@ module.exports = {
     { test : /\.(sass|scss)$/,
       use  : extractSass.extract( { fallback : 'style-loader',
                                     use      : [
-          { loader  : 'css-loader',
-            options : {
-              importLoaders : 2,
-              modules       : true,
-              sourceMap     : !isProd,
-            }, },
-          { loader  : 'postcss-loader',
-            options : { sourceMap: !isProd, }, },
-          { loader  : 'sass-loader',
-            options : { modules   : true,
-                        sourceMap : !isProd, }, },
-        ], } ), },
+                                      { loader  : 'css-loader',
+                                        options : {
+                                          importLoaders : 2,
+                                          modules       : true,
+                                          sourceMap     : !isProd,
+                                        }, },
+                                      { loader  : 'postcss-loader',
+                                        options : { sourceMap: !isProd, }, },
+                                      { loader  : 'sass-loader',
+                                        options : { modules   : true,
+                                                    sourceMap : !isProd, }, },
+                                    ], } ), },
     { test : /\.less$/,
       use  : extractLess.extract( { fallback : 'style-loader',
                                     use      : [
-          { loader  : 'css-loader',
-            options : { sourceMap: !isProd, }, },
-          { loader  : 'postcss-loader',
-            options : { sourceMap: !isProd, }, },
-          { loader  : 'less-loader',
-            options : {
-              javascriptEnabled : true,
-              modifyVars        : themeVariables,
-              sourceMap         : !isProd,
-            }, },
-        ], } ), },
+                                      { loader  : 'css-loader',
+                                        options : { sourceMap: !isProd, }, },
+                                      { loader  : 'postcss-loader',
+                                        options : { sourceMap: !isProd, }, },
+                                      { loader  : 'less-loader',
+                                        options : {
+                                          javascriptEnabled : true,
+                                          modifyVars        : themeVariables,
+                                          sourceMap         : !isProd,
+                                        }, },
+                                    ], } ), },
     { test : /\.css$/,
       use  : extractCSS.extract( { fallback : 'style-loader',
                                    use      : [
-          { loader  : 'css-loader',
-            options : {
-              importLoaders : 1,
-              modules       : true,
-              sourceMap     : !isProd,
-            }, },
-          { loader  : 'postcss-loader',
-            options : { sourceMap: !isProd, }, },
-        ], } ), },
+                                     { loader  : 'css-loader',
+                                       options : {
+                                         importLoaders : 1,
+                                         modules       : true,
+                                         sourceMap     : !isProd,
+                                       }, },
+                                     { loader  : 'postcss-loader',
+                                       options : { sourceMap: !isProd, }, },
+                                   ], } ), },
     {
       loader  : 'url-loader',
       options : { limit : 10000,
@@ -161,8 +181,8 @@ module.exports = {
     ),
   },
              extensions: [
-      '.less',
-      '.js',
-    ], },
+               '.less',
+               '.js',
+             ], },
   // watch: !isProd,
 };
