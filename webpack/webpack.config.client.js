@@ -1,12 +1,17 @@
-const ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
 const HtmlWebPackPlugin = require( 'html-webpack-plugin' );
 const ManifestPlugin = require( 'webpack-manifest-plugin' );
 const SWPrecacheWebpackPlugin = require( 'sw-precache-webpack-plugin' );
+const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
+const PurgecssPlugin = require( 'purgecss-webpack-plugin' );
+const path = require( 'path' );
+const glob = require( 'glob' );
+const PATHS = { src: path.join(
+  __dirname, '../src'
+), };
 
 const fs = require( 'fs' );
 const lessToJs = require( 'less-vars-to-js' );
-const path = require( 'path' );
 const webpack = require( 'webpack' );
 
 const dotenv = require( 'dotenv' );
@@ -19,12 +24,6 @@ const themeVariables = lessToJs( fs.readFileSync(
 ) );
 const ENV = process.env.NODE_ENV;
 const isProd = ENV === 'production';
-const extractSass = new ExtractTextPlugin( { disable  : !isProd,
-                                             filename : 'styles/[name].styles.css', } );
-const extractLess = new ExtractTextPlugin( { disable  : !isProd,
-                                             filename : 'styles/[name].theme.css', } );
-const extractCSS = new ExtractTextPlugin( { disable  : !isProd,
-                                            filename : 'styles/[name].other.css', } );
 
 const prodPlugs = [
   new HtmlWebPackPlugin( {
@@ -33,9 +32,8 @@ const prodPlugs = [
     template : './src/client/index.html',
     title    : projectTitle || 'configure env PROJECT_TITLE',
   } ),
-  extractSass,
-  extractLess,
-  extractCSS,
+  new MiniCssExtractPlugin( { chunkFilename : 'styles/[name].[id].css',
+                              filename      : 'styles/[name].css', } ),
   new ManifestPlugin( { fileName: 'asset-manifest.json', } ),
   new SWPrecacheWebpackPlugin( {
     dontCacheBustUrlsMatching : /\.\w{8}\./,
@@ -54,8 +52,12 @@ const prodPlugs = [
     ],
   } ),
   new CopyWebpackPlugin( [ { from: 'src/client/pwa', }, ] ),
+  new PurgecssPlugin( { paths: glob.sync(
+    `${PATHS.src}/**/*`, { nodir: true, }
+  ), } ),
 ];
 const devPlugs = [ new webpack.HotModuleReplacementPlugin(), ];
+const cssLoader = isProd ? MiniCssExtractPlugin.loader : 'style-loader';
 
 module.exports = {
   entry: { index: isProd
@@ -81,46 +83,46 @@ module.exports = {
       test    : /\.jsx$/,
     },
     { test : /\.(sass|scss)$/,
-      use  : extractSass.extract( { fallback : 'style-loader',
-                                    use      : [
-                                      { loader  : 'css-loader',
-                                        options : {
-                                          importLoaders : 2,
-                                          modules       : true,
-                                          sourceMap     : !isProd,
-                                        }, },
-                                      { loader  : 'postcss-loader',
-                                        options : { sourceMap: !isProd, }, },
-                                      { loader  : 'sass-loader',
-                                        options : { modules   : true,
-                                                    sourceMap : !isProd, }, },
-                                    ], } ), },
+      use  : [
+        { loader: cssLoader, },
+        { loader  : 'css-loader',
+          options : {
+            importLoaders : 2,
+            modules       : true,
+            sourceMap     : !isProd,
+          }, },
+        { loader  : 'postcss-loader',
+          options : { sourceMap: !isProd, }, },
+        { loader  : 'sass-loader',
+          options : { modules   : true,
+                      sourceMap : !isProd, }, },
+      ], },
     { test : /\.less$/,
-      use  : extractLess.extract( { fallback : 'style-loader',
-                                    use      : [
-                                      { loader  : 'css-loader',
-                                        options : { sourceMap: !isProd, }, },
-                                      { loader  : 'postcss-loader',
-                                        options : { sourceMap: !isProd, }, },
-                                      { loader  : 'less-loader',
-                                        options : {
-                                          javascriptEnabled : true,
-                                          modifyVars        : themeVariables,
-                                          sourceMap         : !isProd,
-                                        }, },
-                                    ], } ), },
+      use  : [
+        { loader: cssLoader, },
+        { loader  : 'css-loader',
+          options : { sourceMap: !isProd, }, },
+        { loader  : 'postcss-loader',
+          options : { sourceMap: !isProd, }, },
+        { loader  : 'less-loader',
+          options : {
+            javascriptEnabled : true,
+            modifyVars        : themeVariables,
+            sourceMap         : !isProd,
+          }, },
+      ], },
     { test : /\.css$/,
-      use  : extractCSS.extract( { fallback : 'style-loader',
-                                   use      : [
-                                     { loader  : 'css-loader',
-                                       options : {
-                                         importLoaders : 1,
-                                         modules       : true,
-                                         sourceMap     : !isProd,
-                                       }, },
-                                     { loader  : 'postcss-loader',
-                                       options : { sourceMap: !isProd, }, },
-                                   ], } ), },
+      use  : [
+        { loader: cssLoader, },
+        { loader  : 'css-loader',
+          options : {
+            importLoaders : 1,
+            modules       : true,
+            sourceMap     : !isProd,
+          }, },
+        { loader  : 'postcss-loader',
+          options : { sourceMap: !isProd, }, },
+      ], },
     {
       loader  : 'url-loader',
       options : { limit : 10000,
