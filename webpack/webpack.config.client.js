@@ -1,8 +1,11 @@
+/*eslint-disable camelcase */
+
 const HtmlWebPackPlugin = require( 'html-webpack-plugin' );
 const ManifestPlugin = require( 'webpack-manifest-plugin' );
 const SWPrecacheWebpackPlugin = require( 'sw-precache-webpack-plugin' );
 const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
+const OptimizeCssAssetsPlugin = require( 'optimize-css-assets-webpack-plugin' );
 const path = require( 'path' );
 
 const fs = require( 'fs' );
@@ -27,8 +30,8 @@ const prodPlugs = [
     template : './src/client/index.html',
     title    : projectTitle || 'configure env PROJECT_TITLE',
   } ),
-  new MiniCssExtractPlugin( { chunkFilename : 'styles/[name].[id].css',
-                              filename      : 'styles/[name].css', } ),
+  new MiniCssExtractPlugin( { chunkFilename : 'styles/[name].[hash].css',
+                              filename      : 'styles/[name].[hash].css', } ),
   new ManifestPlugin( { fileName: 'asset-manifest.json', } ),
   new SWPrecacheWebpackPlugin( {
     dontCacheBustUrlsMatching : /\.\w{8}\./,
@@ -47,6 +50,12 @@ const prodPlugs = [
     ],
   } ),
   new CopyWebpackPlugin( [ { from: 'src/client/pwa', }, ] ),
+  new OptimizeCssAssetsPlugin( {
+    assetNameRegExp     : /\.css$/g,
+    canPrint            : true,
+    cssProcessor        : require( 'cssnano' ),
+    cssProcessorOptions : { preset: 'advanced', },
+  } ),
 ];
 const devPlugs = [ new webpack.HotModuleReplacementPlugin(), ];
 const cssLoader = isProd ? MiniCssExtractPlugin.loader : 'style-loader';
@@ -138,7 +147,7 @@ module.exports = {
     test   : /[\\/]node_modules[\\/]/,
   }, }, }, },
   output: {
-    filename   : 'js/[name].bundle.js',
+    filename   : 'js/[name].bundle.[hash].js',
     path       : path.resolve( 'dist' ),
     publicPath : '/',
   },
