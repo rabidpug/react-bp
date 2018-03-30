@@ -6,6 +6,7 @@ import {
   IO_CONNECT,
   IO_DISCONNECT,
   IO_SERVER_HELLO,
+  IO_SERVER_RESPONSE,
 } from 'Shared/socket';
 
 /* eslint-disable no-console */
@@ -37,6 +38,10 @@ const setUpSocket = ( io: Object ) => {
       socket.on(
         IO_CLIENT_HELLO, clientMessage => {
           console.log( `[socket.io] Client: ${clientMessage}` );
+
+          io.emit(
+            IO_SERVER_RESPONSE, clientMessage
+          );
         }
       );
 

@@ -6,6 +6,7 @@ import {
   IO_CONNECT,
   IO_DISCONNECT,
   IO_SERVER_HELLO,
+  IO_SERVER_RESPONSE,
 } from 'Shared/socket';
 
 import socketIOClient from 'socket.io-client';
@@ -24,7 +25,7 @@ const setUpSocket = ( store: Object ) => {
       );
 
       socket.emit(
-        IO_CLIENT_HELLO, 'Hello!'
+        IO_CLIENT_HELLO, JSON.stringify( store.getState().user.profile )
       );
     }
   );
@@ -33,6 +34,10 @@ const setUpSocket = ( store: Object ) => {
     IO_SERVER_HELLO, serverMessage => {
       console.log( `[socket.io] Server: ${serverMessage}` );
     }
+  );
+
+  socket.on(
+    IO_SERVER_RESPONSE, serverMessage => console.log( serverMessage )
   );
 
   socket.on(
