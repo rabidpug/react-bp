@@ -48,7 +48,7 @@ app.get(
       'content-type', 'application/javascript'
     );
 
-    res.send( path.resolve(
+    res.sendFile( path.resolve(
       __dirname, 'service-worker.js'
     ) );
 
