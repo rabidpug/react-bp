@@ -40,7 +40,7 @@ authApi( app );
 
 helloApi( app );
 
-app.use(
+app.get(
   '*service-worker.js', (
     req, res
   ) => {
