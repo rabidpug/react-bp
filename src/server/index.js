@@ -11,7 +11,10 @@ const SERVER_HOST = PORT ? '0.0.0.0' : 'localhost';
 
 const server = Server( app );
 let currentApp = app;
-const io = socketIO( server );
+const io = socketIO(
+  server, { pingInterval : 3000,
+            pingTimeout  : 7000, }
+);
 
 setUpSocket( io );
 
