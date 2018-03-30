@@ -12,7 +12,6 @@ import helloApi from './routes/helloApi';
 import logger from 'morgan';
 import mongoose from 'mongoose';
 import passport from './config/passport';
-import path from 'path';
 
 mongoose.Promise = bluebird;
 
@@ -39,22 +38,6 @@ app.use( bodyParser.urlencoded( { extended: 'false', } ) );
 authApi( app );
 
 helloApi( app );
-
-app.get(
-  '*service-worker.js', (
-    req, res
-  ) => {
-    res.set(
-      'content-type', 'application/javascript'
-    );
-
-    res.sendFile( path.resolve(
-      __dirname, 'service-worker.js'
-    ) );
-
-    res.end();
-  }
-);
 
 if ( isDev ) dev( app );
 else clientRoutes( app );
