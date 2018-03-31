@@ -26,7 +26,7 @@ const facebookStrategy =
     console.log(profile); //eslint-disable-line
 
       const {
-        id, first_name, last_name, picture,
+        id, first_name, last_name, photos,
       } = profile;
 
       User.findOne(
@@ -48,7 +48,7 @@ const facebookStrategy =
               'facebook.id'                : id,
               'profile.firstName'          : first_name,
               'profile.lastName'           : last_name,
-              'profile.photos'             : picture,
+              'profile.photos'             : photos,
               'profile.providers.facebook' : true,
             } );
 
