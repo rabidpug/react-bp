@@ -12,6 +12,7 @@ const facebookOpts = {
     'id',
     'first_name',
     'last_name',
+    'profile_pic',
     'email',
     'photos',
   ],
