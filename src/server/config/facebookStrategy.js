@@ -13,7 +13,7 @@ const facebookOpts = {
     'first_name',
     'last_name',
     'email',
-    'photos',
+    'picture.type(large)',
   ],
 };
 
