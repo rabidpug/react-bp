@@ -21,7 +21,7 @@ const clientRoutes = app => {
         'content-type', 'text/html'
       );
 
-      res.send( HTML_FILE );
+      res.sendFile( HTML_FILE );
 
       res.end();
     }
