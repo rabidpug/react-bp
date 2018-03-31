@@ -13,7 +13,7 @@ const ProfileCard = ( {
         ? <img
           alt='No Picture'
           src={ photos[0].value.replace(
-            'sz=50', 'sz=300'
+            /(?<=(sz|width|height)=)([0-9]{1,})/g, '300'
           ) } />
         :         <span className={ styles.noPicture }>No Picture</span>
 
