@@ -48,7 +48,7 @@ const facebookStrategy =
               'facebook.id'                : id,
               'profile.firstName'          : first_name,
               'profile.lastName'           : last_name,
-              'profile.photos'             : picture.data,
+              'profile.photos'             : picture,
               'profile.providers.facebook' : true,
             } );
 

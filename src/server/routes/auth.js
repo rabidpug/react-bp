@@ -130,11 +130,8 @@ auth.get(
 auth.get(
   '/facebook',
   passport.authenticate(
-    'facebook', { scope: [
-      'email',
-      'public_profile',
-    ],
-                  session: false, }
+    'facebook', { scope   : [ 'public_profile', ],
+                  session : false, }
   )
 );
 
