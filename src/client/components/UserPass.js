@@ -55,24 +55,32 @@ class UserPassRaw extends Component {
     rule, value, callback
   ) => {
     if ( value ) {
-      this.setState( { userValidateStatus: 'validating', } );
+      const reg = new RegExp( '^([0-9]|[a-z]|-|_)*$' );
 
-      axios
-        .post(
-          authEndpointRoute( 'usercheck' ), { username: value, }
-        )
-        .then( res => {
-          this.setState( { userExists: res.data.userExists, } );
+      if ( reg.test( value ) ) {
+        this.setState( { userValidateStatus: 'validating', } );
 
-          this.setState( { userValidateStatus: 'success', } );
+        axios
+          .post(
+            authEndpointRoute( 'usercheck' ), { username: value, }
+          )
+          .then( res => {
+            this.setState( { userExists: res.data.userExists, } );
 
-          callback();
-        } )
-        .catch( () => {
-          this.setState( { userValidateStatus: 'error', } );
+            this.setState( { userValidateStatus: 'success', } );
 
-          callback( 'Network error' );
-        } );
+            callback();
+          } )
+          .catch( () => {
+            this.setState( { userValidateStatus: 'error', } );
+
+            callback( 'Network error' );
+          } );
+      } else {
+        this.setState( { userValidateStatus: 'error', } );
+
+        callback( 'Username must be lowercase letters, numbers, _ and - only' );
+      }
     } else {
       this.setState( { userExists         : 'noval',
                        userValidateStatus : 'warning', } );
