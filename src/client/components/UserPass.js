@@ -16,13 +16,8 @@ class UserPassRaw extends Component {
   constructor ( props ) {
     super( props );
 
-    this.state = {
-      confirmDirty              : false,
-      confirmPassValidateStatus : '',
-      passValidateStatus        : '',
-      userExists                : 'noval',
-      userValidateStatus        : '',
-    };
+    this.state = { confirmDirty : false,
+                   userExists   : 'noval', };
   }
 
   handleConfirmBlur = e => {
@@ -55,35 +50,26 @@ class UserPassRaw extends Component {
     rule, value, callback
   ) => {
     if ( value ) {
-      const reg = new RegExp( '^([0-9]|[a-z]|-|_)*$' );
+      const reg = new RegExp( /^([0-9]|[a-z]|-|_)*$/ );
 
       if ( reg.test( value ) ) {
-        this.setState( { userValidateStatus: 'validating', } );
-
         axios
           .post(
             authEndpointRoute( 'usercheck' ), { username: value, }
           )
           .then( res => {
-            this.setState( { userExists: res.data.userExists, } );
+            const { userExists, } = res.data;
 
-            this.setState( { userValidateStatus: 'success', } );
+            this.setState( { userExists, } );
 
             callback();
           } )
           .catch( () => {
-            this.setState( { userValidateStatus: 'error', } );
-
             callback( 'Network error' );
           } );
-      } else {
-        this.setState( { userValidateStatus: 'error', } );
-
-        callback( 'Username must be lowercase letters, numbers, _ and - only' );
-      }
+      } else callback( 'Username must be lowercase letters, numbers, _ and - only' );
     } else {
-      this.setState( { userExists         : 'noval',
-                       userValidateStatus : 'warning', } );
+      this.setState( { userExists: 'noval', } );
 
       callback( 'please enter a username' );
     }
@@ -94,19 +80,9 @@ class UserPassRaw extends Component {
   ) => {
     const { form, } = this.props;
 
-    if ( value && value !== form.getFieldValue( 'password' ) ) {
-      this.setState( { confirmPassValidateStatus: 'error', } );
-
-      callback( 'Passwords do not match' );
-    } else if ( value ) {
-      this.setState( { confirmPassValidateStatus: 'success', } );
-
-      callback();
-    } else {
-      this.setState( { confirmPassValidateStatus: 'warning', } );
-
-      callback();
-    }
+    if ( value && value !== form.getFieldValue( 'password' ) ) callback( 'Passwords do not match' );
+    else if ( value ) callback();
+    else callback();
   };
 
   passwordValidator = (
@@ -122,41 +98,19 @@ class UserPassRaw extends Component {
     }
 
     if ( value ) {
-      if ( new RegExp( /[a-z]/ ).test( value ) === false ) {
-        this.setState( { passValidateStatus: 'error', } );
-
-        callback( 'Password must contain a lowercase letter' );
-      } else if ( new RegExp( /[A-Z]/ ).test( value ) === false ) {
-        this.setState( { passValidateStatus: 'error', } );
-
-        callback( 'Password must contain an uppercase letter' );
-      } else if ( new RegExp( /[0-9]/ ).test( value ) === false ) {
-        this.setState( { passValidateStatus: 'error', } );
-
-        callback( 'Password must contain a number' );
-      } else if ( value.length < 8 ) {
-        this.setState( { passValidateStatus: 'error', } );
-
-        callback( 'Password must be 8 or more characters.' );
-      } else {
-        this.setState( { passValidateStatus: 'success', } );
-
-        callback();
-      }
-    } else {
-      this.setState( { passValidateStatus: 'warning', } );
-
-      callback( 'please enter a password' );
-    }
+      if ( new RegExp( /[a-z]/ ).test( value ) === false ) callback( 'Password must contain a lowercase letter' );
+      else if ( new RegExp( /[A-Z]/ ).test( value ) === false ) callback( 'Password must contain an uppercase letter' );
+      else if ( new RegExp( /[0-9]/ ).test( value ) === false ) callback( 'Password must contain a number' );
+      else if ( value.length < 8 ) callback( 'Password must be 8 or more characters.' );
+      else callback();
+    } else callback( 'please enter a password' );
   };
 
   render () {
     const {
       form, isGettingAuth, authMessage, style,
     } = this.props;
-    const {
-      userValidateStatus, passValidateStatus, userExists, confirmPassValidateStatus,
-    } = this.state;
+    const { userExists, } = this.state;
     const { getFieldDecorator, } = form;
     const message = userExists === 'noval' ? 'Sign In/Up' : userExists ? 'Sign In' : 'Sign Up';
 
@@ -166,9 +120,7 @@ class UserPassRaw extends Component {
         onSubmit={ this.handleSubmit }
         style={ { ...style, } }>
         <h1>{message}</h1>
-        <Item
-          hasFeedback
-          validateStatus={ userValidateStatus }>
+        <Item hasFeedback>
           {getFieldDecorator(
             'username', { rules: [
               { required: true, },
@@ -182,9 +134,7 @@ class UserPassRaw extends Component {
               type='user' /> }
           /> )}
         </Item>
-        <Item
-          hasFeedback
-          validateStatus={ passValidateStatus }>
+        <Item hasFeedback>
           {getFieldDecorator(
             'password', { rules: [
               { required: true, },
@@ -200,9 +150,7 @@ class UserPassRaw extends Component {
           /> )}
         </Item>
         {!userExists && (
-          <Item
-            hasFeedback
-            validateStatus={ confirmPassValidateStatus }>
+          <Item hasFeedback>
             {getFieldDecorator(
               'confirm', { rules: [
                 { required: true, },
@@ -227,6 +175,11 @@ class UserPassRaw extends Component {
             {message}
           </Button>
         </Item>
+        {authMessage && (
+          <Item>
+            <p>{authMessage}</p>
+          </Item>
+        )}
         <Item className={ styles.buttonsGroup }>
           <Button
             className={ styles.loginFormButton }
@@ -248,9 +201,6 @@ class UserPassRaw extends Component {
               {'Sign In With Facebook'}
             </Button>
           </Item>
-        </Item>
-        <Item>
-          <p>{authMessage}</p>
         </Item>
       </Form>
     );

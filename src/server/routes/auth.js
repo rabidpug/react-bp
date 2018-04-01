@@ -10,8 +10,17 @@ auth.post(
     req, res
   ) => {
     const { username, password, } = req.body;
+    const userReg = new RegExp( /^([0-9]|[a-z]|-|_)*$/ );
+    const passReg = new RegExp( /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/ );
 
-    if ( !username || !password ) {
+    if ( !userReg.test( username ) ) {
+      res.json( { msg     : 'Username must consist of only lowercase letters, numbers, _ and -',
+                  success : false, } );
+    } else if ( !passReg.test( password ) ) {
+      res.json( { msg:
+        'Password must 8 or more characters containing at least one uppercase letter, one lowercase letter and one number.',
+                  success: false, } );
+    } else if ( !username || !password ) {
       res.json( { msg     : 'Username and password required',
                   success : false, } );
     } else {
