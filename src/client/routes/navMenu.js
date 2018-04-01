@@ -25,18 +25,11 @@ const navMenu = [
         path  : '/welcome',
       },
       {
-        icon            : 'login',
-        isAuthenticated : false,
-        key             : 'item2',
-        label           : 'Log In',
-        path            : '/login',
-      },
-      {
         icon            : 'user-add',
         isAuthenticated : false,
-        key             : 'item3',
-        label           : 'Register',
-        path            : '/register',
+        key             : 'item2',
+        label           : 'Sign In/Up',
+        path            : '/signin',
       },
       {
         icon            : 'user',

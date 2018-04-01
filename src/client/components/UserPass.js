@@ -6,7 +6,6 @@ import {
 } from 'antd';
 import React, { Component, } from 'react';
 
-import { Link, } from 'react-router-dom';
 import { authEndpointRoute, } from 'Shared/routes';
 import axios from 'axios';
 import styles from './UserPass.scss';
@@ -17,27 +16,44 @@ class UserPassRaw extends Component {
   constructor ( props ) {
     super( props );
 
-    this.state = { passValidateStatus : '',
-                   userValidateStatus : '', };
+    this.state = {
+      confirmDirty              : false,
+      confirmPassValidateStatus : '',
+      passValidateStatus        : '',
+      userExists                : 'noval',
+      userValidateStatus        : '',
+    };
   }
+
+  handleConfirmBlur = e => {
+    const { value, } = e.target;
+    const { confirmDirty, } = this.state;
+
+    this.setState( { confirmDirty: confirmDirty || !!value, } );
+  };
 
   handleSubmit = e => {
     const { onSubmit, form, } = this.props;
+    const { userExists, } = this.state;
 
     e.preventDefault();
 
     form.validateFields( (
       err, values
     ) => {
-      if ( !err ) onSubmit( values );
+      const authType = userExists ? 'login' : 'register';
+
+      if ( !err ) {
+        onSubmit(
+          values, authType
+        );
+      }
     } );
   };
 
   userCheck = (
     rule, value, callback
   ) => {
-    const { buttonLabel, } = this.props;
-
     if ( value ) {
       this.setState( { userValidateStatus: 'validating', } );
 
@@ -46,35 +62,57 @@ class UserPassRaw extends Component {
           authEndpointRoute( 'usercheck' ), { username: value, }
         )
         .then( res => {
-          if ( res.data.userExists && buttonLabel === 'Register' ) {
-            this.setState( { userValidateStatus: 'error', } );
+          this.setState( { userExists: res.data.userExists, } );
 
-            callback( 'Username already in use' );
-          } else if ( !res.data.userExists && buttonLabel === 'Log In' ) {
-            this.setState( { userValidateStatus: 'error', } );
+          this.setState( { userValidateStatus: 'success', } );
 
-            callback( 'Username does not exist' );
-          } else {
-            this.setState( { userValidateStatus: 'success', } );
-
-            callback();
-          }
+          callback();
         } )
         .catch( () => {
           this.setState( { userValidateStatus: 'error', } );
 
-          callback( 'Something went wrong...' );
+          callback( 'Network error' );
         } );
     } else {
-      this.setState( { userValidateStatus: 'warning', } );
+      this.setState( { userExists         : 'noval',
+                       userValidateStatus : 'warning', } );
 
       callback( 'please enter a username' );
+    }
+  };
+
+  confirmPasswordValidator = (
+    rule, value, callback
+  ) => {
+    const { form, } = this.props;
+
+    if ( value && value !== form.getFieldValue( 'password' ) ) {
+      this.setState( { confirmPassValidateStatus: 'error', } );
+
+      callback( 'Passwords do not match' );
+    } else if ( value ) {
+      this.setState( { confirmPassValidateStatus: 'success', } );
+
+      callback();
+    } else {
+      this.setState( { confirmPassValidateStatus: 'warning', } );
+
+      callback();
     }
   };
 
   passwordValidator = (
     rule, value, callback
   ) => {
+    const { form, } = this.props;
+    const { confirmDirty, } = this.state;
+
+    if ( value && confirmDirty ) {
+      form.validateFields(
+        [ 'confirm', ], { force: true, }
+      );
+    }
+
     if ( value ) {
       if ( new RegExp( /[a-z]/ ).test( value ) === false ) {
         this.setState( { passValidateStatus: 'error', } );
@@ -106,17 +144,20 @@ class UserPassRaw extends Component {
 
   render () {
     const {
-      form, buttonLabel, isGettingAuth, authMessage, style,
+      form, isGettingAuth, authMessage, style,
     } = this.props;
-    const { userValidateStatus, passValidateStatus, } = this.state;
+    const {
+      userValidateStatus, passValidateStatus, userExists, confirmPassValidateStatus,
+    } = this.state;
     const { getFieldDecorator, } = form;
+    const message = userExists === 'noval' ? 'Sign In/Up' : userExists ? 'Sign In' : 'Sign Up';
 
     return (
       <Form
         className={ styles.loginForm }
         onSubmit={ this.handleSubmit }
         style={ { ...style, } }>
-        <h1>{buttonLabel}</h1>
+        <h1>{message}</h1>
         <Item
           hasFeedback
           validateStatus={ userValidateStatus }>
@@ -150,13 +191,32 @@ class UserPassRaw extends Component {
             type='password'
           /> )}
         </Item>
+        {!userExists && (
+          <Item
+            hasFeedback
+            validateStatus={ confirmPassValidateStatus }>
+            {getFieldDecorator(
+              'confirm', { rules: [
+                { required: true, },
+                { validator: this.confirmPasswordValidator, },
+              ], }
+            )( <Input
+              onBlur={ this.handleConfirmBlur }
+              placeholder='Confirm Password'
+              prefix={ <Icon
+                style={ { color: 'rgba(0,0,0,.25)', } }
+                type='lock' /> }
+              type='password'
+            /> )}
+          </Item>
+        )}
         <Item className={ styles.buttonsGroup }>
           <Button
             className={ styles.loginFormButton }
             htmlType='submit'
             loading={ isGettingAuth }
             type='primary'>
-            {buttonLabel}
+            {message}
           </Button>
         </Item>
         <Item className={ styles.buttonsGroup }>
@@ -167,7 +227,7 @@ class UserPassRaw extends Component {
             icon='google'
             loading={ isGettingAuth }
             type='dashed'>
-            {`Sign In With Google`}
+            {'Sign In With Google'}
           </Button>
           <Item>
             <Button
@@ -177,13 +237,10 @@ class UserPassRaw extends Component {
               icon='facebook'
               loading={ isGettingAuth }
               type='dashed'>
-              {`${buttonLabel} With Facebook`}
+              {'Sign In With Facebook'}
             </Button>
           </Item>
         </Item>
-        <Link to={ buttonLabel === 'Register' ? '/login' : '/register' }>{`${
-          buttonLabel === 'Register' ? 'Log In' : 'Register'
-        } here`}</Link>
         <Item>
           <p>{authMessage}</p>
         </Item>

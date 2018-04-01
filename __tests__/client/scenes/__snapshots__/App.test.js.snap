@@ -40,24 +40,18 @@ exports[`App Should render the App 1`] = `
         <Route
           exact={true}
           key="2"
-          path="/login"
+          path="/signin"
           render={[Function]}
         />
         <Route
           exact={true}
           key="3"
-          path="/register"
-          render={[Function]}
-        />
-        <Route
-          exact={true}
-          key="4"
           path="/profile"
           render={[Function]}
         />
         <Route
           exact={false}
-          key="5"
+          key="4"
           path="*"
           render={[Function]}
         />

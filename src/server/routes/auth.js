@@ -103,7 +103,7 @@ auth.get(
 auth.get(
   '/google/callback',
   passport.authenticate(
-    'google', { failureRedirect : '/login',
+    'google', { failureRedirect : '/signin',
                 session         : false, }
   ),
   (
@@ -138,7 +138,7 @@ auth.get(
 auth.get(
   '/facebook/callback',
   passport.authenticate(
-    'facebook', { failureRedirect : '/login',
+    'facebook', { failureRedirect : '/signin',
                   session         : false, }
   ),
   (

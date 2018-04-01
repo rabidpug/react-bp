@@ -7,15 +7,14 @@ import UserPass from '../components/UserPass';
 import { authUser, } from 'Store/user/actions';
 import { connect, } from 'react-redux';
 
-const mapStateToProps = state => ( {
-  authMessage   : getAuthMessage( state ),
-  buttonLabel   : 'Log In',
-  isGettingAuth : getIsGettingAuth( state ),
-} );
+const mapStateToProps = state => ( { authMessage   : getAuthMessage( state ),
+                                     isGettingAuth : getIsGettingAuth( state ), } );
 
-const mapDispatchToProps = dispatch => ( { onSubmit ( payload ) {
+const mapDispatchToProps = dispatch => ( { onSubmit (
+  values, authType
+) {
   dispatch( authUser(
-    'login', payload
+    authType, values
   ) );
 }, } );
 

@@ -1,7 +1,6 @@
 import {
   Home,
   Login,
-  Register,
   UserProfile,
   Welcome,
 } from 'Containers/Loadables';
@@ -18,7 +17,7 @@ const userIsAuthenticated = connectedReduxRedirect( {
   redirectAction          : redirect => dispatch => {
     dispatch( replace( redirect ) );
   },
-  redirectPath       : '/login',
+  redirectPath       : '/signin',
   wrapperDisplayName : 'userIsAuthenticated',
 } );
 
@@ -47,12 +46,7 @@ const content = [
   {
     component : userIsNotAuthenticated( Login ),
     exact     : true,
-    path      : '/login',
-  },
-  {
-    component : userIsNotAuthenticated( Register ),
-    exact     : true,
-    path      : '/register',
+    path      : '/signin',
   },
   {
     component : userIsAuthenticated( UserProfile ),
