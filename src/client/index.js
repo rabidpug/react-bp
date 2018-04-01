@@ -17,8 +17,8 @@ import registerServiceWorker from './registerServiceWorker';
 const persistor = persistStore(
   store, null, () => {
     const token = localStorage.getItem( 'JWT' );
-    const profile = localStorage.getItem( 'profile' );
-    const currentToken = getJWTToken(store.getStore());
+    const profile = localStorage.getItem('profile');
+    const currentToken = getJWTToken(store.getState());
     if (currentToken) console.log(currentToken)//eslint-disable-line
     if ( token ) {
       store.dispatch( authSuccess( { profile: profile && JSON.parse( profile ),
