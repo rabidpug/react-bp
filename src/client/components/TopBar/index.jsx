@@ -45,6 +45,7 @@ const TopBar = ( {
 
   return (
     <Header
+      className={ styles.topBarHeader }
       style={ {
         ...style,
         background : '#fff',
