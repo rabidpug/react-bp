@@ -10,15 +10,16 @@ import axios from 'axios';
 import { createAction, } from 'redux-actions';
 import { getJWTToken, } from '../user/selectors';
 import { helloEndpointRoute, } from 'Shared/routes';
-import store from '..';
 
 export const sayHelloRequest = createAction( SAY_HELLO_REQUEST );
 export const sayHelloSuccess = createAction( SAY_HELLO_SUCCESS );
 export const sayHelloFailure = createAction( SAY_HELLO_FAILURE );
-export const sayHello: Function = ( num: number ) => ( dispatch: Function ) => {
+export const sayHello: Function = ( num: number ) => (
+  dispatch: Function, getState: Function
+) => {
   dispatch( sayHelloRequest() );
 
-  axios.defaults.headers.common.Authorization = getJWTToken( store.getState() );
+  axios.defaults.headers.common.Authorization = getJWTToken( getState() );
 
   axios
     .get( helloEndpointRoute( num ) )

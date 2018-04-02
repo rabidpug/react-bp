@@ -1,5 +1,6 @@
 import { Card, } from 'antd';
 import React from 'react';
+import gStyles from 'Styles/global';
 import styles from 'Styles/ProfileCard';
 
 const { Meta, } = Card;
@@ -8,6 +9,7 @@ const ProfileCard = ( {
   photos, firstName, lastName, providers = {}, style,
 } ) => (
   <Card
+    className={ gStyles.cardStyle }
     cover={
       photos[0]
         ? <img

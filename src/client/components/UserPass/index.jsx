@@ -1,10 +1,14 @@
 import {
-  Button, Form, Icon, Input,
+  Button,
+  Form,
+  Icon,
+  Input,
 } from 'antd';
 import React, { Component, } from 'react';
 
 import { authEndpointRoute, } from 'Shared/routes';
 import axios from 'axios';
+import gStyles from 'Styles/global'
 import styles from 'Styles/UserPass';
 
 const { Item, } = Form;
@@ -125,10 +129,10 @@ class UserPassRaw extends Component {
 
     return (
       <Form
-        className={ styles.loginForm }
+        className={ gStyles.cardStyle }
         onSubmit={ this.handleSubmit }
         style={ { ...style, } }>
-        <div className={ styles.topSection }>
+        <div className={ gStyles.cardTop }>
           <h1>{message}</h1>
           <Item
             extra={ extraMessage }
@@ -180,7 +184,7 @@ class UserPassRaw extends Component {
             </Item>
           )}
         </div>
-        <div className={ styles.bottomSection }>
+        <div className={ gStyles.cardBottom }>
           <Item className={ styles.buttonsGroup }>
             <Button
               className={ styles.loginFormButton }

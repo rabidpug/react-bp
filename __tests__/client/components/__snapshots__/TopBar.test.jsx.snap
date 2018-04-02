@@ -2,6 +2,7 @@
 
 exports[`TopBar Should render the TopBar 1`] = `
 <Adapter
+  className="topBarHeader"
   style={
     Object {
       "background": "#fff",

@@ -1,0 +1,21 @@
+.cardStyle {
+  background-color: #fff;
+  border-top: 6px solid #ed702a !important;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2);
+  margin: auto !important;
+  margin-bottom: 20px !important;
+  margin-top: 10px !important;
+  max-width: 500px;
+  text-align: center;
+  width: auto;
+}
+
+.cardBottom {
+  background-color: hsl(220, 12%, 95%);
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+  margin: 0 !important;
+}
+
+.cardTop {
+  margin: 20px;
+}
