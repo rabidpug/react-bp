@@ -1,8 +1,5 @@
 import {
-  Button,
-  Form,
-  Icon,
-  Input,
+  Button, Form, Icon, Input,
 } from 'antd';
 import React, { Component, } from 'react';
 
@@ -49,6 +46,8 @@ class UserPassRaw extends Component {
   userCheck = (
     rule, value, callback
   ) => {
+    const { form, } = this.props;
+
     if ( value ) {
       const reg = /^([0-9]|[a-z]|-|_)*$/;
 
@@ -58,11 +57,17 @@ class UserPassRaw extends Component {
             authEndpointRoute( 'usercheck' ), { username: value, }
           )
           .then( res => {
-            const { userExists, } = res.data;
+            if ( form.getFieldValue( 'username' ) ) {
+              const { userExists, } = res.data;
 
-            this.setState( { userExists, } );
+              this.setState( { userExists, } );
 
-            callback();
+              callback();
+            } else {
+              this.setState( { userExists: 'noval', } );
+
+              callback( 'please enter a username' );
+            }
           } )
           .catch( () => {
             callback( 'Network error' );
