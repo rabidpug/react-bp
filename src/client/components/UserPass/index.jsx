@@ -169,6 +169,7 @@ class UserPassRaw extends Component {
                   { validator: this.confirmPasswordValidator, },
                 ], }
               )( <Input
+                autoComplete='new-password'
                 onBlur={ this.handleConfirmBlur }
                 placeholder='Confirm Password'
                 prefix={ <Icon
