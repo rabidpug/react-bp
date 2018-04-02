@@ -1,14 +1,11 @@
 import {
-  Button,
-  Form,
-  Icon,
-  Input,
+  Button, Form, Icon, Input,
 } from 'antd';
 import React, { Component, } from 'react';
 
 import { authEndpointRoute, } from 'Shared/routes';
 import axios from 'axios';
-import gStyles from 'Styles/global'
+import gStyles from 'Styles/global';
 import styles from 'Styles/UserPass';
 
 const { Item, } = Form;
