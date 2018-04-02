@@ -153,7 +153,7 @@ class UserPassRaw extends Component {
                 { validator: this.passwordValidator, },
               ], }
             )( <Input
-              autoComplete='current-password'
+              autoComplete={`${userExists ? 'current' : 'new'}-password`}
               placeholder='Password'
               prefix={ <Icon
                 style={ { color: 'rgba(0,0,0,.25)', } }
