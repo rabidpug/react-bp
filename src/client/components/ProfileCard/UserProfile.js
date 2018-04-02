@@ -1,6 +1,6 @@
 // @flow
 
-import FadeWrap from '../animations/FadeWrap';
+import FadeWrap from 'Animations/FadeWrap';
 import ProfileCard from 'Components/ProfileCard';
 import { connect, } from 'react-redux';
 import { getProfile, } from 'Store/user/selectors';

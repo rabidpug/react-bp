@@ -3,7 +3,7 @@
 import { Icon, Spin, } from 'antd';
 
 import React from 'react';
-import styles from './Loading.scss';
+import styles from 'Styles/Loading';
 
 const antIcon = ( <Icon
   spin
@@ -16,7 +16,7 @@ const Loading: Function = () => (
     indicator={ antIcon }
     size='large'
     tip='Loading...'
-    wrapperClassName={ styles.loadingContent }>
+    wrapperClassName={ styles.centrePosition }>
     <div />
   </Spin>
 );

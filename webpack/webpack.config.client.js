@@ -64,12 +64,12 @@ module.exports = {
   entry: { index: isProd
     ? [
       'babel-polyfill',
-      './src/client/index.js',
+      './src/client/index.jsx',
     ]
     : [
       'babel-polyfill',
       'webpack-hot-middleware/client',
-      './src/client/index.js',
+      './src/client/index.jsx',
     ], },
   mode   : isProd ? 'production' : 'development',
   module : { rules: [
@@ -156,6 +156,9 @@ module.exports = {
     ...isProd ? [] : devPlugs,
   ],
   resolve: { alias: {
+    Animations: path.resolve(
+      'src', 'client', 'animations'
+    ),
     Assets: path.resolve(
       'src', 'client', 'assets'
     ),
@@ -183,10 +186,15 @@ module.exports = {
     Store: path.resolve(
       'src', 'client', 'store'
     ),
+    Styles: path.resolve(
+      'src', 'client', 'styles'
+    ),
   },
              extensions: [
                '.less',
                '.js',
+               '.jsx',
+               '.scss',
              ], },
   // watch: !isProd,
 };

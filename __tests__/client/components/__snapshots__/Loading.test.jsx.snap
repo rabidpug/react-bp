@@ -19,7 +19,7 @@ exports[`Loading Should render the Loading 1`] = `
   size="large"
   spinning={true}
   tip="Loading..."
-  wrapperClassName="loadingContent"
+  wrapperClassName="centrePosition"
 >
   <div />
 </Spin>

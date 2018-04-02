@@ -3,7 +3,7 @@ import {
   Login,
   UserProfile,
   Welcome,
-} from 'Containers/Loadables';
+} from 'Scenes/Loadables';
 
 import Loading from 'Components/Loading';
 import NotFound from 'Scenes/NotFound';

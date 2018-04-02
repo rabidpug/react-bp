@@ -73,7 +73,7 @@
       }
     ],
     "import/no-duplicates": "error",
-    "import/extensions": ["error", "always", { "js": "never" }],
+    "import/extensions": ["error", "always", { "js": "never", "jsx": "never", "scss": "never" }],
     "indent": [
       "warn",
       2,

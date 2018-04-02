@@ -1,4 +1,4 @@
-import HomeTopBar from 'Containers/HomeTopBar';
+import HomeTopBar from 'Components/TopBar/HomeTopBar';
 import React from 'react';
 import actionMenu from 'Routes/actionMenu';
 import configureStore from 'redux-mock-store';

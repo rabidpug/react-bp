@@ -1,6 +1,6 @@
 import { Card, } from 'antd';
 import React from 'react';
-import styles from './ProfileCard.scss';
+import styles from 'Styles/ProfileCard';
 
 const { Meta, } = Card;
 

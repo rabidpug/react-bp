@@ -6,13 +6,13 @@ import {
 } from 'antd';
 
 import React from 'react';
-import styles from './TopBar.scss';
+import styles from 'Styles/TopBar';
 
 const { Item, SubMenu, } = Menu;
 
 const { Header, } = Layout;
 const TopBar = ( {
-  isSidebarCollapsed, toggleSideBar, actionMenuItems, selectedActionKeys, isAuthenticated,
+  isSidebarCollapsed, toggleSideBar, actionMenuItems, selectedActionKeys, isAuthenticated, style,
 } ) => {
   const filterAuth = item => typeof item.isAuthenticated !== 'boolean' || item.isAuthenticated === isAuthenticated;
 
@@ -45,8 +45,11 @@ const TopBar = ( {
 
   return (
     <Header
-      style={ { background : '#fff',
-                padding    : 0, } }>
+      style={ {
+        ...style,
+        background : '#fff',
+        padding    : 0,
+      } }>
       <Button
         className={ styles.trigger }
         icon={ isSidebarCollapsed ? 'menu-unfold' : 'menu-fold' }

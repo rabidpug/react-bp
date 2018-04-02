@@ -5,6 +5,7 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./src",
     "paths": {
+      "Animations/*": ["src/client/animations/*"],
       "Assets/*": ["src/client/assets/*"],
       "Client/*": ["src/client/*"],
       "Components/*": ["src/client/components/*"],
@@ -13,7 +14,8 @@
       "Scenes/*": ["src/client/scenes/*"],
       "Server/*": ["src/server/*"],
       "Shared/*": ["src/shared/*"],
-      "Store/*": ["src/client/store/*"]
+      "Store/*": ["src/client/store/*"],
+      "Styles/*": ["src/client/styles/*"]
     }
   },
   "exclude": ["node_modules", "**/node_modules/**", "dist/", "__tests__"]

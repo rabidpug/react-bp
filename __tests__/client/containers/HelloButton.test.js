@@ -1,4 +1,4 @@
-import HelloButton from 'Containers/HelloButton';
+import HelloButton from 'Components/Button/HelloButton';
 import React from 'react';
 import configureStore from 'redux-mock-store';
 import { greeterInitialState, } from 'Store/greeter';

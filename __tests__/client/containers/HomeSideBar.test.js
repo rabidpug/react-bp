@@ -1,6 +1,6 @@
 import { TOGGLE_KEY, TOGGLE_SIDEBAR, } from 'Store/ui/types';
 
-import HomeSideBar from 'Containers/HomeSideBar';
+import HomeSideBar from 'Components/SideBar/HomeSideBar';
 import React from 'react';
 import configureStore from 'redux-mock-store';
 import navMenu from 'Routes/navMenu';

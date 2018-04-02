@@ -10,8 +10,8 @@ auth.post(
     req, res
   ) => {
     const { username, password, } = req.body;
-    const userReg = new RegExp( /^([0-9]|[a-z]|-|_)*$/ );
-    const passReg = new RegExp( /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/ );
+    const userReg = /^([0-9]|[a-z]|-|_)*$/;
+    const passReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
 
     if ( !userReg.test( username ) ) {
       res.json( { msg     : 'Username must consist of only lowercase letters, numbers, _ and -',

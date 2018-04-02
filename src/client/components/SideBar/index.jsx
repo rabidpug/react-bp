@@ -17,6 +17,7 @@ const SideBar = ( {
   toggleKey,
   openKeys,
   isAuthenticated,
+  style,
 } ) => {
   const selectedKeys = [];
   const openSelectedKeys = [ ...openKeys, ];
@@ -61,7 +62,8 @@ const SideBar = ( {
       collapsible
       onMouseEnter={ () => isSidebarCollapsed && toggleSideBar() }
       onMouseLeave={ () => !isSidebarCollapsed && toggleSideBar() }
-      style={ { backgroundColor: '#fff', } }
+      style={ { ...style,
+                backgroundColor: '#fff', } }
       trigger={ null }>
       <div className='logo' />
       <Menu

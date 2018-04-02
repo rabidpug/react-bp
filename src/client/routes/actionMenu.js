@@ -1,4 +1,4 @@
-import HomeTopBar from 'Containers/HomeTopBar';
+import HomeTopBar from 'Components/TopBar/HomeTopBar';
 import { logoutUser, } from 'Store/user/actions';
 import store from 'Store';
 

@@ -5,8 +5,8 @@ export const Welcome = Loadable( { loader  : () => import( /*webpackChunkName: "
                                    loading : Loading, } );
 export const Home = Loadable( { loader  : () => import( /*webpackChunkName: "Home" */ 'Scenes/Home' ),
                                 loading : Loading, } );
-export const Login = Loadable( { loader  : () => import( /*webpackChunkName: "Login" */ 'Containers/LoginUserPass' ),
+export const Login = Loadable( { loader  : () => import( /*webpackChunkName: "Login" */ 'Components/UserPass/LoginUserPass' ),
                                  loading : Loading, } );
 
-export const UserProfile = Loadable( { loader  : () => import( /*webpackChunkName: "UserProfile" */ 'Containers/UserProfile' ),
+export const UserProfile = Loadable( { loader  : () => import( /*webpackChunkName: "UserProfile" */ 'Components/ProfileCard/UserProfile' ),
                                        loading : Loading, } );

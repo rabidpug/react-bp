@@ -1,4 +1,4 @@
-import HelloMessage from 'Containers/HelloMessage';
+import HelloMessage from 'Components/Message/HelloMessage';
 import React from 'react';
 import configureStore from 'redux-mock-store';
 import { greeterInitialState, } from 'Store/greeter';

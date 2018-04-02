@@ -1,5 +1,6 @@
 // @flow
 
+import SlideWrap from 'Animations/SlideWrap';
 import TopBar from 'Components/TopBar';
 import { connect, } from 'react-redux';
 import { getIsAuthenticated, } from 'Store/user/selectors';
@@ -15,12 +16,10 @@ const mapStateToProps = (
   selectedActionKeys : [],
 } );
 
-const mapDispatchToProps = dispatch => ( { toggleSideBar () {
-  dispatch( toggleSidebar() );
-}, } );
+const mapDispatchToProps = dispatch => ( { toggleSideBar: () => dispatch( toggleSidebar() ), } );
 
 const HomeTopBar = connect(
   mapStateToProps, mapDispatchToProps
-)( TopBar );
+)( SlideWrap( TopBar ) );
 
 export default HomeTopBar;

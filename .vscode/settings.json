@@ -10,6 +10,19 @@
     "**/app.json": true,
     "**/*.scss.flow": true
   },
+  "js-import.alias": {
+    "Animations": "./src/client/animations",
+    "Assets": "./src/client/assets",
+    "Client": "./src/client",
+    "Components": "./src/client/components",
+    "Containers": "./src/client/containers",
+    "Routes": "./src/client/routes",
+    "Scenes": "./src/client/scenes",
+    "Server": "./src/server",
+    "Shared": "./src/shared",
+    "Store": "./src/client/store",
+    "Styles": "./src/client/styles"
+  },
   "javascript.validate.enable": false,
   "travis.username": "rabidpug",
   "travis.repository": "react-bp",

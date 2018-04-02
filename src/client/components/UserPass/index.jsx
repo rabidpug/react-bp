@@ -8,7 +8,7 @@ import React, { Component, } from 'react';
 
 import { authEndpointRoute, } from 'Shared/routes';
 import axios from 'axios';
-import styles from './UserPass.scss';
+import styles from 'Styles/UserPass';
 
 const { Item, } = Form;
 
@@ -50,7 +50,7 @@ class UserPassRaw extends Component {
     rule, value, callback
   ) => {
     if ( value ) {
-      const reg = new RegExp( /^([0-9]|[a-z]|-|_)*$/ );
+      const reg = /^([0-9]|[a-z]|-|_)*$/;
 
       if ( reg.test( value ) ) {
         axios
@@ -98,9 +98,9 @@ class UserPassRaw extends Component {
     }
 
     if ( value ) {
-      if ( new RegExp( /[a-z]/ ).test( value ) === false ) callback( 'Password must contain a lowercase letter' );
-      else if ( new RegExp( /[A-Z]/ ).test( value ) === false ) callback( 'Password must contain an uppercase letter' );
-      else if ( new RegExp( /[0-9]/ ).test( value ) === false ) callback( 'Password must contain a number' );
+      if ( /[a-z]/.test( value ) === false ) callback( 'Password must contain a lowercase letter' );
+      else if ( /[A-Z]/.test( value ) === false ) callback( 'Password must contain an uppercase letter' );
+      else if ( /[0-9]/.test( value ) === false ) callback( 'Password must contain a number' );
       else if ( value.length < 8 ) callback( 'Password must be 8 or more characters.' );
       else callback();
     } else callback( 'please enter a password' );
@@ -113,84 +113,92 @@ class UserPassRaw extends Component {
     const { userExists, } = this.state;
     const { getFieldDecorator, } = form;
     const message = userExists === 'noval' ? 'Sign In/Up' : userExists ? 'Sign In' : 'Sign Up';
+    const extraMessage =
+      userExists === 'noval'
+        ? 'Enter your existing username to sign in, or a new username to sign up'
+        : userExists ? 'Username exists for sign in' : 'New username for sign up';
 
     return (
       <Form
         className={ styles.loginForm }
         onSubmit={ this.handleSubmit }
         style={ { ...style, } }>
-        <h1>{message}</h1>
-        <Item hasFeedback>
-          {getFieldDecorator(
-            'username', { rules: [
-              { required: true, },
-              { validator: this.userCheck, },
-            ], }
-          )( <Input
-            autoComplete='username'
-            placeholder='Username'
-            prefix={ <Icon
-              style={ { color: 'rgba(0,0,0,.25)', } }
-              type='user' /> }
-          /> )}
-        </Item>
-        <Item hasFeedback>
-          {getFieldDecorator(
-            'password', { rules: [
-              { required: true, },
-              { validator: this.passwordValidator, },
-            ], }
-          )( <Input
-            autoComplete='current-password'
-            placeholder='Password'
-            prefix={ <Icon
-              style={ { color: 'rgba(0,0,0,.25)', } }
-              type='lock' /> }
-            type='password'
-          /> )}
-        </Item>
-        {!userExists && (
-          <Item hasFeedback>
+        <div className={ styles.topSection }>
+          <h1>{message}</h1>
+          <Item
+            extra={ extraMessage }
+            hasFeedback>
             {getFieldDecorator(
-              'confirm', { rules: [
+              'username', { rules: [
                 { required: true, },
-                { validator: this.confirmPasswordValidator, },
+                { validator: this.userCheck, },
               ], }
             )( <Input
-              onBlur={ this.handleConfirmBlur }
-              placeholder='Confirm Password'
+              autoComplete='username'
+              placeholder='Username'
+              prefix={ <Icon
+                style={ { color: 'rgba(0,0,0,.25)', } }
+                type='user' /> }
+            /> )}
+          </Item>
+          <Item hasFeedback>
+            {getFieldDecorator(
+              'password', { rules: [
+                { required: true, },
+                { validator: this.passwordValidator, },
+              ], }
+            )( <Input
+              autoComplete='current-password'
+              placeholder='Password'
               prefix={ <Icon
                 style={ { color: 'rgba(0,0,0,.25)', } }
                 type='lock' /> }
               type='password'
             /> )}
           </Item>
-        )}
-        <Item className={ styles.buttonsGroup }>
-          <Button
-            className={ styles.loginFormButton }
-            htmlType='submit'
-            loading={ isGettingAuth }
-            type='primary'>
-            {message}
-          </Button>
-        </Item>
-        {authMessage && (
-          <Item>
-            <p>{authMessage}</p>
+          {!userExists && (
+            <Item hasFeedback>
+              {getFieldDecorator(
+                'confirm', { rules: [
+                  { required: true, },
+                  { validator: this.confirmPasswordValidator, },
+                ], }
+              )( <Input
+                onBlur={ this.handleConfirmBlur }
+                placeholder='Confirm Password'
+                prefix={ <Icon
+                  style={ { color: 'rgba(0,0,0,.25)', } }
+                  type='lock' /> }
+                type='password'
+              /> )}
+            </Item>
+          )}
+        </div>
+        <div className={ styles.bottomSection }>
+          <Item className={ styles.buttonsGroup }>
+            <Button
+              className={ styles.loginFormButton }
+              htmlType='submit'
+              loading={ isGettingAuth }
+              type='primary'>
+              {message}
+            </Button>
           </Item>
-        )}
-        <Item className={ styles.buttonsGroup }>
-          <Button
-            className={ styles.loginFormButton }
-            href='api/auth/google'
-            htmlType='button'
-            icon='google'
-            loading={ isGettingAuth }
-            type='dashed'>
-            {'Sign In With Google'}
-          </Button>
-          <Item>
+          {authMessage && (
+            <Item>
+              <p>{authMessage}</p>
+            </Item>
+          )}
+          <Item className={ styles.buttonsGroup }>
+            <Button
+              className={ styles.loginFormButton }
+              href='api/auth/google'
+              htmlType='button'
+              icon='google'
+              loading={ isGettingAuth }
+              type='dashed'>
+              {'Sign In With Google'}
+            </Button>
             <Button
               className={ styles.loginFormButton }
               href='api/auth/facebook'
@@ -201,7 +209,7 @@ class UserPassRaw extends Component {
               {'Sign In With Facebook'}
             </Button>
           </Item>
-        </Item>
+        </div>
       </Form>
     );
   }
