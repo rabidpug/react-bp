@@ -65,14 +65,22 @@ auth.post(
     req, res
   ) => {
     const { user, } = req;
+    let mergeUser;
 
-    const mergeUser = jwt.decode(
-      req.body.token.replace(
-        'JWT ', ''
-      ), PASSPORT_SECRET, { complete: true, }
-    );
-
-    if ( !user || !mergeUser ) throw Error( 'Linking Failed' );
+    try {
+      mergeUser = jwt.verify(
+        req.body.token.replace(
+          'JWT ', ''
+        ), PASSPORT_SECRET, { complete: true, }
+      );
+    } catch ( e ) {
+      res.json( { msg     : 'Merge User could not be verified',
+                  success : false, } );
+    }
+    if ( !user || !mergeUser ) {
+      res.json( { msg     : `${user ? 'Merge' : 'Original'} User could not be verified`,
+                  success : false, } );
+    }
     const { profile: {
       providers: originalProviders = {},
       displayNames: originalDisplayNames = [],
@@ -108,11 +116,15 @@ auth.post(
     };
 
     User.findOne( { _id: mergeUser._id, } ).remove( e => {
-      if ( e ) throw e;
-      else {
+      if ( e ) {
+        res.json( { msg     : 'Failed to delete Merge User',
+                    success : false, } );
+      } else {
         user.save( e => {
-          if ( e ) throw e;
-          else {
+          if ( e ) {
+            res.json( { msg     : 'Failed to save New User',
+                        success : false, } );
+          } else {
             const newToken = jwt.sign(
               user.toJSON(), PASSPORT_SECRET || 'secret'
             );

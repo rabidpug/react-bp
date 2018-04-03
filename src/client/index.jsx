@@ -34,7 +34,13 @@ const persistor = persistStore(
         .post(
           authEndpointRoute( 'link' ), { token, }
         )
-      .then(res => store.dispatch(authSuccess(res.data))) //eslint-disable-line
+        .then( res => {
+          localStorage.removeItem( 'JWT' );
+
+          localStorage.removeItem( 'profile' );
+
+          store.dispatch( authSuccess( res.data ) );
+      }) //eslint-disable-line
       .catch(e => console.log(e)); //eslint-disable-line
     } else if ( token ) {
       store.dispatch( authSuccess( { profile: profile && JSON.parse( profile ),
