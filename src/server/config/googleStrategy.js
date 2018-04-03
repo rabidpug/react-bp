@@ -15,20 +15,22 @@ const googleStrategy =
     googleOpts, (
       req, accessToken, refreshToken, profile, done
     ) => {
-    console.log(profile); //eslint-disable-line
-
       const {
         id, name, photos, emails,
       } = profile;
 
-      const displayName = `${name.givenName} ${name.middleName} ${name.familyName}`.replace(
+      const displayName = `${name.givenName ? name.givenName : ''} ${name.middleName ? name.middleName : ''} ${
+        name.familyName ? name.familyName : ''
+      }`.replace(
         / {2,}/g, ' '
       );
       const pics = photos.reduce(
         (
           p, n
         ) => [
-          n.value,
+          n.value.replace(
+            'sz=50', 'sz=200'
+          ),
           ...p,
         ], []
       );
