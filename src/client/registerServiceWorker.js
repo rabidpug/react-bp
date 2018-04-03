@@ -1,4 +1,4 @@
-import simpleNotification from 'Components/Notification';
+import simpleNotification from 'Components/simpleNotification';
 /* eslint-disable compat/compat */
 /* eslint-disable no-console */
 export default function register () {
