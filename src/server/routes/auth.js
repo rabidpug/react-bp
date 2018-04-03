@@ -59,6 +59,77 @@ auth.post(
 );
 
 auth.post(
+  '/link', passport.authenticate(
+    'jwt', { session: false, }
+  ), (
+    req, res
+  ) => {
+    const { user, } = req;
+
+    const mergeUser = jwt.decode(
+      req.body.token.replace(
+        'JWT ', ''
+      ), PASSPORT_SECRET, { complete: true, }
+    );
+
+    if ( !user || !mergeUser ) throw Error( 'Linking Failed' );
+    const { profile: {
+      providers: originalProviders = {},
+      displayNames: originalDisplayNames = [],
+      emails: originalEmails = [],
+      photos: originalPhotos = [],
+    }, } = user;
+    const { profile: {
+      providers: mergeProviders = {},
+      displayNames: mergeDisplayNames = [],
+      emails: mergeEmails = [],
+      photos: mergePhotos = [],
+    }, } = mergeUser;
+    const { providers = {}, } = mergeUser.profile;
+    const [ provider, ] = Object.keys( providers ).filter( key => providers[key] );
+
+    user[provider] = mergeUser[provider];
+
+    user.profile = {
+      displayNames: [
+        ...originalDisplayNames,
+        ...mergeDisplayNames,
+      ],
+      emails: [
+        ...originalEmails,
+        ...mergeEmails,
+      ],
+      photos: [
+        ...originalPhotos,
+        ...mergePhotos,
+      ],
+      providers: { ...originalProviders,
+                   ...mergeProviders, },
+    };
+
+    User.findOne( { _id: mergeUser._id, } ).remove( e => {
+      if ( e ) throw e;
+      else {
+        user.save( e => {
+          if ( e ) throw e;
+          else {
+            const newToken = jwt.sign(
+              user.toJSON(), PASSPORT_SECRET || 'secret'
+            );
+
+            res.json( {
+              profile : user.profile,
+              success : true,
+              token   : `JWT ${newToken}`,
+            } );
+          }
+        } );
+      }
+    } );
+  }
+);
+
+auth.post(
   '/login', (
     req, res
   ) => {

@@ -11,7 +11,7 @@ const localStrategy = new JWTStrategy(
     jwtPayload, done
   ) => {
     User.findOne(
-      { id: jwtPayload.id, }, (
+      { _id: jwtPayload._id, }, (
         e, user
       ) => {
         if ( e ) {

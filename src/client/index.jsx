@@ -1,5 +1,6 @@
 import 'react-hot-loader';
 
+import { authRequest, authSuccess, } from 'Store/user/actions';
 import store, { history, } from 'Store';
 
 import App from 'Scenes/App';
@@ -9,7 +10,8 @@ import { PersistGate, } from 'redux-persist/integration/react';
 import { Provider, } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { authSuccess, } from 'Store/user/actions';
+import { authEndpointRoute, } from 'Shared/routes';
+import axios from 'axios';
 import { getJWTToken, } from 'Store/user/selectors';
 import { isOnline, } from 'Store/ui/actions';
 import { persistStore, } from 'redux-persist';
@@ -22,8 +24,19 @@ const persistor = persistStore(
     const token = localStorage.getItem( 'JWT' );
     const profile = localStorage.getItem( 'profile' );
     const currentToken = getJWTToken( store.getState() );
-  if (currentToken) console.log(currentToken); //eslint-disable-line
-    if ( token ) {
+
+    if ( currentToken && token ) {
+      store.dispatch( authRequest() );
+
+      axios.defaults.headers.common.Authorization = currentToken;
+
+      axios
+        .post(
+          authEndpointRoute( 'link' ), { token, }
+        )
+      .then(res => store.dispatch(authSuccess(res.data))) //eslint-disable-line
+      .catch(e => console.log(e)); //eslint-disable-line
+    } else if ( token ) {
       store.dispatch( authSuccess( { profile: profile && JSON.parse( profile ),
                                      token, } ) );
 
