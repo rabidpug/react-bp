@@ -1,8 +1,15 @@
 //@flow
 
-import { TOGGLE_KEY, TOGGLE_SIDEBAR, } from './types';
+import {
+  TOGGLE_KEY,
+  TOGGLE_SIDEBAR,
+  TOGGLE_UPDATE,
+} from './types';
 
-import { createAction, } from 'redux-actions';
+import { createActions, } from 'redux-actions';
 
-export const toggleSidebar: Function = createAction( TOGGLE_SIDEBAR );
-export const toggleKey: Function = createAction( TOGGLE_KEY );
+export const {
+  toggleSidebar, toggleKey, toggleUpdate,
+} = createActions(
+  TOGGLE_SIDEBAR, TOGGLE_KEY, TOGGLE_UPDATE
+);
