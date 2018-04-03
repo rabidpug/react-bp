@@ -41,7 +41,9 @@ const ProfileCard = ( {
               <img src={ noImage } />
             </Radio.Button>
             {photos &&
-              photos.map( url => (
+              photos.filter( (
+                url, i, arr
+              ) => arr.indexOf( url ) === i ).map( url => (
                 <Radio.Button
                   key={ url }
                   style={ {
@@ -60,7 +62,9 @@ const ProfileCard = ( {
           <Radio.Group defaultValue={ false }>
             <Radio.Button value={ false }>Anonymous</Radio.Button>
             {displayNames &&
-              displayNames.map( name => (
+              displayNames.filter( (
+                name, i, arr
+              ) => arr.indexOf( name ) === i ).map( name => (
                 <Radio.Button
                   key={ name }
                   value={ name }>
@@ -73,11 +77,13 @@ const ProfileCard = ( {
           <Radio.Group defaultValue={ false }>
             <Radio.Button value={ false }>Anonymous</Radio.Button>
             {emails &&
-              emails.map( name => (
+              emails.filter( (
+                email, i, arr
+              ) => arr.indexOf( email ) === i ).map( email => (
                 <Radio.Button
-                  key={ name }
-                  value={ name }>
-                  {name}
+                  key={ email }
+                  value={ email }>
+                  {email}
                 </Radio.Button>
               ) )}
           </Radio.Group>
