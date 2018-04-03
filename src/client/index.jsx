@@ -13,7 +13,6 @@ import { authSuccess, } from 'Store/user/actions';
 import { getJWTToken, } from 'Store/user/selectors';
 import { persistStore, } from 'redux-persist';
 import registerServiceWorker from './registerServiceWorker';
-import { toggleUpdate, } from 'Store/ui/actions';
 
 const persistor = persistStore(
   store, null, () => {
@@ -53,6 +52,4 @@ ReactDOM.render(
   document.getElementById( 'root' )
 );
 
-store.dispatch( toggleUpdate() );
-
-registerServiceWorker( store );
+registerServiceWorker();

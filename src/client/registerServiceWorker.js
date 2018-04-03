@@ -1,7 +1,7 @@
-import { toggleUpdate, } from 'Store/ui/actions';
+import simpleNotification from 'Components/Notification';
 /* eslint-disable compat/compat */
 /* eslint-disable no-console */
-export default function register ( store ) {
+export default function register () {
   if ( process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator ) {
     window.addEventListener(
       'load', () => {
@@ -18,7 +18,11 @@ export default function register ( store ) {
                   if ( navigator.serviceWorker.controller ) {
                     console.log( 'New content is available; please refresh.' );
 
-                    store.dispatch( toggleUpdate() );
+                    simpleNotification(
+                      'Update Available',
+                      'There is an update available! Click below to update now.',
+                      'Update Now'
+                    );
                   } else console.log( 'Content is cached for offline use.' );
                 }
               };
