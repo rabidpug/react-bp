@@ -5,7 +5,8 @@ exports[`TopBar Should render the TopBar 1`] = `
   className="topBarHeader"
   style={
     Object {
-      "background": "#fff",
+      "background": "rgba(117,117,117,0.4)",
+      "borderTop": "4px solid #f5222d",
       "padding": 0,
     }
   }
@@ -17,6 +18,18 @@ exports[`TopBar Should render the TopBar 1`] = `
     loading={false}
     prefixCls="ant-btn"
   />
+  <div
+    className="offlineSpinContainer"
+  >
+    <Spin
+      className="offlineSpinner"
+      prefixCls="ant-spin"
+      size="default"
+      spinning={true}
+      tip="Offline..."
+      wrapperClassName=""
+    />
+  </div>
   <Menu
     className="topBarMenu"
     mode="horizontal"
