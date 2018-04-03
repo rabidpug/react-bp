@@ -1,6 +1,10 @@
 import 'react-hot-loader';
 
-import { authRequest, authSuccess, } from 'Store/user/actions';
+import {
+  authFailure,
+  authRequest,
+  authSuccess,
+} from 'Store/user/actions';
 import store, { history, } from 'Store';
 
 import App from 'Scenes/App';
@@ -39,9 +43,10 @@ const persistor = persistStore(
 
           localStorage.removeItem( 'profile' );
 
-          store.dispatch( authSuccess( res.data ) );
+          if ( res.data.success ) store.dispatch( authSuccess( res.data ) );
+          else store.dispatch( authFailure( res.data ) );
       }) //eslint-disable-line
-      .catch(e => console.log(e)); //eslint-disable-line
+      .catch(e => store.dispatch(authFailure(e.response.data))); //eslint-disable-line
     } else if ( token ) {
       store.dispatch( authSuccess( { profile: profile && JSON.parse( profile ),
                                      token, } ) );
