@@ -69,8 +69,8 @@ const config = {
                '.less',
                '.js',
              ], },
-  target : 'node',
-  watch  : !isProd,
+  target: 'node',
+  // watch  : !isProd,
 };
 
 module.exports = config;

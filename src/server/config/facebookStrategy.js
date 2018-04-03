@@ -21,70 +21,72 @@ const facebookStrategy =
   facebookOpts.clientID &&
   new FacebookStrategy(
     facebookOpts, (
-      accessToken, refreshToken, profile, done
+      req, accessToken, refreshToken, profile, done
     ) => {
-      const {
-        id, name, photos, emails,
-      } = profile;
-      const displayName = `${name.givenName ? name.givenName : ''} ${name.middleName ? name.middleName : ''} ${
-        name.familyName ? name.familyName : ''
-      }`.replace(
-        / {2,}/g, ' '
-      );
-      const pics = photos.reduce(
-        (
-          p, n
-        ) => [
-          n.value,
-          ...p,
-        ], []
-      );
-      const mail = emails.reduce(
-        (
-          p, n
-        ) => [
-          n.value,
-          ...p,
-        ], []
-      );
+      process.nextTick( () => {
+        const {
+          id, name, photos, emails,
+        } = profile;
+        const displayName = `${name.givenName ? name.givenName : ''} ${name.middleName ? name.middleName : ''} ${
+          name.familyName ? name.familyName : ''
+        }`.replace(
+          / {2,}/g, ' '
+        );
+        const pics = photos.reduce(
+          (
+            p, n
+          ) => [
+            n.value,
+            ...p,
+          ], []
+        );
+        const mail = emails.reduce(
+          (
+            p, n
+          ) => [
+            n.value,
+            ...p,
+          ], []
+        );
 
-      User.findOne(
-        { 'facebook.id': id, }, (
-          e, user
-        ) => {
-          if ( e ) {
-            return done(
-              e, false
-            );
+        User.findOne(
+          { 'facebook.id': id, }, (
+            e, user
+          ) => {
+            if ( e ) {
+              return done(
+                e, false
+              );
+            }
+
+            if ( user ) {
+              done(
+                null, user
+              );
+            } else {
+              const newUser = new User( {
+                'facebook.id'                : id,
+                'profile.displayNames'       : [ displayName, ],
+                'profile.emails'             : mail,
+                'profile.photos'             : pics,
+                'profile.providers.facebook' : true,
+              } );
+
+              newUser.save( e => {
+                if ( e ) {
+                  return done(
+                    e, false
+                  );
+                } else {
+                  done(
+                    null, newUser
+                  );
+                }
+              } );
+            }
           }
-
-          if ( user ) {
-            done(
-              null, user
-            );
-          } else {
-            const newUser = new User( {
-              'facebook.id'                : id,
-              'profile.displayNames'       : [ displayName, ],
-              'profile.emails'             : mail,
-              'profile.photos'             : pics,
-              'profile.providers.facebook' : true,
-            } );
-
-            newUser.save( e => {
-              if ( e ) {
-                return done(
-                  e, false
-                );
-              } else {
-                done(
-                  null, newUser
-                );
-              }
-            } );
-          }
-        }
-      );
+        );
+      } );
     }
   );
 

@@ -1,5 +1,8 @@
 import {
-  Button, Form, Icon, Input,
+  Button,
+  Form,
+  Icon,
+  Input,
 } from 'antd';
 import React, { Component, } from 'react';
 
@@ -184,7 +187,7 @@ class UserPassRaw extends Component {
         <div className={ gStyles.cardBottom }>
           <Item className={ styles.buttonsGroup }>
             <Button
-              className={ styles.loginFormButton }
+              className={ gStyles.margin10 }
               htmlType='submit'
               loading={ isGettingAuth }
               type='primary'>
@@ -198,7 +201,7 @@ class UserPassRaw extends Component {
           )}
           <Item className={ styles.buttonsGroup }>
             <Button
-              className={ styles.loginFormButton }
+              className={ gStyles.margin10 }
               href='api/auth/google'
               htmlType='button'
               icon='google'
@@ -207,7 +210,7 @@ class UserPassRaw extends Component {
               {'Sign In With Google'}
             </Button>
             <Button
-              className={ styles.loginFormButton }
+              className={ gStyles.margin10 }
               href='api/auth/facebook'
               htmlType='button'
               icon='facebook'

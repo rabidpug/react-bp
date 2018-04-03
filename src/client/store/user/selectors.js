@@ -6,8 +6,8 @@ export const getIsAuthenticated = createSelector(
 );
 export const getJWTToken = createSelector( [ 'user.token', ] );
 export const getProfile = createSelector( {
-  firstName : 'user.profile.firstName',
-  lastName  : 'user.profile.lastName',
-  photos    : 'user.profile.photos',
-  providers : 'user.profile.providers',
+  displayNames : 'user.profile.displayNames',
+  emails       : 'user.profile.emails',
+  photos       : 'user.profile.photos',
+  providers    : 'user.profile.providers',
 } );
