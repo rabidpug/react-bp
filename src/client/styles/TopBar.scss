@@ -1,6 +1,7 @@
 @import 'colours';
 
 .topBarMenu {
+  background-color: rgba(0, 0, 0, 0);
   float: right;
 }
 
@@ -10,5 +11,19 @@
 }
 
 .trigger {
+  background-color: rgba(0, 0, 0, 0);
   margin-left: 10px;
+}
+
+.offlineSpinContainer {
+  float: right;
+  margin: 0 10px;
+}
+
+.offlineSpinner {
+  color: #f5222d;
+}
+
+.offlineSpinner i {
+  background-color: #f5222d;
 }

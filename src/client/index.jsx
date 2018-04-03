@@ -11,11 +11,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { authSuccess, } from 'Store/user/actions';
 import { getJWTToken, } from 'Store/user/selectors';
+import { isOnline, } from 'Store/ui/actions';
 import { persistStore, } from 'redux-persist';
 import registerServiceWorker from './registerServiceWorker';
 
 const persistor = persistStore(
   store, null, () => {
+    store.dispatch( isOnline( window.navigator.onLine ) );
+
     const token = localStorage.getItem( 'JWT' );
     const profile = localStorage.getItem( 'profile' );
     const currentToken = getJWTToken( store.getState() );
@@ -50,6 +53,14 @@ ReactDOM.render(
     </PersistGate>
   </Provider>,
   document.getElementById( 'root' )
+);
+
+window.addEventListener(
+  'online', () => store.dispatch( isOnline( true ) )
+);
+
+window.addEventListener(
+  'offline', () => store.dispatch( isOnline( false ) )
 );
 
 registerServiceWorker();

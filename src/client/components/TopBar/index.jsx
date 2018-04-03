@@ -3,6 +3,7 @@ import {
   Icon,
   Layout,
   Menu,
+  Spin,
 } from 'antd';
 
 import React from 'react';
@@ -12,7 +13,13 @@ const { Item, SubMenu, } = Menu;
 
 const { Header, } = Layout;
 const TopBar = ( {
-  isSidebarCollapsed, toggleSideBar, actionMenuItems, selectedActionKeys, isAuthenticated, style,
+  isSidebarCollapsed,
+  toggleSideBar,
+  actionMenuItems,
+  selectedActionKeys,
+  isAuthenticated,
+  style,
+  isOnline,
 } ) => {
   const filterAuth = item => typeof item.isAuthenticated !== 'boolean' || item.isAuthenticated === isAuthenticated;
 
@@ -42,20 +49,30 @@ const TopBar = ( {
           )}
       </Item>
     );
+  const onlineStatusStyles = { background: isOnline ? '#fff' : 'rgba(117,117,117,0.4)', };
+
+  if ( !isOnline ) onlineStatusStyles.borderTop = '4px solid #f5222d';
 
   return (
     <Header
       className={ styles.topBarHeader }
       style={ {
         ...style,
-        background : '#fff',
-        padding    : 0,
+        ...onlineStatusStyles,
+        padding: 0,
       } }>
       <Button
         className={ styles.trigger }
         icon={ isSidebarCollapsed ? 'menu-unfold' : 'menu-fold' }
         onClick={ toggleSideBar }
       />
+      {!isOnline && (
+        <div className={ styles.offlineSpinContainer }>
+          <Spin
+            className={ styles.offlineSpinner }
+            tip='Offline...' />
+        </div>
+      )}
       {actionMenuItems && (
         <Menu
           className={ styles.topBarMenu }
