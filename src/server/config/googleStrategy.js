@@ -15,9 +15,31 @@ const googleStrategy =
     googleOpts, (
       req, accessToken, refreshToken, profile, done
     ) => {
+    console.log(profile); //eslint-disable-line
+
       const {
-        id, name, photos,
+        id, name, photos, emails,
       } = profile;
+
+      const displayName = `${name.givenName} ${name.middleName} ${name.familyName}`.replace(
+        / {2,}/g, ' '
+      );
+      const pics = photos.reduce(
+        (
+          p, n
+        ) => [
+          n.value,
+          ...p,
+        ], []
+      );
+      const mail = emails.reduce(
+        (
+          p, n
+        ) => [
+          n.value,
+          ...p,
+        ], []
+      );
 
       User.findOne(
         { 'google.id': id, }, (
@@ -36,9 +58,9 @@ const googleStrategy =
           } else {
             const newUser = new User( {
               'google.id'                : id,
-              'profile.firstName'        : name.givenName,
-              'profile.lastName'         : name.familyName,
-              'profile.photos'           : photos,
+              'profile.displayNames'     : [ displayName, ],
+              'profile.emails'           : mail,
+              'profile.photos'           : pics,
               'profile.providers.google' : true,
             } );
 

@@ -26,8 +26,27 @@ const facebookStrategy =
     console.log(profile); //eslint-disable-line
 
       const {
-        id, first_name, last_name, photos,
+        id, name, photos, emails,
       } = profile;
+      const displayName = `${name.givenName} ${name.middleName} ${name.familyName}`.replace(
+        / {2,}/g, ' '
+      );
+      const pics = photos.reduce(
+        (
+          p, n
+        ) => [
+          n.value,
+          ...p,
+        ], []
+      );
+      const mail = emails.reduce(
+        (
+          p, n
+        ) => [
+          n.value,
+          ...p,
+        ], []
+      );
 
       User.findOne(
         { 'facebook.id': id, }, (
@@ -46,9 +65,9 @@ const facebookStrategy =
           } else {
             const newUser = new User( {
               'facebook.id'                : id,
-              'profile.firstName'          : first_name,
-              'profile.lastName'           : last_name,
-              'profile.photos'             : photos,
+              'profile.displayNames'       : [ displayName, ],
+              'profile.emails'             : mail,
+              'profile.photos'             : pics,
               'profile.providers.facebook' : true,
             } );
 

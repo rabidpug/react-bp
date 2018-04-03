@@ -28,10 +28,10 @@ const UserSchema = mongoose.Schema( {
              unique   : true,
            }, },
   profile: {
-    firstName: { required : false,
-                 type     : String, },
-    lastName: { required : false,
-                type     : String, },
+    displayNames: { required : false,
+                    type     : Array, },
+    emails: { required : false,
+              type     : Array, },
     photos: { required : false,
               type     : Array, },
     providers: {
