@@ -12,6 +12,7 @@ import { authEndpointRoute, profileEndpointRoute, } from 'Shared/routes';
 import axios from 'axios';
 import { createActions, } from 'redux-actions';
 import { getJWTToken, } from './selectors';
+import { push, } from 'react-router-redux';
 
 export const {
   authSuccess,
@@ -44,6 +45,8 @@ export const authUser = (
       if ( res && res.data.success ) {
         dispatch( authSuccess( res.data ) );
 
+        dispatch( push( '/profile' ) );
+
         if ( authType === 'register' ) {
           dispatch( authUser(
             'login', payload
@@ -69,8 +72,17 @@ export const changePublic = (
                                           value, }
     )
     .then( res => {
-      if ( res.data.success ) dispatch( changePublicSuccess( res.data ) );
-      else dispatch( changePublicFailure( res.data ) );
+      if ( res.data.success ) {
+        dispatch( changePublicSuccess( res.data ) );
+
+        dispatch( push( '/profile' ) );
+      } else dispatch( changePublicFailure( res.data ) );
     } )
     .catch( e => dispatch( changePublicFailure( e.response.data ) ) );
+};
+
+export const redirectedAuthSuccess = data => dispatch => {
+  dispatch( authSuccess( data ) );
+
+  dispatch( push( '/profile' ) );
 };

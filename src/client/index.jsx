@@ -3,7 +3,7 @@ import 'react-hot-loader';
 import {
   authFailure,
   authRequest,
-  authSuccess,
+  redirectedAuthSuccess,
 } from 'Store/user/actions';
 import store, { history, } from 'Store';
 
@@ -43,13 +43,13 @@ const persistor = persistStore(
 
           localStorage.removeItem( 'profile' );
 
-          if ( res.data.success ) store.dispatch( authSuccess( res.data ) );
+          if ( res.data.success ) store.dispatch( redirectedAuthSuccess( res.data ) );
           else store.dispatch( authFailure( res.data ) );
       }) //eslint-disable-line
       .catch(e => store.dispatch(authFailure(e.response.data))); //eslint-disable-line
     } else if ( token ) {
-      store.dispatch( authSuccess( { profile: profile && JSON.parse( profile ),
-                                     token, } ) );
+      store.dispatch( redirectedAuthSuccess( { profile: profile && JSON.parse( profile ),
+                                               token, } ) );
 
       localStorage.removeItem( 'JWT' );
 
