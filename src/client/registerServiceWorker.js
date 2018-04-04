@@ -10,11 +10,7 @@ export default function register () {
         navigator.serviceWorker
           .register( swUrl )
           .then( registration => {
-            const forceUpdate = () => registration.update();
-
-            window.addEventListener(
-              'online', forceUpdate
-            );
+            window.ononline = () => registration.update();
 
             registration.onupdatefound = () => {
               const installingWorker = registration.installing;
