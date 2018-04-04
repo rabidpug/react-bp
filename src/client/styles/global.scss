@@ -4,9 +4,18 @@
   margin: auto;
   margin-bottom: 20px;
   margin-top: 10px;
-  max-width: 500px;
+  max-width: 650px;
   text-align: center;
   width: auto;
+  @media (max-width: 767.98px) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+    max-height: 100%;
+    max-width: 100%;
+    width: 100%;
+  }
 }
 
 .cardHeader {
@@ -32,7 +41,15 @@
 }
 
 .cardTop {
+  display: block;
+  flex: 1;
+  flex-grow: 1;
   margin: 0 20px 40px;
+  overflow: auto;
+  @media (max-width: 767.98px) {
+    margin: 0;
+    padding: 0 10px;
+  }
 }
 
 .buttonsGroup {
