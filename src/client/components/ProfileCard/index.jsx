@@ -11,7 +11,7 @@ import gStyles from 'Styles/global';
 import noImage from 'Assets/noImage.png';
 
 const ProfileCard = ( {
-  photos, displayNames, emails, style, providers,
+  photos, displayNames, emails, style, providers, publicProfile, changePublicProfile,
 } ) => {
   const handleClick = () => {
     console.log('book'); //eslint-disable-line
@@ -29,15 +29,18 @@ const ProfileCard = ( {
       } }>
       <Form>
         <Form.Item label='Public Profile Picture'>
-          <Radio.Group defaultValue={ false }>
+          <Radio.Group value={ publicProfile.photos }>
             <Radio.Button
+              onClick={ () => changePublicProfile(
+                'photos', 'Anonymous'
+              ) }
               style={ {
                 display : 'inline-block',
                 height  : 220,
                 padding : 10,
                 width   : 220,
               } }
-              value={ false }>
+              value='Anonymous'>
               <img src={ noImage } />
             </Radio.Button>
             {photos &&
@@ -46,6 +49,9 @@ const ProfileCard = ( {
               ) => arr.indexOf( url ) === i ).map( url => (
                 <Radio.Button
                   key={ url }
+                  onClick={ () => changePublicProfile(
+                    'photos', url
+                  ) }
                   style={ {
                     display : 'inline-block',
                     height  : 220,
@@ -59,14 +65,23 @@ const ProfileCard = ( {
           </Radio.Group>
         </Form.Item>
         <Form.Item label='Public Display Name'>
-          <Radio.Group defaultValue={ false }>
-            <Radio.Button value={ false }>Anonymous</Radio.Button>
+          <Radio.Group value={ publicProfile.displayNames }>
+            <Radio.Button
+              onClick={ () => changePublicProfile(
+                'displayNames', 'Anonymous'
+              ) }
+              value='Anonymous'>
+              Anonymous
+            </Radio.Button>
             {displayNames &&
               displayNames.filter( (
                 name, i, arr
               ) => arr.indexOf( name ) === i ).map( name => (
                 <Radio.Button
                   key={ name }
+                  onClick={ () => changePublicProfile(
+                    'displayNames', name
+                  ) }
                   value={ name }>
                   {name}
                 </Radio.Button>
@@ -74,14 +89,23 @@ const ProfileCard = ( {
           </Radio.Group>
         </Form.Item>
         <Form.Item label='Public Email'>
-          <Radio.Group defaultValue={ false }>
-            <Radio.Button value={ false }>Anonymous</Radio.Button>
+          <Radio.Group value={ publicProfile.emails }>
+            <Radio.Button
+              onClick={ () => changePublicProfile(
+                'emails', 'Anonymous'
+              ) }
+              value='Anonymous'>
+              Anonymous
+            </Radio.Button>
             {emails &&
               emails.filter( (
                 email, i, arr
               ) => arr.indexOf( email ) === i ).map( email => (
                 <Radio.Button
                   key={ email }
+                  onClick={ () => changePublicProfile(
+                    'emails', email
+                  ) }
                   value={ email }>
                   {email}
                 </Radio.Button>

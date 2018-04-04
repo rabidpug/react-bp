@@ -32,7 +32,7 @@ auth.post(
 
       newUser.save( e => {
         if ( e ) {
-          return res.json( { msg     : 'Username already exists.',
+          return res.json( { msg     : 'Registration failed.',
                              success : false, } );
         }
 
@@ -74,18 +74,19 @@ auth.post(
         ), PASSPORT_SECRET, { complete: true, }
       );
     } catch ( e ) {
-      res.json( { msg     : 'Merge User could not be verified',
-                  success : false, } );
+      return res.json( { msg     : 'Merge User could not be verified',
+                         success : false, } );
     }
     if ( !user || !mergeUser ) {
-      res.json( { msg     : `${user ? 'Merge' : 'Original'} User could not be verified`,
-                  success : false, } );
+      return res.json( { msg     : `${user ? 'Merge' : 'Original'} User could not be verified`,
+                         success : false, } );
     }
     const { profile: {
       providers: originalProviders = {},
       displayNames: originalDisplayNames = [],
       emails: originalEmails = [],
       photos: originalPhotos = [],
+      publicProfile,
     }, } = user;
     const { profile: {
       providers: mergeProviders = {},
@@ -113,17 +114,18 @@ auth.post(
       ],
       providers: { ...originalProviders,
                    ...mergeProviders, },
+      publicProfile: { ...publicProfile, },
     };
 
     User.findOne( { _id: mergeUser._id, } ).remove( e => {
       if ( e ) {
-        res.json( { msg     : 'Failed to delete Merge User',
-                    success : false, } );
+        return res.json( { msg     : 'Failed to delete Merge User',
+                           success : false, } );
       } else {
         user.save( e => {
           if ( e ) {
-            res.json( { msg     : 'Failed to save New User',
-                        success : false, } );
+            return res.json( { msg     : 'Failed to save New User',
+                               success : false, } );
           } else {
             const newToken = jwt.sign(
               user.toJSON(), PASSPORT_SECRET || 'secret'

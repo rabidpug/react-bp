@@ -12,6 +12,7 @@ import helloApi from './routes/helloApi';
 import logger from 'morgan';
 import mongoose from 'mongoose';
 import passport from './config/passport';
+import profileApi from './routes/profileApi';
 
 mongoose.Promise = bluebird;
 
@@ -38,6 +39,8 @@ app.use( bodyParser.json() );
 app.use( bodyParser.urlencoded( { extended: 'false', } ) );
 
 authApi( app );
+
+profileApi( app );
 
 helloApi( app );
 

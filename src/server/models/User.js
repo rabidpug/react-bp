@@ -39,13 +39,22 @@ const UserSchema = mongoose.Schema( {
       google   : { type: Boolean, },
       local    : { type: Boolean, },
     },
-    public: {
-      displayNames: { required : false,
-                      type     : Number, },
-      emails: { required : false,
-                type     : Number, },
-      photos: { required : false,
-                type     : Number, },
+    publicProfile: {
+      displayNames: {
+        default  : 'anonymous',
+        required : true,
+        type     : String,
+      },
+      emails: {
+        default  : 'anonymous',
+        required : true,
+        type     : String,
+      },
+      photos: {
+        default  : 'anonymous',
+        required : false,
+        type     : String,
+      },
     },
   },
 } );
