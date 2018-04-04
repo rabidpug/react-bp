@@ -9,7 +9,6 @@ import React, { Component, } from 'react';
 import { authEndpointRoute, } from 'Shared/routes';
 import axios from 'axios';
 import gStyles from 'Styles/global';
-import styles from 'Styles/UserPass';
 
 const { Item, } = Form;
 
@@ -185,9 +184,9 @@ class UserPassRaw extends Component {
           )}
         </div>
         <div className={ gStyles.cardBottom }>
-          <Item className={ styles.buttonsGroup }>
+          <Item className={ gStyles.buttonsGroup }>
             <Button
-              className={ gStyles.margin10 }
+              className={ gStyles.marginMid }
               htmlType='submit'
               loading={ isGettingAuth }
               type='primary'>
@@ -199,9 +198,9 @@ class UserPassRaw extends Component {
               <p>{authMessage}</p>
             </Item>
           )}
-          <Item className={ styles.buttonsGroup }>
+          <Item className={ gStyles.buttonsGroup }>
             <Button
-              className={ gStyles.margin10 }
+              className={ gStyles.marginMid }
               href='api/auth/google'
               htmlType='button'
               icon='google'
@@ -210,7 +209,7 @@ class UserPassRaw extends Component {
               {'Sign In With Google'}
             </Button>
             <Button
-              className={ gStyles.margin10 }
+              className={ gStyles.marginMid }
               href='api/auth/facebook'
               htmlType='button'
               icon='facebook'

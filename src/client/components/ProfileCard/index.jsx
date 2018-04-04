@@ -1,6 +1,5 @@
 import {
   Button,
-  Card,
   Form,
   Radio,
 } from 'antd';
@@ -18,17 +17,12 @@ const ProfileCard = ( {
   };
 
   return (
-    <Card
+    <Form
       className={ gStyles.cardStyle }
-      style={ {
-        margin    : 'auto',
-        marginTop : 50,
-        maxWidth  : 500,
-        minWidth  : 200,
-        ...style,
-      } }>
-      <Form>
-        <Form.Item label='Public Profile Picture'>
+      style={ { ...style, } }>
+      <div className={ gStyles.cardTop }>
+        <h1>User Profile</h1>
+        <Form.Item label='Profile Picture'>
           <Radio.Group value={ publicProfile.photos }>
             <Radio.Button
               onClick={ () => changePublicProfile(
@@ -64,7 +58,8 @@ const ProfileCard = ( {
               ) )}
           </Radio.Group>
         </Form.Item>
-        <Form.Item label='Public Display Name'>
+        <hr />
+        <Form.Item label='Display Name'>
           <Radio.Group value={ publicProfile.displayNames }>
             <Radio.Button
               onClick={ () => changePublicProfile(
@@ -88,7 +83,8 @@ const ProfileCard = ( {
               ) )}
           </Radio.Group>
         </Form.Item>
-        <Form.Item label='Public Email'>
+        <hr />
+        <Form.Item label='Email'>
           <Radio.Group value={ publicProfile.emails }>
             <Radio.Button
               onClick={ () => changePublicProfile(
@@ -112,44 +108,48 @@ const ProfileCard = ( {
               ) )}
           </Radio.Group>
         </Form.Item>
-      </Form>
-      {providers.local && (
-        <Button
-          className={ gStyles.margin10 }
-          onClick={ handleClick }>
-          Change Password
-        </Button>
-      )}
-      {!providers.local && (
-        <Button
-          className={ gStyles.margin10 }
-          onClick={ handleClick }>
-          Create Username & Password
-        </Button>
-      )}
-
-      <br />
-      {!providers.google && (
-        <Button
-          className={ gStyles.marginMid }
-          href={ authEndpointRoute( 'google' ) }
-          htmlType='button'
-          icon='google'
-          type='dashed'>
-          {'Link With Google'}
-        </Button>
-      )}
-      {!providers.facebook && (
-        <Button
-          className={ gStyles.marginMid }
-          href={ authEndpointRoute( 'facebook' ) }
-          htmlType='button'
-          icon='facebook'
-          type='dashed'>
-          {'Link With Facebook'}
-        </Button>
-      )}
-    </Card>
+      </div>
+      <div className={ gStyles.cardBottom }>
+        <Form.Item className={ gStyles.buttonsGroup }>
+          {providers.local && (
+            <Button
+              className={ gStyles.margin10 }
+              onClick={ handleClick }>
+              Change Password
+            </Button>
+          )}
+          {!providers.local && (
+            <Button
+              className={ gStyles.margin10 }
+              onClick={ handleClick }>
+              Create Username & Password
+            </Button>
+          )}
+        </Form.Item>
+        <Form.Item className={ gStyles.buttonsGroup }>
+          {!providers.google && (
+            <Button
+              className={ gStyles.marginMid }
+              href={ authEndpointRoute( 'google' ) }
+              htmlType='button'
+              icon='google'
+              type='dashed'>
+              {'Link With Google'}
+            </Button>
+          )}
+          {!providers.facebook && (
+            <Button
+              className={ gStyles.marginMid }
+              href={ authEndpointRoute( 'facebook' ) }
+              htmlType='button'
+              icon='facebook'
+              type='dashed'>
+              {'Link With Facebook'}
+            </Button>
+          )}
+        </Form.Item>
+      </div>
+    </Form>
   );
 };
 
