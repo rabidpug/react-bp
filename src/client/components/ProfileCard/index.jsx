@@ -32,7 +32,7 @@ const ProfileCard = ( {
           <Radio.Group value={ publicProfile.photos }>
             <Radio.Button
               onClick={ () => changePublicProfile(
-                'photos', 'Anonymous'
+                'photos', 'anonymous'
               ) }
               style={ {
                 display : 'inline-block',
@@ -40,7 +40,7 @@ const ProfileCard = ( {
                 padding : 10,
                 width   : 220,
               } }
-              value='Anonymous'>
+              value='anonymous'>
               <img src={ noImage } />
             </Radio.Button>
             {photos &&
@@ -68,9 +68,9 @@ const ProfileCard = ( {
           <Radio.Group value={ publicProfile.displayNames }>
             <Radio.Button
               onClick={ () => changePublicProfile(
-                'displayNames', 'Anonymous'
+                'displayNames', 'anonymous'
               ) }
-              value='Anonymous'>
+              value='anonymous'>
               Anonymous
             </Radio.Button>
             {displayNames &&
@@ -92,9 +92,9 @@ const ProfileCard = ( {
           <Radio.Group value={ publicProfile.emails }>
             <Radio.Button
               onClick={ () => changePublicProfile(
-                'emails', 'Anonymous'
+                'emails', 'anonymous'
               ) }
-              value='Anonymous'>
+              value='anonymous'>
               Anonymous
             </Radio.Button>
             {emails &&
