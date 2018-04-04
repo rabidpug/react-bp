@@ -10,14 +10,18 @@ export default function register () {
         navigator.serviceWorker
           .register( swUrl )
           .then( registration => {
+            const forceUpdate = () => registration.update();
+
+            window.addEventListener(
+              'online', forceUpdate
+            );
+
             registration.onupdatefound = () => {
               const installingWorker = registration.installing;
 
               installingWorker.onstatechange = () => {
                 if ( installingWorker.state === 'installed' ) {
                   if ( navigator.serviceWorker.controller ) {
-                    console.log( 'New content is available; please refresh.' );
-
                     simpleNotification(
                       'Update Available',
                       'There is an update available! Click below to update now.',

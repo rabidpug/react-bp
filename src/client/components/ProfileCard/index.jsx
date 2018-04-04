@@ -1,5 +1,7 @@
 import {
-  Button, Form, Radio,
+  Button,
+  Form,
+  Radio,
 } from 'antd';
 
 import React from 'react';
@@ -11,7 +13,7 @@ const ProfileCard = ( {
   photos, displayNames, emails, style, providers, publicProfile, changePublicProfile,
 } ) => {
   const handleClick = () => {
-    console.log('book'); //eslint-disable-line
+    console.log('I will do stuff'); //eslint-disable-line
   };
 
   return (
