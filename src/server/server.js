@@ -9,10 +9,11 @@ import compression from 'compression';
 import dev from './routes/dev';
 import express from 'express';
 import helloApi from './routes/helloApi';
-import logger from 'morgan';
 import mongoose from 'mongoose';
+import morgan from 'morgan';
 import passport from './config/passport';
 import profileApi from './routes/profileApi';
+import winston from './config/winston';
 
 mongoose.Promise = bluebird;
 
@@ -32,7 +33,9 @@ app.use( compression() );
 
 app.use( passport.initialize() );
 
-app.use( logger( 'dev' ) );
+app.use( morgan(
+  'combined', { stream: winston.stream, }
+) );
 
 app.use( bodyParser.json() );
 
