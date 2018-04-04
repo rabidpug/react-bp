@@ -1,7 +1,5 @@
 import {
-  Button,
-  Form,
-  Radio,
+  Button, Form, Radio,
 } from 'antd';
 
 import React from 'react';
@@ -20,9 +18,13 @@ const ProfileCard = ( {
     <Form
       className={ gStyles.cardStyle }
       style={ { ...style, } }>
+      <div className={ gStyles.cardHeader }>
+        <h1 style={ {} }>User Profile</h1>
+      </div>
       <div className={ gStyles.cardTop }>
-        <h1>User Profile</h1>
-        <Form.Item label='Profile Picture'>
+        <Form.Item
+          colon={ false }
+          label='Profile Picture'>
           <Radio.Group value={ publicProfile.photos }>
             <Radio.Button
               onClick={ () => changePublicProfile(
@@ -58,8 +60,9 @@ const ProfileCard = ( {
               ) )}
           </Radio.Group>
         </Form.Item>
-        <hr />
-        <Form.Item label='Display Name'>
+        <Form.Item
+          colon={ false }
+          label='Display Name'>
           <Radio.Group value={ publicProfile.displayNames }>
             <Radio.Button
               onClick={ () => changePublicProfile(
@@ -83,8 +86,9 @@ const ProfileCard = ( {
               ) )}
           </Radio.Group>
         </Form.Item>
-        <hr />
-        <Form.Item label='Email'>
+        <Form.Item
+          colon={ false }
+          label='Email'>
           <Radio.Group value={ publicProfile.emails }>
             <Radio.Button
               onClick={ () => changePublicProfile(

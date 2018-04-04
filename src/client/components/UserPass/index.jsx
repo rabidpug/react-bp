@@ -131,8 +131,10 @@ class UserPassRaw extends Component {
         className={ gStyles.cardStyle }
         onSubmit={ this.handleSubmit }
         style={ { ...style, } }>
-        <div className={ gStyles.cardTop }>
+        <div className={ gStyles.cardHeader }>
           <h1>{message}</h1>
+        </div>
+        <div className={ gStyles.cardTop }>
           <Item
             extra={ extraMessage }
             hasFeedback>
