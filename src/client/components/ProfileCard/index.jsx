@@ -34,12 +34,15 @@ const ProfileCard = ( {
               ) }
               style={ {
                 display : 'inline-block',
-                height  : 220,
+                height  : 120,
                 padding : 10,
-                width   : 220,
+                width   : 120,
               } }
               value='anonymous'>
-              <img src={ noImage } />
+              <img
+                height='100px'
+                src={ noImage }
+                width='100px' />
             </Radio.Button>
             {photos &&
               photos.filter( (
@@ -52,12 +55,15 @@ const ProfileCard = ( {
                   ) }
                   style={ {
                     display : 'inline-block',
-                    height  : 220,
+                    height  : 120,
                     padding : 10,
-                    width   : 220,
+                    width   : 120,
                   } }
                   value={ url }>
-                  <img src={ url } />
+                  <img
+                    height='100px'
+                    src={ url }
+                    width='100px' />
                 </Radio.Button>
               ) )}
           </Radio.Group>
