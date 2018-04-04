@@ -1,5 +1,6 @@
 import {
   Button,
+  Divider,
   Form,
   Radio,
 } from 'antd';
@@ -25,8 +26,9 @@ const ProfileCard = ( {
       </div>
       <div className={ gStyles.cardTop }>
         <Form.Item
+          className={ gStyles.itemLabel }
           colon={ false }
-          label='Profile Picture'>
+          label={ <Divider style={ { marginBottom: 0, } }>Profile Picture</Divider> }>
           <Radio.Group value={ publicProfile.photos }>
             <Radio.Button
               onClick={ () => changePublicProfile(
@@ -69,8 +71,9 @@ const ProfileCard = ( {
           </Radio.Group>
         </Form.Item>
         <Form.Item
+          className={ gStyles.itemLabel }
           colon={ false }
-          label='Display Name'>
+          label={ <Divider style={ { marginBottom: 0, } }>Display Name</Divider> }>
           <Radio.Group value={ publicProfile.displayNames }>
             <Radio.Button
               onClick={ () => changePublicProfile(
@@ -95,8 +98,9 @@ const ProfileCard = ( {
           </Radio.Group>
         </Form.Item>
         <Form.Item
+          className={ gStyles.itemLabel }
           colon={ false }
-          label='Email'>
+          label={ <Divider style={ { marginBottom: 0, } }>Email</Divider> }>
           <Radio.Group value={ publicProfile.emails }>
             <Radio.Button
               onClick={ () => changePublicProfile(
