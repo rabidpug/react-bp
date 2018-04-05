@@ -11,6 +11,7 @@ const antIcon = ( <Icon
   type='loading' /> );
 const Loading: Function = ( { error, timedOut, } ) => {
   if ( error || timedOut ) window.location.reload();
+
   return (
     <Spin
       className={ styles.spinner }
