@@ -146,13 +146,10 @@ class UserPassRaw extends Component {
             )( <Input
               autoComplete='username'
               placeholder='Username'
-              prefix={
-                <Icon
-                  style={ { color    : 'rgba(0,0,0,.25)',
-                            maxWidth : '50%', } }
-                  type='user'
-                />
-              }
+              prefix={ <Icon
+                style={ { color: 'rgba(0,0,0,.25)', } }
+                type='user' /> }
+              style={ { maxWidth: '50%', } }
             /> )}
           </Item>
           <Item hasFeedback>
@@ -164,13 +161,10 @@ class UserPassRaw extends Component {
             )( <Input
               autoComplete='current-password'
               placeholder='Password'
-              prefix={
-                <Icon
-                  style={ { color    : 'rgba(0,0,0,.25)',
-                            maxWidth : '50%', } }
-                  type='lock'
-                />
-              }
+              prefix={ <Icon
+                style={ { color: 'rgba(0,0,0,.25)', } }
+                type='lock' /> }
+              style={ { maxWidth: '50%', } }
               type='password'
             /> )}
           </Item>
@@ -185,13 +179,10 @@ class UserPassRaw extends Component {
                 autoComplete='current-password'
                 onBlur={ this.handleConfirmBlur }
                 placeholder='Confirm Password'
-                prefix={
-                  <Icon
-                    style={ { color    : 'rgba(0,0,0,.25)',
-                              maxWidth : '50%', } }
-                    type='lock'
-                  />
-                }
+                prefix={ <Icon
+                  style={ { color: 'rgba(0,0,0,.25)', } }
+                  type='lock' /> }
+                style={ { maxWidth: '50%', } }
                 type='password'
               /> )}
             </Item>
