@@ -24,7 +24,7 @@ const ProfileCard = ( {
       className={ gStyles.cardStyle }
       style={ { ...style, } }>
       <div className={ gStyles.cardHeader }>
-        <h1 style={ {} }>User Profile</h1>
+        <h1>User Profile</h1>
       </div>
       <div className={ gStyles.cardTop }>
         <Item
