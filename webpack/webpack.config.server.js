@@ -9,16 +9,10 @@ dotenv.config();
 const ENV = process.env.NODE_ENV;
 const isProd = ENV === 'production';
 const config = {
-  entry: { server: isProd
-    ? [
-      'babel-polyfill',
-      './src/server/index.js',
-    ]
-    : [
-      'babel-polyfill',
-      'webpack/hot/signal',
-      './src/server/index.js',
-    ], },
+  entry: { server: isProd ? [ './src/server/index.js', ] : [
+    'webpack/hot/signal',
+    './src/server/index.js',
+  ], },
   externals : [ nodeExternals( { whitelist: [ 'webpack/hot/signal', ], } ), ],
   module    : { rules: [
     {

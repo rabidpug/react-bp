@@ -16,7 +16,7 @@ const ProfileCard = ( {
   photos, displayNames, emails, style, providers, publicProfile, changePublicProfile,
 } ) => {
   const handleClick = () => {
-    console.log('I will do stuff'); //eslint-disable-line
+    console.log('I will do stuff, yea'); //eslint-disable-line
   };
 
   return (

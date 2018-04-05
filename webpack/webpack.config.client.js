@@ -1,4 +1,6 @@
 /*eslint-disable camelcase */
+/*eslint-disable prefer-destructuring */
+const BundleAnalyzerPlugin = require( 'webpack-bundle-analyzer' ).BundleAnalyzerPlugin;
 
 const HtmlWebPackPlugin = require( 'html-webpack-plugin' );
 const ManifestPlugin = require( 'webpack-manifest-plugin' );
@@ -16,6 +18,7 @@ const dotenv = require( 'dotenv' );
 
 dotenv.config();
 
+const isLocal = process.env.USER === 'matt';
 const projectTitle = process.env.PROJECT_TITLE;
 const themeVariables = lessToJs( fs.readFileSync(
   path.resolve( 'theme.less' ), 'utf8'
@@ -30,8 +33,8 @@ const prodPlugs = [
     template : './src/client/index.html',
     title    : projectTitle || 'configure env PROJECT_TITLE',
   } ),
-  new MiniCssExtractPlugin( { chunkFilename : 'styles/[name].css',
-                              filename      : 'styles/[name].css', } ),
+  new MiniCssExtractPlugin( { chunkFilename : 'styles/[name].[hash].css',
+                              filename      : 'styles/[name].[hash].css', } ),
   new ManifestPlugin( { fileName: 'asset-manifest.json', } ),
   new SWPrecacheWebpackPlugin( {
     dontCacheBustUrlsMatching : /\.\w{8}\./,
@@ -57,20 +60,17 @@ const prodPlugs = [
     cssProcessorOptions : { preset: 'advanced', },
   } ),
 ];
+
+isLocal && prodPlugs.push( new BundleAnalyzerPlugin() );
+
 const devPlugs = [ new webpack.HotModuleReplacementPlugin(), ];
 const cssLoader = isProd ? MiniCssExtractPlugin.loader : 'style-loader';
 
 module.exports = {
-  entry: { index: isProd
-    ? [
-      'babel-polyfill',
-      './src/client/index.jsx',
-    ]
-    : [
-      'babel-polyfill',
-      'webpack-hot-middleware/client',
-      './src/client/index.jsx',
-    ], },
+  entry: { index: isProd ? [ './src/client/index.jsx', ] : [
+    'webpack-hot-middleware/client',
+    './src/client/index.jsx',
+  ], },
   mode   : isProd ? 'production' : 'development',
   module : { rules: [
     {
@@ -142,13 +142,13 @@ module.exports = {
                name     : 'assets/[name].[hash:8].[ext]',
              }, }, },
   ], },
-  optimization: { splitChunks: { cacheGroups: { commons: {
-    chunks : 'all',
-    name   : 'vendor',
-    test   : /[\\/]node_modules[\\/]/,
-  }, }, }, },
+  // optimization: { splitChunks: { cacheGroups: { commons: {
+  //   chunks : 'all',
+  //   name   : 'vendor',
+  //   test   : /[\\/]node_modules[\\/]/,
+  // }, }, }, },
   output: {
-    filename   : 'js/[name].bundle.js',
+    filename   : 'js/[name].[hash].js',
     path       : path.resolve( 'dist' ),
     publicPath : '/',
   },

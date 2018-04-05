@@ -6,10 +6,12 @@ import {
   SAY_HELLO_SUCCESS,
 } from './types';
 
+import { IO_CLIENT_HELLO, } from 'Shared/socket';
 import axios from 'axios';
 import { createAction, } from 'redux-actions';
 import { getJWTToken, } from '../user/selectors';
 import { helloEndpointRoute, } from 'Shared/routes';
+import { socket, } from '../../socket';
 
 export const sayHelloRequest = createAction( SAY_HELLO_REQUEST );
 export const sayHelloSuccess = createAction( SAY_HELLO_SUCCESS );
@@ -18,6 +20,10 @@ export const sayHello: Function = ( num: number ) => (
   dispatch: Function, getState: Function
 ) => {
   dispatch( sayHelloRequest() );
+
+  socket.emit(
+    IO_CLIENT_HELLO, 'Hello from client!'
+  );
 
   axios.defaults.headers.common.Authorization = getJWTToken( getState() );
 

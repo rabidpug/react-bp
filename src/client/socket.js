@@ -11,7 +11,7 @@ import {
 
 import socketIOClient from 'socket.io-client';
 
-const socket = socketIOClient( window.location.host );
+export const socket = socketIOClient( window.location.host );
 
 /* eslint-disable no-console */
 // eslint-disable-next-line no-unused-vars
