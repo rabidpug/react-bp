@@ -10,7 +10,15 @@ export default function register () {
         navigator.serviceWorker
           .register( swUrl )
           .then( registration => {
-            window.onfocus = () => registration.update();
+            const checkUpdate = () => {
+              try {
+                registration.update();
+            } catch (e) {} //eslint-disable-line
+            };
+
+            window.onfocus = checkUpdate;
+
+            window.ononline = checkUpdate;
 
             registration.onupdatefound = () => {
               const installingWorker = registration.installing;
