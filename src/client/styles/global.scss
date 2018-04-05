@@ -1,13 +1,9 @@
 .cardStyle {
   background-color: #fff;
   box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2);
-  margin: auto;
-  margin-bottom: 20px;
-  margin-top: 10px;
-  max-width: 650px;
+  margin: 10px 20px;
   padding: 0;
   text-align: center;
-  width: auto;
   @media (max-width: 767.98px) {
     display: flex;
     flex-direction: column;
