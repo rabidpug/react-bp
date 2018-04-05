@@ -1,4 +1,3 @@
-import 'react-hot-loader';
 
 import {
   authFailure,

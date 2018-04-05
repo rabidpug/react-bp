@@ -6,7 +6,6 @@ import bluebird from 'bluebird';
 import bodyParser from 'body-parser';
 import clientRoutes from './routes/clientRoutes';
 import compression from 'compression';
-import dev from './routes/dev';
 import express from 'express';
 import helloApi from './routes/helloApi';
 import mongoose from 'mongoose';
@@ -47,7 +46,6 @@ profileApi( app );
 
 helloApi( app );
 
-if ( isDev ) dev( app );
-else clientRoutes( app );
+if ( !isDev ) clientRoutes( app );
 
 export default app;

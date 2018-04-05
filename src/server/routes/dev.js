@@ -25,10 +25,11 @@ const dev = app => {
           err, result
         ) => {
           if ( err ) return next( err );
-
-          res.set(
-            'content-type', 'text/html'
-          );
+          try {
+            res.set(
+              'content-type', 'text/html'
+            );
+      } catch (e) {} //eslint-disable-line
 
           res.send( result );
 

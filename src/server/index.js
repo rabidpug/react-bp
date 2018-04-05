@@ -3,14 +3,18 @@ import { NODE_ENV, PORT, } from 'Shared/env';
 /*eslint-disable no-console */
 import { Server, } from 'http';
 import app from './server';
+import dev from './routes/dev';
 import setUpSocket from './config/socket';
 import socketIO from 'socket.io';
+
 const isDev = NODE_ENV !== 'production';
 
 const SERVER_PORT = PORT || 8080;
 const SERVER_HOST = PORT ? '0.0.0.0' : 'localhost';
 
 const server = Server( app );
+
+if ( isDev ) dev( app );
 let currentApp = app;
 const io = socketIO(
   server, { pingInterval : 3000,

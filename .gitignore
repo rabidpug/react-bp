@@ -5,6 +5,7 @@ node_modules/
 #project
 coverage/
 dist/
+logs/
 *.code-workspace
 *.log
 /.env

@@ -20,7 +20,7 @@ export default function register () {
                   if ( navigator.serviceWorker.controller ) {
                     simpleNotification(
                       'Update Available',
-                      'There is an update available! Click below to update now.',
+                      'There is an update available! Click below to update now, or reload the page later.',
                       'Update Now'
                     );
                   } else console.log( 'Content is cached for offline use.' );

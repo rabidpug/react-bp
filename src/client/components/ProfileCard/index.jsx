@@ -10,6 +10,8 @@ import { authEndpointRoute, } from 'Shared/routes';
 import gStyles from 'Styles/global';
 import noImage from 'Assets/noImage.png';
 
+const { Item, } = Form;
+const { Group: RadioGroup, Button: RadioButton, } = Radio;
 const ProfileCard = ( {
   photos, displayNames, emails, style, providers, publicProfile, changePublicProfile,
 } ) => {
@@ -25,12 +27,12 @@ const ProfileCard = ( {
         <h1 style={ {} }>User Profile</h1>
       </div>
       <div className={ gStyles.cardTop }>
-        <Form.Item
+        <Item
           className={ gStyles.itemLabel }
           colon={ false }
           label={ <Divider style={ { marginBottom: 0, } }>Profile Picture</Divider> }>
-          <Radio.Group value={ publicProfile.photos }>
-            <Radio.Button
+          <RadioGroup value={ publicProfile.photos }>
+            <RadioButton
               onClick={ () => changePublicProfile(
                 'photos', 'anonymous'
               ) }
@@ -45,12 +47,12 @@ const ProfileCard = ( {
                 height='100px'
                 src={ noImage }
                 width='100px' />
-            </Radio.Button>
+            </RadioButton>
             {photos &&
               photos.filter( (
                 url, i, arr
               ) => arr.indexOf( url ) === i ).map( url => (
-                <Radio.Button
+                <RadioButton
                   key={ url }
                   onClick={ () => changePublicProfile(
                     'photos', url
@@ -66,67 +68,67 @@ const ProfileCard = ( {
                     height='100px'
                     src={ url }
                     width='100px' />
-                </Radio.Button>
+                </RadioButton>
               ) )}
-          </Radio.Group>
-        </Form.Item>
-        <Form.Item
+          </RadioGroup>
+        </Item>
+        <Item
           className={ gStyles.itemLabel }
           colon={ false }
           label={ <Divider style={ { marginBottom: 0, } }>Display Name</Divider> }>
-          <Radio.Group value={ publicProfile.displayNames }>
-            <Radio.Button
+          <RadioGroup value={ publicProfile.displayNames }>
+            <RadioButton
               onClick={ () => changePublicProfile(
                 'displayNames', 'anonymous'
               ) }
               value='anonymous'>
               Anonymous
-            </Radio.Button>
+            </RadioButton>
             {displayNames &&
               displayNames.filter( (
                 name, i, arr
               ) => arr.indexOf( name ) === i ).map( name => (
-                <Radio.Button
+                <RadioButton
                   key={ name }
                   onClick={ () => changePublicProfile(
                     'displayNames', name
                   ) }
                   value={ name }>
                   {name}
-                </Radio.Button>
+                </RadioButton>
               ) )}
-          </Radio.Group>
-        </Form.Item>
-        <Form.Item
+          </RadioGroup>
+        </Item>
+        <Item
           className={ gStyles.itemLabel }
           colon={ false }
           label={ <Divider style={ { marginBottom: 0, } }>Email</Divider> }>
-          <Radio.Group value={ publicProfile.emails }>
-            <Radio.Button
+          <RadioGroup value={ publicProfile.emails }>
+            <RadioButton
               onClick={ () => changePublicProfile(
                 'emails', 'anonymous'
               ) }
               value='anonymous'>
               Anonymous
-            </Radio.Button>
+            </RadioButton>
             {emails &&
               emails.filter( (
                 email, i, arr
               ) => arr.indexOf( email ) === i ).map( email => (
-                <Radio.Button
+                <RadioButton
                   key={ email }
                   onClick={ () => changePublicProfile(
                     'emails', email
                   ) }
                   value={ email }>
                   {email}
-                </Radio.Button>
+                </RadioButton>
               ) )}
-          </Radio.Group>
-        </Form.Item>
+          </RadioGroup>
+        </Item>
       </div>
       <div className={ gStyles.cardBottom }>
-        <Form.Item className={ gStyles.buttonsGroup }>
+        <Item className={ gStyles.buttonsGroup }>
           {providers.local && (
             <Button
               className={ gStyles.margin10 }
@@ -141,8 +143,8 @@ const ProfileCard = ( {
               Create Username & Password
             </Button>
           )}
-        </Form.Item>
-        <Form.Item className={ gStyles.buttonsGroup }>
+        </Item>
+        <Item className={ gStyles.buttonsGroup }>
           {!providers.google && (
             <Button
               className={ gStyles.marginMid }
@@ -163,7 +165,7 @@ const ProfileCard = ( {
               {'Link With Facebook'}
             </Button>
           )}
-        </Form.Item>
+        </Item>
       </div>
     </Form>
   );

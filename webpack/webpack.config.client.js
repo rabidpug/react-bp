@@ -30,8 +30,8 @@ const prodPlugs = [
     template : './src/client/index.html',
     title    : projectTitle || 'configure env PROJECT_TITLE',
   } ),
-  new MiniCssExtractPlugin( { chunkFilename : 'styles/[name].[hash].css',
-                              filename      : 'styles/[name].[hash].css', } ),
+  new MiniCssExtractPlugin( { chunkFilename : 'styles/[name].css',
+                              filename      : 'styles/[name].css', } ),
   new ManifestPlugin( { fileName: 'asset-manifest.json', } ),
   new SWPrecacheWebpackPlugin( {
     dontCacheBustUrlsMatching : /\.\w{8}\./,
@@ -148,7 +148,7 @@ module.exports = {
     test   : /[\\/]node_modules[\\/]/,
   }, }, }, },
   output: {
-    filename   : 'js/[name].bundle.[hash].js',
+    filename   : 'js/[name].bundle.js',
     path       : path.resolve( 'dist' ),
     publicPath : '/',
   },

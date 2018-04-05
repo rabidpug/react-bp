@@ -16,10 +16,10 @@ const config = {
     ]
     : [
       'babel-polyfill',
-      'webpack/hot/poll?1000',
+      'webpack/hot/signal',
       './src/server/index.js',
     ], },
-  externals : [ nodeExternals( { whitelist: [ 'webpack/hot/poll?1000', ], } ), ],
+  externals : [ nodeExternals( { whitelist: [ 'webpack/hot/signal', ], } ), ],
   module    : { rules: [
     {
       exclude : /node_modules/,
@@ -32,10 +32,13 @@ const config = {
   optimization : { minimize: false, },
   output       : { filename : '[name].js',
                    path     : path.resolve( 'dist' ), },
-  plugins: isProd ? [] : [
-    new webpack.HotModuleReplacementPlugin(),
-    new StartServerPlugin( { entryName: 'server', } ),
-  ],
+  plugins: isProd
+    ? []
+    : [
+      new webpack.HotModuleReplacementPlugin(),
+      new StartServerPlugin( { entryName : 'server',
+                               signal    : 'SIGUSR2', } ),
+    ],
   resolve: { alias: {
     Assets: path.resolve(
       'src', 'client', 'assets'

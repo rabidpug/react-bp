@@ -1,14 +1,15 @@
 {
   "git.ignoreLimitWarning": true,
   "files.exclude": {
-    "**/coverage": false,
-    "**/dist": false,
-    "**/node_modules": false,
-    "**/package-lock.json": false,
-    "**/yarn-error.log": false,
-    "**/yarn.lock": false,
-    "**/app.json": false,
-    "**/*.scss.flow": false
+    "**/coverage": true,
+    "**/logs": true,
+    "**/dist": true,
+    "**/node_modules": true,
+    "**/package-lock.json": true,
+    "**/yarn-error.log": true,
+    "**/yarn.lock": true,
+    "**/app.json": true,
+    "**/*.scss.flow": true
   },
   "js-import.alias": {
     "Animations": "./src/client/animations",

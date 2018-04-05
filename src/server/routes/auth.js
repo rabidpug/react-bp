@@ -119,12 +119,12 @@ auth.post(
 
     User.findOne( { _id: mergeUser._id, } ).remove( e => {
       if ( e ) {
-        return res.json( { msg     : 'Failed to delete Merge User',
+        return res.json( { msg     : 'Failed to link accounts.',
                            success : false, } );
       } else {
         user.save( e => {
           if ( e ) {
-            return res.json( { msg     : 'Failed to save New User',
+            return res.json( { msg     : 'Failed to link accounts',
                                success : false, } );
           } else {
             const newToken = jwt.sign(
@@ -169,7 +169,7 @@ auth.post(
                   token   : `JWT ${token}`,
                 } );
               } else {
-                res.status( 401 ).send( { msg     : 'Incorrect password!',
+                res.status( 401 ).send( { msg     : 'The password entered was incorrect.',
                                           success : false, } );
               }
             }
