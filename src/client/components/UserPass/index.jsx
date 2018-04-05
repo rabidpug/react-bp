@@ -149,7 +149,7 @@ class UserPassRaw extends Component {
               prefix={ <Icon
                 style={ { color: 'rgba(0,0,0,.25)', } }
                 type='user' /> }
-              style={ { maxWidth: '50%', } }
+              style={ { maxWidth: 500, } }
             /> )}
           </Item>
           <Item hasFeedback>
@@ -164,7 +164,7 @@ class UserPassRaw extends Component {
               prefix={ <Icon
                 style={ { color: 'rgba(0,0,0,.25)', } }
                 type='lock' /> }
-              style={ { maxWidth: '50%', } }
+              style={ { maxWidth: 500, } }
               type='password'
             /> )}
           </Item>
@@ -182,7 +182,7 @@ class UserPassRaw extends Component {
                 prefix={ <Icon
                   style={ { color: 'rgba(0,0,0,.25)', } }
                   type='lock' /> }
-                style={ { maxWidth: '50%', } }
+                style={ { maxWidth: 500, } }
                 type='password'
               /> )}
             </Item>
