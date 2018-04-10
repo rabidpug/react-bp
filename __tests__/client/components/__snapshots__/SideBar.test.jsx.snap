@@ -80,6 +80,17 @@ exports[`SideBar Should render the SideBar with a menu 1`] = `
         Welcome
       </span>
     </MenuItem>
+    <MenuItem
+      key="item2"
+      path="/signin"
+    >
+      <Icon
+        type="user-add"
+      />
+      <span>
+        Sign In/Up
+      </span>
+    </MenuItem>
   </Menu>
 </Sider>
 `;

@@ -1,27 +1,15 @@
 import 'react-hot-loader';
 
-import { ConnectedRouter, routerMiddleware, } from 'react-router-redux';
-import { configureStore, createDefaultMiddleware, } from '@acemarke/redux-starter-kit';
+import store, { history, } from 'Store';
 
 import App from 'Scenes/App';
+import { ConnectedRouter, } from 'react-router-redux';
 import { Provider, } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import createHistory from 'history/createBrowserHistory';
 import { isOnline, } from 'Store/ui/actions';
-import reducer from 'Store';
 import registerServiceWorker from './registerServiceWorker';
 import setUpSocket from './socket';
-
-export const history = createHistory();
-const routerware = routerMiddleware( history );
-const middleware = createDefaultMiddleware( routerware );
-
-export const store = configureStore( {
-  devTools: process.env.NODE_ENV !== 'production',
-  middleware,
-  reducer,
-} );
 
 setUpSocket( store );
 
