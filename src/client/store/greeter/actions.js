@@ -22,7 +22,7 @@ export const sayHello: Function = ( num: number ) => ( dispatch: Function ) => {
     IO_CLIENT_HELLO, 'Hello from client!'
   );
 
-  axios.defaults.headers.common.Authorization = localStorage.getItem( 'JWT' );
+  axios.defaults.headers.common.Authorization = localStorage.getItem( 'JWT' ) || sessionStorage.getItem( 'JWT' );
 
   axios
     .get( helloEndpointRoute( num ) )

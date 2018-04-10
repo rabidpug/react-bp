@@ -15,7 +15,7 @@ export const authSuccessReducer = (
 
   state.isGettingAuth = false;
 
-  localStorage.setItem(
+  ( JSON.parse( localStorage.getItem( 'remember' ) ) ? localStorage : sessionStorage ).setItem(
     'JWT', payload.token
   );
 
@@ -50,6 +50,8 @@ export const authRequestReducer = state => {
 export const logoutUserReducer = () => {
   localStorage.removeItem( 'JWT' );
 
+  sessionStorage.removeItem( 'JWT' );
+
   return {};
 };
 
@@ -63,7 +65,7 @@ export const changePublicSuccessReducer = (
 
   state.isChangingPublic = false;
 
-  localStorage.setItem(
+  ( JSON.parse( localStorage.getItem( 'remember' ) ) ? localStorage : sessionStorage ).setItem(
     'JWT', payload.token
   );
 

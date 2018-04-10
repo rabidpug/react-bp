@@ -50,7 +50,7 @@ export const redirectedAuthSuccess = data => dispatch => {
 export const getProfile = () => dispatch => {
   dispatch( profileRequest() );
 
-  axios.defaults.headers.common.Authorization = localStorage.getItem( 'JWT' );
+  axios.defaults.headers.common.Authorization = localStorage.getItem( 'JWT' ) || sessionStorage.getItem( 'JWT' );
 
   axios
     .get( profileEndpointRoute() )
@@ -92,7 +92,7 @@ export const changePublic = (
 ) => dispatch => {
   dispatch( changePublicRequest() );
 
-  axios.defaults.headers.common.Authorization = localStorage.getItem( 'JWT' );
+  axios.defaults.headers.common.Authorization = localStorage.getItem( 'JWT' ) || sessionStorage.getItem( 'JWT' );
 
   axios
     .post(

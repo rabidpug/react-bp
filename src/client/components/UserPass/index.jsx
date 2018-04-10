@@ -1,5 +1,6 @@
 import {
   Button,
+  Checkbox,
   Form,
   Icon,
   Input,
@@ -16,8 +17,23 @@ class UserPassRaw extends Component {
   constructor ( props ) {
     super( props );
 
-    this.state = { confirmDirty : false,
-                   userExists   : 'noval', };
+    this.state = {
+      confirmDirty : false,
+      remember     : JSON.parse( localStorage.getItem( 'remember' ) ),
+      userExists   : 'noval',
+    };
+  }
+
+  componentDidMount () {
+    const { remember, } = this.state;
+
+    if ( typeof remember !== 'boolean' ) {
+      localStorage.setItem(
+        'remember', true
+      );
+
+      this.setState( { remember: true, } );
+    }
   }
 
   handleConfirmBlur = e => {
@@ -83,6 +99,10 @@ class UserPassRaw extends Component {
     }
   };
 
+  setRemember = remember => localStorage.setItem(
+    'remember', remember
+  );
+
   confirmPasswordValidator = (
     rule, value, callback
   ) => {
@@ -114,12 +134,11 @@ class UserPassRaw extends Component {
     } else callback( 'please enter a password' );
   };
 
-  //TODO: Add Remember Me checkbox
   render () {
     const {
       form, isGettingAuth, authMessage, style,
     } = this.props;
-    const { userExists, } = this.state;
+    const { userExists, remember, } = this.state;
     const { getFieldDecorator, } = form;
     const message = userExists === 'noval' ? 'Sign In/Up' : userExists ? 'Sign In' : 'Sign Up';
     const extraMessage =
@@ -198,6 +217,14 @@ class UserPassRaw extends Component {
               type='primary'>
               {message}
             </Button>
+          </Item>
+          <Item>
+            {getFieldDecorator(
+              'remember', {
+                initialValue   : remember,
+                valuePropName  : 'checked',
+              }
+            )( <Checkbox onChange={ e => this.setRemember( e.target.checked ) }>Remember me</Checkbox> )}
           </Item>
           {authMessage && (
             <Item>
