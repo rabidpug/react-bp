@@ -50,6 +50,7 @@ const SideBar = ( {
     ) : (
       <Item
         key={ item.key }
+        onMouseEnter={ () => item.component.preload() }
         path={ item.path }>
         <Icon type={ item.icon } />
         <span>{item.label}</span>

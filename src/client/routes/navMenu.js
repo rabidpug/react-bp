@@ -1,29 +1,41 @@
+import {
+  Home,
+  Login,
+  UserProfile,
+  Welcome,
+} from 'Scenes/Loadables';
+
 import HomeSideBar from 'Components/SideBar/HomeSideBar';
+
 const navMenu = [
   {
     component : HomeSideBar,
     menuItems : [
       {
-        icon    : 'home',
-        key     : 'sub1',
-        label   : 'Home',
-        path    : '/',
-        subMenu : [
+        component : Home,
+        icon      : 'home',
+        key       : 'sub1',
+        label     : 'Home',
+        path      : '/',
+        subMenu   : [
           {
-            icon  : 'home',
-            key   : 'subitem1',
-            label : 'Home Page',
-            path  : '/',
+            component : Home,
+            icon      : 'home',
+            key       : 'subitem1',
+            label     : 'Home Page',
+            path      : '/',
           },
         ],
       },
       {
-        icon  : 'smile-o',
-        key   : 'item1',
-        label : 'Welcome',
-        path  : '/welcome',
+        component : Welcome,
+        icon      : 'smile-o',
+        key       : 'item1',
+        label     : 'Welcome',
+        path      : '/welcome',
       },
       {
+        component       : Login,
         icon            : 'user-add',
         isAuthenticated : false,
         key             : 'item2',
@@ -31,6 +43,7 @@ const navMenu = [
         path            : '/signin',
       },
       {
+        component       : UserProfile,
         icon            : 'user',
         isAuthenticated : true,
         key             : 'item4',
