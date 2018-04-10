@@ -59,6 +59,7 @@ exports[`SideBar Should render the SideBar with a menu 1`] = `
     >
       <MenuItem
         key="subitem1"
+        onMouseEnter={[Function]}
         path="/"
       >
         <Icon
@@ -71,6 +72,7 @@ exports[`SideBar Should render the SideBar with a menu 1`] = `
     </SubMenu>
     <MenuItem
       key="item1"
+      onMouseEnter={[Function]}
       path="/welcome"
     >
       <Icon
@@ -82,6 +84,7 @@ exports[`SideBar Should render the SideBar with a menu 1`] = `
     </MenuItem>
     <MenuItem
       key="item2"
+      onMouseEnter={[Function]}
       path="/signin"
     >
       <Icon
