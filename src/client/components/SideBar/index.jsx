@@ -33,7 +33,7 @@ const SideBar = ( {
 
   menuItems.forEach( determineIfOpen );
 
-  const filterAuth = item => typeof item.isAuthenticated !== 'boolean' || item.isAuthenticated === isAuthenticated;
+  const filterAuth = item => typeof item.isAuthenticated !== 'boolean' || item.isAuthenticated === !!isAuthenticated;
   const menuItemMap = item =>
     item.subMenu ? (
       <SubMenu

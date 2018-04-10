@@ -114,6 +114,7 @@ class UserPassRaw extends Component {
     } else callback( 'please enter a password' );
   };
 
+  //TODO: Add Remember Me checkbox
   render () {
     const {
       form, isGettingAuth, authMessage, style,

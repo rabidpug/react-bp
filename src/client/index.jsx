@@ -1,79 +1,43 @@
+import 'react-hot-loader';
 
-import {
-  authFailure,
-  authRequest,
-  redirectedAuthSuccess,
-} from 'Store/user/actions';
-import store, { history, } from 'Store';
+import { ConnectedRouter, routerMiddleware, } from 'react-router-redux';
+import { configureStore, createDefaultMiddleware, } from '@acemarke/redux-starter-kit';
 
 import App from 'Scenes/App';
-import { ConnectedRouter, } from 'react-router-redux';
-import Loading from 'Components/Loading';
-import { PersistGate, } from 'redux-persist/integration/react';
 import { Provider, } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { authEndpointRoute, } from 'Shared/routes';
-import axios from 'axios';
-import { getJWTToken, } from 'Store/user/selectors';
+import createHistory from 'history/createBrowserHistory';
 import { isOnline, } from 'Store/ui/actions';
-import { persistStore, } from 'redux-persist';
+import reducer from 'Store';
 import registerServiceWorker from './registerServiceWorker';
+import setUpSocket from './socket';
 
-const persistor = persistStore(
-  store, null, () => {
-    store.dispatch( isOnline( window.navigator.onLine ) );
+export const history = createHistory();
+const routerware = routerMiddleware( history );
+const middleware = createDefaultMiddleware( routerware );
 
-    const token = localStorage.getItem( 'JWT' );
-    const profile = localStorage.getItem( 'profile' );
-    const currentToken = getJWTToken( store.getState() );
+export const store = configureStore( {
+  devTools: process.env.NODE_ENV !== 'production',
+  middleware,
+  reducer,
+} );
 
-    if ( currentToken && token ) {
-      store.dispatch( authRequest() );
-
-      axios.defaults.headers.common.Authorization = currentToken;
-
-      axios
-        .post(
-          authEndpointRoute( 'link' ), { token, }
-        )
-        .then( res => {
-          localStorage.removeItem( 'JWT' );
-
-          localStorage.removeItem( 'profile' );
-
-          if ( res.data.success ) store.dispatch( redirectedAuthSuccess( res.data ) );
-          else store.dispatch( authFailure( res.data ) );
-      }) //eslint-disable-line
-      .catch(e => store.dispatch(authFailure(e.response.data))); //eslint-disable-line
-    } else if ( token ) {
-      store.dispatch( redirectedAuthSuccess( { profile: profile && JSON.parse( profile ),
-                                               token, } ) );
-
-      localStorage.removeItem( 'JWT' );
-
-      localStorage.removeItem( 'profile' );
-    }
-  }
-);
+setUpSocket( store );
 
 if ( process.env.NODE_ENV !== 'production' ) {
   if ( module.hot ) {
     module.hot.accept(
-      './store/rootReducer', () => store.replaceReducer( require( './store/rootReducer' ).default )
+      './store', () => store.replaceReducer( require( './store' ).default )
     );
   }
 }
 
 ReactDOM.render(
   <Provider store={ store }>
-    <PersistGate
-      loading={ <Loading /> }
-      persistor={ persistor }>
-      <ConnectedRouter history={ history }>
-        <App />
-      </ConnectedRouter>
-    </PersistGate>
+    <ConnectedRouter history={ history }>
+      <App />
+    </ConnectedRouter>
   </Provider>,
   document.getElementById( 'root' )
 );

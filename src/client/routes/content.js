@@ -12,7 +12,7 @@ import { replace, } from 'react-router-redux';
 
 const userIsAuthenticated = connectedReduxRedirect( {
   AuthenticatingComponent : Loading,
-  authenticatedSelector   : state => !!state.user.token,
+  authenticatedSelector   : state => !!state.user.isAuthenticated,
   authenticatingSelector  : state => state.isAuthenticating,
   redirectAction          : redirect => dispatch => {
     dispatch( replace( redirect ) );
@@ -23,7 +23,7 @@ const userIsAuthenticated = connectedReduxRedirect( {
 
 const userIsNotAuthenticated = connectedReduxRedirect( {
   AuthenticatingComponent : Loading,
-  authenticatedSelector   : state => !state.user.token,
+  authenticatedSelector   : state => !state.user.isAuthenticated,
   authenticatingSelector  : state => state.isAuthenticating,
   redirectAction          : redirect => dispatch => {
     dispatch( replace( redirect ) );

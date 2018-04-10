@@ -7,6 +7,7 @@ import {
 } from 'antd';
 import React, { Component, } from 'react';
 
+import Loading from '../Loading';
 import { authEndpointRoute, } from 'Shared/routes';
 import gStyles from 'Styles/global';
 import noImage from 'Assets/noImage.png';
@@ -14,11 +15,20 @@ import noImage from 'Assets/noImage.png';
 const { Item, } = Form;
 const { Group: RadioGroup, Button: RadioButton, } = Radio;
 
+//TODO: Add retrieving profile on mount
 class ProfileCard extends Component {
   constructor ( props ) {
     super( props );
 
     this.state = { isModalVisible: false, };
+  }
+
+  componentDidMount () {
+    const {
+      isGettingProfile, doGetProfile, publicProfile,
+    } = this.props;
+
+    !isGettingProfile && !publicProfile && doGetProfile();
   }
 
   handleClick = () => this.setState( { isModalVisible: true, } );
@@ -29,7 +39,7 @@ class ProfileCard extends Component {
     } = this.props;
     const { isModalVisible, } = this.state;
 
-    return (
+    return publicProfile ? (
       <Form
         className={ gStyles.cardStyle }
         style={ { ...style, } }>
@@ -186,7 +196,8 @@ class ProfileCard extends Component {
           <p>coming soon</p>
         </Modal>
       </Form>
-    );
+    )
+      : <Loading />;
   }
 }
 

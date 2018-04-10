@@ -6,12 +6,15 @@ import {
   CHANGE_PUBLIC_REQUEST,
   CHANGE_PUBLIC_SUCCESS,
   LOGOUT_USER,
+  PROFILE_FAILURE,
+  PROFILE_REQUEST,
+  PROFILE_SUCCESS,
+  SET_IS_AUTHENTICATED,
 } from './types';
 import { authEndpointRoute, profileEndpointRoute, } from 'Shared/routes';
 
 import axios from 'axios';
 import { createActions, } from 'redux-actions';
-import { getJWTToken, } from './selectors';
 import { push, } from 'react-router-redux';
 
 export const {
@@ -22,6 +25,10 @@ export const {
   changePublicFailure,
   changePublicRequest,
   logoutUser,
+  setIsAuthenticated,
+  profileSuccess,
+  profileFailure,
+  profileRequest,
 } = createActions(
   AUTH_SUCCESS,
   AUTH_FAILURE,
@@ -29,9 +36,32 @@ export const {
   CHANGE_PUBLIC_SUCCESS,
   CHANGE_PUBLIC_FAILURE,
   CHANGE_PUBLIC_REQUEST,
-  LOGOUT_USER
+  LOGOUT_USER,
+  SET_IS_AUTHENTICATED,
+  PROFILE_SUCCESS,
+  PROFILE_FAILURE,
+  PROFILE_REQUEST
 );
+export const redirectedAuthSuccess = data => dispatch => {
+  dispatch( authSuccess( data ) );
 
+  dispatch( push( '/profile' ) );
+};
+export const getProfile = () => dispatch => {
+  dispatch( profileRequest() );
+
+  axios.defaults.headers.common.Authorization = localStorage.getItem( 'JWT' );
+
+  axios
+    .get( profileEndpointRoute() )
+    .then( res => {
+      if ( res && res.data.profile ) dispatch( profileSuccess( res.data.profile ) );
+      else dispatch( profileFailure( 'No Data' ) );
+    } )
+    .catch( e => {
+      dispatch( profileFailure( e.response.data ) );
+    } );
+};
 export const authUser = (
   authType, payload
 ) => dispatch => {
@@ -59,12 +89,10 @@ export const authUser = (
 
 export const changePublic = (
   key, value
-) => (
-  dispatch, getState
-) => {
+) => dispatch => {
   dispatch( changePublicRequest() );
 
-  axios.defaults.headers.common.Authorization = getJWTToken( getState() );
+  axios.defaults.headers.common.Authorization = localStorage.getItem( 'JWT' );
 
   axios
     .post(
@@ -72,17 +100,29 @@ export const changePublic = (
                                           value, }
     )
     .then( res => {
-      if ( res.data.success ) {
-        dispatch( changePublicSuccess( res.data ) );
-
-        dispatch( push( '/profile' ) );
-      } else dispatch( changePublicFailure( res.data ) );
+      if ( res.data.success ) dispatch( changePublicSuccess( res.data ) );
+      else dispatch( changePublicFailure( res.data ) );
     } )
     .catch( e => dispatch( changePublicFailure( e.response.data ) ) );
 };
+export const linkAuth = (
+  currentToken, newToken
+) => dispatch => {
+  dispatch( authRequest() );
 
-export const redirectedAuthSuccess = data => dispatch => {
-  dispatch( authSuccess( data ) );
+  axios.defaults.headers.common.Authorization = currentToken;
 
-  dispatch( push( '/profile' ) );
+  axios
+    .post(
+      authEndpointRoute( 'link' ), { newToken, }
+    )
+    .then( res => {
+      localStorage.removeItem( 'tempToken' );
+
+      localStorage.removeItem( 'profile' );
+
+      if ( res.data.success ) dispatch( redirectedAuthSuccess( res.data ) );
+      else dispatch( authFailure( res.data ) );
+    } )
+    .catch( e => dispatch( authFailure( e.response.data ) ) );
 };

@@ -1,27 +1,9 @@
-import { configureStore, createDefaultMiddleware, } from '@acemarke/redux-starter-kit';
+import * as reducers from './reducers';
 
-import createHistory from 'history/createBrowserHistory';
-import { persistReducer, } from 'redux-persist';
-import rootReducer from './rootReducer';
-import { routerMiddleware, } from 'react-router-redux';
-import setUpSocket from '../socket';
-import storage from 'redux-persist/lib/storage';
+import { combineReducers, } from '@acemarke/redux-starter-kit';
+import { routerReducer, } from 'react-router-redux';
 
-const persistConfig = { key: 'root',
-                        storage, };
-const reducer = persistReducer(
-  persistConfig, rootReducer
-);
+const reducer = combineReducers( { ...reducers,
+                                   routing: routerReducer, } );
 
-export const history = createHistory();
-const routerware = routerMiddleware( history );
-const middleware = createDefaultMiddleware( routerware );
-const store = configureStore( {
-  devTools: process.env.NODE_ENV !== 'production',
-  middleware,
-  reducer,
-} );
-
-setUpSocket( store );
-
-export default store;
+export default reducer;

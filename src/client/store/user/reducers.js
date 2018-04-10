@@ -4,6 +4,8 @@ export const authFailureReducer = (
   state.authMessage = payload.msg;
 
   state.isGettingAuth = false;
+
+  state.isAuthenticated = false;
 };
 
 export const authSuccessReducer = (
@@ -13,16 +15,43 @@ export const authSuccessReducer = (
 
   state.isGettingAuth = false;
 
-  state.token = payload.token;
+  localStorage.setItem(
+    'JWT', payload.token
+  );
+
+  state.isAuthenticated = true;
 
   state.profile = payload.profile;
 };
+export const profileRequestReducer = state => {
+  state.isGettingProfile = true;
+};
+export const profileSuccessReducer = (
+  state, { payload, }
+) => {
+  state.isGettingProfile = false;
 
+  state.profile = payload;
+};
+export const profileFailureReducer = (
+  state, { payload, }
+) => {
+  state.isGettingProfile = false;
+
+  state.profileMessage = payload;
+};
+export const setIsAuthenticatedReducer = state => {
+  state.isAuthenticated = true;
+};
 export const authRequestReducer = state => {
   state.isGettingAuth = true;
 };
 
-export const logoutUserReducer = () => ( {} );
+export const logoutUserReducer = () => {
+  localStorage.removeItem( 'JWT' );
+
+  return {};
+};
 
 export const changePublicRequestReducer = state => {
   state.isChangingPublic = true;
@@ -34,7 +63,9 @@ export const changePublicSuccessReducer = (
 
   state.isChangingPublic = false;
 
-  state.token = payload.token;
+  localStorage.setItem(
+    'JWT', payload.token
+  );
 
   state.profile = payload.profile;
 };

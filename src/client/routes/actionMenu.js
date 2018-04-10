@@ -1,6 +1,6 @@
 import HomeTopBar from 'Components/TopBar/HomeTopBar';
 import { logoutUser, } from 'Store/user/actions';
-import store from 'Store';
+import { store, } from '..';
 
 const actionMenu = [
   {

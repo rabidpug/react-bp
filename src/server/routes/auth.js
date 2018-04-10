@@ -211,7 +211,7 @@ auth.get(
     const htmlRedirector = `
     <html>
       <script>
-        window.localStorage.setItem('JWT', 'JWT ${token}');
+        window.localStorage.setItem('tempToken', 'JWT ${token}');
         window.localStorage.setItem('profile', JSON.stringify(${profile}));
         window.location.href = '/';
       </script>
@@ -246,7 +246,7 @@ auth.get(
     const htmlRedirector = `
     <html>
       <script>
-        window.localStorage.setItem('JWT', 'JWT ${token}');
+        window.localStorage.setItem('tempToken', 'JWT ${token}');
         window.localStorage.setItem('profile', JSON.stringify(${profile}));
         window.location.href = '/';
       </script>
