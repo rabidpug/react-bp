@@ -62,60 +62,46 @@ export const getProfile = () => dispatch => {
       dispatch( profileFailure( e.response.data ) );
     } );
 };
-export const authUser = (
-  authType, payload
-) => dispatch => {
+export const authUser = ( authType, payload ) => dispatch => {
   dispatch( authRequest() );
 
   axios
-    .post(
-      authEndpointRoute( authType ), payload
-    )
+    .post( authEndpointRoute( authType ), payload )
     .then( res => {
       if ( res && res.data.success ) {
         dispatch( authSuccess( res.data ) );
 
         dispatch( push( '/profile' ) );
 
-        if ( authType === 'register' ) {
-          dispatch( authUser(
-            'login', payload
-          ) );
-        }
+        if ( authType === 'register' ) dispatch( authUser( 'login', payload ) );
       } else dispatch( authFailure( res.data ) );
     } )
     .catch( e => dispatch( authFailure( e.response.data ) ) );
 };
 
-export const changePublic = (
-  key, value
-) => dispatch => {
+export const changePublic = ( key, value ) => dispatch => {
   dispatch( changePublicRequest() );
 
   axios.defaults.headers.common.Authorization = localStorage.getItem( 'JWT' ) || sessionStorage.getItem( 'JWT' );
 
   axios
-    .post(
-      profileEndpointRoute( 'public' ), { key,
-                                          value, }
-    )
+    .post( profileEndpointRoute( 'public' ), {
+      key,
+      value,
+    } )
     .then( res => {
       if ( res.data.success ) dispatch( changePublicSuccess( res.data ) );
       else dispatch( changePublicFailure( res.data ) );
     } )
     .catch( e => dispatch( changePublicFailure( e.response.data ) ) );
 };
-export const linkAuth = (
-  currentToken, newToken
-) => dispatch => {
+export const linkAuth = ( currentToken, newToken ) => dispatch => {
   dispatch( authRequest() );
 
   axios.defaults.headers.common.Authorization = currentToken;
 
   axios
-    .post(
-      authEndpointRoute( 'link' ), { newToken, }
-    )
+    .post( authEndpointRoute( 'link' ), { newToken, } )
     .then( res => {
       localStorage.removeItem( 'tempToken' );
 

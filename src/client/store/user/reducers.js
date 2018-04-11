@@ -1,6 +1,4 @@
-export const authFailureReducer = (
-  state, { payload, }
-) => {
+export const authFailureReducer = ( state, { payload, } ) => {
   state.authMessage = payload.msg;
 
   state.isGettingAuth = false;
@@ -8,16 +6,12 @@ export const authFailureReducer = (
   state.isAuthenticated = false;
 };
 
-export const authSuccessReducer = (
-  state, { payload, }
-) => {
+export const authSuccessReducer = ( state, { payload, } ) => {
   state.authMessage = '';
 
   state.isGettingAuth = false;
 
-  ( JSON.parse( localStorage.getItem( 'remember' ) ) ? localStorage : sessionStorage ).setItem(
-    'JWT', payload.token
-  );
+  ( JSON.parse( localStorage.getItem( 'remember' ) ) ? localStorage : sessionStorage ).setItem( 'JWT', payload.token );
 
   state.isAuthenticated = true;
 
@@ -26,16 +20,12 @@ export const authSuccessReducer = (
 export const profileRequestReducer = state => {
   state.isGettingProfile = true;
 };
-export const profileSuccessReducer = (
-  state, { payload, }
-) => {
+export const profileSuccessReducer = ( state, { payload, } ) => {
   state.isGettingProfile = false;
 
   state.profile = payload;
 };
-export const profileFailureReducer = (
-  state, { payload, }
-) => {
+export const profileFailureReducer = ( state, { payload, } ) => {
   state.isGettingProfile = false;
 
   state.profileMessage = payload;
@@ -58,23 +48,17 @@ export const logoutUserReducer = () => {
 export const changePublicRequestReducer = state => {
   state.isChangingPublic = true;
 };
-export const changePublicSuccessReducer = (
-  state, { payload, }
-) => {
+export const changePublicSuccessReducer = ( state, { payload, } ) => {
   state.changingPublicMessage = '';
 
   state.isChangingPublic = false;
 
-  ( JSON.parse( localStorage.getItem( 'remember' ) ) ? localStorage : sessionStorage ).setItem(
-    'JWT', payload.token
-  );
+  ( JSON.parse( localStorage.getItem( 'remember' ) ) ? localStorage : sessionStorage ).setItem( 'JWT', payload.token );
 
   state.profile = payload.profile;
 };
 
-export const changePublicFailureReducer = (
-  state, { payload, }
-) => {
+export const changePublicFailureReducer = ( state, { payload, } ) => {
   state.changingPublicMessage = payload.msg;
 
   state.isChangingPublic = false;

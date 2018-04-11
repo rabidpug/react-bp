@@ -17,9 +17,7 @@ import winston from './config/winston';
 mongoose.Promise = bluebird;
 
 mongoose
-  .connect(
-    MONGODB_URI, { promiseLibrary: bluebird, }
-  )
+  .connect( MONGODB_URI, { promiseLibrary: bluebird, } )
   .then( () => console.log( 'database connection successful' ) )
   .catch( e => console.log( e ) );
 
@@ -32,9 +30,7 @@ app.use( compression() );
 
 app.use( passport.initialize() );
 
-app.use( morgan(
-  'combined', { stream: winston.stream, }
-) );
+app.use( morgan( 'combined', { stream: winston.stream, } ) );
 
 app.use( bodyParser.json() );
 

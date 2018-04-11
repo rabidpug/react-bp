@@ -24,23 +24,37 @@ const SlideWrap = WrappedContainer =>
 
       return (
         <Animate
-          enter={ { scale  : [ 1, ],
-                    timing : { duration : 300,
-                               ease     : easeExpInOut, }, } }
+          enter={ {
+            scale  : [ 1, ],
+            timing : {
+              duration : 300,
+              ease     : easeExpInOut,
+            },
+          } }
           leave={ [
-            { scale  : [ 0, ],
-              timing : { duration : 300,
-                         ease     : easeExpInOut, }, },
+            {
+              scale  : [ 0, ],
+              timing : {
+                duration : 300,
+                ease     : easeExpInOut,
+              },
+            },
           ] }
           show={ show }
           start={ { scale: [ 0, ], } }
-          update={ { scale  : [ 1, ],
-                     timing : { duration : 500,
-                                ease     : easeExpInOut, }, } }>
+          update={ {
+            scale  : [ 1, ],
+            timing : {
+              duration : 500,
+              ease     : easeExpInOut,
+            },
+          } }>
           {( { scale, } ) => (
             <WrappedContainer
-              style={ { transform       : `scaleY(${scale})`,
-                        transformOrigin : 'center top', } }
+              style={ {
+                transform       : `scaleY(${scale})`,
+                transformOrigin : 'center top',
+              } }
               { ...this.props }
             />
           )}

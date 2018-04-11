@@ -1,9 +1,4 @@
-import {
-  Home,
-  UserForm,
-  UserProfile,
-  Welcome,
-} from 'Components/Loadables';
+import { Home, UserForm, UserProfile, Welcome, } from 'Components/Loadables';
 
 import SideBar from 'Components/SideBar';
 

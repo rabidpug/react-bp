@@ -69,7 +69,7 @@
     "function-paren-newline": [
       "warn",
       {
-        "minItems": 2
+        "minItems": 4
       }
     ],
     "import/no-duplicates": "error",
@@ -213,7 +213,7 @@
     "object-curly-newline": [
       "warn",
       {
-        "minProperties": 3
+        "multiline": true
       }
     ],
     "object-curly-spacing": ["warn", "always"],

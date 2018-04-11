@@ -18,9 +18,7 @@ export const sayHelloRequestReducer = ( state: stateType ) => {
   state.isLoading = true;
 };
 
-export const sayHelloSuccessReducer = (
-  state: stateType, action: sayHelloActionType
-) => {
+export const sayHelloSuccessReducer = ( state: stateType, action: sayHelloActionType ) => {
   state.message = action.payload;
 
   state.label = 'Say it again!';

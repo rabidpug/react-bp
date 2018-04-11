@@ -12,78 +12,44 @@ const googleOpts = {
 
 const googleStrategy =
   googleOpts.clientID &&
-  new GoogleStrategy(
-    googleOpts, (
-      req, accessToken, refreshToken, profile, done
-    ) => {
-      process.nextTick( () => {
-        const {
-          id, name, photos, emails,
-        } = profile;
+  new GoogleStrategy( googleOpts, (
+    req, accessToken, refreshToken, profile, done
+  ) => {
+    process.nextTick( () => {
+      const { id, name, photos, emails, } = profile;
 
-        const displayName = `${name.givenName ? name.givenName : ''} ${name.middleName ? name.middleName : ''} ${
-          name.familyName ? name.familyName : ''
-        }`.replace(
-          / {2,}/g, ' '
-        );
-        const pics = photos.reduce(
-          (
-            p, n
-          ) => [
-            n.value.replace(
-              'sz=50', 'sz=200'
-            ),
-            ...p,
-          ], []
-        );
-        const mail = emails.reduce(
-          (
-            p, n
-          ) => [
-            n.value,
-            ...p,
-          ], []
-        );
+      const displayName = `${name.givenName ? name.givenName : ''} ${name.middleName ? name.middleName : ''} ${
+        name.familyName ? name.familyName : ''
+      }`.replace( / {2,}/g, ' ' );
+      const pics = photos.reduce( ( p, n ) => [
+        n.value.replace( 'sz=50', 'sz=200' ),
+        ...p,
+      ], [] );
+      const mail = emails.reduce( ( p, n ) => [
+        n.value,
+        ...p,
+      ], [] );
 
-        User.findOne(
-          { 'google.id': id, }, (
-            e, user
-          ) => {
-            if ( e ) {
-              return done(
-                e, false
-              );
-            }
+      User.findOne( { 'google.id': id, }, ( e, user ) => {
+        if ( e ) return done( e, false );
 
-            if ( user ) {
-              done(
-                null, user
-              );
-            } else {
-              const newUser = new User( {
-                'google.id'                : id,
-                'profile.displayNames'     : [ displayName, ],
-                'profile.emails'           : mail,
-                'profile.photos'           : pics,
-                'profile.providers.google' : true,
-              } );
+        if ( user ) done( null, user );
+        else {
+          const newUser = new User( {
+            'google.id'                : id,
+            'profile.displayNames'     : [ displayName, ],
+            'profile.emails'           : mail,
+            'profile.photos'           : pics,
+            'profile.providers.google' : true,
+          } );
 
-              newUser.save( e => {
-                if ( e ) {
-                  return done(
-                    e, false
-                  );
-                } else {
-                  done(
-                    null, newUser
-                  );
-                }
-              } );
-            }
-          }
-        );
+          newUser.save( e => {
+            if ( e ) return done( e, false );
+            else done( null, newUser );
+          } );
+        }
       } );
-    }
-  );
+    } );
+  } );
 
 export default googleStrategy;

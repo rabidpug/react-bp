@@ -1,8 +1,4 @@
-import {
-  Icon,
-  Layout,
-  Menu,
-} from 'antd';
+import { Icon, Layout, Menu, } from 'antd';
 import React, { Component, } from 'react';
 
 import SlideWrap from 'Animations/SlideWrap';
@@ -12,9 +8,7 @@ import mapSideBar from './map';
 const { Item, SubMenu, } = Menu;
 const { Sider, } = Layout;
 
-@connect(
-  mapSideBar.State, mapSideBar.Dispatch
-)
+@connect( mapSideBar.State, mapSideBar.Dispatch )
 @SlideWrap
 export default class SideBar extends Component {
   render () {
@@ -73,8 +67,10 @@ export default class SideBar extends Component {
         collapsible
         onMouseEnter={ () => isSidebarCollapsed && toggleSideBar() }
         onMouseLeave={ () => !isSidebarCollapsed && toggleSideBar() }
-        style={ { ...style,
-                  backgroundColor: '#fff', } }
+        style={ {
+          ...style,
+          backgroundColor: '#fff',
+        } }
         trigger={ null }>
         <div className='logo' />
         <Menu

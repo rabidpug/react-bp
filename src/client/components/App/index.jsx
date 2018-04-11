@@ -17,14 +17,10 @@ const { Content, } = Layout;
 
 @hot( module )
 @withRouter
-@connect(
-  null, mapApp.Dispatch
-)
+@connect( null, mapApp.Dispatch )
 export default class App extends Component {
   componentDidMount () {
-    const {
-      isOnline, linkAuth, redirectedAuthSuccess,
-    } = this.props;
+    const { isOnline, linkAuth, redirectedAuthSuccess, } = this.props;
 
     isOnline( window.navigator.onLine );
 
@@ -32,13 +28,12 @@ export default class App extends Component {
     const profile = localStorage.getItem( 'profile' );
     const currentToken = localStorage.getItem( 'JWT' );
 
-    if ( currentToken && newToken ) {
-      linkAuth(
-        currentToken, newToken
-      );
-    } else if ( newToken ) {
-      redirectedAuthSuccess( { profile : profile && JSON.parse( profile ),
-                               token   : newToken, } );
+    if ( currentToken && newToken ) linkAuth( currentToken, newToken );
+    else if ( newToken ) {
+      redirectedAuthSuccess( {
+        profile : profile && JSON.parse( profile ),
+        token   : newToken,
+      } );
 
       localStorage.removeItem( 'tempToken' );
 
@@ -50,8 +45,10 @@ export default class App extends Component {
     const { location, } = this.props;
 
     const currentKey = location.pathname.split( '/' )[1] || '/';
-    const timeout = { enter : 300,
-                      exit  : 200, };
+    const timeout = {
+      enter : 300,
+      exit  : 200,
+    };
 
     return (
       <Layout className={ styles.layoutStyle }>

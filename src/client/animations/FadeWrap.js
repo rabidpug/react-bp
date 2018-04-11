@@ -24,19 +24,31 @@ const FadeWrap = WrappedContainer =>
 
       return (
         <Animate
-          enter={ { opacity : [ 1, ],
-                    timing  : { duration : 300,
-                                ease     : easeExpInOut, }, } }
+          enter={ {
+            opacity : [ 1, ],
+            timing  : {
+              duration : 300,
+              ease     : easeExpInOut,
+            },
+          } }
           leave={ [
-            { opacity : [ 0, ],
-              timing  : { duration : 300,
-                          ease     : easeExpInOut, }, },
+            {
+              opacity : [ 0, ],
+              timing  : {
+                duration : 300,
+                ease     : easeExpInOut,
+              },
+            },
           ] }
           show={ show }
           start={ { opacity: 0, } }
-          update={ { opacity : [ 1, ],
-                     timing  : { duration : 500,
-                                 ease     : easeExpInOut, }, } }>
+          update={ {
+            opacity : [ 1, ],
+            timing  : {
+              duration : 500,
+              ease     : easeExpInOut,
+            },
+          } }>
           {( { opacity, } ) => ( <WrappedContainer
             style={ { opacity, } }
             { ...this.props } /> )}

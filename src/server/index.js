@@ -16,34 +16,24 @@ const server = Server( app );
 
 if ( isDev ) dev( app );
 let currentApp = app;
-const io = socketIO(
-  server, { pingInterval : 3000,
-            pingTimeout  : 7000, }
-);
+const io = socketIO( server, {
+  pingInterval : 3000,
+  pingTimeout  : 7000,
+} );
 
 setUpSocket( io );
 
-server.listen(
-  SERVER_PORT,
-  SERVER_HOST,
-  () => console.log(`listening on port ${SERVER_PORT}`) //eslint-disable-line
-);
+server.listen( SERVER_PORT, SERVER_HOST, () => console.log( `listening on port ${SERVER_PORT}` ) );
 
 if ( isDev ) {
   if ( module.hot ) {
-    module.hot.accept(
-      './server', () => {
-        server.removeListener(
-          'request', currentApp
-        );
+    module.hot.accept( './server', () => {
+      server.removeListener( 'request', currentApp );
 
-        server.on(
-          'request', app
-        );
+      server.on( 'request', app );
 
-        currentApp = app;
-      }
-    );
+      currentApp = app;
+    } );
   }
 }
 // else server.on('request', app)

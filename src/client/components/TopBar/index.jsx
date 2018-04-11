@@ -1,10 +1,4 @@
-import {
-  Button,
-  Icon,
-  Layout,
-  Menu,
-  Spin,
-} from 'antd';
+import { Button, Icon, Layout, Menu, Spin, } from 'antd';
 import React, { Component, } from 'react';
 
 import SlideWrap from 'Animations/SlideWrap';
@@ -16,9 +10,7 @@ const { Item, SubMenu, } = Menu;
 
 const { Header, } = Layout;
 
-@connect(
-  mapTopBar.State, mapTopBar.Dispatch
-)
+@connect( mapTopBar.State, mapTopBar.Dispatch )
 @SlideWrap
 export default class TopBar extends Component {
   render () {
@@ -66,8 +58,10 @@ export default class TopBar extends Component {
     return (
       <Header
         className={ styles.topBarHeader }
-        style={ { ...onlineStatusStyles,
-                  padding: 0, } }>
+        style={ {
+          ...onlineStatusStyles,
+          padding: 0,
+        } }>
         <Button
           className={ styles.trigger }
           icon={ isSidebarCollapsed ? 'menu-unfold' : 'menu-fold' }

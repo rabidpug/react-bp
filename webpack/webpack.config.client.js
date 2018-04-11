@@ -18,11 +18,7 @@ const dotenv = require( 'dotenv' );
 dotenv.config();
 
 const projectTitle = process.env.PROJECT_TITLE;
-const themeVariables = lessToJs( fs.readFileSync(
-  path.resolve( 'src/client/styles/theme.scss' ), 'utf8'
-).replace(
-  /\$/gi, '@'
-) );
+const themeVariables = lessToJs( fs.readFileSync( path.resolve( 'src/client/styles/theme.scss' ), 'utf8' ).replace( /\$/gi, '@' ) );
 const ENV = process.env.NODE_ENV;
 const isProd = ENV === 'production';
 const prodPlugs = [
@@ -32,8 +28,10 @@ const prodPlugs = [
     template : './src/client/index.html',
     title    : projectTitle || 'configure env PROJECT_TITLE',
   } ),
-  new MiniCssExtractPlugin( { chunkFilename : 'styles/[name].[hash].css',
-                              filename      : 'styles/[name].[hash].css', } ),
+  new MiniCssExtractPlugin( {
+    chunkFilename : 'styles/[name].[hash].css',
+    filename      : 'styles/[name].[hash].css',
+  } ),
   new ManifestPlugin( { fileName: 'asset-manifest.json', } ),
   new SWPrecacheWebpackPlugin( {
     dontCacheBustUrlsMatching : /\.\w{8}\./,
@@ -64,81 +62,113 @@ const devPlugs = [ new webpack.HotModuleReplacementPlugin(), ];
 const cssLoader = isProd ? MiniCssExtractPlugin.loader : 'style-loader';
 
 module.exports = {
-  entry: { index: isProd ? [ './src/client/index.jsx', ] : [
-    'webpack-hot-middleware/client',
-    './src/client/index.jsx',
-  ], },
-  mode   : isProd ? 'production' : 'development',
-  module : { rules: [
-    {
-      exclude : /node_modules/,
-      loader  : 'babel-loader',
-      test    : /\.js$/,
-    },
-    {
-      exclude : /node_modules/,
-      loader  : 'babel-loader',
-      test    : /\.jsx$/,
-    },
-    { test : /\.(sass|scss)$/,
-      use  : [
-        { loader: cssLoader, },
-        { loader  : 'css-loader',
-          options : {
-            importLoaders : 2,
-            modules       : true,
-            sourceMap     : !isProd,
-          }, },
-        { loader  : 'postcss-loader',
-          options : { sourceMap: !isProd, }, },
-        { loader  : 'sass-loader',
-          options : { modules   : true,
-                      sourceMap : !isProd, }, },
-      ], },
-    { test : /\.less$/,
-      use  : [
-        { loader: cssLoader, },
-        { loader  : 'css-loader',
-          options : { sourceMap: !isProd, }, },
-        { loader  : 'postcss-loader',
-          options : { sourceMap: !isProd, }, },
-        { loader  : 'less-loader',
-          options : {
-            javascriptEnabled : true,
-            modifyVars        : themeVariables,
-            sourceMap         : !isProd,
-          }, },
-      ], },
-    { test : /\.css$/,
-      use  : [
-        { loader: cssLoader, },
-        { loader  : 'css-loader',
-          options : {
-            importLoaders : 1,
-            modules       : true,
-            sourceMap     : !isProd,
-          }, },
-        { loader  : 'postcss-loader',
-          options : { sourceMap: !isProd, }, },
-      ], },
-    { test: [
-      /\.bmp$/,
-      /\.gif$/,
-      /\.svg$/,
-      /\.jpe?g$/,
-      /\.png$/,
-      /\.ttf$/,
-      /\.woff$/,
-      /\.woff2$/,
-      /\.eot$/,
+  entry: {
+    index: isProd ? [ './src/client/index.jsx', ] : [
+      'webpack-hot-middleware/client',
+      './src/client/index.jsx',
     ],
-      use: { loader  : 'url-loader',
-             options : {
-               fallback : 'file-loader',
-               limit    : 10000,
-               name     : 'assets/[name].[hash:8].[ext]',
-             }, }, },
-  ], },
+  },
+  mode   : isProd ? 'production' : 'development',
+  module : {
+    rules: [
+      {
+        exclude : /node_modules/,
+        loader  : 'babel-loader',
+        test    : /\.js$/,
+      },
+      {
+        exclude : /node_modules/,
+        loader  : 'babel-loader',
+        test    : /\.jsx$/,
+      },
+      {
+        test : /\.(sass|scss)$/,
+        use  : [
+          { loader: cssLoader, },
+          {
+            loader  : 'css-loader',
+            options : {
+              importLoaders : 2,
+              modules       : true,
+              sourceMap     : !isProd,
+            },
+          },
+          {
+            loader  : 'postcss-loader',
+            options : { sourceMap: !isProd, },
+          },
+          {
+            loader  : 'sass-loader',
+            options : {
+              modules   : true,
+              sourceMap : !isProd,
+            },
+          },
+        ],
+      },
+      {
+        test : /\.less$/,
+        use  : [
+          { loader: cssLoader, },
+          {
+            loader  : 'css-loader',
+            options : { sourceMap: !isProd, },
+          },
+          {
+            loader  : 'postcss-loader',
+            options : { sourceMap: !isProd, },
+          },
+          {
+            loader  : 'less-loader',
+            options : {
+              javascriptEnabled : true,
+              modifyVars        : themeVariables,
+              sourceMap         : !isProd,
+            },
+          },
+        ],
+      },
+      {
+        test : /\.css$/,
+        use  : [
+          { loader: cssLoader, },
+          {
+            loader  : 'css-loader',
+            options : {
+              importLoaders : 1,
+              modules       : true,
+              sourceMap     : !isProd,
+            },
+          },
+          {
+            loader  : 'postcss-loader',
+            options : { sourceMap: !isProd, },
+          },
+        ],
+      },
+      {
+        test: [
+          /\.bmp$/,
+          /\.gif$/,
+          /\.svg$/,
+          /\.jpe?g$/,
+          /\.png$/,
+          /\.ttf$/,
+          /\.woff$/,
+          /\.woff2$/,
+          /\.eot$/,
+        ],
+        use: {
+          loader  : 'url-loader',
+          options : {
+            fallback : 'file-loader',
+            limit    : 10000,
+            name     : 'assets/[name].[hash:8].[ext]',
+          },
+        },
+      },
+    ],
+  },
   // optimization: { splitChunks: { cacheGroups: { commons: {
   //   chunks : 'all',
   //   name   : 'vendor',
@@ -153,46 +183,26 @@ module.exports = {
     ...prodPlugs,
     ...isProd ? [] : devPlugs,
   ],
-  resolve: { alias: {
-    Animations: path.resolve(
-      'src', 'client', 'animations'
-    ),
-    Assets: path.resolve(
-      'src', 'client', 'assets'
-    ),
-    Client: path.resolve(
-      'src', 'client'
-    ),
-    Components: path.resolve(
-      'src', 'client', 'components'
-    ),
-    Containers: path.resolve(
-      'src', 'client', 'containers'
-    ),
-    Routes: path.resolve(
-      'src', 'client', 'routes'
-    ),
-    Scenes: path.resolve(
-      'src', 'client', 'scenes'
-    ),
-    Server: path.resolve(
-      'src', 'server'
-    ),
-    Shared: path.resolve(
-      'src', 'shared'
-    ),
-    Store: path.resolve(
-      'src', 'client', 'store'
-    ),
-    Styles: path.resolve(
-      'src', 'client', 'styles'
-    ),
+  resolve: {
+    alias: {
+      Animations : path.resolve( 'src', 'client', 'animations' ),
+      Assets     : path.resolve( 'src', 'client', 'assets' ),
+      Client     : path.resolve( 'src', 'client' ),
+      Components : path.resolve( 'src', 'client', 'components' ),
+      Containers : path.resolve( 'src', 'client', 'containers' ),
+      Routes     : path.resolve( 'src', 'client', 'routes' ),
+      Scenes     : path.resolve( 'src', 'client', 'scenes' ),
+      Server     : path.resolve( 'src', 'server' ),
+      Shared     : path.resolve( 'src', 'shared' ),
+      Store      : path.resolve( 'src', 'client', 'store' ),
+      Styles     : path.resolve( 'src', 'client', 'styles' ),
+    },
+    extensions: [
+      '.less',
+      '.js',
+      '.jsx',
+      '.scss',
+    ],
   },
-             extensions: [
-               '.less',
-               '.js',
-               '.jsx',
-               '.scss',
-             ], },
   // watch: !isProd,
 };

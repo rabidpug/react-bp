@@ -1,6 +1,4 @@
-import {
-  Button, Checkbox, Form, Icon, Input,
-} from 'antd';
+import { Button, Checkbox, Form, Icon, Input, } from 'antd';
 import React, { Component, } from 'react';
 
 import { authEndpointRoute, } from 'Shared/routes';
@@ -12,9 +10,7 @@ import mapUserForm from './map';
 const { Item, } = Form;
 const { create, } = Form;
 
-@connect(
-  mapUserForm.State, mapUserForm.Dispatch
-)
+@connect( mapUserForm.State, mapUserForm.Dispatch )
 @create()
 export default class UserForm extends Component {
   constructor ( props ) {
@@ -31,9 +27,7 @@ export default class UserForm extends Component {
     const { remember, } = this.state;
 
     if ( typeof remember !== 'boolean' ) {
-      localStorage.setItem(
-        'remember', true
-      );
+      localStorage.setItem( 'remember', true );
 
       this.setState( { remember: true, } );
     }
@@ -48,26 +42,15 @@ export default class UserForm extends Component {
 
   handleSubmit = e => {
     const { onSubmit, form, } = this.props;
-    const { userExists, } = this.state;
 
     e.preventDefault();
 
-    form.validateFields( (
-      err, values
-    ) => {
-      const authType = userExists ? 'login' : 'register';
-
-      if ( !err ) {
-        onSubmit(
-          values, authType
-        );
-      }
+    form.validateFields( ( err, values ) => {
+      if ( !err ) onSubmit( values );
     } );
   };
 
-  userCheck = (
-    rule, value, callback
-  ) => {
+  userCheck = ( rule, value, callback ) => {
     const { form, } = this.props;
 
     if ( value ) {
@@ -75,9 +58,7 @@ export default class UserForm extends Component {
 
       if ( reg.test( value ) ) {
         axios
-          .post(
-            authEndpointRoute( 'usercheck' ), { username: value, }
-          )
+          .post( authEndpointRoute( 'usercheck' ), { username: value, } )
           .then( res => {
             if ( form.getFieldValue( 'username' ) ) {
               const { userExists, } = res.data;
@@ -102,13 +83,9 @@ export default class UserForm extends Component {
     }
   };
 
-  setRemember = remember => localStorage.setItem(
-    'remember', remember
-  );
+  setRemember = remember => localStorage.setItem( 'remember', remember );
 
-  confirmPasswordValidator = (
-    rule, value, callback
-  ) => {
+  confirmPasswordValidator = ( rule, value, callback ) => {
     const { form, } = this.props;
 
     if ( value && value !== form.getFieldValue( 'password' ) ) callback( 'Passwords do not match' );
@@ -116,17 +93,11 @@ export default class UserForm extends Component {
     else callback();
   };
 
-  passwordValidator = (
-    rule, value, callback
-  ) => {
+  passwordValidator = ( rule, value, callback ) => {
     const { form, } = this.props;
     const { confirmDirty, } = this.state;
 
-    if ( value && confirmDirty ) {
-      form.validateFields(
-        [ 'confirm', ], { force: true, }
-      );
-    }
+    if ( value && confirmDirty ) form.validateFields( [ 'confirm', ], { force: true, } );
 
     if ( value ) {
       if ( /[a-z]/.test( value ) === false ) callback( 'Password must contain a lowercase letter' );
@@ -138,9 +109,7 @@ export default class UserForm extends Component {
   };
 
   render () {
-    const {
-      form, isGettingAuth, authMessage, style,
-    } = this.props;
+    const { form, isGettingAuth, authMessage, } = this.props;
     const { userExists, remember, } = this.state;
     const { getFieldDecorator, } = form;
     const message = userExists === 'noval' ? 'Sign In/Up' : userExists ? 'Sign In' : 'Sign Up';
@@ -152,8 +121,7 @@ export default class UserForm extends Component {
     return (
       <Form
         className={ gStyles.cardStyle }
-        onSubmit={ this.handleSubmit }
-        style={ { ...style, } }>
+        onSubmit={ this.handleSubmit }>
         <div className={ gStyles.cardHeader }>
           <h1>{message}</h1>
         </div>
@@ -161,12 +129,12 @@ export default class UserForm extends Component {
           <Item
             extra={ extraMessage }
             hasFeedback>
-            {getFieldDecorator(
-              'username', { rules: [
+            {getFieldDecorator( 'username', {
+              rules: [
                 { required: true, },
                 { validator: this.userCheck, },
-              ], }
-            )( <Input
+              ],
+            } )( <Input
               autoComplete='username'
               placeholder='Username'
               prefix={ <Icon
@@ -176,12 +144,12 @@ export default class UserForm extends Component {
             /> )}
           </Item>
           <Item hasFeedback>
-            {getFieldDecorator(
-              'password', { rules: [
+            {getFieldDecorator( 'password', {
+              rules: [
                 { required: true, },
                 { validator: this.passwordValidator, },
-              ], }
-            )( <Input
+              ],
+            } )( <Input
               autoComplete='current-password'
               placeholder='Password'
               prefix={ <Icon
@@ -193,12 +161,12 @@ export default class UserForm extends Component {
           </Item>
           {!userExists && (
             <Item hasFeedback>
-              {getFieldDecorator(
-                'confirm', { rules: [
+              {getFieldDecorator( 'confirm', {
+                rules: [
                   { required: true, },
                   { validator: this.confirmPasswordValidator, },
-                ], }
-              )( <Input
+                ],
+              } )( <Input
                 autoComplete='current-password'
                 onBlur={ this.handleConfirmBlur }
                 placeholder='Confirm Password'
@@ -222,10 +190,10 @@ export default class UserForm extends Component {
             </Button>
           </Item>
           <Item>
-            {getFieldDecorator(
-              'remember', { initialValue  : remember,
-                            valuePropName : 'checked', }
-            )( <Checkbox onChange={ e => this.setRemember( e.target.checked ) }>Remember me</Checkbox> )}
+            {getFieldDecorator( 'remember', {
+              initialValue  : remember,
+              valuePropName : 'checked',
+            } )( <Checkbox onChange={ e => this.setRemember( e.target.checked ) }>Remember me</Checkbox> )}
           </Item>
           {authMessage && (
             <Item>
