@@ -3,7 +3,6 @@
 import { changePublic, getProfile, } from 'Store/user/actions';
 import { getIsGettingProfile, getProfileDetails, } from 'Store/user/selectors';
 
-import FadeWrap from 'Animations/FadeWrap';
 import ProfileCard from 'Components/ProfileCard';
 import { connect, } from 'react-redux';
 
@@ -17,6 +16,6 @@ const mapDispatchToProps = dispatch => ( { changePublicProfile: (
                                            doGetProfile: () => dispatch( getProfile() ), } );
 const UserProfile = connect(
   mapStateToProps, mapDispatchToProps
-)( FadeWrap( ProfileCard ) );
+)( ProfileCard );
 
 export default UserProfile;

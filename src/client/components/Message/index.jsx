@@ -3,6 +3,7 @@
 import HelloButton from '../Button/HelloButton';
 import React from 'react';
 import gStyles from 'Styles/global';
+
 const Message = ( { message, style, }: { message: string, style: any } ) => (
   <div
     className={ gStyles.cardStyle }

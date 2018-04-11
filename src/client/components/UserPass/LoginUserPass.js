@@ -2,7 +2,6 @@
 
 import { getAuthMessage, getIsGettingAuth, } from 'Store/user/selectors';
 
-import FadeWrap from 'Animations/FadeWrap';
 import UserPass from '.';
 import { authUser, } from 'Store/user/actions';
 import { connect, } from 'react-redux';
@@ -18,6 +17,6 @@ const mapDispatchToProps = dispatch => ( { onSubmit: (
 
 const LoginUserPass = connect(
   mapStateToProps, mapDispatchToProps
-)( FadeWrap( UserPass ) );
+)( UserPass );
 
 export default LoginUserPass;

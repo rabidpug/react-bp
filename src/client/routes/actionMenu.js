@@ -14,7 +14,12 @@ const actionMenu = [
       },
     ],
     component : HomeTopBar,
-    path      : '*',
+    path      : '/profile',
+  },
+  {
+    actionMenuItems : [],
+    component       : HomeTopBar,
+    path            : '*',
   },
 ];
 

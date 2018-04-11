@@ -56,11 +56,8 @@ const TopBar = ( {
   return (
     <Header
       className={ styles.topBarHeader }
-      style={ {
-        ...style,
-        ...onlineStatusStyles,
-        padding: 0,
-      } }>
+      style={ { ...onlineStatusStyles,
+                padding: 0, } }>
       <Button
         className={ styles.trigger }
         icon={ isSidebarCollapsed ? 'menu-unfold' : 'menu-fold' }
@@ -78,7 +75,8 @@ const TopBar = ( {
           className={ styles.topBarMenu }
           mode='horizontal'
           onClick={ ( { item, } ) => item.props.action && item.props.action() }
-          selectedKeys={ typeof selectedActionKeys === 'object' ? selectedActionKeys : [ selectedActionKeys, ] }>
+          selectedKeys={ typeof selectedActionKeys === 'object' ? selectedActionKeys : [ selectedActionKeys, ] }
+          style={ { ...style, } }>
           {actionMenuItems.filter( filterAuth ).map( menuItemMap )}
         </Menu>
       )}

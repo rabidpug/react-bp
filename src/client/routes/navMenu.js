@@ -28,11 +28,12 @@ const navMenu = [
         ],
       },
       {
-        component : Welcome,
-        icon      : 'smile-o',
-        key       : 'item1',
-        label     : 'Welcome',
-        path      : '/welcome',
+        component       : Welcome,
+        icon            : 'smile-o',
+        isAuthenticated : true,
+        key             : 'item1',
+        label           : 'Welcome',
+        path            : '/welcome',
       },
       {
         component       : Login,

@@ -1,3 +1,4 @@
+import { CSSTransition, TransitionGroup, } from 'react-transition-group';
 import React, { Component, } from 'react';
 import { Switch, withRouter, } from 'react-router-dom';
 import { linkAuth, redirectedAuthSuccess, } from 'Store/user/actions';
@@ -6,6 +7,7 @@ import { Layout, } from 'antd';
 import actionMenu from 'Routes/actionMenu';
 import { connect, } from 'react-redux';
 import content from 'Routes/content';
+import fadeTransition from 'Styles/fadeTransition';
 import { hot, } from 'react-hot-loader';
 import { isOnline, } from 'Store/ui/actions';
 import navMenu from 'Routes/navMenu';
@@ -49,12 +51,30 @@ class AppRaw extends Component {
   }
 
   render () {
+    const { location, } = this.props;
+    const switchProps = { location, };
+
+    const currentKey = location.pathname.split( '/' )[1] || '/';
+    const timeout = { enter : 300,
+                      exit  : 200, };
+
     return (
       <Layout className={ styles.layoutStyle }>
         {renderRoutes( navMenu )}
         <Layout>
-          <Switch>{renderRoutes( actionMenu )}</Switch>
-          <Content className={ styles.bodyStyle }>{renderRoutes( content )}</Content>
+          {renderRoutes( actionMenu )}
+          <Content className={ styles.bodyStyle }>
+            <TransitionGroup>
+              <CSSTransition
+                classNames={ fadeTransition }
+                key={ currentKey }
+                timeout={ timeout }>
+                <Switch location={ location }>{renderRoutes(
+                  content, null, switchProps
+                )}</Switch>
+              </CSSTransition>
+            </TransitionGroup>
+          </Content>
         </Layout>
       </Layout>
     );
