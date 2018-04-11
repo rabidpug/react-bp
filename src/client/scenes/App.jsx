@@ -69,12 +69,10 @@ class AppRaw extends Component {
                 classNames={ fadeTransition }
                 key={ currentKey }
                 timeout={ timeout }>
-                <Switch
-                  className={ styles.contentStyle }
-                  location={ location }>
-                  {renderRoutes(
+                <Switch location={ location }>
+                  <div className={ styles.contentStyle }>{renderRoutes(
                     content, null, switchProps
-                  )}
+                  )}</div>
                 </Switch>
               </CSSTransition>
             </TransitionGroup>
