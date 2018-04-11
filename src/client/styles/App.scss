@@ -13,6 +13,12 @@ body {
   }
 }
 
+.contentStyle {
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
 .layoutStyle {
   height: 100vh;
   overflow: hidden;
