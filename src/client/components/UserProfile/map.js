@@ -2,6 +2,7 @@ import { changePassword, changePasswordClear, changePublic, getProfile, } from '
 import {
   getChangePasswordStatus,
   getIsChangingPassword,
+  getIsChangingPublic,
   getIsGettingProfile,
   getProfileDetails,
 } from 'Store/user/selectors';
@@ -20,6 +21,7 @@ const mapUserProfile = {
     ...getProfileDetails( state ),
     changePasswordStatus : getChangePasswordStatus( state ),
     changingPassword     : getIsChangingPassword( state ),
+    isChangingPublic     : getIsChangingPublic( state ),
     isGettingProfile     : getIsGettingProfile( state ),
   } ),
 };

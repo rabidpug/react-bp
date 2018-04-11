@@ -57,6 +57,10 @@ export default class UserProfile extends Component {
   };
 
   currentValidator = ( rule, value, callback ) => {
+    const { form, } = this.props;
+    const { modalType } = this.state;
+
+    if ( value && modalType === 'change' ) form.validateFields( [ 'password', ], { force: true, } );
     if ( value ) {
       if ( /[a-z]/.test( value ) === false ) callback( 'Password must contain a lowercase letter' );
       else if ( /[A-Z]/.test( value ) === false ) callback( 'Password must contain an uppercase letter' );
@@ -266,68 +270,72 @@ export default class UserProfile extends Component {
 
             form.resetFields();
           } }
-          title={ modalType === 'change' ? 'Change Password' : 'Create Username and Password' }
+          title={
+            modalType === 'change' ? 'Change Password' : modalType === 'create' ? 'Create Username and Password' : ''
+          }
           visible={ !!modalType }>
-          <Form onSubmit={ this.handleSubmit }>
-            <Item hasFeedback>
-              {getFieldDecorator( modalType === 'change' ? 'current' : 'username', {
-                rules: [
-                  { required: true, },
-                  { validator: modalType === 'change' ? this.currentValidator : this.userCheck, },
-                ],
-              } )( <Input
-                autoComplete={ modalType === 'change' ? 'current-password' : 'username' }
-                placeholder={ modalType === 'change' ? 'Current Password' : 'Username' }
-                prefix={ <Icon
-                  style={ { color: 'rgba(0,0,0,.25)', } }
-                  type='lock' /> }
-                style={ { maxWidth: 500, } }
-                type={ modalType === 'change' ? 'password' : 'text' }
-              /> )}
-            </Item>
-            <Item hasFeedback>
-              {getFieldDecorator( 'password', {
-                rules: [
-                  { required: true, },
-                  { validator: this.passwordValidator, },
-                ],
-              } )( <Input
-                autoComplete={ modalType === 'change' ? 'new-password' : 'current-password' }
-                placeholder={ modalType === 'change' ? 'New Password' : 'Password' }
-                prefix={ <Icon
-                  style={ { color: 'rgba(0,0,0,.25)', } }
-                  type='lock' /> }
-                style={ { maxWidth: 500, } }
-                type='password'
-              /> )}
-            </Item>
-            <Item hasFeedback>
-              {getFieldDecorator( 'confirm', {
-                rules: [
-                  { required: true, },
-                  { validator: this.confirmPasswordValidator, },
-                ],
-              } )( <Input
-                autoComplete={ modalType === 'change' ? 'new-password' : 'current-password' }
-                onBlur={ this.handleConfirmBlur }
-                placeholder={ modalType === 'change' ? 'Confirm New Password' : 'Confirm Password' }
-                prefix={ <Icon
-                  style={ { color: 'rgba(0,0,0,.25)', } }
-                  type='lock' /> }
-                style={ { maxWidth: 500, } }
-                type='password'
-              /> )}
-            </Item>
-            <p>{changePasswordStatus}</p>
-            <Item style={ { textAlign: 'right', } }>
-              <Button
-                htmlType='submit'
-                loading={ changingPassword }
-                type='primary'>
-                Submit
-              </Button>
-            </Item>
-          </Form>
+          {modalType && (
+            <Form onSubmit={ this.handleSubmit }>
+              <Item hasFeedback>
+                {getFieldDecorator( modalType === 'change' ? 'current' : 'username', {
+                  rules: [
+                    { required: true, },
+                    { validator: modalType === 'change' ? this.currentValidator : this.userCheck, },
+                  ],
+                } )( <Input
+                  autoComplete={ modalType === 'change' ? 'current-password' : 'username' }
+                  placeholder={ modalType === 'change' ? 'Current Password' : 'Username' }
+                  prefix={ <Icon
+                    style={ { color: 'rgba(0,0,0,.25)', } }
+                    type='lock' /> }
+                  style={ { maxWidth: 500, } }
+                  type={ modalType === 'change' ? 'password' : 'text' }
+                /> )}
+              </Item>
+              <Item hasFeedback>
+                {getFieldDecorator( 'password', {
+                  rules: [
+                    { required: true, },
+                    { validator: this.passwordValidator, },
+                  ],
+                } )( <Input
+                  autoComplete={ modalType === 'change' ? 'new-password' : 'current-password' }
+                  placeholder={ modalType === 'change' ? 'New Password' : 'Password' }
+                  prefix={ <Icon
+                    style={ { color: 'rgba(0,0,0,.25)', } }
+                    type='lock' /> }
+                  style={ { maxWidth: 500, } }
+                  type='password'
+                /> )}
+              </Item>
+              <Item hasFeedback>
+                {getFieldDecorator( 'confirm', {
+                  rules: [
+                    { required: true, },
+                    { validator: this.confirmPasswordValidator, },
+                  ],
+                } )( <Input
+                  autoComplete={ modalType === 'change' ? 'new-password' : 'current-password' }
+                  onBlur={ this.handleConfirmBlur }
+                  placeholder={ modalType === 'change' ? 'Confirm New Password' : 'Confirm Password' }
+                  prefix={ <Icon
+                    style={ { color: 'rgba(0,0,0,.25)', } }
+                    type='lock' /> }
+                  style={ { maxWidth: 500, } }
+                  type='password'
+                /> )}
+              </Item>
+              <p>{changePasswordStatus}</p>
+              <Item style={ { textAlign: 'right', } }>
+                <Button
+                  htmlType='submit'
+                  loading={ changingPassword }
+                  type='primary'>
+                  Submit
+                </Button>
+              </Item>
+            </Form>
+          )}
         </Modal>
       </div>
     )
