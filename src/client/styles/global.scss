@@ -7,10 +7,7 @@
   max-width: 1000px;
   padding: 0;
   text-align: center;
-  @media (max-width: 1250px) {
-    margin-left: 2rem;
-    margin-right: 2rem;
-  }
+  width: calc(100% - 2rem);
   @media (max-width: 767.98px) {
     display: flex;
     flex-direction: column;
