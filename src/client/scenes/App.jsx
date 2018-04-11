@@ -52,7 +52,6 @@ class AppRaw extends Component {
 
   render () {
     const { location, } = this.props;
-    const switchProps = { location, };
 
     const currentKey = location.pathname.split( '/' )[1] || '/';
     const timeout = { enter : 300,
@@ -69,11 +68,9 @@ class AppRaw extends Component {
                 classNames={ fadeTransition }
                 key={ currentKey }
                 timeout={ timeout }>
-                <Switch location={ location }>
-                  <div className={ styles.contentStyle }>{renderRoutes(
-                    content, null, switchProps
-                  )}</div>
-                </Switch>
+                <div className={ styles.contentStyle }>
+                  <Switch location={ location }>{renderRoutes( content )}</Switch>
+                </div>
               </CSSTransition>
             </TransitionGroup>
           </Content>
