@@ -1,6 +1,5 @@
 /*eslint-disable camelcase */
 /*eslint-disable prefer-destructuring */
-const BundleAnalyzerPlugin = require( 'webpack-bundle-analyzer' ).BundleAnalyzerPlugin;
 
 const HtmlWebPackPlugin = require( 'html-webpack-plugin' );
 const ManifestPlugin = require( 'webpack-manifest-plugin' );
@@ -18,14 +17,14 @@ const dotenv = require( 'dotenv' );
 
 dotenv.config();
 
-const isLocal = process.env.USER === 'matt';
 const projectTitle = process.env.PROJECT_TITLE;
 const themeVariables = lessToJs( fs.readFileSync(
-  path.resolve( 'theme.less' ), 'utf8'
+  path.resolve( 'src/client/styles/theme.scss' ), 'utf8'
+).replace(
+  /\$/gi, '@'
 ) );
 const ENV = process.env.NODE_ENV;
 const isProd = ENV === 'production';
-
 const prodPlugs = [
   new HtmlWebPackPlugin( {
     favicon  : 'src/client/assets/favicon.ico',
@@ -60,8 +59,6 @@ const prodPlugs = [
     cssProcessorOptions : { preset: 'advanced', },
   } ),
 ];
-
-isLocal && prodPlugs.push( new BundleAnalyzerPlugin() );
 
 const devPlugs = [ new webpack.HotModuleReplacementPlugin(), ];
 const cssLoader = isProd ? MiniCssExtractPlugin.loader : 'style-loader';
