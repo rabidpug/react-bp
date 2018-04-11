@@ -5,6 +5,64 @@ import jwt from 'jsonwebtoken';
 import passport from '../config/passport';
 const auth = express.Router();
 
+auth.post( '/create', passport.authenticate( 'jwt', { session: false, } ), ( req, res ) => {
+  const { user, body: { values: { username, password, }, }, } = req;
+  const passReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
+  const userReg = /^([0-9]|[a-z]|-|_)*$/;
+
+  if ( !user ) throw Error( 'No user data' );
+  if ( !passReg.test( password ) ) res.json( { msg: 'Password failed validation', } );
+  else if ( userReg.test( username ) ) {
+    user.local = {
+      password,
+      username,
+    };
+
+    user.profile.providers.local = true,
+    user.save( e => {
+      if ( e ) throw e;
+      else {
+        res.json( {
+          msg     : 'Username and password successfully added to profile',
+          profile : user.profile,
+        } );
+      }
+    } );
+  } else res.json( { msg: 'Username must consist of only lowercase letters, numbers, _ and -', } );
+} );
+
+auth.post( '/change', passport.authenticate( 'jwt', { session: false, } ), ( req, res ) => {
+  const { user, body: { values, }, } = req;
+  const passReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
+
+  if ( !user ) throw Error( 'No user data' );
+  if ( !values ) throw Error( 'No form data' );
+  if ( passReg.test( values.password ) ) {
+    User.findOne( { _id: user._id, }, ( e, foundUser ) => {
+      if ( e ) throw e;
+      if ( !user ) throw Error( 'User does not exist' );
+
+      foundUser.comparePassword( values.current, ( e, isMatch ) => {
+        if ( e ) throw e;
+        if ( isMatch ) {
+          foundUser.comparePassword( values.password, ( e, isMatch ) => {
+            if ( e ) throw e;
+            if ( isMatch ) res.json( { msg: 'The new password enters cannot match the current password', } );
+            else {
+              foundUser.local.password = values.password;
+
+              foundUser.save( e => {
+                if ( e ) throw e;
+                else res.json( { msg: 'Password change successful!', } );
+              } );
+            }
+          } );
+        } else res.json( { msg: 'The current password entered was incorrect.', } );
+      } );
+    } );
+  } else res.json( { msg: 'Password failed validation', } );
+} );
+
 auth.post( '/register', ( req, res ) => {
   const { username, password, } = req.body;
   const userReg = /^([0-9]|[a-z]|-|_)*$/;
@@ -117,19 +175,11 @@ auth.post( '/link', passport.authenticate( 'jwt', { session: false, } ), ( req, 
   };
 
   User.findOne( { _id: mergeUser._id, } ).remove( e => {
-    if ( e ) {
-      return res.json( {
-        msg     : 'Failed to link accounts.',
-        success : false,
-      } );
-    } else {
+    if ( e ) throw e;
+    else {
       user.save( e => {
-        if ( e ) {
-          return res.json( {
-            msg     : 'Failed to link accounts',
-            success : false,
-          } );
-        } else {
+        if ( e ) throw e;
+        else {
           const newToken = jwt.sign( user.toJSON(), PASSPORT_SECRET || 'secret' );
 
           res.json( {

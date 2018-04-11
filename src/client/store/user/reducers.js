@@ -20,9 +20,22 @@ export const authSuccessReducer = ( state, { payload, } ) => {
 export const profileRequestReducer = state => {
   state.isGettingProfile = true;
 };
-export const profileSuccessReducer = ( state, { payload, } ) => {
-  state.isGettingProfile = false;
+export const changePasswordRequestReducer = state => {
+  state.isChangingPassword = true;
+};
+export const changePasswordCompleteReducer = ( state, { payload, } ) => {
+  state.isChangingPassword = false;
 
+  state.changePasswordStatus = payload.msg;
+
+  if ( payload.profile ) state.profile = payload.profile;
+};
+export const changePasswordClearReducer = state => {
+  state.isChangingPassword = false;
+
+  state.changePasswordStatus = null;
+};
+export const profileSuccessReducer = ( state, { payload, } ) => {
   state.profile = payload;
 };
 export const profileFailureReducer = ( state, { payload, } ) => {

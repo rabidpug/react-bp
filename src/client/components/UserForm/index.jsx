@@ -42,11 +42,14 @@ export default class UserForm extends Component {
 
   handleSubmit = e => {
     const { onSubmit, form, } = this.props;
+    const { userExists, } = this.state;
 
     e.preventDefault();
 
     form.validateFields( ( err, values ) => {
-      if ( !err ) onSubmit( values );
+      const authType = userExists ? 'login' : 'register';
+
+      if ( !err ) onSubmit( values, authType );
     } );
   };
 

@@ -1,13 +1,26 @@
-import { changePublic, getProfile, } from 'Store/user/actions';
-import { getIsGettingProfile, getProfileDetails, } from 'Store/user/selectors';
+import { changePassword, changePasswordClear, changePublic, getProfile, } from 'Store/user/actions';
+import {
+  getChangePasswordStatus,
+  getIsChangingPassword,
+  getIsGettingProfile,
+  getProfileDetails,
+} from 'Store/user/selectors';
 const mapUserProfile = {
   Dispatch: dispatch => ( {
+    changePasswordClear : () => dispatch( changePasswordClear() ),
     changePublicProfile : ( key, value ) => dispatch( changePublic( key, value ) ),
     doGetProfile        : () => dispatch( getProfile() ),
+    onSubmit            : ( values, type ) =>
+      dispatch( changePassword( {
+        type,
+        values,
+      } ) ),
   } ),
   State: state => ( {
     ...getProfileDetails( state ),
-    isGettingProfile: getIsGettingProfile( state ),
+    changePasswordStatus : getChangePasswordStatus( state ),
+    changingPassword     : getIsChangingPassword( state ),
+    isGettingProfile     : getIsGettingProfile( state ),
   } ),
 };
 

@@ -3,6 +3,7 @@ import React, { Component, } from 'react';
 
 import Loading from '../Loading';
 import { authEndpointRoute, } from 'Shared/routes';
+import axios from 'axios';
 import { connect, } from 'react-redux';
 import gStyles from 'Styles/global';
 import mapUserProfile from './map';
@@ -18,8 +19,8 @@ export default class UserProfile extends Component {
     super( props );
 
     this.state = {
-      confirmDirty   : false,
-      isModalVisible : false,
+      confirmDirty : false,
+      modalType    : false,
     };
   }
 
@@ -28,6 +29,17 @@ export default class UserProfile extends Component {
 
     !isGettingProfile && !publicProfile && doGetProfile();
   }
+
+  handleSubmit = e => {
+    const { onSubmit, form, } = this.props;
+    const { modalType, } = this.state;
+
+    e.preventDefault();
+
+    form.validateFields( ( err, values ) => {
+      if ( !err ) onSubmit( values, modalType );
+    } );
+  };
 
   handleConfirmBlur = e => {
     const { value, } = e.target;
@@ -56,10 +68,10 @@ export default class UserProfile extends Component {
 
   passwordValidator = ( rule, value, callback ) => {
     const { form, } = this.props;
-    const { confirmDirty, } = this.state;
+    const { confirmDirty, modalType, } = this.state;
 
     if ( value && confirmDirty ) form.validateFields( [ 'confirm', ], { force: true, } );
-
+    if ( modalType === 'change' && value && value === form.getFieldValue( 'current' ) ) callback( 'New password must not match current password' );
     if ( value ) {
       if ( /[a-z]/.test( value ) === false ) callback( 'Password must contain a lowercase letter' );
       else if ( /[A-Z]/.test( value ) === false ) callback( 'Password must contain an uppercase letter' );
@@ -69,17 +81,56 @@ export default class UserProfile extends Component {
     } else callback( 'please enter a password' );
   };
 
-  handleClick = () => this.setState( { isModalVisible: true, } );
+  userCheck = ( rule, value, callback ) => {
+    const { form, } = this.props;
+
+    if ( value ) {
+      const reg = /^([0-9]|[a-z]|-|_)*$/;
+
+      if ( reg.test( value ) ) {
+        axios
+          .post( authEndpointRoute( 'usercheck' ), { username: value, } )
+          .then( res => {
+            if ( form.getFieldValue( 'username' ) ) {
+              const { userExists, } = res.data;
+
+              if ( userExists ) callback( 'Username is already in use' );
+              else callback();
+            } else {
+              this.setState( { userExists: 'noval', } );
+
+              callback( 'please enter a username' );
+            }
+          } )
+          .catch( () => {
+            callback( 'Network error' );
+          } );
+      } else callback( 'Username must be lowercase letters, numbers, _ and - only' );
+    } else callback( 'please enter a username' );
+  };
+
+  handleClickCreate = () => this.setState( { modalType: 'create', } );
+
+  handleClickChange = () => this.setState( { modalType: 'change', } );
 
   render () {
-    const { photos, displayNames, emails, providers, publicProfile, changePublicProfile, form, } = this.props;
+    const {
+      photos,
+      displayNames,
+      emails,
+      providers,
+      publicProfile,
+      changePublicProfile,
+      form,
+      changePasswordStatus,
+      changingPassword,
+      changePasswordClear,
+    } = this.props;
     const { getFieldDecorator, } = form;
-    const { isModalVisible, } = this.state;
+    const { modalType, } = this.state;
 
     return publicProfile ? (
-      <Form
-        className={ gStyles.cardStyle }
-        onSubmit={ this.handleSubmit }>
+      <div className={ gStyles.cardStyle }>
         <div className={ gStyles.cardHeader }>
           <h1>User Profile</h1>
         </div>
@@ -171,14 +222,14 @@ export default class UserProfile extends Component {
             {providers.local && (
               <Button
                 className={ gStyles.margin10 }
-                onClick={ this.handleClick }>
+                onClick={ this.handleClickChange }>
                 Change Password
               </Button>
             )}
             {!providers.local && (
               <Button
                 className={ gStyles.margin10 }
-                onClick={ this.handleClick }>
+                onClick={ this.handleClickCreate }>
                 Create Username & Password
               </Button>
             )}
@@ -207,72 +258,78 @@ export default class UserProfile extends Component {
           </Item>
         </div>
         <Modal
-          confirmLoading={ false }
           footer={ null }
-          onCancel={ () => this.setState( { isModalVisible: false, } ) }
-          title='Change Password'
-          visible={ isModalVisible }>
-          <Item hasFeedback>
-            {getFieldDecorator( 'current', {
-              rules: [
-                { required: true, },
-                { validator: this.currentValidator, },
-              ],
-            } )( <Input
-              autoComplete='current-password'
-              placeholder='Current Password'
-              prefix={ <Icon
-                style={ { color: 'rgba(0,0,0,.25)', } }
-                type='lock' /> }
-              style={ { maxWidth: 500, } }
-              type='password'
-            /> )}
-          </Item>
-          <Item hasFeedback>
-            {getFieldDecorator( 'password', {
-              rules: [
-                { required: true, },
-                { validator: this.passwordValidator, },
-              ],
-            } )( <Input
-              autoComplete='new-password'
-              placeholder='New Password'
-              prefix={ <Icon
-                style={ { color: 'rgba(0,0,0,.25)', } }
-                type='lock' /> }
-              style={ { maxWidth: 500, } }
-              type='password'
-            /> )}
-          </Item>
-          <Item hasFeedback>
-            {getFieldDecorator( 'confirm', {
-              rules: [
-                { required: true, },
-                { validator: this.confirmPasswordValidator, },
-              ],
-            } )( <Input
-              autoComplete='new-password'
-              onBlur={ this.handleConfirmBlur }
-              placeholder='Confirm New Password'
-              prefix={ <Icon
-                style={ { color: 'rgba(0,0,0,.25)', } }
-                type='lock' /> }
-              style={ { maxWidth: 500, } }
-              type='password'
-            /> )}
-          </Item>
-          <Item
-            className={ gStyles.buttonsGroup }
-            style={ { textAlign: 'right', } }>
-            <Button
-              className={ gStyles.marginMid }
-              htmlType='submit'
-              type='primary'>
-              Submit
-            </Button>
-          </Item>
+          onCancel={ () => {
+            this.setState( { modalType: false, } );
+
+            changePasswordClear();
+
+            form.resetFields();
+          } }
+          title={ modalType === 'change' ? 'Change Password' : 'Create Username and Password' }
+          visible={ !!modalType }>
+          <Form onSubmit={ this.handleSubmit }>
+            <Item hasFeedback>
+              {getFieldDecorator( modalType === 'change' ? 'current' : 'username', {
+                rules: [
+                  { required: true, },
+                  { validator: modalType === 'change' ? this.currentValidator : this.userCheck, },
+                ],
+              } )( <Input
+                autoComplete={ modalType === 'change' ? 'current-password' : 'username' }
+                placeholder={ modalType === 'change' ? 'Current Password' : 'Username' }
+                prefix={ <Icon
+                  style={ { color: 'rgba(0,0,0,.25)', } }
+                  type='lock' /> }
+                style={ { maxWidth: 500, } }
+                type={ modalType === 'change' ? 'password' : 'text' }
+              /> )}
+            </Item>
+            <Item hasFeedback>
+              {getFieldDecorator( 'password', {
+                rules: [
+                  { required: true, },
+                  { validator: this.passwordValidator, },
+                ],
+              } )( <Input
+                autoComplete={ modalType === 'change' ? 'new-password' : 'current-password' }
+                placeholder={ modalType === 'change' ? 'New Password' : 'Password' }
+                prefix={ <Icon
+                  style={ { color: 'rgba(0,0,0,.25)', } }
+                  type='lock' /> }
+                style={ { maxWidth: 500, } }
+                type='password'
+              /> )}
+            </Item>
+            <Item hasFeedback>
+              {getFieldDecorator( 'confirm', {
+                rules: [
+                  { required: true, },
+                  { validator: this.confirmPasswordValidator, },
+                ],
+              } )( <Input
+                autoComplete={ modalType === 'change' ? 'new-password' : 'current-password' }
+                onBlur={ this.handleConfirmBlur }
+                placeholder={ modalType === 'change' ? 'Confirm New Password' : 'Confirm Password' }
+                prefix={ <Icon
+                  style={ { color: 'rgba(0,0,0,.25)', } }
+                  type='lock' /> }
+                style={ { maxWidth: 500, } }
+                type='password'
+              /> )}
+            </Item>
+            <p>{changePasswordStatus}</p>
+            <Item style={ { textAlign: 'right', } }>
+              <Button
+                htmlType='submit'
+                loading={ changingPassword }
+                type='primary'>
+                Submit
+              </Button>
+            </Item>
+          </Form>
         </Modal>
-      </Form>
+      </div>
     )
       : <Loading />;
   }

@@ -10,3 +10,5 @@ export const getProfileDetails = createSelector( {
   providers     : 'user.profile.providers',
   publicProfile : 'user.profile.publicProfile',
 } );
+export const getIsChangingPassword = createSelector( [ 'user.isChangingPassword', ] );
+export const getChangePasswordStatus = createSelector( [ 'user.changePasswordStatus', ] );

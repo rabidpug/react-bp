@@ -2,6 +2,9 @@ import {
   AUTH_FAILURE,
   AUTH_REQUEST,
   AUTH_SUCCESS,
+  CHANGE_PASSWORD_CLEAR,
+  CHANGE_PASSWORD_COMPLETE,
+  CHANGE_PASSWORD_REQUEST,
   CHANGE_PUBLIC_FAILURE,
   CHANGE_PUBLIC_REQUEST,
   CHANGE_PUBLIC_SUCCESS,
@@ -21,6 +24,9 @@ export const {
   authSuccess,
   authFailure,
   authRequest,
+  changePasswordComplete,
+  changePasswordClear,
+  changePasswordRequest,
   changePublicSuccess,
   changePublicFailure,
   changePublicRequest,
@@ -33,6 +39,9 @@ export const {
   AUTH_SUCCESS,
   AUTH_FAILURE,
   AUTH_REQUEST,
+  CHANGE_PASSWORD_COMPLETE,
+  CHANGE_PASSWORD_CLEAR,
+  CHANGE_PASSWORD_REQUEST,
   CHANGE_PUBLIC_SUCCESS,
   CHANGE_PUBLIC_FAILURE,
   CHANGE_PUBLIC_REQUEST,
@@ -111,4 +120,17 @@ export const linkAuth = ( currentToken, newToken ) => dispatch => {
       else dispatch( authFailure( res.data ) );
     } )
     .catch( e => dispatch( authFailure( e.response.data ) ) );
+};
+
+export const changePassword = ( { values, type, } ) => dispatch => {
+  dispatch( changePasswordRequest() );
+
+  axios.defaults.headers.common.Authorization = localStorage.getItem( 'JWT' ) || sessionStorage.getItem( 'JWT' );
+
+  axios
+    .post( authEndpointRoute( type ), { values, } )
+    .then( res => {
+      dispatch( changePasswordComplete( res.data ) );
+    } )
+    .catch( e => dispatch( changePasswordComplete( e.response.data ) ) );
 };
