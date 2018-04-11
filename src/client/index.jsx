@@ -2,7 +2,7 @@ import 'react-hot-loader';
 
 import store, { history, } from 'Store';
 
-import App from 'Scenes/App';
+import App from 'Components/App';
 import { ConnectedRouter, } from 'react-router-redux';
 import { Provider, } from 'react-redux';
 import React from 'react';

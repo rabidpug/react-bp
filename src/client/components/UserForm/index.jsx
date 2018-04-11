@@ -1,19 +1,22 @@
 import {
-  Button,
-  Checkbox,
-  Form,
-  Icon,
-  Input,
+  Button, Checkbox, Form, Icon, Input,
 } from 'antd';
 import React, { Component, } from 'react';
 
 import { authEndpointRoute, } from 'Shared/routes';
 import axios from 'axios';
+import { connect, } from 'react-redux';
 import gStyles from 'Styles/global';
+import mapUserForm from './map';
 
 const { Item, } = Form;
+const { create, } = Form;
 
-class UserPassRaw extends Component {
+@connect(
+  mapUserForm.State, mapUserForm.Dispatch
+)
+@create()
+export default class UserForm extends Component {
   constructor ( props ) {
     super( props );
 
@@ -220,10 +223,8 @@ class UserPassRaw extends Component {
           </Item>
           <Item>
             {getFieldDecorator(
-              'remember', {
-                initialValue   : remember,
-                valuePropName  : 'checked',
-              }
+              'remember', { initialValue  : remember,
+                            valuePropName : 'checked', }
             )( <Checkbox onChange={ e => this.setRemember( e.target.checked ) }>Remember me</Checkbox> )}
           </Item>
           {authMessage && (
@@ -256,7 +257,3 @@ class UserPassRaw extends Component {
     );
   }
 }
-
-const UserPass = Form.create()( UserPassRaw );
-
-export default UserPass;

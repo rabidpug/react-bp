@@ -1,0 +1,23 @@
+.appear,
+.enter {
+  transform: scaleY(0);
+  transform-origin: center top;
+}
+
+.appearActive,
+.enterActive {
+  transform: scaleY(1);
+  transform-origin: center top;
+  transition: transform 0.3s linear;
+}
+
+.exit {
+  transform: scaleY(1);
+  transform-origin: center top;
+  transition: transform 0.2s linear;
+}
+
+.exitActive {
+  transform: scaleY(0);
+  transform-origin: center top;
+}

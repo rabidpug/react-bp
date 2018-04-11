@@ -1,4 +1,4 @@
-import HomeTopBar from 'Components/TopBar/HomeTopBar';
+import TopBar from 'Components/TopBar';
 import { logoutUser, } from 'Store/user/actions';
 import store from 'Store';
 
@@ -13,12 +13,12 @@ const actionMenu = [
         label           : 'Log Out',
       },
     ],
-    component : HomeTopBar,
+    component : TopBar,
     path      : '/profile',
   },
   {
     actionMenuItems : [],
-    component       : HomeTopBar,
+    component       : TopBar,
     path            : '*',
   },
 ];

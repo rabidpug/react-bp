@@ -1,12 +1,12 @@
 import {
   Home,
-  Login,
+  UserForm,
   UserProfile,
   Welcome,
-} from 'Scenes/Loadables';
+} from 'Components/Loadables';
 
 import Loading from 'Components/Loading';
-import NotFound from 'Scenes/NotFound';
+import NotFound from 'Components/NotFound';
 import { connectedReduxRedirect, } from 'redux-auth-wrapper/history4/redirect';
 import { replace, } from 'react-router-redux';
 
@@ -44,7 +44,7 @@ const content = [
     path      : '/welcome',
   },
   {
-    component : userIsNotAuthenticated( Login ),
+    component : userIsNotAuthenticated( UserForm ),
     exact     : true,
     path      : '/signin',
   },

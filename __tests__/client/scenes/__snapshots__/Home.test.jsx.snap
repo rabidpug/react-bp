@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`TopBar Should render the Home page 1`] = `
-<div
-  className="cardStyle"
->
-  Welcome to React ENFRAMR! A Full Stack React Boilerplate with lots of stuff built in to save me time.
-</div>
-`;

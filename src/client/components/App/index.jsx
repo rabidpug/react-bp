@@ -1,7 +1,6 @@
 import { CSSTransition, TransitionGroup, } from 'react-transition-group';
 import React, { Component, } from 'react';
 import { Switch, withRouter, } from 'react-router-dom';
-import { linkAuth, redirectedAuthSuccess, } from 'Store/user/actions';
 
 import { Layout, } from 'antd';
 import actionMenu from 'Routes/actionMenu';
@@ -9,22 +8,19 @@ import { connect, } from 'react-redux';
 import content from 'Routes/content';
 import fadeTransition from 'Styles/fadeTransition';
 import { hot, } from 'react-hot-loader';
-import { isOnline, } from 'Store/ui/actions';
+import mapApp from './map';
 import navMenu from 'Routes/navMenu';
 import { renderRoutes, } from 'react-router-config';
 import styles from 'Styles/App';
 
 const { Content, } = Layout;
-const mapDispatchToProps = {
-  isOnline,
-  linkAuth,
-  redirectedAuthSuccess,
-};
 
+@hot( module )
+@withRouter
 @connect(
-  null, mapDispatchToProps
+  null, mapApp.Dispatch
 )
-class AppRaw extends Component {
+export default class App extends Component {
   componentDidMount () {
     const {
       isOnline, linkAuth, redirectedAuthSuccess,
@@ -79,6 +75,3 @@ class AppRaw extends Component {
     );
   }
 }
-const App = withRouter( AppRaw );
-
-export default hot( module )( App );

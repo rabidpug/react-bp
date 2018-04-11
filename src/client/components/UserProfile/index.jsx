@@ -9,14 +9,18 @@ import React, { Component, } from 'react';
 
 import Loading from '../Loading';
 import { authEndpointRoute, } from 'Shared/routes';
+import { connect, } from 'react-redux';
 import gStyles from 'Styles/global';
+import mapUserProfile from './map';
 import noImage from 'Assets/noImage.png';
 
 const { Item, } = Form;
 const { Group: RadioGroup, Button: RadioButton, } = Radio;
 
-//TODO: Add retrieving profile on mount
-class ProfileCard extends Component {
+@connect(
+  mapUserProfile.State, mapUserProfile.Dispatch
+)
+export default class UserProfile extends Component {
   constructor ( props ) {
     super( props );
 
@@ -200,5 +204,3 @@ class ProfileCard extends Component {
       : <Loading />;
   }
 }
-
-export default ProfileCard;

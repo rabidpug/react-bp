@@ -1,15 +1,15 @@
 import {
   Home,
-  Login,
+  UserForm,
   UserProfile,
   Welcome,
-} from 'Scenes/Loadables';
+} from 'Components/Loadables';
 
-import HomeSideBar from 'Components/SideBar/HomeSideBar';
+import SideBar from 'Components/SideBar';
 
 const navMenu = [
   {
-    component : HomeSideBar,
+    component : SideBar,
     menuItems : [
       {
         component : Home,
@@ -36,7 +36,7 @@ const navMenu = [
         path            : '/welcome',
       },
       {
-        component       : Login,
+        component       : UserForm,
         icon            : 'user-add',
         isAuthenticated : false,
         key             : 'item2',
