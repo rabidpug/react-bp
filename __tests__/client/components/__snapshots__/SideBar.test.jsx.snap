@@ -71,18 +71,6 @@ exports[`SideBar Should render the SideBar with a menu 1`] = `
       </MenuItem>
     </SubMenu>
     <MenuItem
-      key="item1"
-      onMouseEnter={[Function]}
-      path="/welcome"
-    >
-      <Icon
-        type="smile-o"
-      />
-      <span>
-        Welcome
-      </span>
-    </MenuItem>
-    <MenuItem
       key="item2"
       onMouseEnter={[Function]}
       path="/signin"
