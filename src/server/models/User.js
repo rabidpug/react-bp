@@ -1,5 +1,7 @@
-import bcrypt from 'bcrypt-nodejs';
+import { MOD_VERIFY_USERS, } from 'Shared/env';
+import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
+//TODO: Add email to local, roles, isVerified
 const UserSchema = mongoose.Schema( {
   facebook: {
     id: {
@@ -20,6 +22,13 @@ const UserSchema = mongoose.Schema( {
       type     : String,
       unique   : true,
     },
+  },
+  isVerified: {
+    default  : !MOD_VERIFY_USERS,
+    index    : true,
+    required : true,
+    type     : Boolean,
+    unique   : false,
   },
   local: {
     password: {
@@ -71,35 +80,37 @@ const UserSchema = mongoose.Schema( {
       },
     },
   },
+  refreshToken: {
+    index    : true,
+    required : false,
+    sparse   : true,
+    trim     : true,
+    type     : String,
+    unique   : true,
+  },
+  roles: {
+    index    : true,
+    required : false,
+    type     : Array,
+  },
 } );
 
 function saveUser ( next ) {
   const user = this;
 
-  if ( this.isModified( 'local.password' ) || this.isNew ) {
-    if ( user.local.password ) {
-      bcrypt.genSalt( 10, ( err, salt ) => {
-        if ( err ) return next( err );
+  if ( user.local.password && ( this.isModified( 'local.password' ) || this.isNew ) ) {
+    bcrypt
+      .hash( user.local.password, 10 )
+      .then( hash => {
+        user.local.password = hash;
 
-        bcrypt.hash(
-          user.local.password, salt, null, ( err, hash ) => {
-            if ( err ) return next( err );
-
-            user.local.password = hash;
-
-            next();
-          }
-        );
-      } );
-    } else next();
-  } else return next();
+        next();
+      } )
+      .catch( e => next( e ) );
+  } else next();
 }
-function comparePassword ( password, cb ) {
-  bcrypt.compare( password, this.local.password, ( err, isMatch ) => {
-    if ( err ) return cb( err );
-
-    cb( null, isMatch );
-  } );
+function comparePassword ( password ) {
+  return bcrypt.compare( password, this.local.password );
 }
 
 UserSchema.pre( 'save', saveUser );

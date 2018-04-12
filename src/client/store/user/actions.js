@@ -51,6 +51,21 @@ export const {
   PROFILE_FAILURE,
   PROFILE_REQUEST
 );
+
+export const refreshAuthToken = ( callback, data ) => dispatch => {
+  const refreshToken = localStorage.getItem( 'refreshToken' ) || sessionStorage.getItem( 'refreshToken' );
+
+  axios
+    .post( authEndpointRoute( 'refresh' ), { refreshToken, } )
+    .then( res => {
+      if ( res.data.token ) {
+        ( JSON.parse( localStorage.getItem( 'remember' ) ) ? localStorage : sessionStorage ).setItem( 'JWT', res.data.token );
+
+        dispatch( callback( data ) );
+      } else throw new Error( 'Token Refresh Failed' );
+    } )
+    .catch( () => dispatch( logoutUser() ) );
+};
 export const redirectedAuthSuccess = data => dispatch => {
   dispatch( authSuccess( data ) );
 
@@ -71,24 +86,29 @@ export const getProfile = () => dispatch => {
       dispatch( profileFailure( e.response.data ) );
     } );
 };
-export const authUser = ( authType, payload ) => dispatch => {
+export const authUser = ( { authType, values, } ) => dispatch => {
   dispatch( authRequest() );
 
   axios
-    .post( authEndpointRoute( authType ), payload )
+    .post( authEndpointRoute( authType ), values )
     .then( res => {
-      if ( res && res.data.success ) {
+      if ( !res ) throw new Error( { msg: 'Failed to authorize', } );
+
+      if ( authType === 'register' ) {
+        dispatch( authUser( {
+          authType: 'login',
+          values,
+        } ) );
+      } else {
         dispatch( authSuccess( res.data ) );
 
         dispatch( push( '/profile' ) );
-
-        if ( authType === 'register' ) dispatch( authUser( 'login', payload ) );
-      } else dispatch( authFailure( res.data ) );
+      }
     } )
     .catch( e => dispatch( authFailure( e.response.data ) ) );
 };
 
-export const changePublic = ( key, value ) => dispatch => {
+export const changePublic = ( { key, value, } ) => dispatch => {
   dispatch( changePublicRequest() );
 
   axios.defaults.headers.common.Authorization = localStorage.getItem( 'JWT' ) || sessionStorage.getItem( 'JWT' );
@@ -102,24 +122,37 @@ export const changePublic = ( key, value ) => dispatch => {
       if ( res.data.success ) dispatch( changePublicSuccess( res.data ) );
       else dispatch( changePublicFailure( res.data ) );
     } )
-    .catch( e => dispatch( changePublicFailure( e.response.data ) ) );
+    .catch( e => {
+      if ( e.response.status === 401 ) {
+        dispatch( refreshAuthToken( changePublic, {
+          key,
+          value,
+        } ) );
+      } else dispatch( changePublicFailure( e.response.data ) );
+    } );
 };
-export const linkAuth = ( currentToken, newToken ) => dispatch => {
+export const linkAuth = newToken => dispatch => {
   dispatch( authRequest() );
 
-  axios.defaults.headers.common.Authorization = currentToken;
+  axios.defaults.headers.common.Authorization = localStorage.getItem( 'JWT' ) || sessionStorage.getItem( 'JWT' );
 
   axios
     .post( authEndpointRoute( 'link' ), { newToken, } )
     .then( res => {
       localStorage.removeItem( 'tempToken' );
 
+      localStorage.removeItem( 'tempRefreshToken' );
+
       localStorage.removeItem( 'profile' );
 
-      if ( res.data.success ) dispatch( redirectedAuthSuccess( res.data ) );
-      else dispatch( authFailure( res.data ) );
+      if ( !res ) throw new Error( { msg: 'Failed to authorize', } );
+
+      dispatch( redirectedAuthSuccess( res.data ) );
     } )
-    .catch( e => dispatch( authFailure( e.response.data ) ) );
+    .catch( e => {
+      if ( e.response.status === 401 ) dispatch( refreshAuthToken( linkAuth, newToken ) );
+      else dispatch( authFailure( e.response.data ) );
+    } );
 };
 
 export const changePassword = ( { values, type, } ) => dispatch => {
@@ -132,5 +165,12 @@ export const changePassword = ( { values, type, } ) => dispatch => {
     .then( res => {
       dispatch( changePasswordComplete( res.data ) );
     } )
-    .catch( e => dispatch( changePasswordComplete( e.response.data ) ) );
+    .catch( e => {
+      if ( e.response.status === 401 ) {
+        dispatch( refreshAuthToken( changePassword, {
+          type,
+          values,
+        } ) );
+      } else dispatch( changePasswordComplete( e.response.data ) );
+    } );
 };

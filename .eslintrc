@@ -359,7 +359,7 @@
   },
   "root": true,
   "settings": {
-    "polyfills": ["fetch"],
+    "polyfills": ["fetch", "promise"],
     "import/resolver": {
       "babel-module": {},
       "webpack": {

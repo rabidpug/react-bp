@@ -1,4 +1,6 @@
 export const authFailureReducer = ( state, { payload, } ) => {
+  console.log( payload );
+
   state.authMessage = payload.msg;
 
   state.isGettingAuth = false;
@@ -11,7 +13,11 @@ export const authSuccessReducer = ( state, { payload, } ) => {
 
   state.isGettingAuth = false;
 
-  ( JSON.parse( localStorage.getItem( 'remember' ) ) ? localStorage : sessionStorage ).setItem( 'JWT', payload.token );
+  const storage = JSON.parse( localStorage.getItem( 'remember' ) ) ? localStorage : sessionStorage;
+
+  storage.setItem( 'JWT', payload.token );
+
+  storage.setItem( 'refreshToken', payload.refreshToken );
 
   state.isAuthenticated = true;
 
@@ -51,9 +57,11 @@ export const authRequestReducer = state => {
 };
 
 export const logoutUserReducer = () => {
-  localStorage.removeItem( 'JWT' );
+  const storage = JSON.parse( localStorage.getItem( 'remember' ) ) ? localStorage : sessionStorage;
 
-  sessionStorage.removeItem( 'JWT' );
+  storage.removeItem( 'JWT' );
+
+  storage.removeItem( 'refreshToken' );
 
   return {};
 };
@@ -65,8 +73,6 @@ export const changePublicSuccessReducer = ( state, { payload, } ) => {
   state.changingPublicMessage = '';
 
   state.isChangingPublic = false;
-
-  ( JSON.parse( localStorage.getItem( 'remember' ) ) ? localStorage : sessionStorage ).setItem( 'JWT', payload.token );
 
   state.profile = payload.profile;
 };

@@ -23,13 +23,11 @@ profile.post( '/public', passport.authenticate( 'jwt', { session: false, } ), ( 
         success : false,
       } );
     } else {
-      const token = jwt.sign( newUser.toJSON(), PASSPORT_SECRET || 'secret' );
       const { profile, } = newUser;
 
       res.json( {
         profile,
-        success : true,
-        token   : `JWT ${token}`,
+        success: true,
       } );
     }
   } );

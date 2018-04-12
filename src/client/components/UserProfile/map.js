@@ -9,9 +9,12 @@ import {
 const mapUserProfile = {
   Dispatch: dispatch => ( {
     changePasswordClear : () => dispatch( changePasswordClear() ),
-    changePublicProfile : ( key, value ) => dispatch( changePublic( key, value ) ),
-    doGetProfile        : () => dispatch( getProfile() ),
-    onSubmit            : ( values, type ) =>
+    changePublicProfile : ( key, value ) => dispatch( changePublic( {
+      key,
+      value,
+    } ) ),
+    doGetProfile : () => dispatch( getProfile() ),
+    onSubmit     : ( values, type ) =>
       dispatch( changePassword( {
         type,
         values,

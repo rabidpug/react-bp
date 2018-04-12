@@ -9,12 +9,17 @@ const jwtOpts = {
 };
 
 const localStrategy = new JWTStrategy( jwtOpts, ( jwtPayload, done ) => {
-  User.findOne( { _id: jwtPayload._id, }, ( e, user ) => {
-    if ( e ) return done( e, false );
+  const expirationDate = new Date( jwtPayload.exp * 1000 );
 
-    if ( user ) done( null, user );
-    else done( null, false );
-  } );
+  if ( expirationDate < new Date() ) return done( null, false );
+
+  return User.findOne( { _id: jwtPayload._id, } )
+    .then( user => {
+      if ( !user ) throw new Error( 'No User' );
+
+      done( null, user );
+    } )
+    .catch( () => done( null, false ) );
 } );
 
 export default localStrategy;

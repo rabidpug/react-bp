@@ -25,19 +25,23 @@ export default class App extends Component {
     isOnline( window.navigator.onLine );
 
     const newToken = localStorage.getItem( 'tempToken' );
+    const newRefreshToken = localStorage.getItem( 'tempRefreshToken' );
     const profile = localStorage.getItem( 'profile' );
-    const currentToken = localStorage.getItem( 'JWT' );
+    const currentToken = localStorage.getItem( 'JWT' ) || sessionStorage.getItem( 'JWT' );
 
-    if ( currentToken && newToken ) linkAuth( currentToken, newToken );
+    if ( currentToken && newToken ) linkAuth( newToken );
     else if ( newToken ) {
-      redirectedAuthSuccess( {
-        profile : profile && JSON.parse( profile ),
-        token   : newToken,
-      } );
-
       localStorage.removeItem( 'tempToken' );
 
+      localStorage.removeItem( 'tempRefreshToken' );
+
       localStorage.removeItem( 'profile' );
+
+      redirectedAuthSuccess( {
+        profile      : profile && JSON.parse( profile ),
+        refreshToken : newRefreshToken,
+        token        : newToken,
+      } );
     }
   }
 
