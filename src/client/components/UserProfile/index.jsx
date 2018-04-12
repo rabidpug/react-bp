@@ -6,12 +6,14 @@ import { authEndpointRoute, } from 'Shared/routes';
 import axios from 'axios';
 import { connect, } from 'react-redux';
 import gStyles from 'Styles/global';
+import { hot, } from 'react-hot-loader';
 import mapUserProfile from './map';
 import noImage from 'Assets/noImage.png';
 
 const { Item, create, } = Form;
 const { Group: RadioGroup, Button: RadioButton, } = Radio;
 
+@hot( module )
 @connect( mapUserProfile.State, mapUserProfile.Dispatch )
 @create()
 export default class UserProfile extends Component {
@@ -58,7 +60,7 @@ export default class UserProfile extends Component {
 
   currentValidator = ( rule, value, callback ) => {
     const { form, } = this.props;
-    const { modalType } = this.state;
+    const { modalType, } = this.state;
 
     if ( value && modalType === 'change' ) form.validateFields( [ 'password', ], { force: true, } );
     if ( value ) {

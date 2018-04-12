@@ -5,11 +5,13 @@ import { authEndpointRoute, } from 'Shared/routes';
 import axios from 'axios';
 import { connect, } from 'react-redux';
 import gStyles from 'Styles/global';
+import { hot, } from 'react-hot-loader';
 import mapUserForm from './map';
 
 const { Item, } = Form;
 const { create, } = Form;
 
+@hot( module )
 @connect( mapUserForm.State, mapUserForm.Dispatch )
 @create()
 export default class UserForm extends Component {

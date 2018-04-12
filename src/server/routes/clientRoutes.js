@@ -13,8 +13,6 @@ const clientRoutes = app => {
     res.set( 'content-type', 'text/html' );
 
     res.sendFile( HTML_FILE );
-
-    res.end();
   } );
 };
 
