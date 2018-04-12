@@ -1,6 +1,4 @@
 export const authFailureReducer = ( state, { payload, } ) => {
-  console.log( payload );
-
   state.authMessage = payload.msg;
 
   state.isGettingAuth = false;

@@ -1,6 +1,4 @@
-import { PASSPORT_SECRET, } from 'Shared/env';
 import express from 'express';
-import jwt from 'jsonwebtoken';
 import passport from 'passport';
 const profile = express.Router();
 
