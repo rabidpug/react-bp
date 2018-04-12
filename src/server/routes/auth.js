@@ -10,23 +10,28 @@ auth.post( '/create', passport.authenticate( 'jwt', { session: false, } ), ( req
   const passReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
   const userReg = /^([0-9]|[a-z]|-|_)*$/;
 
-  if ( !user ) throw Error( 'No user data' );
+  if ( !user ) throw new Error( 'No user data' );
   if ( !passReg.test( password ) ) res.json( { msg: 'Password failed validation', } );
   else if ( userReg.test( username ) ) {
-    user.local = {
-      password,
-      username,
-    };
-
-    user.profile.providers.local = true,
-    user.save( e => {
+    User.findOne( { _id: user._id, }, ( e, foundUser ) => {
       if ( e ) throw e;
-      else {
-        res.json( {
-          msg     : 'Username and password successfully added to profile',
-          profile : user.profile,
-        } );
-      }
+      if ( !user ) throw new Error( 'User does not exist' );
+
+      foundUser.local = {
+        password,
+        username,
+      };
+
+      foundUser.profile.providers.local = true,
+      foundUser.save( e => {
+        if ( e ) throw e;
+        else {
+          res.json( {
+            msg     : 'Username and password successfully added to profile',
+            profile : foundUser.profile,
+          } );
+        }
+      } );
     } );
   } else res.json( { msg: 'Username must consist of only lowercase letters, numbers, _ and -', } );
 } );
@@ -35,12 +40,12 @@ auth.post( '/change', passport.authenticate( 'jwt', { session: false, } ), ( req
   const { user, body: { values, }, } = req;
   const passReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
 
-  if ( !user ) throw Error( 'No user data' );
-  if ( !values ) throw Error( 'No form data' );
+  if ( !user ) throw new Error( 'No user data' );
+  if ( !values ) throw new Error( 'No form data' );
   if ( passReg.test( values.password ) ) {
     User.findOne( { _id: user._id, }, ( e, foundUser ) => {
       if ( e ) throw e;
-      if ( !user ) throw Error( 'User does not exist' );
+      if ( !user ) throw new Error( 'User does not exist' );
 
       foundUser.comparePassword( values.current, ( e, isMatch ) => {
         if ( e ) throw e;
