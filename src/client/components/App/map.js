@@ -1,4 +1,4 @@
-import { linkAuth, redirectedAuthSuccess, } from 'Store/user/actions';
+import { getProfile, linkAuth, redirectedAuthSuccess, } from 'Store/user/actions';
 
 import { isOnline, } from 'Store/ui/actions';
 
@@ -7,6 +7,7 @@ const mapApp = {
     isOnline,
     linkAuth,
     redirectedAuthSuccess,
+    getProfile,
   },
 };
 

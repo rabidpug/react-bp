@@ -27,9 +27,9 @@ export default class UserProfile extends Component {
   }
 
   componentDidMount () {
-    const { isGettingProfile, doGetProfile, publicProfile, } = this.props;
+    const { isGettingProfile, doGetProfile, } = this.props;
 
-    !isGettingProfile && !publicProfile && doGetProfile();
+    !isGettingProfile && doGetProfile();
   }
 
   handleSubmit = e => {

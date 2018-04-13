@@ -20,7 +20,7 @@ const { Content, } = Layout;
 @connect( null, mapApp.Dispatch )
 export default class App extends Component {
   componentDidMount () {
-    const { isOnline, linkAuth, redirectedAuthSuccess, } = this.props;
+    const { isOnline, linkAuth, redirectedAuthSuccess, isGettingProfile, getProfile, } = this.props;
 
     isOnline( window.navigator.onLine );
 
@@ -42,7 +42,7 @@ export default class App extends Component {
         refreshToken : newRefreshToken,
         token        : newToken,
       } );
-    }
+    } else if ( currentToken && !isGettingProfile ) getProfile();
   }
 
   render () {
