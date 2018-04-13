@@ -7,8 +7,7 @@ import { createReducer, } from '@acemarke/redux-starter-kit';
 
 export const greeterInitialState = {
   isLoading : false,
-  label     : 'Say hi!',
-  message   : 'Do you want to say hi?',
+  messages   : [],
 };
 
 export const greeter = createReducer( greeterInitialState, {

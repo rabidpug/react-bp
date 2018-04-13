@@ -1,5 +1,5 @@
-import { getGreeterMessage, } from 'Store/greeter/selectors';
+import { getGreeterMessages, } from 'Store/greeter/selectors';
 
-const mapWelcome = { State: state => ( { message: getGreeterMessage( state ), } ), };
+const mapWelcome = { State: state => ( { messages: getGreeterMessages( state ), } ), };
 
 export default mapWelcome;

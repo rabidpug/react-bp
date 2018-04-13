@@ -9,6 +9,10 @@ import {
   IO_SERVER_RESPONSE,
 } from 'Shared/socket';
 
+import { PASSPORT_SECRET, } from 'Shared/env';
+import User from '../models/User';
+import jwt from 'jsonwebtoken';
+
 /* eslint-disable no-console */
 const setUpSocket = ( io: Object ) => {
   io.on( IO_CONNECT, socket => {
@@ -26,10 +30,32 @@ const setUpSocket = ( io: Object ) => {
       socket.emit( IO_SERVER_HELLO, 'Hello you!' );
     } );
 
-    socket.on( IO_CLIENT_HELLO, clientMessage => {
-      console.log( `[socket.io] Client: ${clientMessage}` );
+    socket.on( IO_CLIENT_HELLO, ( { message, token, } ) => {
+      let user;
 
-      io.emit( IO_SERVER_RESPONSE, clientMessage );
+      try {
+        user = jwt.verify( token.replace( 'JWT ', '' ), PASSPORT_SECRET, { complete: true, } );
+      } catch ( e ) {
+        user = {};
+
+        io.emit( IO_SERVER_RESPONSE, 'User not authorized' );
+
+        return;
+      }
+
+      User.findOne( { _id: user._id, } )
+        .then( foundUser => {
+          if ( !foundUser ) throw new Error( 'User not authorized' );
+
+          console.log( `[socket.io] Client ${foundUser.profile.publicProfile.displayNames}: ${message}` );
+
+          io.emit( IO_SERVER_RESPONSE, {
+            message,
+            timestamp   : new Date().getTime(),
+            userProfile : foundUser.profile.publicProfile,
+          } );
+        } )
+        .catch( e => io.emit( IO_SERVER_RESPONSE, e.message ) );
     } );
 
     socket.on( IO_DISCONNECT, () => {

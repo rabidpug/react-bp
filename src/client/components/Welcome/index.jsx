@@ -1,6 +1,6 @@
 import React, { Component, } from 'react';
 
-import HelloButton from '../HelloButton';
+import SendMessage from '../SendMessage';
 import { connect, } from 'react-redux';
 import gStyles from 'Styles/global';
 import { hot, } from 'react-hot-loader';
@@ -10,7 +10,7 @@ import mapWelcome from './map';
 @connect( mapWelcome.State )
 export default class Welcome extends Component {
   render () {
-    const { style, message, } = this.props;
+    const { style, messages, } = this.props;
 
     return (
       <div
@@ -20,10 +20,14 @@ export default class Welcome extends Component {
           <h1>Welcome Message</h1>
         </div>
         <div className={ gStyles.cardTop }>
-          <p>{message}</p>
+          {messages.map( value => (
+            <p key={ value.timestamp + value.userProfile.displayNames }>
+              {`${value.userProfile.displayNames}: ${value.message}`}
+            </p>
+          ) )}
         </div>
         <div className={ gStyles.cardBottom }>
-          <HelloButton />
+          <SendMessage />
         </div>
       </div>
     );

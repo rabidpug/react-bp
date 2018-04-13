@@ -1,7 +1,7 @@
 //@flow
 
 type stateType = {
-  message: string,
+  messages: Array<string>,
   label: string,
   isLoading: boolean,
 };
@@ -11,25 +11,17 @@ type sayHelloActionType = {
 };
 
 export const sayHelloRequestReducer = ( state: stateType ) => {
-  state.message = 'Loading...';
-
-  state.label = 'Loading...';
-
   state.isLoading = true;
 };
 
 export const sayHelloSuccessReducer = ( state: stateType, action: sayHelloActionType ) => {
-  state.message = action.payload;
-
-  state.label = 'Say it again!';
+  state.messages.push( action.payload );
 
   state.isLoading = false;
 };
 
 export const sayHelloFailureReducer = ( state: stateType ) => {
-  state.message = 'No message received, please check your connection and try again';
-
-  state.label = 'Try saying hi again!';
+  state.messages.push( 'An error has occurred!' );
 
   state.isLoading = false;
 };
