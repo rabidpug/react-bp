@@ -127,7 +127,9 @@ export default class UserForm extends Component {
     const extraMessage =
       userExists === 'noval'
         ? 'Enter your existing username to sign in, or a new username to sign up'
-        : userExists ? 'Username exists for sign in' : 'New username for sign up';
+        : userExists
+          ? 'Username exists for sign in'
+          : 'New username for sign up';
 
     return (
       <Form
@@ -201,7 +203,7 @@ export default class UserForm extends Component {
                 placeholder='Email Address'
                 prefix={ <Icon
                   style={ { color: 'rgba(0,0,0,.25)', } }
-                  type='lock' /> }
+                  type='mail' /> }
                 style={ { maxWidth: 500, } }
                 type='email'
               /> )}
@@ -218,14 +220,14 @@ export default class UserForm extends Component {
               {message}
             </Button>
           </Item>
-          <Item className={gStyles.buttonsGroup}>
+          <Item className={ gStyles.buttonsGroup }>
             {getFieldDecorator( 'remember', {
               initialValue  : remember,
               valuePropName : 'checked',
             } )( <Checkbox onChange={ e => this.setRemember( e.target.checked ) }>Remember me</Checkbox> )}
           </Item>
           {authMessage && (
-            <Item className= { gStyles.buttonsGroup }>
+            <Item className={ gStyles.buttonsGroup }>
               <span>{authMessage}</span>
             </Item>
           )}

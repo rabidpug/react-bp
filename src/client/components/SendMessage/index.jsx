@@ -25,10 +25,10 @@ export default class SendMessage extends Component {
     } );
   };
 
-  handleKeyDown = e => {
-    e.persist();
+  handleEnter = e => {
+    const { shiftKey, } = e;
 
-    if ( e.key === 'Enter' && !e.shiftKey ) {
+    if ( !shiftKey ) {
       e.preventDefault();
 
       this.handleSubmit();
@@ -56,7 +56,8 @@ export default class SendMessage extends Component {
               maxRows : 4,
               minRows : 1,
             } }
-            onKeyDown={ this.handleKeyDown }
+            onPressEnter={ this.handleEnter }
+            style={ { minHeight: 34, } }
           /> )}
         </Item>
         <Item
@@ -67,9 +68,10 @@ export default class SendMessage extends Component {
           } }>
           <Button
             htmlType='submit'
+            icon='message'
             loading={ loading }
             type='primary'>
-            Send Message
+            Send
           </Button>
         </Item>
       </Form>

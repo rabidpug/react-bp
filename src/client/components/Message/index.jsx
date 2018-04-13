@@ -19,11 +19,19 @@ const Message = ( { message, timestamp, userProfile, isUser, } ) => (
           [styles.alignLeft]  : !isUser,
           [styles.alignRight] : isUser,
         } ) }>
-        <div style={ { color: 'hsl(0,0%,13%)', } }>{userProfile.displayNames}</div>
         <div
           style={ {
-            color    : 'hsl(0,0%,45%)',
-            fontSize : '0.7rem',
+            color      : 'hsl(0,0%,13%)',
+            fontSize   : '0.85rem',
+            fontWeight : 700,
+          } }>
+          {userProfile.displayNames}
+        </div>
+        <div
+          style={ {
+            color      : 'hsl(0,0%,45%)',
+            fontSize   : '0.6rem',
+            fontWeight : 400,
           } }>
           {moment( timestamp ).format( 'HH:mm:ss DD/MM/YYYY' )}
         </div>
