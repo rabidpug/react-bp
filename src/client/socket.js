@@ -1,13 +1,6 @@
 // @flow
 
-import {
-  IO_CLIENT_HELLO,
-  IO_CLIENT_JOIN_ROOM,
-  IO_CONNECT,
-  IO_DISCONNECT,
-  IO_SERVER_HELLO,
-  IO_SERVER_RESPONSE,
-} from 'Shared/socket';
+import { IO_CLIENT_JOIN_ROOM, IO_CONNECT, IO_DISCONNECT, IO_SERVER_HELLO, IO_SERVER_RESPONSE, } from 'Shared/socket';
 import { sayHello, sayHelloSuccess, } from 'Store/greeter/actions';
 
 import { refreshAuthToken, } from 'Store/user/actions';

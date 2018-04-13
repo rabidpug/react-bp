@@ -7,7 +7,7 @@ import { createReducer, } from '@acemarke/redux-starter-kit';
 
 export const greeterInitialState = {
   isLoading : false,
-  messages   : [],
+  messages  : [],
 };
 
 export const greeter = createReducer( greeterInitialState, {
