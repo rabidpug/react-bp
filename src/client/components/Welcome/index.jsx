@@ -33,7 +33,7 @@ export default class Welcome extends Component {
           flexDirection : 'column',
         } }>
         <div className={ gStyles.cardHeader }>
-          <h1>Welcome Message</h1>
+          <h1>Welcome Messaging</h1>
         </div>
         <div
           className={ gStyles.cardTop }
