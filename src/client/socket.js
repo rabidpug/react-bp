@@ -21,9 +21,9 @@ const setUpSocket = ( store: Object ) => {
     console.log( `[socket.io] Server: ${serverMessage}` );
   } );
 
-  socket.on( IO_SERVER_RESPONSE, serverMessage => {
-    if ( serverMessage === 'User not authorized' ) store.dispatch( refreshAuthToken( sayHello ) );
-    else store.dispatch( sayHelloSuccess( serverMessage ) );
+  socket.on( IO_SERVER_RESPONSE, res => {
+    if ( res.msg === 'User not authorized' ) store.dispatch( refreshAuthToken( sayHello, res.values ) );
+    else store.dispatch( sayHelloSuccess( res ) );
   } );
 
   socket.on( IO_DISCONNECT, () => {

@@ -11,13 +11,13 @@ import { socket, } from '../../socket';
 export const sayHelloRequest = createAction( SAY_HELLO_REQUEST );
 export const sayHelloSuccess = createAction( SAY_HELLO_SUCCESS );
 export const sayHelloFailure = createAction( SAY_HELLO_FAILURE );
-export const sayHello: Function = value => ( dispatch: Function ) => {
+export const sayHello: Function = values => ( dispatch: Function ) => {
   dispatch( sayHelloRequest() );
 
   const token = localStorage.getItem( 'JWT' ) || sessionStorage.getItem( 'JWT' );
 
   socket.emit( IO_CLIENT_HELLO, {
     token,
-    ...value,
+    values,
   } );
 };

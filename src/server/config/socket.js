@@ -30,15 +30,18 @@ const setUpSocket = ( io: Object ) => {
       socket.emit( IO_SERVER_HELLO, 'Hello you!' );
     } );
 
-    socket.on( IO_CLIENT_HELLO, ( { message, token, } ) => {
+    socket.on( IO_CLIENT_HELLO, ( { values, token, } ) => {
       let user;
 
       try {
         user = jwt.verify( token.replace( 'JWT ', '' ), PASSPORT_SECRET, { complete: true, } );
       } catch ( e ) {
-        user = {};
+        user = false;
 
-        io.emit( IO_SERVER_RESPONSE, 'User not authorized' );
+        socket.emit( IO_SERVER_RESPONSE, {
+          msg: 'User not authorized',
+          values,
+        } );
 
         return;
       }
@@ -47,15 +50,19 @@ const setUpSocket = ( io: Object ) => {
         .then( foundUser => {
           if ( !foundUser ) throw new Error( 'User not authorized' );
 
-          console.log( `[socket.io] Client ${foundUser.profile.publicProfile.displayNames}: ${message}` );
+          console.log( `[socket.io] Client ${foundUser.profile.publicProfile.displayNames}: ${values.message}` );
 
           io.emit( IO_SERVER_RESPONSE, {
-            message,
             timestamp   : new Date().getTime(),
             userProfile : foundUser.profile.publicProfile,
+            ...values,
           } );
         } )
-        .catch( e => io.emit( IO_SERVER_RESPONSE, e.message ) );
+        .catch( e =>
+          socket.emit( IO_SERVER_RESPONSE, {
+            msg: e.message,
+            values,
+          } ) );
     } );
 
     socket.on( IO_DISCONNECT, () => {

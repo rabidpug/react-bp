@@ -14,15 +14,29 @@ export default class SendMessage extends Component {
   handleSubmit = e => {
     const { form, sendMessage, } = this.props;
 
-    e.preventDefault();
+    e && e.preventDefault();
 
     form.validateFields( ( err, values ) => {
-      if ( !err ) sendMessage( values );
+      if ( !err && values.message ) {
+        sendMessage( values );
+
+        form.resetFields();
+      }
     } );
   };
 
+  handleKeyDown = e => {
+    e.persist();
+
+    if ( e.key === 'Enter' && !e.shiftKey ) {
+      e.preventDefault();
+
+      this.handleSubmit();
+    }
+  };
+
   render () {
-    const { form: { getFieldDecorator, }, } = this.props;
+    const { form: { getFieldDecorator, loading, }, } = this.props;
 
     return (
       <Form
@@ -32,6 +46,7 @@ export default class SendMessage extends Component {
           flexDirection : 'row',
         } }>
         <Item
+          hasFeedback={ false }
           style={ {
             flex   : 1,
             margin : 10,
@@ -41,6 +56,7 @@ export default class SendMessage extends Component {
               maxRows : 4,
               minRows : 1,
             } }
+            onKeyDown={ this.handleKeyDown }
           /> )}
         </Item>
         <Item
@@ -51,6 +67,7 @@ export default class SendMessage extends Component {
           } }>
           <Button
             htmlType='submit'
+            loading={ loading }
             type='primary'>
             Send Message
           </Button>

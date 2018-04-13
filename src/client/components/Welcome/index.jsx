@@ -9,13 +9,28 @@ import mapWelcome from './map';
 @hot( module )
 @connect( mapWelcome.State )
 export default class Welcome extends Component {
+  componentDidMount () {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate () {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView( { behavior: 'smooth', } );
+  };
+
   render () {
-    const { style, messages, } = this.props;
+    const { messages, } = this.props;
 
     return (
       <div
         className={ gStyles.cardStyle }
-        style={ { ...style, } }>
+        style={ {
+          display       : 'flex',
+          flexDirection : 'column',
+        } }>
         <div className={ gStyles.cardHeader }>
           <h1>Welcome Message</h1>
         </div>
@@ -25,6 +40,16 @@ export default class Welcome extends Component {
               {`${value.userProfile.displayNames}: ${value.message}`}
             </p>
           ) )}
+
+          <div
+            ref={ el => {
+              this.messagesEnd = el;
+            } }
+            style={ {
+              clear : 'both',
+              float : 'left',
+            } }
+          />
         </div>
         <div className={ gStyles.cardBottom }>
           <SendMessage />

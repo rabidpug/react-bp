@@ -14,12 +14,13 @@ body {
 }
 
 .contentStyle {
+  display: flex;
+  flex-direction: column;
   left: 0;
+  max-height: calc(100% - 2rem);
   position: absolute;
   right: 0;
   @media (max-width: 767.98px) {
-    display: flex;
-    flex-direction: column;
     height: 100%;
     margin: 0 !important;
     max-height: 100%;
