@@ -22,7 +22,7 @@ export default class Welcome extends Component {
   };
 
   render () {
-    const { messages, } = this.props;
+    const { messages, publicId, } = this.props;
 
     return (
       <div
@@ -36,7 +36,9 @@ export default class Welcome extends Component {
         </div>
         <div className={ gStyles.cardTop }>
           {messages.map( value => (
-            <p key={ value.timestamp + value.userProfile.displayNames }>
+            <p
+              key={ value.timestamp + value.userProfile.displayNames }
+              style={ { textAlign: value.userProfile.publicId === publicId ? 'right' : 'left', } }>
               {`${value.userProfile.displayNames}: ${value.message}`}
             </p>
           ) )}

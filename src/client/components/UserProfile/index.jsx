@@ -147,14 +147,14 @@ export default class UserProfile extends Component {
             label={ <Divider style={ { marginBottom: 0, } }>Profile Picture</Divider> }>
             <RadioGroup value={ publicProfile.photos }>
               <RadioButton
-                onClick={ () => changePublicProfile( 'photos', 'anonymous' ) }
+                onClick={ () => changePublicProfile( 'photos', 'Anonymous' ) }
                 style={ {
                   display : 'inline-block',
                   height  : 120,
                   padding : 10,
                   width   : 120,
                 } }
-                value='anonymous'>
+                value='Anonymous'>
                 <img
                   height='100px'
                   src={ noImage }
@@ -186,8 +186,8 @@ export default class UserProfile extends Component {
             label={ <Divider style={ { marginBottom: 0, } }>Display Name</Divider> }>
             <RadioGroup value={ publicProfile.displayNames }>
               <RadioButton
-                onClick={ () => changePublicProfile( 'displayNames', 'anonymous' ) }
-                value='anonymous'>
+                onClick={ () => changePublicProfile( 'displayNames', 'Anonymous' ) }
+                value='Anonymous'>
                 Anonymous
               </RadioButton>
               {displayNames &&
@@ -207,8 +207,8 @@ export default class UserProfile extends Component {
             label={ <Divider style={ { marginBottom: 0, } }>Email</Divider> }>
             <RadioGroup value={ publicProfile.emails }>
               <RadioButton
-                onClick={ () => changePublicProfile( 'emails', 'anonymous' ) }
-                value='anonymous'>
+                onClick={ () => changePublicProfile( 'emails', 'Anonymous' ) }
+                value='Anonymous'>
                 Anonymous
               </RadioButton>
               {emails &&

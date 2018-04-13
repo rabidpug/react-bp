@@ -63,19 +63,26 @@ const UserSchema = mongoose.Schema( {
     },
     publicProfile: {
       displayNames: {
-        default  : 'anonymous',
+        default  : 'Anonymous',
         required : true,
         type     : String,
       },
       emails: {
-        default  : 'anonymous',
+        default  : 'Anonymous',
         required : true,
         type     : String,
       },
       photos: {
-        default  : 'anonymous',
+        default  : 'Anonymous',
         required : false,
         type     : String,
+      },
+      publicId: {
+        default  : () => new mongoose.Types.ObjectId(),
+        index    : true,
+        required : true,
+        type     : mongoose.Schema.Types.ObjectId,
+        unique   : true,
       },
     },
   },
