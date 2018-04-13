@@ -241,7 +241,7 @@ auth.get( '/google/callback',
   <script>
     window.localStorage.setItem('tempToken', 'JWT ${token}');
     window.localStorage.setItem('tempRefreshToken', '${refreshToken}');
-    window.localStorage.setItem('profile', ${JSON.stringify( profile )});
+    window.localStorage.setItem('profile', JSON.stringify(${JSON.stringify( profile )}));
     window.location.href = '/';
   </script>
 </html>`;
@@ -279,7 +279,7 @@ auth.get( '/facebook/callback',
   <script>
     window.localStorage.setItem('tempToken', 'JWT ${token}');
     window.localStorage.setItem('tempRefreshToken', '${refreshToken}');
-    window.localStorage.setItem('profile', ${JSON.stringify( profile )});
+    window.localStorage.setItem('profile', JSON.stringify(${JSON.stringify( profile )}));
     window.location.href = '/';
   </script>
 </html>`;

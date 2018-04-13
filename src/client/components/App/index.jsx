@@ -29,6 +29,8 @@ export default class App extends Component {
     const profile = localStorage.getItem( 'profile' );
     const currentToken = localStorage.getItem( 'JWT' ) || sessionStorage.getItem( 'JWT' );
 
+    console.log(profile); //eslint-disable-line
+
     if ( currentToken && newToken ) linkAuth( newToken );
     else if ( newToken ) {
       localStorage.removeItem( 'tempToken' );
