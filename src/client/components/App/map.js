@@ -4,10 +4,10 @@ import { isOnline, } from 'Store/ui/actions';
 
 const mapApp = {
   Dispatch: {
+    getProfile,
     isOnline,
     linkAuth,
     redirectedAuthSuccess,
-    getProfile,
   },
 };
 
