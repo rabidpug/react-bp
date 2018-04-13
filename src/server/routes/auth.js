@@ -23,13 +23,18 @@ auth.post( '/refresh', ( req, res ) => {
 } );
 
 auth.post( '/create', passport.authenticate( 'jwt', { session: false, } ), ( req, res ) => {
-  const { user, body: { values: { username, password, }, }, } = req;
+  const {
+    user,
+    body: { values: { username, password, }, },
+  } = req;
   const hasErrors =
     !!user === false
       ? 'User not found'
       : passReg.test( password ) === false
         ? 'Password failed validation'
-        : userReg.test( username ) === false ? 'Username failed validation' : false;
+        : userReg.test( username ) === false
+          ? 'Username failed validation'
+          : false;
 
   hasErrors && res.status( 401 ).send( { msg: hasErrors, } );
 
@@ -51,13 +56,18 @@ auth.post( '/create', passport.authenticate( 'jwt', { session: false, } ), ( req
 } );
 
 auth.post( '/change', passport.authenticate( 'jwt', { session: false, } ), ( req, res ) => {
-  const { user, body: { values, }, } = req;
+  const {
+    user,
+    body: { values, },
+  } = req;
   const hasErrors =
     !!user === false
       ? 'User not found'
       : !!values === false
         ? 'Password data not found'
-        : passReg.test( values.password ) === false ? 'Password failed validation' : false;
+        : passReg.test( values.password ) === false
+          ? 'Password failed validation'
+          : false;
 
   hasErrors && res.status( 401 ).send( { msg: hasErrors, } );
 
@@ -85,7 +95,11 @@ auth.post( '/register', ( req, res ) => {
       ? 'Username must consist of only lowercase letters, numbers, _ and -'
       : passReg.test( password ) === false
         ? 'Password must 8 or more characters containing at least one uppercase letter, one lowercase letter and one number.'
-        : !!username === false ? 'Username is required' : !!password === false ? 'Password is required' : false;
+        : !!username === false
+          ? 'Username is required'
+          : !!password === false
+            ? 'Password is required'
+            : false;
 
   hasErrors && res.status( 401 ).send( { msg: hasErrors, } );
 
@@ -227,7 +241,7 @@ auth.get( '/google/callback',
   <script>
     window.localStorage.setItem('tempToken', 'JWT ${token}');
     window.localStorage.setItem('tempRefreshToken', '${refreshToken}');
-    window.localStorage.setItem('profile', JSON.stringify(${profile}));
+    window.localStorage.setItem('profile', ${JSON.stringify( profile )});
     window.location.href = '/';
   </script>
 </html>`;
@@ -265,7 +279,7 @@ auth.get( '/facebook/callback',
   <script>
     window.localStorage.setItem('tempToken', 'JWT ${token}');
     window.localStorage.setItem('tempRefreshToken', '${refreshToken}');
-    window.localStorage.setItem('profile', JSON.stringify(${profile}));
+    window.localStorage.setItem('profile', ${JSON.stringify( profile )});
     window.location.href = '/';
   </script>
 </html>`;

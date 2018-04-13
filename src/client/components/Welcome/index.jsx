@@ -1,5 +1,6 @@
 import React, { Component, } from 'react';
 
+import Message from '../Message';
 import SendMessage from '../SendMessage';
 import { connect, } from 'react-redux';
 import gStyles from 'Styles/global';
@@ -34,13 +35,15 @@ export default class Welcome extends Component {
         <div className={ gStyles.cardHeader }>
           <h1>Welcome Message</h1>
         </div>
-        <div className={ gStyles.cardTop }>
+        <div
+          className={ gStyles.cardTop }
+          style={ { display: 'inline-block', } }>
           {messages.map( value => (
-            <p
+            <Message
+              isUser={ value.userProfile.publicId === publicId }
+              { ...value }
               key={ value.timestamp + value.userProfile.displayNames }
-              style={ { textAlign: value.userProfile.publicId === publicId ? 'right' : 'left', } }>
-              {`${value.userProfile.displayNames}: ${value.message}`}
-            </p>
+            />
           ) )}
 
           <div
