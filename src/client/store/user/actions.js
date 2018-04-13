@@ -83,7 +83,8 @@ export const getProfile = () => dispatch => {
       else dispatch( profileFailure( 'No Data' ) );
     } )
     .catch( e => {
-      dispatch( profileFailure( e.response.data ) );
+      if ( e.response.status === 401 ) dispatch( refreshAuthToken( getProfile ) );
+      else dispatch( profileFailure( e.response.data ) );
     } );
 };
 export const authUser = ( { authType, values, } ) => dispatch => {
@@ -119,8 +120,9 @@ export const changePublic = ( { key, value, } ) => dispatch => {
       value,
     } )
     .then( res => {
-      if ( res.data.success ) dispatch( changePublicSuccess( res.data ) );
-      else dispatch( changePublicFailure( res.data ) );
+      if ( !res ) throw new Error( 'Failed to authorize' );
+
+      dispatch( changePublicSuccess( res.data ) );
     } )
     .catch( e => {
       if ( e.response.status === 401 ) {

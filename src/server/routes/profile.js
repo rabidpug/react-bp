@@ -14,21 +14,14 @@ profile.post( '/public', passport.authenticate( 'jwt', { session: false, } ), ( 
 
   user.profile.publicProfile[key] = value;
 
-  user.save( ( e, newUser ) => {
-    if ( e ) {
-      res.json( {
-        msg     : 'Failed to update',
-        success : false,
-      } );
-    } else {
-      const { profile, } = newUser;
+  const { profile, } = user;
 
-      res.json( {
-        profile,
-        success: true,
-      } );
-    }
-  } );
+  user
+    .save()
+    .then( () => res.json( { profile, } ) )
+    .catch( e => res.status( 401 ).send( { msg: e.message, } ) );
 } );
 
 export default profile;
+
+'';

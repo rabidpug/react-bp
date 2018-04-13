@@ -2,7 +2,6 @@ import { MONGODB_URI, NODE_ENV, } from 'Shared/env';
 
 /*eslint-disable no-console */
 import authApi from './routes/authApi';
-import bluebird from 'bluebird';
 import bodyParser from 'body-parser';
 import clientRoutes from './routes/clientRoutes';
 import compression from 'compression';
@@ -14,10 +13,10 @@ import passport from './config/passport';
 import profileApi from './routes/profileApi';
 import winston from './config/winston';
 
-mongoose.Promise = bluebird;
+mongoose.Promise = Promise;
 
 mongoose
-  .connect( MONGODB_URI, { promiseLibrary: bluebird, } )
+  .connect( MONGODB_URI, { promiseLibrary: Promise, } )
   .then( () => console.log( 'database connection successful' ) )
   .catch( e => console.log( e ) );
 

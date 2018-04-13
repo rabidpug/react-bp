@@ -33,23 +33,20 @@ auth.post( '/create', passport.authenticate( 'jwt', { session: false, } ), ( req
 
   hasErrors && res.status( 401 ).send( { msg: hasErrors, } );
 
-  User.findOne( { _id: user._id, } )
-    .then( foundUser => {
-      if ( !user ) throw new Error( 'User does not exist' );
+  user.local = {
+    password,
+    username,
+  };
 
-      foundUser.local = {
-        password,
-        username,
-      };
+  user.profile.providers.local = true;
 
-      foundUser.profile.providers.local = true;
-
-      return foundUser.save().then( () =>
-        res.json( {
-          msg     : 'Username and password successfully added to profile',
-          profile : foundUser.profile,
-        } ) );
-    } )
+  user
+    .save()
+    .then( () =>
+      res.json( {
+        msg     : 'Username and password successfully added to profile',
+        profile : user.profile,
+      } ) )
     .catch( e => res.status( 401 ).send( { msg: e.message, } ) );
 } );
 
@@ -64,27 +61,25 @@ auth.post( '/change', passport.authenticate( 'jwt', { session: false, } ), ( req
 
   hasErrors && res.status( 401 ).send( { msg: hasErrors, } );
 
-  User.findOne( { _id: user._id, } )
-    .then( foundUser => {
-      if ( !user ) throw new Error( 'User does not exist' );
+  user
+    .comparePassword( values.current )
+    .then( isMatch => {
+      if ( isMatch === false ) throw new Error( 'The current password entered was incorrect.' );
+      return user.comparePassword( values.password );
+    } )
+    .then( isMatch => {
+      if ( isMatch ) throw new Error( 'The new password enters cannot match the current password' );
 
-      return foundUser.comparePassword( values.current ).then( isMatch => {
-        if ( isMatch === false ) throw new Error( 'The current password entered was incorrect.' );
-        return foundUser.comparePassword( values.password ).then( isMatch => {
-          if ( isMatch ) throw new Error( 'The new password enters cannot match the current password' );
+      user.local.password = values.password;
 
-          foundUser.local.password = values.password;
-
-          return foundUser.save();
-        } );
-      } );
+      return user.save();
     } )
     .then( () => res.send( { msg: 'Password change successful', } ) )
     .catch( e => res.status( 401 ).send( { msg: e.message, } ) );
 } );
 
 auth.post( '/register', ( req, res ) => {
-  const { username, password, } = req.body;
+  const { username, password, email, } = req.body;
   const hasErrors =
     userReg.test( username ) === false
       ? 'Username must consist of only lowercase letters, numbers, _ and -'
@@ -97,6 +92,7 @@ auth.post( '/register', ( req, res ) => {
   const newUser = new User( {
     'local.password'          : password,
     'local.username'          : username,
+    'profile.emails'          : [ email, ],
     'profile.providers.local' : true,
   } );
 
@@ -119,57 +115,63 @@ auth.post( '/link', passport.authenticate( 'jwt', { session: false, } ), ( req, 
   try {
     mergeUser = jwt.verify( req.body.newToken.replace( 'JWT ', '' ), PASSPORT_SECRET, { complete: true, } );
   } catch ( e ) {
-    return res.status( 401 ).send( { msg: 'Merge User could not be verified', } );
+    res.status( 401 ).send( { msg: 'Merge User could not be verified', } );
   }
 
-  if ( !originalUser || !mergeUser ) return res.status( 401 ).send( { msg: `${originalUser ? 'Merge' : 'Original'} User could not be verified`, } );
+  if ( !originalUser || !mergeUser ) res.status( 401 ).send( { msg: `${originalUser ? 'Merge' : 'Original'} User could not be verified`, } );
 
-  User.findOne( { _id: originalUser._id, } )
-    .then( userOne => {
-      if ( !userOne ) throw new Error( 'Original User could not be verified' );
+  User.findOneAndRemove( { _id: mergeUser._id, } )
+    .then( () => {
+      const {
+        profile: {
+          displayNames: originalDisplayNames = [],
+          emails: originalEmails = [],
+          photos: originalPhotos = [],
+          publicProfile,
+        },
+      } = originalUser;
+      const { profile: { displayNames: mergeDisplayNames = [], emails: mergeEmails = [], photos: mergePhotos = [], }, } = mergeUser;
+      const { providers = {}, } = mergeUser.profile;
 
-      return User.findOne( { _id: mergeUser._id, } ).then( userTwo => {
-        if ( !userTwo ) throw new Error( 'Merge User could not be verified' );
-        return userTwo.remove().then( () => {
-          const {
-            profile: {
-              displayNames: originalDisplayNames = [],
-              emails: originalEmails = [],
-              photos: originalPhotos = [],
-              publicProfile,
-            },
-          } = userOne;
-          const { profile: { displayNames: mergeDisplayNames = [], emails: mergeEmails = [], photos: mergePhotos = [], }, } = userTwo;
-          const { providers = {}, } = userTwo.profile;
+      Object.keys( providers )
+        .filter( key => !originalUser.profile.providers[key] && mergeUser.profile.providers[key] )
+        .forEach( key => {
+          originalUser[key] = mergeUser[key];
 
-          Object.keys( providers )
-            .filter( key => !userOne.profile.providers[key] && userTwo.profile.providers[key] )
-            .forEach( key => {
-              userOne[key] = userTwo[key];
-
-              userOne.profile.providers[key] = true;
-            } );
-
-          userOne.profile = {
-            displayNames: [
-              ...originalDisplayNames,
-              ...mergeDisplayNames,
-            ],
-            emails: [
-              ...originalEmails,
-              ...mergeEmails,
-            ],
-            photos: [
-              ...originalPhotos,
-              ...mergePhotos,
-            ],
-            providers     : { ...userOne.profile.providers, },
-            publicProfile : { ...publicProfile, },
-          };
-
-          return userOne.save().then( () => res.json( { profile: userOne.profile, } ) );
+          originalUser.profile.providers[key] = true;
         } );
-      } );
+
+      originalUser.profile = {
+        displayNames: [
+          ...originalDisplayNames,
+          ...mergeDisplayNames,
+        ],
+        emails: [
+          ...originalEmails,
+          ...mergeEmails,
+        ],
+        photos: [
+          ...originalPhotos,
+          ...mergePhotos,
+        ],
+        providers     : { ...originalUser.profile.providers, },
+        publicProfile : { ...publicProfile, },
+      };
+
+      const token = jwt.sign( originalUser.toJSON(), PASSPORT_SECRET || 'secret', { expiresIn: 300, } );
+      const refreshId = Object.keys( originalUser.profile.providers ).reduce( ( p, n ) => p ? p : originalUser[n].username || originalUser[n].id,
+                                                                              false );
+
+      const refreshToken = refreshId + bcrypt.genSaltSync( 10 );
+
+      originalUser.refreshToken = refreshToken;
+
+      return originalUser.save().then( () =>
+        res.json( {
+          profile : originalUser.profile,
+          refreshToken,
+          token   : `JWT ${token}`,
+        } ) );
     } )
     .catch( e => res.status( 401 ).send( { msg: e.message, } ) );
 } );
@@ -177,23 +179,22 @@ auth.post( '/link', passport.authenticate( 'jwt', { session: false, } ), ( req, 
 auth.post( '/login', ( req, res ) => {
   User.findOne( { 'local.username': req.body.username, } )
     .then( user => {
-      if ( user ) {
-        return user.comparePassword( req.body.password ).then( isMatch => {
-          if ( isMatch ) {
-            const token = jwt.sign( user.toJSON(), PASSPORT_SECRET || 'secret', { expiresIn: 300, } );
-            const refreshToken = user.local.username + bcrypt.genSaltSync( 10 );
+      if ( !user ) throw new Error( `The user ${req.body.username} does not exist.` );
 
-            user.refreshToken = refreshToken;
+      return user.comparePassword( req.body.password ).then( isMatch => {
+        if ( !isMatch ) throw new Error( 'The password entered was incorrect' );
+        const token = jwt.sign( user.toJSON(), PASSPORT_SECRET || 'secret', { expiresIn: 300, } );
+        const refreshToken = user.local.username + bcrypt.genSaltSync( 10 );
 
-            return user.save().then( () =>
-              res.json( {
-                profile : user.profile,
-                refreshToken,
-                token   : `JWT ${token}`,
-              } ) );
-          } else throw new Error( 'The password entered was incorrect' );
-        } );
-      } else throw new Error( `The user ${req.body.username} does not exist.` );
+        user.refreshToken = refreshToken;
+
+        return user.save().then( () =>
+          res.json( {
+            profile : user.profile,
+            refreshToken,
+            token   : `JWT ${token}`,
+          } ) );
+      } );
     } )
     .catch( e => res.status( 401 ).send( { msg: e.message, } ) );
 } );
@@ -219,21 +220,21 @@ auth.get( '/google/callback',
 
             user.refreshToken = refreshToken;
 
-            return user
+            const { profile, } = user;
+
+            const htmlRedirector = `
+<html>
+  <script>
+    window.localStorage.setItem('tempToken', 'JWT ${token}');
+    window.localStorage.setItem('tempRefreshToken', '${refreshToken}');
+    window.localStorage.setItem('profile', JSON.stringify(${profile}));
+    window.location.href = '/';
+  </script>
+</html>`;
+
+            user
               .save()
               .then( () => {
-                const { profile, } = user;
-
-                const htmlRedirector = `
-    <html>
-      <script>
-        window.localStorage.setItem('tempToken', 'JWT ${token}');
-        window.localStorage.setItem('tempRefreshToken', '${refreshToken}');
-        window.localStorage.setItem('profile', JSON.stringify(${profile}));
-        window.location.href = '/';
-      </script>
-    </html>`;
-
                 res.send( htmlRedirector );
               } )
               .catch( e => res.status( 400 ).send( { msg: e.message, } ) );
@@ -257,21 +258,21 @@ auth.get( '/facebook/callback',
 
             user.refreshToken = refreshToken;
 
-            return user
+            const { profile, } = user;
+
+            const htmlRedirector = `
+<html>
+  <script>
+    window.localStorage.setItem('tempToken', 'JWT ${token}');
+    window.localStorage.setItem('tempRefreshToken', '${refreshToken}');
+    window.localStorage.setItem('profile', JSON.stringify(${profile}));
+    window.location.href = '/';
+  </script>
+</html>`;
+
+            user
               .save()
               .then( () => {
-                const { profile, } = user;
-
-                const htmlRedirector = `
-    <html>
-      <script>
-        window.localStorage.setItem('tempToken', 'JWT ${token}');
-        window.localStorage.setItem('tempRefreshToken', '${refreshToken}');
-        window.localStorage.setItem('profile', JSON.stringify(${profile}));
-        window.location.href = '/';
-      </script>
-    </html>`;
-
                 res.send( htmlRedirector );
               } )
               .catch( e => res.status( 400 ).send( { msg: e.message, } ) );

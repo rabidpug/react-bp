@@ -1,7 +1,6 @@
 import { MOD_VERIFY_USERS, } from 'Shared/env';
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
-//TODO: Add email to local, roles, isVerified
 const UserSchema = mongoose.Schema( {
   facebook: {
     id: {

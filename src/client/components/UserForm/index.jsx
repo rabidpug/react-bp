@@ -113,6 +113,12 @@ export default class UserForm extends Component {
     } else callback( 'please enter a password' );
   };
 
+  emailValidator = ( rule, value, callback ) => {
+    if ( !value ) callback( 'Email is required' );
+    else if ( /^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/.test( value ) === false ) callback( 'Enter a valid email address' );
+    else callback();
+  };
+
   render () {
     const { form, isGettingAuth, authMessage, } = this.props;
     const { userExists, remember, } = this.state;
@@ -183,6 +189,24 @@ export default class UserForm extends Component {
               /> )}
             </Item>
           )}
+          {!userExists && (
+            <Item hasFeedback>
+              {getFieldDecorator( 'email', {
+                rules: [
+                  { required: true, },
+                  { validator: this.emailValidator, },
+                ],
+              } )( <Input
+                autoComplete='email'
+                placeholder='Email Address'
+                prefix={ <Icon
+                  style={ { color: 'rgba(0,0,0,.25)', } }
+                  type='lock' /> }
+                style={ { maxWidth: 500, } }
+                type='email'
+              /> )}
+            </Item>
+          )}
         </div>
         <div className={ gStyles.cardBottom }>
           <Item className={ gStyles.buttonsGroup }>
@@ -194,15 +218,15 @@ export default class UserForm extends Component {
               {message}
             </Button>
           </Item>
-          <Item>
+          <Item className={gStyles.buttonsGroup}>
             {getFieldDecorator( 'remember', {
               initialValue  : remember,
               valuePropName : 'checked',
             } )( <Checkbox onChange={ e => this.setRemember( e.target.checked ) }>Remember me</Checkbox> )}
           </Item>
           {authMessage && (
-            <Item>
-              <p>{authMessage}</p>
+            <Item className= { gStyles.buttonsGroup }>
+              <span>{authMessage}</span>
             </Item>
           )}
           <Item className={ gStyles.buttonsGroup }>
