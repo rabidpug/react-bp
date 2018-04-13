@@ -36,7 +36,10 @@ export default class SendMessage extends Component {
   };
 
   render () {
-    const { form: { getFieldDecorator, loading, }, } = this.props;
+    const {
+      form: { getFieldDecorator, },
+      loading,
+    } = this.props;
 
     return (
       <Form
