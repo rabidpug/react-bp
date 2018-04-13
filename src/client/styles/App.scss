@@ -16,6 +16,7 @@ body {
 .contentStyle {
   display: flex;
   flex-direction: column;
+  height: 100%;
   left: 0;
   max-height: calc(100% - 2rem);
   position: absolute;

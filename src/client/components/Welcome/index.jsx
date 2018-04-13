@@ -31,20 +31,27 @@ export default class Welcome extends Component {
         style={ {
           display       : 'flex',
           flexDirection : 'column',
+          minHeight     : '50%',
         } }>
         <div className={ gStyles.cardHeader }>
           <h1>Welcome Messaging</h1>
         </div>
         <div
           className={ gStyles.cardTop }
-          style={ { display: 'inline-block', } }>
-          {messages.map( value => (
-            <Message
-              isUser={ value.userProfile.publicId === publicId }
-              { ...value }
-              key={ value.timestamp + value.userProfile.displayNames }
-            />
-          ) )}
+          style={ {
+            display   : 'inline-block',
+            minHeight : '50%',
+          } }>
+          {messages.length === 0
+            ? <p style={ { width: '100%', } }>No Messages</p>
+            :             messages.map( value => (
+              <Message
+                isUser={ value.userProfile.publicId === publicId }
+                { ...value }
+                key={ value.timestamp + value.userProfile.displayNames }
+              />
+            ) )
+          }
 
           <div
             ref={ el => {
