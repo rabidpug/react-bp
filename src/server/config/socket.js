@@ -60,8 +60,10 @@ const setUpSocket = ( io: Object ) => {
           } );
 
           const messageNotification = {
-            body  : `You've received a new message from ${foundUser.profile.displayNames}`,
-            title : `New message`,
+            body  : values.message,
+            scope : 'welcome',
+            tag   : 'newmessage',
+            title : `You've received a new message from ${foundUser.profile.displayNames}`,
           };
 
           User.find( {
