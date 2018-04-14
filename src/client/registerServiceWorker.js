@@ -21,6 +21,8 @@ export default function registerServiceWorker () {
 
           window.ononline = checkUpdate;
 
+          window.oncontrollerchange = e => console.log( e );
+
           registration.onupdatefound = () => {
             console.log( 'update found' );
 
