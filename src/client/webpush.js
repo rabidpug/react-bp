@@ -18,35 +18,31 @@ function urlBase64ToUint8Array(base64String) {
 
 const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
 
-export const subscribePush = async () => {
+export const subscribePush = () => {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
-    console.log('passed if');
+    navigator.serviceWorker.ready
+      .then(registration => {
+        console.log('serviceworker ready');
 
-    try {
-      const registration = await navigator.serviceWorker.ready;
-      console.log('serviceworker ready');
+        return registration.pushManager.subscribe({
+          applicationServerKey: convertedVapidKey,
+          userVisibleOnly: true,
+        });
+      })
+      .then(subscription => {
+        console.log('got subscription', subscription);
 
-      const subscription = await registration.pushManager.subscribe({
-        applicationServerKey: convertedVapidKey,
-        userVisibleOnly: true,
-      });
+        const token = localStorage.getItem('JWT') || sessionStorage.getItem('JWT');
 
-      console.log('got subscription', subscription);
+        console.log('got token', token);
 
-      const token = localStorage.getItem('JWT') || sessionStorage.getItem('JWT');
-
-      console.log('got token', token);
-
-      axios
-        .post(pushEndpointRoute('register'), {
+        return axios.post(pushEndpointRoute('register'), {
           subscription,
           token,
-        })
-        .then(res => console.log('result', res))
-        .catch(e => console.log('error', e));
-    } catch (e) {
-      return null;
-    }
+        });
+      })
+      .then(res => console.log('result', res))
+      .catch(e => console.log('error', e));
   } else return null;
 };
 
