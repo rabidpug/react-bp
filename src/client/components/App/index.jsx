@@ -18,7 +18,7 @@ const { Content, } = Layout;
 
 @hot( module )
 @withRouter
-@connect( null, mapApp.Dispatch )
+@connect( mapApp.State, mapApp.Dispatch )
 export default class App extends Component {
   componentDidMount () {
     const { isOnline, linkAuth, redirectedAuthSuccess, isGettingProfile, getProfile, } = this.props;
