@@ -313,7 +313,7 @@
     "react/jsx-uses-vars": "error",
     "react/jsx-wrap-multilines": "error",
     "react/no-access-state-in-setstate": "error",
-    "react/no-array-index-key": "error",
+    "react/no-array-index-key": "warn",
     "react/no-deprecated": "error",
     "react/prop-types": "off",
     "react/no-direct-mutation-state": "error",

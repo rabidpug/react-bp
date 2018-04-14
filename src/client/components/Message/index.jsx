@@ -1,10 +1,11 @@
 import { Avatar, } from 'antd';
+import MicroLinkCard from 'react-microlink';
 import React from 'react';
 import classnames from 'classnames';
 import moment from 'moment';
 import noImage from 'Assets/noImage.png';
 import styles from 'Styles/Message';
-
+const urlsFinder = /(?<=^| )(?:http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?([a-z0-9]+(?:[-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(?::[0-9]{1,5})?(?:\/.*)?)(?=$| )/gi;
 const Message = ( { message, timestamp, userProfile, isUser, } ) => (
   <div
     className={ classnames( styles.messageCard, {
@@ -52,7 +53,27 @@ const Message = ( { message, timestamp, userProfile, isUser, } ) => (
         [styles.alignLeft]  : !isUser,
         [styles.alignRight] : isUser,
       } ) }>
-      {message}
+      <span
+        dangerouslySetInnerHTML={ {
+          __html: message.replace( urlsFinder,
+                                   match =>
+                                     `<a
+            href='https://${match}'
+            target='_blank'>
+            ${match}
+          </a>` ),
+        } }
+      />
+      {urlsFinder.test( message ) && (
+        <MicroLinkCard
+          screenshot
+          style={ {
+            margin   : 5,
+            minWidth : '30vw',
+          } }
+          url={ `https://${message.match( urlsFinder )[0]}` }
+        />
+      )}
     </div>
   </div>
 );
