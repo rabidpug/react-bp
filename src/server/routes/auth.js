@@ -232,7 +232,7 @@ auth.get( '/google',
 
 auth.get( '/google/callback',
           passport.authenticate( 'google', {
-            failureRedirect : '/signin',
+            failureRedirect : '/signin#failure',
             session         : false,
           } ),
           ( req, res ) => {
@@ -254,11 +254,9 @@ auth.get( '/google/callback',
   </script>
 </html>`;
 
-            user
+            return user
               .save()
-              .then( () => {
-                res.send( htmlRedirector );
-              } )
+              .then( () => res.send( htmlRedirector ) )
               .catch( e => res.status( 400 ).send( { msg: e.message, } ) );
           } );
 
@@ -281,6 +279,7 @@ auth.get( '/facebook/callback',
             user.refreshToken = refreshToken;
 
             const { profile, } = user;
+    console.log(token, refreshToken, profile); //eslint-disable-line
 
             const htmlRedirector = `
 <html>

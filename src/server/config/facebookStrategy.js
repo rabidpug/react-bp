@@ -36,23 +36,25 @@ const facebookStrategy =
         ...p,
       ], [] );
 
-      User.findOne( { 'facebook.id': id, } )
-        .then( user => {
-          if ( user ) done( null, user );
-          else {
-            const newUser = new User( {
-              'facebook.id'                : id,
-              'profile.displayNames'       : [ displayName, ],
-              'profile.emails'             : mail,
-              'profile.photos'             : pics,
-              'profile.providers.facebook' : true,
-            } );
+      User.findOne( { 'facebook.id': id, }, ( e, user ) => {
+        if ( e ) return done( e, false );
 
-            return newUser.save();
-          }
-        } )
-        .then( newUser => done( null, newUser ) )
-        .catch( e => done( e, false ) );
+        if ( user ) done( null, user );
+        else {
+          const newUser = new User( {
+            'facebook.id'                : id,
+            'profile.displayNames'       : [ displayName, ],
+            'profile.emails'             : mail,
+            'profile.photos'             : pics,
+            'profile.providers.facebook' : true,
+          } );
+
+          newUser.save( e => {
+            if ( e ) return done( e, false );
+            else done( null, newUser );
+          } );
+        }
+      } );
     } );
   } );
 

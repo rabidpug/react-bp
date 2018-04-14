@@ -63,7 +63,7 @@ const setUpSocket = ( io: Object ) => {
             body  : values.message,
             scope : 'welcome',
             tag   : 'newmessage',
-            title : `You've received a new message from ${foundUser.profile.displayNames}`,
+            title : `You've received a new message from ${foundUser.profile.displayNames || 'Anonymous'}`,
           };
 
           User.find( {
