@@ -21,7 +21,7 @@ const { Content, } = Layout;
 @connect( null, mapApp.Dispatch )
 export default class App extends Component {
   componentDidMount () {
-    const { isOnline, linkAuth, redirectedAuthSuccess, isGettingProfile, getProfile, pushSubscription, } = this.props;
+    const { isOnline, linkAuth, redirectedAuthSuccess, isGettingProfile, getProfile, } = this.props;
 
     isOnline( window.navigator.onLine );
 

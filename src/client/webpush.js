@@ -19,6 +19,8 @@ function urlBase64ToUint8Array ( base64String ) {
 const convertedVapidKey = urlBase64ToUint8Array( vapidPublicKey );
 
 export const subscribePush = async () => {
+  console.log('called'); //eslint-disable-line
+
   if ( process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator ) {
     try {
       const registration = await navigator.serviceWorker.ready;
