@@ -2,6 +2,7 @@ import { Avatar, } from 'antd';
 import React from 'react';
 import classnames from 'classnames';
 import moment from 'moment';
+import noImage from 'Assets/noImage.png';
 import styles from 'Styles/Message';
 
 const Message = ( { message, timestamp, userProfile, isUser, } ) => (
@@ -11,9 +12,12 @@ const Message = ( { message, timestamp, userProfile, isUser, } ) => (
       [styles.cardRight] : isUser,
     } ) }>
     <div className={ styles.messageTop }>
-      {!isUser && <Avatar
-        className={ styles.messageAvatar }
-        src={ userProfile.photos } />}
+      {!isUser && (
+        <Avatar
+          className={ styles.messageAvatar }
+          src={ userProfile.photos === 'Anonymous' ? noImage : userProfile.photos }
+        />
+      )}
       <div
         className={ classnames( styles.messageUserDate, {
           [styles.alignLeft]  : !isUser,
@@ -36,9 +40,12 @@ const Message = ( { message, timestamp, userProfile, isUser, } ) => (
           {moment( timestamp ).format( 'HH:mm:ss DD/MM/YYYY' )}
         </div>
       </div>
-      {isUser && <Avatar
-        className={ styles.messageAvatar }
-        src={ userProfile.photos } />}
+      {isUser && (
+        <Avatar
+          className={ styles.messageAvatar }
+          src={ userProfile.photos === 'Anonymous' ? noImage : userProfile.photos }
+        />
+      )}
     </div>
     <div
       className={ classnames( styles.messageBox, {
