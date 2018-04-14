@@ -1,7 +1,7 @@
 import simpleNotification from 'Components/simpleNotification';
 /* eslint-disable compat/compat */
 /* eslint-disable no-console */
-export default function register () {
+export default function registerServiceWorker () {
   if ( process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator ) {
     window.addEventListener( 'load', () => {
       const swUrl = 'service-worker.js';
@@ -9,6 +9,8 @@ export default function register () {
       navigator.serviceWorker
         .register( swUrl )
         .then( registration => {
+          console.log( 'registered' );
+
           const checkUpdate = () => {
             try {
               registration.update();
@@ -20,6 +22,8 @@ export default function register () {
           window.ononline = checkUpdate;
 
           registration.onupdatefound = () => {
+            console.log( 'update found' );
+
             const installingWorker = registration.installing;
 
             installingWorker.onstatechange = () => {
