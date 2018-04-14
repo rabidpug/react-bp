@@ -53,7 +53,7 @@ export default class App extends Component {
     const { pushSubscription, } = this.props;
 
     if ( currentToken && !pushSubscription && Notification.permission !== 'denied' ) {
-      console.log( 'calling subscribe' ); //eslint-disable-linel
+      console.log('calling subscribe'); //eslint-disable-line
 
       subscribePush();
     }
