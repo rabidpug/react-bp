@@ -36,6 +36,7 @@ const prodPlugs = [
   new SWPrecacheWebpackPlugin( {
     dontCacheBustUrlsMatching : /\.\w{8}\./,
     filename                  : 'service-worker.js',
+    importScripts             : [ 'swPush.js', ],
     logger ( message ) {
       if ( message.indexOf( 'Total precache size is' ) === 0 ) return;
 
@@ -63,10 +64,16 @@ const cssLoader = isProd ? MiniCssExtractPlugin.loader : 'style-loader';
 
 module.exports = {
   entry: {
-    index: isProd ? [ './src/client/index.jsx', ] : [
-      'webpack-hot-middleware/client',
-      './src/client/index.jsx',
-    ],
+    index: isProd
+      ? [
+        'babel-polyfill',
+        './src/client/index.jsx',
+      ]
+      : [
+        'babel-polyfill',
+        'webpack-hot-middleware/client',
+        './src/client/index.jsx',
+      ],
   },
   mode   : isProd ? 'production' : 'development',
   module : {

@@ -1,10 +1,10 @@
 import { PASSPORT_SECRET, } from 'Shared/env';
+import { Router, } from 'express';
 import User from '../models/User';
 import bcrypt from 'bcrypt';
-import express from 'express';
 import jwt from 'jsonwebtoken';
 import passport from '../config/passport';
-const auth = express.Router();
+const auth = Router();
 
 const passReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
 const userReg = /^([0-9]|[a-z]|-|_)*$/;
@@ -172,7 +172,6 @@ auth.post( '/link', passport.authenticate( 'jwt', { session: false, } ), ( req, 
         publicProfile : { ...publicProfile, },
       };
 
-      const token = jwt.sign( originalUser.toJSON(), PASSPORT_SECRET || 'secret', { expiresIn: 300, } );
       const refreshId = Object.keys( originalUser.profile.providers ).reduce( ( p, n ) => p ? p : originalUser[n].username || originalUser[n].id,
                                                                               false );
 
@@ -180,12 +179,17 @@ auth.post( '/link', passport.authenticate( 'jwt', { session: false, } ), ( req, 
 
       originalUser.refreshToken = refreshToken;
 
-      return originalUser.save().then( () =>
-        res.json( {
-          profile : originalUser.profile,
-          refreshToken,
-          token   : `JWT ${token}`,
-        } ) );
+      return originalUser.save();
+    } )
+    .then( savedUser => {
+      const token = jwt.sign( originalUser.toJSON(), PASSPORT_SECRET || 'secret', { expiresIn: 300, } );
+      const { refreshToken, } = savedUser;
+
+      res.json( {
+        profile : savedUser.profile,
+        refreshToken,
+        token   : `JWT ${token}`,
+      } );
     } )
     .catch( e => res.status( 401 ).send( { msg: e.message, } ) );
 } );
@@ -197,17 +201,21 @@ auth.post( '/login', ( req, res ) => {
 
       return user.comparePassword( req.body.password ).then( isMatch => {
         if ( !isMatch ) throw new Error( 'The password entered was incorrect' );
-        const token = jwt.sign( user.toJSON(), PASSPORT_SECRET || 'secret', { expiresIn: 300, } );
         const refreshToken = user.local.username + bcrypt.genSaltSync( 10 );
 
         user.refreshToken = refreshToken;
 
-        return user.save().then( () =>
-          res.json( {
-            profile : user.profile,
-            refreshToken,
-            token   : `JWT ${token}`,
-          } ) );
+        return user.save();
+      } );
+    } )
+    .then( savedUser => {
+      const token = jwt.sign( savedUser.toJSON(), PASSPORT_SECRET || 'secret', { expiresIn: 300, } );
+      const { refreshToken, } = savedUser;
+
+      res.json( {
+        profile : savedUser.profile,
+        refreshToken,
+        token   : `JWT ${token}`,
       } );
     } )
     .catch( e => res.status( 401 ).send( { msg: e.message, } ) );

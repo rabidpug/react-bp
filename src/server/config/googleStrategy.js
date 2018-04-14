@@ -30,25 +30,23 @@ const googleStrategy =
         ...p,
       ], [] );
 
-      User.findOne( { 'google.id': id, }, ( e, user ) => {
-        if ( e ) return done( e, false );
+      User.findOne( { 'google.id': id, } )
+        .then( user => {
+          if ( user ) return done( null, user );
+          else {
+            const newUser = new User( {
+              'google.id'                : id,
+              'profile.displayNames'     : [ displayName, ],
+              'profile.emails'           : mail,
+              'profile.photos'           : pics,
+              'profile.providers.google' : true,
+            } );
 
-        if ( user ) done( null, user );
-        else {
-          const newUser = new User( {
-            'google.id'                : id,
-            'profile.displayNames'     : [ displayName, ],
-            'profile.emails'           : mail,
-            'profile.photos'           : pics,
-            'profile.providers.google' : true,
-          } );
-
-          newUser.save( e => {
-            if ( e ) return done( e, false );
-            else done( null, newUser );
-          } );
-        }
-      } );
+            return newUser.save();
+          }
+        } )
+        .then( newUser => done( null, newUser ) )
+        .catch( e => done( e, false ) );
     } );
   } );
 

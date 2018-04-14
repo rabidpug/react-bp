@@ -85,6 +85,10 @@ const UserSchema = mongoose.Schema( {
         unique   : true,
       },
     },
+    pushSubscription: {
+      required : false,
+      type     : Object,
+    },
   },
   refreshToken: {
     index    : true,

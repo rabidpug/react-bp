@@ -17,4 +17,6 @@ export const {
   NO_REPLY_EMAIL,
   GMAIL_USER,
   GMAIL_PASS,
+  VAPID_KEY_PUBLIC,
+  VAPID_KEY_PRIVATE,
 } = process.env;

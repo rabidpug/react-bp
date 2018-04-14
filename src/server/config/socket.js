@@ -12,6 +12,7 @@ import {
 import { PASSPORT_SECRET, } from 'Shared/env';
 import User from '../models/User';
 import jwt from 'jsonwebtoken';
+import webpush from './webpush';
 
 /* eslint-disable no-console */
 const setUpSocket = ( io: Object ) => {
@@ -57,6 +58,21 @@ const setUpSocket = ( io: Object ) => {
             userProfile : foundUser.profile.publicProfile,
             ...values,
           } );
+
+          const messageNotification = {
+            body  : `You've received a new message from ${foundUser.profile.displayNames}`,
+            title : `New message`,
+          };
+
+          User.find( {
+            _id                        : { $ne: foundUser._id, },
+            'profile.pushSubscription' : { $ne: null, },
+          } )
+            .then( users => {
+              users.forEach( user =>
+                webpush.sendNotification( user.profile.pushSubscription, JSON.stringify( messageNotification ) ) );
+            } )
+            .catch( e => console.log( e ) );
         } )
         .catch( e =>
           socket.emit( IO_SERVER_RESPONSE, {

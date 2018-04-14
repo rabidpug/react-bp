@@ -1,6 +1,6 @@
-import express from 'express';
+import { Router, } from 'express';
 import passport from 'passport';
-const profile = express.Router();
+const profile = Router();
 
 profile.get( '/', passport.authenticate( 'jwt', { session: false, } ), ( req, res ) => {
   const { user: { profile, }, } = req;
@@ -10,7 +10,10 @@ profile.get( '/', passport.authenticate( 'jwt', { session: false, } ), ( req, re
 } );
 
 profile.post( '/public', passport.authenticate( 'jwt', { session: false, } ), ( req, res ) => {
-  const { user, body: { key, value, }, } = req;
+  const {
+    user,
+    body: { key, value, },
+  } = req;
 
   user.profile.publicProfile[key] = value;
 

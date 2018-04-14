@@ -12,6 +12,7 @@ import mapApp from './map';
 import navMenu from 'Routes/navMenu';
 import { renderRoutes, } from 'react-router-config';
 import styles from 'Styles/App';
+import { subscribePush, } from '../../webpush';
 
 const { Content, } = Layout;
 
@@ -20,7 +21,7 @@ const { Content, } = Layout;
 @connect( null, mapApp.Dispatch )
 export default class App extends Component {
   componentDidMount () {
-    const { isOnline, linkAuth, redirectedAuthSuccess, isGettingProfile, getProfile, } = this.props;
+    const { isOnline, linkAuth, redirectedAuthSuccess, isGettingProfile, getProfile, pushSubscription, } = this.props;
 
     isOnline( window.navigator.onLine );
 
@@ -42,7 +43,8 @@ export default class App extends Component {
         refreshToken : newRefreshToken,
         token        : newToken,
       } );
-    } else if ( currentToken && !isGettingProfile ) getProfile();
+    } else if ( currentToken && !pushSubscription && Notification.permission !== 'denied' ) subscribePush();
+    else if ( currentToken && !isGettingProfile ) getProfile();
   }
 
   render () {

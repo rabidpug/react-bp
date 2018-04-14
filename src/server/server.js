@@ -11,6 +11,7 @@ import mongoose from 'mongoose';
 import morgan from 'morgan';
 import passport from './config/passport';
 import profileApi from './routes/profileApi';
+import pushApi from './routes/pushApi';
 import winston from './config/winston';
 
 mongoose.Promise = Promise;
@@ -40,6 +41,8 @@ authApi( app );
 profileApi( app );
 
 helloApi( app );
+
+pushApi( app );
 
 if ( !isDev ) clientRoutes( app );
 

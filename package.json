@@ -41,11 +41,11 @@
     "redux": "^4.0.0-beta.2",
     "redux-actions": "^2.3.0",
     "redux-auth-wrapper": "^2.0.2",
-    "redux-persist": "^5.9.1",
     "redux-thunk": "^2.2.0",
     "serve-favicon": "^2.5.0",
     "socket.io": "^2.1.0",
     "socket.io-client": "^2.1.0",
+    "web-push": "^3.3.0",
     "winston": "^2.4.1"
   },
   "description": "A react boilerplate",
@@ -116,7 +116,7 @@
     "redux-mock-store": "^1.5.1",
     "remote-redux-devtools": "^0.5.12",
     "rimraf": "^2.6.2",
-    "sass-loader": "^6.0.7",
+    "sass-loader": "^7.0.1",
     "start-server-webpack-plugin": "^3.0.0-rc3",
     "style-loader": "^0.20.3",
     "stylelint": "^9.2.0",
@@ -136,10 +136,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "homepage": "https://github.com/rabidpug/react-bp#readme",
-  "keywords": [
-    "react",
-    "boilerplate"
-  ],
+  "keywords": ["react", "boilerplate"],
   "license": "ISC",
   "main": "index.js",
   "name": "react-bp",
@@ -149,10 +146,13 @@
   },
   "scripts": {
     "build": "npm-run-all clean build:*",
-    "build:aserver": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.server.js --mode production",
-    "build:client": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.client.js --mode production --progress",
+    "build:aserver":
+      "cross-env NODE_ENV=production webpack --config webpack/webpack.config.server.js --mode production",
+    "build:client":
+      "cross-env NODE_ENV=production webpack --config webpack/webpack.config.client.js --mode production --progress",
     "dev": "npm-run-all clean dev:* --parallel",
-    "dev:server": "cross-env NODE_ENV=development  webpack --config webpack/webpack.config.server.js --mode development",
+    "dev:server":
+      "cross-env NODE_ENV=development  webpack --config webpack/webpack.config.server.js --mode development",
     "dev:cssflow": "css-modules-flow-types src -e scss --watch",
     "test": "npm-run-all test:*",
     "test:cssflow": "cross-env NODE_ENV=test css-modules-flow-types src -e scss",
@@ -163,6 +163,7 @@
     "prod": "heroku local",
     "clean": "rimraf ./dist",
     "dist": "cross-env NODE_ENV=production node dist/server.js",
+    "keys": "web-push generate-vapid-keys",
     "heroku-postbuild": "npm-run-all clean build:*",
     "snapshots": "jest --updateSnapshot"
   },

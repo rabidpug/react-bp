@@ -14,3 +14,4 @@ export const getIsChangingPassword = createSelector( [ 'user.isChangingPassword'
 export const getChangePasswordStatus = createSelector( [ 'user.changePasswordStatus', ] );
 export const getIsChangingPublic = createSelector( [ 'user.isChangingPublic', ] );
 export const getPublicId = createSelector( [ 'user.profile.publicProfile.publicId', ] );
+export const getPushSubscription = createSelector( [ 'user.profile.pushSubscription', ] );
