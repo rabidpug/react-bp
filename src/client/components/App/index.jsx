@@ -43,8 +43,14 @@ export default class App extends Component {
         refreshToken : newRefreshToken,
         token        : newToken,
       } );
-    } else if ( currentToken && !pushSubscription && Notification.permission !== 'denied' ) subscribePush();
-    else if ( currentToken && !isGettingProfile ) getProfile();
+    } else if ( currentToken && !isGettingProfile ) getProfile();
+  }
+
+  componentDidUpdate () {
+    const currentToken = localStorage.getItem( 'JWT' ) || sessionStorage.getItem( 'JWT' );
+    const { pushSubscription, } = this.props;
+
+    if ( currentToken && !pushSubscription && Notification.permission !== 'denied' ) subscribePush();
   }
 
   render () {
