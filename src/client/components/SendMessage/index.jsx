@@ -1,4 +1,4 @@
-import { Button, Form, Input, } from 'antd';
+import { Button, Form, Icon, Input, } from 'antd';
 import React, { Component, createRef, } from 'react';
 
 import ContentEditable from 'react-contenteditable';
@@ -10,7 +10,6 @@ import mapSendMessage from './map';
 
 const { Item, } = Form;
 const { create, } = Form;
-const { TextArea, } = Input;
 const textToEmoji = {
   ':*' : '😘',
   ':D' : '😀',
@@ -38,8 +37,6 @@ export default class SendMessage extends Component {
     } ) );
 
   handleSelectEmoji = emoji => {
-    console.log( emoji );
-
     this.setState( state => ( { messageValue: `${state.messageValue}&#x${emoji.includes( '-' ) ? emoji.split( '-' ).join( '&#x' ) : emoji}`, } ) );
   };
 
@@ -62,17 +59,17 @@ export default class SendMessage extends Component {
     const messageValue = target.value.replace( /(:(?:D|P|\*))/gi, match => textToEmoji[match] );
 
     this.setState( { messageValue, }, () => {
-      const range = document.createRange(); //Create a range (a range is a like the selection but invisible)
+      const range = document.createRange();
 
-      range.selectNodeContents( this.messageBox.current.htmlEl ); //Select the entire contents of the element with the range
+      range.selectNodeContents( this.messageBox.current.htmlEl );
 
-      range.collapse( false ); //collapse the range to the end point. false means collapse to end rather than the start
+      range.collapse( false );
 
-      const selection = window.getSelection(); //get the selection object (allows you to change selection)
+      const selection = window.getSelection();
 
-      selection.removeAllRanges(); //remove any selections already made
+      selection.removeAllRanges();
 
-      selection.addRange( range ); //make the range you have just created the visible selection
+      selection.addRange( range );
     } );
   };
 
@@ -88,10 +85,7 @@ export default class SendMessage extends Component {
 
   render () {
     const { isDisplayed, messageValue, } = this.state;
-    const {
-      form: { getFieldDecorator, },
-      loading,
-    } = this.props;
+    const { loading, } = this.props;
 
     return (
       <Form
@@ -107,6 +101,18 @@ export default class SendMessage extends Component {
             margin : 5,
           } }>
           <Input style={ { display: 'none', } } />
+          <Icon
+            style={ {
+              height    : '100%',
+              left      : 5,
+              opacity   : 0.5,
+              position  : 'absolute',
+              top       : '50%',
+              transform : 'translateY(-50%)',
+              zIndex    : 2,
+            } }
+            type='mail'
+          />
           <ContentEditable
             className={ classnames( 'ant-input', gStyles.inputArea ) }
             html={ messageValue }
@@ -114,9 +120,14 @@ export default class SendMessage extends Component {
             onKeyDown={ this.handleEnter }
             ref={ this.messageBox }
           />
+          <Icon
+            className={ gStyles.emojiButton }
+            onClick={ this.handleEmojiClick }
+            type='smile-o' />
         </Item>
         <Item
           style={ {
+            height       : '100%',
             margin       : 5,
             marginBottom : 'auto',
             marginLeft   : 2.5,
@@ -130,11 +141,6 @@ export default class SendMessage extends Component {
               <EmojiPicker onEmojiClick={ this.handleSelectEmoji } />
             </div>
           )}
-          <Button
-            icon='smile-o'
-            onClick={ this.handleEmojiClick }
-            shape='circle'
-            type='dashed' />
         </Item>
         <Item
           style={ {
