@@ -9,9 +9,9 @@ self.addEventListener( 'push', event => {
     icon : data.icon,
   };
 
-  clients.matchAll( { type: 'window', } ).then( list => {
-    const isFocused = list.filter( client => client.url === '/welcome' ).reduce( ( p, n ) => p || n.focused, false );
+  event.waitUntil( clients.matchAll( { type: 'window', } ).then( list => {
+    const isFocused = list.filter( client => client.url.includes( 'welcome' ) ).reduce( ( p, n ) => p || n.focused, false );
 
-    !isFocused && event.waitUntil( self.registration.showNotification( title, body ) );
-  } );
+    return isFocused || self.registration.showNotification( title, body );
+  } ) );
 } );
