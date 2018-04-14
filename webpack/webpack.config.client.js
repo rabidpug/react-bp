@@ -141,11 +141,7 @@ module.exports = {
           { loader: cssLoader, },
           {
             loader  : 'css-loader',
-            options : {
-              importLoaders : 1,
-              modules       : true,
-              sourceMap     : !isProd,
-            },
+            options : { sourceMap: !isProd, },
           },
           {
             loader  : 'postcss-loader',

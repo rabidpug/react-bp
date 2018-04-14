@@ -92,15 +92,8 @@
 
 .emojiPicker {
   bottom: 30px;
+  line-height: normal;
   position: absolute;
   right: -20px;
   transform-origin: bottom right;
-}
-
-.emojiPicker span {
-  top: -5px !important;
-}
-
-.emojiPicker input {
-  line-height: normal;
 }

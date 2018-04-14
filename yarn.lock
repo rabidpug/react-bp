@@ -3446,21 +3446,12 @@ elliptic@^6.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
 
-emoji-datasource@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/emoji-datasource/-/emoji-datasource-4.0.0.tgz#3fc9c0c2f4fb321d9291138819f6d100603d3e2f"
-
-emoji-js@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/emoji-js/-/emoji-js-3.4.0.tgz#dabdeda60c92d1948a5177e51ba9421d2029b052"
-  dependencies:
-    emoji-datasource "4.0.0"
-
-emoji-picker-react@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/emoji-picker-react/-/emoji-picker-react-2.0.4.tgz#a58edc3412d39726dbcd64a7811806ccc90d9b46"
+emoji-picker-react@1.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/emoji-picker-react/-/emoji-picker-react-1.4.4.tgz#4517eabd02dd301223d34964d5362926e561d31e"
   dependencies:
     babel-runtime "^6.25.0"
+    prop-types "^15.5.10"
     throttle-debounce "^1.0.1"
 
 emojis-list@^2.0.0:

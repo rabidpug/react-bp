@@ -2,7 +2,6 @@ import { Button, Form, Input, } from 'antd';
 import React, { Component, createRef, } from 'react';
 
 import ContentEditable from 'react-contenteditable';
-import EmojiConverter from 'emoji-js';
 import EmojiPicker from 'emoji-picker-react';
 import classnames from 'classnames';
 import { connect, } from 'react-redux';
@@ -11,20 +10,12 @@ import mapSendMessage from './map';
 
 const { Item, } = Form;
 const { create, } = Form;
-
-const emojiMaker = new EmojiConverter();
+const { TextArea, } = Input;
 const textToEmoji = {
-  ':*' : emojiMaker.replace_colons( ':kissing_heart:' ),
-  ':D' : emojiMaker.replace_colons( ':grin:' ),
-  ':P' : emojiMaker.replace_colons( ':stuck_out_tongue_winking_eye:' ),
+  ':*' : '😘',
+  ':D' : '😀',
+  ':P' : '😜',
 };
-emojiMaker.img_set = 'emojione'; //eslint-disable-line
-
-emojiMaker.img_sets.emojione.path = 'https://cdn.jsdelivr.net/emojione/assets/3.0/png/32/';
-
-emojiMaker.supports_css = false; //eslint-disable-line
-emojiMaker.allow_native = false; //eslint-disable-line
-emojiMaker.replace_mode = 'unified'; //eslint-disable-line
 
 @connect( mapSendMessage.State, mapSendMessage.Dispatch )
 @create()
@@ -46,10 +37,10 @@ export default class SendMessage extends Component {
       isDisplayed: !state.isDisplayed,
     } ) );
 
-  handleSelectEmoji = ( id, emoji ) => {
-    const emojiImg = emojiMaker.replace_colons( `:${emoji.name}:` );
+  handleSelectEmoji = emoji => {
+    console.log( emoji );
 
-    this.setState( state => ( { messageValue: state.messageValue + emojiImg, } ) );
+    this.setState( state => ( { messageValue: `${state.messageValue}&#x${emoji.includes( '-' ) ? emoji.split( '-' ).join( '&#x' ) : emoji}`, } ) );
   };
 
   handleSubmit = () => {
@@ -97,7 +88,10 @@ export default class SendMessage extends Component {
 
   render () {
     const { isDisplayed, messageValue, } = this.state;
-    const { loading, } = this.props;
+    const {
+      form: { getFieldDecorator, },
+      loading,
+    } = this.props;
 
     return (
       <Form
@@ -133,9 +127,7 @@ export default class SendMessage extends Component {
             <div
               className={ gStyles.emojiPicker }
               onMouseLeave={ this.handleEmojiClick }>
-              <EmojiPicker
-                onEmojiClick={ this.handleSelectEmoji }
-                preload />
+              <EmojiPicker onEmojiClick={ this.handleSelectEmoji } />
             </div>
           )}
           <Button
