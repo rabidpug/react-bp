@@ -20,7 +20,8 @@ const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
 
 export const subscribePush = () => {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
-    navigator.serviceWorker.ready
+    navigator.serviceWorker
+      .getRegistration()
       .then(registration => {
         console.log('serviceworker ready');
 
