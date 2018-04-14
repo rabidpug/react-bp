@@ -43,7 +43,7 @@ export const subscribePush = () => {
       })
       .then(res => console.log('result', res))
       .catch(e => console.log('error', e));
-  } else return null;
+  }
 };
 
 export const unsubscribePush = async () => {
@@ -57,5 +57,5 @@ export const unsubscribePush = async () => {
     await subscription.unsubscribe();
 
     axios.post(pushEndpointRoute('unregister'), { token });
-  } else return null;
+  }
 };
