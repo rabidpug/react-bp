@@ -61,6 +61,7 @@ const setUpSocket = ( io: Object ) => {
 
           const messageNotification = {
             body  : values.message,
+            icon  : foundUser.profile.publicProfile.photos,
             scope : 'welcome',
             tag   : 'newmessage',
             title : `You've received a new message from ${foundUser.profile.displayNames || 'Anonymous'}`,
