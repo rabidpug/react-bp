@@ -24,24 +24,28 @@ export const subscribePush = () => {
       .then(registration => {
         console.log('serviceworker ready');
 
-        return registration.pushManager.subscribe({
-          applicationServerKey: convertedVapidKey,
-          userVisibleOnly: true,
-        });
+        registration.pushManager
+          .subscribe({
+            applicationServerKey: convertedVapidKey,
+            userVisibleOnly: true,
+          })
+          .then(subscription => {
+            console.log('got subscription', subscription);
+
+            const token = localStorage.getItem('JWT') || sessionStorage.getItem('JWT');
+
+            console.log('got token', token);
+
+            return axios
+              .post(pushEndpointRoute('register'), {
+                subscription,
+                token,
+              })
+              .then(res => console.log('result', res))
+              .catch(e => console.log('error', e));
+          })
+          .catch(e => console.log('error', e));
       })
-      .then(subscription => {
-        console.log('got subscription', subscription);
-
-        const token = localStorage.getItem('JWT') || sessionStorage.getItem('JWT');
-
-        console.log('got token', token);
-
-        return axios.post(pushEndpointRoute('register'), {
-          subscription,
-          token,
-        });
-      })
-      .then(res => console.log('result', res))
       .catch(e => console.log('error', e));
   }
 };
