@@ -47,10 +47,16 @@ export default class App extends Component {
   }
 
   componentDidUpdate () {
+    console.log('cdu called'); //eslint-disable-line
+
     const currentToken = localStorage.getItem( 'JWT' ) || sessionStorage.getItem( 'JWT' );
     const { pushSubscription, } = this.props;
 
-    if ( currentToken && !pushSubscription && Notification.permission !== 'denied' ) subscribePush();
+    if ( currentToken && !pushSubscription && Notification.permission !== 'denied' ) {
+      console.log( 'calling subscribe' ); //eslint-disable-linel
+
+      subscribePush();
+    }
   }
 
   render () {
