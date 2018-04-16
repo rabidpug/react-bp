@@ -19,7 +19,7 @@ const options = {
   },
 };
 
-const winston = new winstonApp.Logger( {
+const winston = winstonApp.createLogger( {
   exitOnError : false,
   transports  : [
     new winstonApp.transports.File( options.file ),

@@ -1,58 +1,10 @@
-import {
-  AUTH_FAILURE,
-  AUTH_REQUEST,
-  AUTH_SUCCESS,
-  CHANGE_PASSWORD_CLEAR,
-  CHANGE_PASSWORD_COMPLETE,
-  CHANGE_PASSWORD_REQUEST,
-  CHANGE_PUBLIC_FAILURE,
-  CHANGE_PUBLIC_REQUEST,
-  CHANGE_PUBLIC_SUCCESS,
-  LOGOUT_USER,
-  PROFILE_FAILURE,
-  PROFILE_REQUEST,
-  PROFILE_SUCCESS,
-  SET_IS_AUTHENTICATED,
-} from './types';
 import { authEndpointRoute, profileEndpointRoute, } from 'Shared/routes';
 
 import axios from 'axios';
-import { createActions, } from 'redux-actions';
 import { push, } from 'react-router-redux';
+import store from 'Store';
 
-export const {
-  authSuccess,
-  authFailure,
-  authRequest,
-  changePasswordComplete,
-  changePasswordClear,
-  changePasswordRequest,
-  changePublicSuccess,
-  changePublicFailure,
-  changePublicRequest,
-  logoutUser,
-  setIsAuthenticated,
-  profileSuccess,
-  profileFailure,
-  profileRequest,
-} = createActions(
-  AUTH_SUCCESS,
-  AUTH_FAILURE,
-  AUTH_REQUEST,
-  CHANGE_PASSWORD_COMPLETE,
-  CHANGE_PASSWORD_CLEAR,
-  CHANGE_PASSWORD_REQUEST,
-  CHANGE_PUBLIC_SUCCESS,
-  CHANGE_PUBLIC_FAILURE,
-  CHANGE_PUBLIC_REQUEST,
-  LOGOUT_USER,
-  SET_IS_AUTHENTICATED,
-  PROFILE_SUCCESS,
-  PROFILE_FAILURE,
-  PROFILE_REQUEST
-);
-
-export const refreshAuthToken = ( callback, data ) => dispatch => {
+export const refreshAuthToken = ( callback, data, failureCallback ) => dispatch => {
   const refreshToken = localStorage.getItem( 'refreshToken' ) || sessionStorage.getItem( 'refreshToken' );
 
   axios
@@ -64,31 +16,50 @@ export const refreshAuthToken = ( callback, data ) => dispatch => {
         dispatch( callback( data ) );
       } else throw new Error( 'Token Refresh Failed' );
     } )
-    .catch( () => dispatch( logoutUser() ) );
+    .catch( e => {
+      failureCallback && dispatch( failureCallback( e.response.data ) );
+
+      dispatch( store.user.set.logoutUser() );
+    } );
 };
-export const redirectedAuthSuccess = data => dispatch => {
-  dispatch( authSuccess( data ) );
+export const authSuccess = data => dispatch => {
+  const storage = JSON.parse( localStorage.getItem( 'remember' ) ) ? localStorage : sessionStorage;
+
+  storage.setItem( 'JWT', data.token );
+
+  storage.setItem( 'refreshToken', data.refreshToken );
+
+  dispatch( store.inProgress.set.toggleInProgress( store.inProgress.types.GETTING_AUTH ) );
+
+  dispatch( store.user.set.authResponse( data ) );
 
   dispatch( push( '/profile' ) );
 };
 export const getProfile = () => dispatch => {
-  dispatch( profileRequest() );
+  dispatch( store.inProgress.set.toggleInProgress( store.inProgress.types.GETTING_PROFILE ) );
 
   axios.defaults.headers.common.Authorization = localStorage.getItem( 'JWT' ) || sessionStorage.getItem( 'JWT' );
 
   axios
     .get( profileEndpointRoute() )
     .then( res => {
-      if ( res && res.data.profile ) dispatch( profileSuccess( res.data.profile ) );
-      else dispatch( profileFailure( 'No Data' ) );
+      if ( !res ) throw new Error( 'No Data' );
+
+      dispatch( store.inProgress.set.toggleInProgress( store.inProgress.types.GETTING_PROFILE ) );
+
+      dispatch( store.user.set.profileResponse( res.data.profile ) );
     } )
     .catch( e => {
-      if ( e.response.status === 401 ) dispatch( refreshAuthToken( getProfile ) );
-      else dispatch( profileFailure( e.response.data ) );
+      if ( e.response.status === 401 ) dispatch( refreshAuthToken( getProfile, null, store.user.set.profileResponse ) );
+      else {
+        dispatch( store.inProgress.set.toggleInProgress( store.inProgress.types.GETTING_PROFILE ) );
+
+        dispatch( store.user.set.profileResponse( e.response.data ) );
+      }
     } );
 };
 export const authUser = ( { authType, values, } ) => dispatch => {
-  dispatch( authRequest() );
+  dispatch( store.inProgress.set.toggleInProgress( store.inProgress.types.GETTING_AUTH ) );
 
   axios
     .post( authEndpointRoute( authType ), values )
@@ -100,17 +71,16 @@ export const authUser = ( { authType, values, } ) => dispatch => {
           authType: 'login',
           values,
         } ) );
-      } else {
-        dispatch( authSuccess( res.data ) );
-
-        dispatch( push( '/profile' ) );
-      }
+      } else dispatch( authSuccess( res.data ) );
     } )
-    .catch( e => dispatch( authFailure( e.response.data ) ) );
-};
+    .catch( e => {
+      dispatch( store.inProgress.set.toggleInProgress( store.inProgress.types.GETTING_AUTH ) );
 
+      dispatch( store.user.set.authResponse( e.response.data ) );
+    } );
+};
 export const changePublic = ( { key, value, } ) => dispatch => {
-  dispatch( changePublicRequest() );
+  dispatch( store.inProgress.set.toggleInProgress( store.inProgress.types.CHANGE_PUBLIC ) );
 
   axios.defaults.headers.common.Authorization = localStorage.getItem( 'JWT' ) || sessionStorage.getItem( 'JWT' );
 
@@ -122,19 +92,27 @@ export const changePublic = ( { key, value, } ) => dispatch => {
     .then( res => {
       if ( !res ) throw new Error( 'Failed to authorize' );
 
-      dispatch( changePublicSuccess( res.data ) );
+      dispatch( store.inProgress.set.toggleInProgress( store.inProgress.types.CHANGE_PUBLIC ) );
+
+      dispatch( store.user.set.changePublicResponse( res.data ) );
     } )
     .catch( e => {
       if ( e.response.status === 401 ) {
-        dispatch( refreshAuthToken( changePublic, {
-          key,
-          value,
-        } ) );
-      } else dispatch( changePublicFailure( e.response.data ) );
+        dispatch( refreshAuthToken( changePublic,
+                                    {
+                                      key,
+                                      value,
+                                    },
+                                    store.user.set.changePublicResponse ) );
+      } else {
+        dispatch( store.inProgress.set.toggleInProgress( store.inProgress.types.CHANGE_PUBLIC ) );
+
+        dispatch( store.user.set.changePublicResponse( e.response.data ) );
+      }
     } );
 };
 export const linkAuth = newToken => dispatch => {
-  dispatch( authRequest() );
+  dispatch( store.inProgress.set.toggleInProgress( store.inProgress.types.GETTING_AUTH ) );
 
   axios.defaults.headers.common.Authorization = localStorage.getItem( 'JWT' ) || sessionStorage.getItem( 'JWT' );
 
@@ -149,30 +127,36 @@ export const linkAuth = newToken => dispatch => {
 
       if ( !res ) throw new Error( { msg: 'Failed to authorize', } );
 
-      dispatch( redirectedAuthSuccess( res.data ) );
+      dispatch( authSuccess( res.data ) );
     } )
     .catch( e => {
-      if ( e.response.status === 401 ) dispatch( refreshAuthToken( linkAuth, newToken ) );
-      else dispatch( authFailure( e.response.data ) );
+      if ( e.response.status === 401 ) dispatch( refreshAuthToken( linkAuth, newToken, store.user.set.authResponse ) );
+      else dispatch( store.user.set.authResponse( e.response.data ) );
     } );
 };
 
-export const changePassword = ( { values, type, } ) => dispatch => {
-  dispatch( changePasswordRequest() );
+export const changePassword = ( { values, changeType, } ) => dispatch => {
+  dispatch( store.inProgress.set.toggleInProgress( store.inProgress.types.CHANGE_PASSWORD ) );
 
   axios.defaults.headers.common.Authorization = localStorage.getItem( 'JWT' ) || sessionStorage.getItem( 'JWT' );
 
   axios
-    .post( authEndpointRoute( type ), { values, } )
+    .post( authEndpointRoute( changeType ), { values, } )
     .then( res => {
-      dispatch( changePasswordComplete( res.data ) );
+      dispatch( store.user.set.changePasswordResponse( res.data ) );
     } )
     .catch( e => {
-      if ( e.response.status === 401 ) {
-        dispatch( refreshAuthToken( changePassword, {
-          type,
-          values,
-        } ) );
-      } else dispatch( changePasswordComplete( e.response.data ) );
+      if ( e.response.status === 401 && !e.response.data.msg ) {
+        dispatch( refreshAuthToken( changePassword,
+                                    {
+                                      changeType,
+                                      values,
+                                    },
+                                    store.user.set.changePasswordResponse ) );
+      } else {
+        dispatch( store.inProgress.set.toggleInProgress( store.inProgress.types.CHANGE_PASSWORD ) );
+
+        dispatch( store.user.set.changePasswordResponse( e.response.data ) );
+      }
     } );
 };

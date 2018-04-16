@@ -43,7 +43,7 @@ export default class UserForm extends Component {
   };
 
   handleSubmit = e => {
-    const { onSubmit, form, } = this.props;
+    const { authUser, form, } = this.props;
     const { userExists, } = this.state;
 
     e.preventDefault();
@@ -51,7 +51,12 @@ export default class UserForm extends Component {
     form.validateFields( ( err, values ) => {
       const authType = userExists ? 'login' : 'register';
 
-      if ( !err ) onSubmit( values, authType );
+      if ( !err ) {
+        authUser( {
+          authType,
+          values,
+        } );
+      }
     } );
   };
 

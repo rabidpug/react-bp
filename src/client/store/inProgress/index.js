@@ -4,19 +4,18 @@ import { createActions, handleActions, } from 'redux-actions';
 
 import reducers from './reducers';
 import selectors from './selectors';
+import types from './types';
 
-const initialState = {
-  isAuthenticated : !!localStorage.getItem( 'JWT' ),
-  profile         : {},
-};
+const initialState = {};
 const actionCreators = createActions( {}, ...Object.keys( reducers ) );
 
 export const rootReducer = handleActions( reducers, initialState );
-export const user = {
+export const inProgress = {
   get : selectors,
   initialState,
   set : {
     ...actionCreators,
     ...asyncActions,
   },
+  types,
 };

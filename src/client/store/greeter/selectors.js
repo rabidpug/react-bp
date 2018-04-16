@@ -1,4 +1,8 @@
-import { createSelector, } from '@acemarke/redux-starter-kit';
+import createSelector from 'selectorator';
 
-export const getGreeterIsLoading = createSelector( [ 'greeter.isLoading', ] );
-export const getGreeterMessages = createSelector( [ 'greeter.messages', ] );
+const selectors = {
+  isLoading : createSelector( [ 'greeter.isLoading', ] ),
+  messages  : createSelector( [ 'greeter.messages', ] ),
+};
+
+export default selectors;

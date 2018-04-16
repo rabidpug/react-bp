@@ -16,7 +16,7 @@ export default class TopBar extends Component {
   render () {
     const {
       isSidebarCollapsed,
-      toggleSideBar,
+      toggleSidebar,
       actionMenuItems,
       selectedActionKeys,
       isAuthenticated,
@@ -65,7 +65,7 @@ export default class TopBar extends Component {
         <Button
           className={ styles.trigger }
           icon={ isSidebarCollapsed ? 'menu-unfold' : 'menu-fold' }
-          onClick={ toggleSideBar }
+          onClick={ toggleSidebar }
         />
         {!isOnline && (
           <div className={ styles.offlineSpinContainer }>

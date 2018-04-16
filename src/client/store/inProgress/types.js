@@ -1,0 +1,9 @@
+const types = {
+  CHANGE_PASSWORD : 'CHANGE_PASSWORD',
+  CHANGE_PUBLIC   : 'CHANGE_PUBLIC',
+  GETTING_AUTH    : 'GETTING_AUTH',
+  GETTING_PROFILE : 'GETTING_PROFILE',
+  SAY_HELLO       : 'SAY_HELLO',
+};
+
+export default types;

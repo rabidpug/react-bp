@@ -1,9 +1,9 @@
-import { getGreeterIsLoading, } from 'Store/greeter/selectors';
 import { sayHello, } from 'Store/greeter/actions';
+import store from 'Store';
 
 const mapSendMessage = {
-  Dispatch : dispatch => ( { sendMessage: value => dispatch( sayHello( value ) ), } ),
-  State    : state => ( { loading: getGreeterIsLoading( state ), } ),
+  Dispatch : { sayHello, },
+  State    : state => ( { loading: store.inProgress.get.inProgress( state, store.inProgress.types.SAY_HELLO ), } ),
 };
 
 export default mapSendMessage;

@@ -1,17 +1,10 @@
-import { getAuthMessage, getIsGettingAuth, } from 'Store/user/selectors';
-
-import { authUser, } from 'Store/user/actions';
-
+import store from 'Store';
+const { authUser, } = store.user.set;
 const mapUserForm = {
-  Dispatch: dispatch => ( {
-    onSubmit: ( values, authType ) => dispatch( authUser( {
-      authType,
-      values,
-    } ) ),
-  } ),
-  State: state => ( {
-    authMessage   : getAuthMessage( state ),
-    isGettingAuth : getIsGettingAuth( state ),
+  Dispatch : { authUser, },
+  State    : state => ( {
+    authMessage   : store.user.get.authMessage( state ),
+    isGettingAuth : store.inProgress.get.inProgress( state, [ store.inProgress.types.GETTING_AUTH, ] ),
   } ),
 };
 

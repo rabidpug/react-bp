@@ -2,8 +2,8 @@ import produce from 'immer';
 import types from '../types';
 
 const reducers = {
-  [types.SAY_HELLO_RESPONSE]: produce( ( draft, { payload, } ) => {
-    draft.messages.push( payload );
+  [types.TOGGLE_IN_PROGRESS]: produce( ( draft, { payload, } ) => {
+    draft[payload] = !draft[payload];
   } ),
 };
 

@@ -1,23 +1,16 @@
-//@flow
+import produce from 'immer';
+import types from '../types';
 
-type stateType = { isSidebarCollapsed: boolean, openKeys: Array<string>, isOnline: boolean };
-type toggleKeyActionType = {
-  payload: string,
-  type: string,
-};
-type isOnlineActionType = {
-  payload: boolean,
-  type: string,
-};
-export const toggleSidebarReducer = ( state: stateType ) => {
-  state.isSidebarCollapsed = !state.isSidebarCollapsed;
-};
-export const toggleKeyReducer = ( state: stateType, action: toggleKeyActionType ) => {
-  const key = action.payload;
-
-  state.openKeys.includes( key ) ? state.openKeys.splice( state.openKeys.indexOf( key ), 1 ) : state.openKeys.push( key );
+const reducers = {
+  [types.IS_ONLINE]: produce( ( state, { payload: isOnline, } ) => {
+    state.isOnline = isOnline;
+  } ),
+  [types.TOGGLE_KEY]: produce( ( draft, { payload: key, } ) => {
+    draft.openKeys.includes( key ) ? draft.openKeys.splice( draft.openKeys.indexOf( key ), 1 ) : draft.openKeys.push( key );
+  } ),
+  [types.TOGGLE_SIDEBAR]: produce( draft => {
+    draft.isSidebarCollapsed = !draft.isSidebarCollapsed;
+  } ),
 };
 
-export const isOnlineReducer = ( state: stateType, action: isOnlineActionType ) => {
-  state.isOnline = action.payload;
-};
+export default reducers;

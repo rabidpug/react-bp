@@ -1,6 +1,6 @@
 import 'react-hot-loader';
 
-import store, { history, } from 'Store';
+import store, { history, reduxStore, } from 'Store';
 
 import App from 'Components/App';
 import { ConnectedRouter, } from 'react-router-redux';
@@ -11,19 +11,19 @@ import { isOnline, } from 'Store/ui/actions';
 import registerServiceWorker from './registerServiceWorker';
 import setUpSocket from './socket';
 
-setUpSocket( store );
+setUpSocket( reduxStore );
 
-if ( process.env.NODE_ENV !== 'production' ) if ( module.hot ) module.hot.accept( './store', () => store.replaceReducer( require( './store' ).default ) );
+if ( process.env.NODE_ENV !== 'production' ) if ( module.hot ) module.hot.accept( './store', () => store.replaceReducer( require( './store' ).reduxStore ) );
 
-ReactDOM.render( <Provider store={ store }>
+ReactDOM.render( <Provider store={ reduxStore }>
   <ConnectedRouter history={ history }>
     <App />
   </ConnectedRouter>
 </Provider>,
                  document.getElementById( 'root' ) );
 
-window.addEventListener( 'online', () => store.dispatch( isOnline( true ) ) );
+window.addEventListener( 'online', () => reduxStore.dispatch( isOnline( true ) ) );
 
-window.addEventListener( 'offline', () => store.dispatch( isOnline( false ) ) );
+window.addEventListener( 'offline', () => reduxStore.dispatch( isOnline( false ) ) );
 
 registerServiceWorker();

@@ -1,22 +1,19 @@
-import { getIsSidebarCollapsed, getOpenKeys, } from 'Store/ui/selectors';
-import { toggleKey, toggleSidebar, } from 'Store/ui/actions';
-
-import { getIsAuthenticated, } from 'Store/user/selectors';
 import { push, } from 'react-router-redux';
-
+import store from 'Store';
+const { toggleKey, toggleSidebar, } = store.ui.set;
 const mapSideBar = {
-  Dispatch: dispatch => ( {
-    goToPath: path => dispatch( push( path ) ),
+  Dispatch: {
+    push,
 
-    toggleKey     : key => dispatch( toggleKey( key ) ),
-    toggleSideBar : () => dispatch( toggleSidebar() ),
-  } ),
+    toggleKey,
+    toggleSidebar,
+  },
   State: ( state, ownProps ) => ( {
     currentPath        : ownProps.location.pathname,
-    isAuthenticated    : getIsAuthenticated( state ),
-    isSidebarCollapsed : getIsSidebarCollapsed( state ),
+    isAuthenticated    : store.user.get.isAuthenticated( state ),
+    isSidebarCollapsed : store.ui.get.isSidebarCollapsed( state ),
     menuItems          : ownProps.route.menuItems,
-    openKeys           : getOpenKeys( state ),
+    openKeys           : store.ui.get.openKeys( state ),
   } ),
 };
 

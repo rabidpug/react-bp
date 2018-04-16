@@ -1,10 +1,8 @@
-import { getGreeterMessages, } from 'Store/greeter/selectors';
-import { getPublicId, } from 'Store/user/selectors';
-
+import store from 'Store';
 const mapWelcome = {
   State: state => ( {
-    messages : getGreeterMessages( state ),
-    publicId : getPublicId( state ),
+    messages : store.greeter.get.messages( state ),
+    publicId : store.user.get.publicId( state ),
   } ),
 };
 

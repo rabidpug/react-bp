@@ -1,16 +1,14 @@
-import { getProfile, linkAuth, redirectedAuthSuccess, } from 'Store/user/actions';
-
-import { getPushSubscription, } from 'Store/user/selectors';
-import { isOnline, } from 'Store/ui/actions';
-
+import store from 'Store';
+const { authSuccess, getProfile, linkAuth, } = store.user.set;
+const { isOnline, } = store.ui.set;
 const mapApp = {
   Dispatch: {
+    authSuccess,
     getProfile,
     isOnline,
     linkAuth,
-    redirectedAuthSuccess,
   },
-  State: state => ( { pushSubscription: getPushSubscription( state ), } ),
+  State: state => ( { pushSubscription: store.user.get.pushSubscription( state ), } ),
 };
 
 export default mapApp;

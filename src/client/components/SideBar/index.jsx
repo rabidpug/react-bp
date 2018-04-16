@@ -15,8 +15,8 @@ export default class SideBar extends Component {
     const {
       isSidebarCollapsed,
       menuItems,
-      goToPath,
-      toggleSideBar,
+      push,
+      toggleSidebar,
       currentPath,
       toggleKey,
       openKeys,
@@ -65,8 +65,8 @@ export default class SideBar extends Component {
       <Sider
         collapsed={ isSidebarCollapsed }
         collapsible
-        onMouseEnter={ () => isSidebarCollapsed && toggleSideBar() }
-        onMouseLeave={ () => !isSidebarCollapsed && toggleSideBar() }
+        onMouseEnter={ () => isSidebarCollapsed && toggleSidebar() }
+        onMouseLeave={ () => !isSidebarCollapsed && toggleSidebar() }
         style={ {
           ...style,
           backgroundColor: '#fff',
@@ -75,7 +75,7 @@ export default class SideBar extends Component {
         <div className='logo' />
         <Menu
           mode='inline'
-          onClick={ ( { item, } ) => goToPath( item.props.path ) }
+          onClick={ ( { item, } ) => push( item.props.path ) }
           openKeys={ isSidebarCollapsed ? [] : openSelectedKeys }
           selectedKeys={ selectedKeys }
           style={ { height: '100%', } }

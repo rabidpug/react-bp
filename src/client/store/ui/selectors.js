@@ -1,7 +1,9 @@
-import { createSelector, } from '@acemarke/redux-starter-kit';
+import createSelector from 'selectorator';
 
-export const getIsSidebarCollapsed = createSelector( [ 'ui.isSidebarCollapsed', ] );
+const selectors = {
+  isOnline           : createSelector( [ 'ui.isOnline', ] ),
+  isSidebarCollapsed : createSelector( [ 'ui.isSidebarCollapsed', ] ),
+  openKeys           : createSelector( [ 'ui.openKeys', ] ),
+};
 
-export const getOpenKeys = createSelector( [ 'ui.openKeys', ] );
-
-export const getIsOnline = createSelector( [ 'ui.isOnline', ] );
+export default selectors;

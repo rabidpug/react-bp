@@ -71,7 +71,7 @@ const Message = ( { message, timestamp, userProfile, isUser, } ) => (
             margin   : 5,
             minWidth : '30vw',
           } }
-          url={ `https://${message.match( urlsFinder )[0]}` }
+          url={ `https://${message.match( urlsFinder )[0].toLowerCase()}` }
         />
       )}
     </div>

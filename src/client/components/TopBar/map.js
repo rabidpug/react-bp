@@ -1,15 +1,13 @@
-import { getIsOnline, getIsSidebarCollapsed, } from 'Store/ui/selectors';
-
-import { getIsAuthenticated, } from 'Store/user/selectors';
+import store from 'Store';
 import { toggleSidebar, } from 'Store/ui/actions';
 
 const mapTopBar = {
-  Dispatch : dispatch => ( { toggleSideBar: () => dispatch( toggleSidebar() ), } ),
+  Dispatch : { toggleSidebar, },
   State    : ( state, ownProps ) => ( {
     actionMenuItems    : ownProps.route.actionMenuItems,
-    isAuthenticated    : getIsAuthenticated( state ),
-    isOnline           : getIsOnline( state ),
-    isSidebarCollapsed : getIsSidebarCollapsed( state ),
+    isAuthenticated    : store.user.get.isAuthenticated( state ),
+    isOnline           : store.ui.get.isOnline( state ),
+    isSidebarCollapsed : store.ui.get.isSidebarCollapsed( state ),
     selectedActionKeys : [],
   } ),
 };

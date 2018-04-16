@@ -41,11 +41,11 @@ export default class SendMessage extends Component {
   };
 
   handleSubmit = () => {
-    const { sendMessage, } = this.props;
+    const { sayHello, } = this.props;
     const { messageValue: message, } = this.state;
 
     if ( message ) {
-      sendMessage( { message, } );
+      sayHello( { message, } );
 
       this.setState( { messageValue: '', } );
     }
@@ -101,18 +101,6 @@ export default class SendMessage extends Component {
             margin : 5,
           } }>
           <Input style={ { display: 'none', } } />
-          <Icon
-            style={ {
-              height    : '100%',
-              left      : 5,
-              opacity   : 0.5,
-              position  : 'absolute',
-              top       : '50%',
-              transform : 'translateY(-50%)',
-              zIndex    : 2,
-            } }
-            type='mail'
-          />
           <ContentEditable
             className={ classnames( 'ant-input', gStyles.inputArea ) }
             html={ messageValue }

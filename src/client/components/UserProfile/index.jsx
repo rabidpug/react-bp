@@ -21,25 +21,30 @@ export default class UserProfile extends Component {
     super( props );
 
     this.state = {
+      changeType   : false,
       confirmDirty : false,
-      modalType    : false,
     };
   }
 
   componentDidMount () {
-    const { isGettingProfile, doGetProfile, } = this.props;
+    const { isGettingProfile, getProfile, } = this.props;
 
-    !isGettingProfile && doGetProfile();
+    !isGettingProfile && getProfile();
   }
 
   handleSubmit = e => {
-    const { onSubmit, form, } = this.props;
-    const { modalType, } = this.state;
+    const { changePassword, form, } = this.props;
+    const { changeType, } = this.state;
 
     e.preventDefault();
 
     form.validateFields( ( err, values ) => {
-      if ( !err ) onSubmit( values, modalType );
+      if ( !err ) {
+        changePassword( {
+          changeType,
+          values,
+        } );
+      }
     } );
   };
 
@@ -60,9 +65,9 @@ export default class UserProfile extends Component {
 
   currentValidator = ( rule, value, callback ) => {
     const { form, } = this.props;
-    const { modalType, } = this.state;
+    const { changeType, } = this.state;
 
-    if ( value && modalType === 'change' ) form.validateFields( [ 'password', ], { force: true, } );
+    if ( value && changeType === 'change' ) form.validateFields( [ 'password', ], { force: true, } );
     if ( value ) {
       if ( /[a-z]/.test( value ) === false ) callback( 'Password must contain a lowercase letter' );
       else if ( /[A-Z]/.test( value ) === false ) callback( 'Password must contain an uppercase letter' );
@@ -74,10 +79,10 @@ export default class UserProfile extends Component {
 
   passwordValidator = ( rule, value, callback ) => {
     const { form, } = this.props;
-    const { confirmDirty, modalType, } = this.state;
+    const { confirmDirty, changeType, } = this.state;
 
     if ( value && confirmDirty ) form.validateFields( [ 'confirm', ], { force: true, } );
-    if ( modalType === 'change' && value && value === form.getFieldValue( 'current' ) ) callback( 'New password must not match current password' );
+    if ( changeType === 'change' && value && value === form.getFieldValue( 'current' ) ) callback( 'New password must not match current password' );
     if ( value ) {
       if ( /[a-z]/.test( value ) === false ) callback( 'Password must contain a lowercase letter' );
       else if ( /[A-Z]/.test( value ) === false ) callback( 'Password must contain an uppercase letter' );
@@ -115,9 +120,9 @@ export default class UserProfile extends Component {
     } else callback( 'please enter a username' );
   };
 
-  handleClickCreate = () => this.setState( { modalType: 'create', } );
+  handleClickCreate = () => this.setState( { changeType: 'create', } );
 
-  handleClickChange = () => this.setState( { modalType: 'change', } );
+  handleClickChange = () => this.setState( { changeType: 'change', } );
 
   render () {
     const {
@@ -126,14 +131,14 @@ export default class UserProfile extends Component {
       emails,
       providers,
       publicProfile,
-      changePublicProfile,
+      changePublic,
       form,
       changePasswordStatus,
       changingPassword,
-      changePasswordClear,
+      changePasswordResponse,
     } = this.props;
     const { getFieldDecorator, } = form;
-    const { modalType, } = this.state;
+    const { changeType, } = this.state;
 
     return publicProfile ? (
       <div className={ gStyles.cardStyle }>
@@ -147,7 +152,12 @@ export default class UserProfile extends Component {
             label={ <Divider style={ { marginBottom: 0, } }>Profile Picture</Divider> }>
             <RadioGroup value={ publicProfile.photos }>
               <RadioButton
-                onClick={ () => changePublicProfile( 'photos', 'Anonymous' ) }
+                onClick={ () =>
+                  changePublic( {
+                    key   : 'photos',
+                    value : 'Anonymous',
+                  } )
+                }
                 style={ {
                   display : 'inline-block',
                   height  : 120,
@@ -164,7 +174,12 @@ export default class UserProfile extends Component {
                 photos.filter( ( url, i, arr ) => arr.indexOf( url ) === i ).map( url => (
                   <RadioButton
                     key={ url }
-                    onClick={ () => changePublicProfile( 'photos', url ) }
+                    onClick={ () =>
+                      changePublic( {
+                        key   : 'photos',
+                        value : url,
+                      } )
+                    }
                     style={ {
                       display : 'inline-block',
                       height  : 120,
@@ -186,7 +201,12 @@ export default class UserProfile extends Component {
             label={ <Divider style={ { marginBottom: 0, } }>Display Name</Divider> }>
             <RadioGroup value={ publicProfile.displayNames }>
               <RadioButton
-                onClick={ () => changePublicProfile( 'displayNames', 'Anonymous' ) }
+                onClick={ () =>
+                  changePublic( {
+                    key   : 'displayNames',
+                    value : 'Anonymous',
+                  } )
+                }
                 value='Anonymous'>
                 Anonymous
               </RadioButton>
@@ -194,7 +214,12 @@ export default class UserProfile extends Component {
                 displayNames.filter( ( name, i, arr ) => arr.indexOf( name ) === i ).map( name => (
                   <RadioButton
                     key={ name }
-                    onClick={ () => changePublicProfile( 'displayNames', name ) }
+                    onClick={ () =>
+                      changePublic( {
+                        key   : 'displayNames',
+                        value : name,
+                      } )
+                    }
                     value={ name }>
                     {name}
                   </RadioButton>
@@ -207,7 +232,12 @@ export default class UserProfile extends Component {
             label={ <Divider style={ { marginBottom: 0, } }>Email</Divider> }>
             <RadioGroup value={ publicProfile.emails }>
               <RadioButton
-                onClick={ () => changePublicProfile( 'emails', 'Anonymous' ) }
+                onClick={ () =>
+                  changePublic( {
+                    key   : 'emails',
+                    value : 'Anonymous',
+                  } )
+                }
                 value='Anonymous'>
                 Anonymous
               </RadioButton>
@@ -215,7 +245,12 @@ export default class UserProfile extends Component {
                 emails.filter( ( email, i, arr ) => arr.indexOf( email ) === i ).map( email => (
                   <RadioButton
                     key={ email }
-                    onClick={ () => changePublicProfile( 'emails', email ) }
+                    onClick={ () =>
+                      changePublic( {
+                        key   : 'emails',
+                        value : email,
+                      } )
+                    }
                     value={ email }>
                     {email}
                   </RadioButton>
@@ -266,32 +301,32 @@ export default class UserProfile extends Component {
         <Modal
           footer={ null }
           onCancel={ () => {
-            this.setState( { modalType: false, } );
+            this.setState( { changeType: false, } );
 
-            changePasswordClear();
+            changePasswordResponse( {} );
 
             form.resetFields();
           } }
           title={
-            modalType === 'change' ? 'Change Password' : modalType === 'create' ? 'Create Username and Password' : ''
+            changeType === 'change' ? 'Change Password' : changeType === 'create' ? 'Create Username and Password' : ''
           }
-          visible={ !!modalType }>
-          {modalType && (
+          visible={ !!changeType }>
+          {changeType && (
             <Form onSubmit={ this.handleSubmit }>
               <Item hasFeedback>
-                {getFieldDecorator( modalType === 'change' ? 'current' : 'username', {
+                {getFieldDecorator( changeType === 'change' ? 'current' : 'username', {
                   rules: [
                     { required: true, },
-                    { validator: modalType === 'change' ? this.currentValidator : this.userCheck, },
+                    { validator: changeType === 'change' ? this.currentValidator : this.userCheck, },
                   ],
                 } )( <Input
-                  autoComplete={ modalType === 'change' ? 'current-password' : 'username' }
-                  placeholder={ modalType === 'change' ? 'Current Password' : 'Username' }
+                  autoComplete={ changeType === 'change' ? 'current-password' : 'username' }
+                  placeholder={ changeType === 'change' ? 'Current Password' : 'Username' }
                   prefix={ <Icon
                     style={ { color: 'rgba(0,0,0,.25)', } }
                     type='lock' /> }
                   style={ { maxWidth: 500, } }
-                  type={ modalType === 'change' ? 'password' : 'text' }
+                  type={ changeType === 'change' ? 'password' : 'text' }
                 /> )}
               </Item>
               <Item hasFeedback>
@@ -301,8 +336,8 @@ export default class UserProfile extends Component {
                     { validator: this.passwordValidator, },
                   ],
                 } )( <Input
-                  autoComplete={ modalType === 'change' ? 'new-password' : 'current-password' }
-                  placeholder={ modalType === 'change' ? 'New Password' : 'Password' }
+                  autoComplete={ changeType === 'change' ? 'new-password' : 'current-password' }
+                  placeholder={ changeType === 'change' ? 'New Password' : 'Password' }
                   prefix={ <Icon
                     style={ { color: 'rgba(0,0,0,.25)', } }
                     type='lock' /> }
@@ -317,9 +352,9 @@ export default class UserProfile extends Component {
                     { validator: this.confirmPasswordValidator, },
                   ],
                 } )( <Input
-                  autoComplete={ modalType === 'change' ? 'new-password' : 'current-password' }
+                  autoComplete={ changeType === 'change' ? 'new-password' : 'current-password' }
                   onBlur={ this.handleConfirmBlur }
-                  placeholder={ modalType === 'change' ? 'Confirm New Password' : 'Confirm Password' }
+                  placeholder={ changeType === 'change' ? 'Confirm New Password' : 'Confirm Password' }
                   prefix={ <Icon
                     style={ { color: 'rgba(0,0,0,.25)', } }
                     type='lock' /> }

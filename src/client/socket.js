@@ -1,16 +1,15 @@
 // @flow
 
 import { IO_CLIENT_JOIN_ROOM, IO_CONNECT, IO_DISCONNECT, IO_SERVER_HELLO, IO_SERVER_RESPONSE, } from 'Shared/socket';
-import { sayHello, sayHelloSuccess, } from 'Store/greeter/actions';
 
-import { refreshAuthToken, } from 'Store/user/actions';
 import socketIOClient from 'socket.io-client';
+import store from 'Store';
 
 export const socket = socketIOClient( window.location.host );
 
 /* eslint-disable no-console */
 // eslint-disable-next-line no-unused-vars
-const setUpSocket = ( store: Object ) => {
+const setUpSocket = ( reduxStore: Object ) => {
   socket.on( IO_CONNECT, () => {
     console.log( '[socket.io] Connected.' );
 
@@ -22,8 +21,8 @@ const setUpSocket = ( store: Object ) => {
   } );
 
   socket.on( IO_SERVER_RESPONSE, res => {
-    if ( res.msg === 'User not authorized' ) store.dispatch( refreshAuthToken( sayHello, res.values ) );
-    else store.dispatch( sayHelloSuccess( res ) );
+    if ( res.msg === 'User not authorized' ) reduxStore.dispatch( store.user.set.refreshAuthToken( store.greeter.set.sayHello, res.values, store.greeter.set.sayHelloResponse ) );
+    else reduxStore.dispatch( store.greeter.set.sayHelloResponse( res ) );
   } );
 
   socket.on( IO_DISCONNECT, () => {

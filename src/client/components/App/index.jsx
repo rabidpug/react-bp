@@ -21,7 +21,7 @@ const { Content, } = Layout;
 @connect( mapApp.State, mapApp.Dispatch )
 export default class App extends Component {
   componentDidMount () {
-    const { isOnline, linkAuth, redirectedAuthSuccess, isGettingProfile, getProfile, } = this.props;
+    const { isOnline, linkAuth, authSuccess, isGettingProfile, getProfile, } = this.props;
 
     isOnline( window.navigator.onLine );
 
@@ -38,7 +38,7 @@ export default class App extends Component {
 
       localStorage.removeItem( 'profile' );
 
-      redirectedAuthSuccess( {
+      authSuccess( {
         profile      : profile && JSON.parse( profile ),
         refreshToken : newRefreshToken,
         token        : newToken,

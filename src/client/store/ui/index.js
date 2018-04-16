@@ -1,18 +1,25 @@
 // @flow
 
-import { IS_ONLINE, TOGGLE_KEY, TOGGLE_SIDEBAR, } from './types';
-import { isOnlineReducer, toggleKeyReducer, toggleSidebarReducer, } from './reducers';
+import * as asyncActions from './actions';
 
-import { createReducer, } from '@acemarke/redux-starter-kit';
+import { createActions, handleActions, } from 'redux-actions';
 
-export const uiInitialState = {
+import reducers from './reducers';
+import selectors from './selectors';
+
+const initialState = {
   isOnline           : true,
   isSidebarCollapsed : true,
   openKeys           : [],
 };
+const actionCreators = createActions( {}, ...Object.keys( reducers ) );
 
-export const ui = createReducer( uiInitialState, {
-  [IS_ONLINE]      : isOnlineReducer,
-  [TOGGLE_KEY]     : toggleKeyReducer,
-  [TOGGLE_SIDEBAR] : toggleSidebarReducer,
-} );
+export const rootReducer = handleActions( reducers, initialState );
+export const ui = {
+  get : selectors,
+  initialState,
+  set : {
+    ...actionCreators,
+    ...asyncActions,
+  },
+};

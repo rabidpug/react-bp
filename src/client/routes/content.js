@@ -4,11 +4,12 @@ import Loading from 'Components/Loading';
 import NotFound from 'Components/NotFound';
 import { connectedReduxRedirect, } from 'redux-auth-wrapper/history4/redirect';
 import { replace, } from 'react-router-redux';
+import store from 'Store';
 
 const userIsAuthenticated = connectedReduxRedirect( {
   AuthenticatingComponent : Loading,
-  authenticatedSelector   : state => !!state.user.isAuthenticated,
-  authenticatingSelector  : state => state.isAuthenticating,
+  authenticatedSelector   : state => store.user.get.isAuthenticated( state ),
+  authenticatingSelector  : state => store.inProgress.get.inProgress( state, store.inProgress.types.GETTING_AUTH ),
   redirectAction          : redirect => dispatch => {
     dispatch( replace( redirect ) );
   },
@@ -18,8 +19,8 @@ const userIsAuthenticated = connectedReduxRedirect( {
 
 const userIsNotAuthenticated = connectedReduxRedirect( {
   AuthenticatingComponent : Loading,
-  authenticatedSelector   : state => !state.user.isAuthenticated,
-  authenticatingSelector  : state => state.isAuthenticating,
+  authenticatedSelector   : state => !store.user.get.isAuthenticated( state ),
+  authenticatingSelector  : state => store.inProgress.get.inProgress( state, store.inProgress.types.GETTING_AUTH ),
   redirectAction          : redirect => dispatch => {
     dispatch( replace( redirect ) );
   },
