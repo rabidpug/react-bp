@@ -1,13 +1,12 @@
 import 'react-hot-loader';
 
-import { history, reduxStore, } from 'Store';
+import store, { history, reduxStore, } from 'Store';
 
 import App from 'Components/App';
 import { ConnectedRouter, } from 'react-router-redux';
 import { Provider, } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { isOnline, } from 'Store/ui/actions';
 import registerServiceWorker from './registerServiceWorker';
 import setUpSocket from './socket';
 
@@ -22,8 +21,8 @@ ReactDOM.render( <Provider store={ reduxStore }>
 </Provider>,
                  document.getElementById( 'root' ) );
 
-window.addEventListener( 'online', () => reduxStore.dispatch( isOnline( true ) ) );
+window.addEventListener( 'online', () => reduxStore.dispatch( store.ui.set.isOnline( true ) ) );
 
-window.addEventListener( 'offline', () => reduxStore.dispatch( isOnline( false ) ) );
+window.addEventListener( 'offline', () => reduxStore.dispatch( store.ui.set.isOnline( false ) ) );
 
 registerServiceWorker();
