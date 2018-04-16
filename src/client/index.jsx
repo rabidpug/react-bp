@@ -1,6 +1,6 @@
 import 'react-hot-loader';
 
-import store, { history, reduxStore, } from 'Store';
+import { history, reduxStore, } from 'Store';
 
 import App from 'Components/App';
 import { ConnectedRouter, } from 'react-router-redux';
@@ -13,7 +13,7 @@ import setUpSocket from './socket';
 
 setUpSocket( reduxStore );
 
-if ( process.env.NODE_ENV !== 'production' ) if ( module.hot ) module.hot.accept( './store', () => store.replaceReducer( require( './store' ).reduxStore ) );
+if ( process.env.NODE_ENV !== 'production' ) if ( module.hot ) module.hot.accept( './store', () => reduxStore.replaceReducer( require( './store' ).reduxStore ) );
 
 ReactDOM.render( <Provider store={ reduxStore }>
   <ConnectedRouter history={ history }>
