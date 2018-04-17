@@ -1,27 +1,26 @@
 // @flow
 
-import { Icon, Spin, } from 'antd';
-
+import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import styles from 'Styles/Loading';
+import { faSpinner, } from '@fortawesome/free-solid-svg-icons';
 
-const antIcon = ( <Icon
-  spin
-  style={ { fontSize: 24, } }
-  type='loading' /> );
 const Loading: Function = ( { error, timedOut, } ) => {
   if ( error || timedOut ) window.location.reload();
 
   return (
-    <Spin
-      className={ styles.spinner }
-      delay={ 500 }
-      indicator={ antIcon }
-      size='large'
-      tip='Loading...'
-      wrapperClassName={ styles.centrePosition }>
-      <div />
-    </Spin>
+    <FontAwesomeIcon
+      icon={ faSpinner }
+      size='2x'
+      spin
+      style={ {
+        bottom   : 0,
+        left     : 0,
+        margin   : 'auto',
+        position : 'absolute',
+        right    : 0,
+        top      : 0,
+      } }
+    />
   );
 };
 

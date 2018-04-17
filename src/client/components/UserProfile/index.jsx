@@ -1,17 +1,22 @@
-import { Button, Divider, Form, Icon, Input, Modal, Radio, } from 'antd';
+import { Form, Icon, Input, Modal, } from 'antd';
 import React, { Component, } from 'react';
+import { faFacebook, faGoogle, } from '@fortawesome/free-brands-svg-icons';
 
+import Button from '../Button';
+import Card from '../Card';
+import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import Loading from '../Loading';
+import RadioButton from '../RadioButton';
+import StrikeTitle from '../StrikeTitle';
 import { authEndpointRoute, } from 'Shared/routes';
 import axios from 'axios';
 import { connect, } from 'react-redux';
-import gStyles from 'Styles/global';
 import { hot, } from 'react-hot-loader';
 import mapUserProfile from './map';
 import noImage from 'Assets/noImage.png';
 
+const { Body, Container, Footer, Header, } = Card;
 const { Item, create, } = Form;
-const { Group: RadioGroup, Button: RadioButton, } = Radio;
 
 @hot( module )
 @connect( mapUserProfile.State, mapUserProfile.Dispatch )
@@ -124,6 +129,19 @@ export default class UserProfile extends Component {
 
   handleClickChange = () => this.setState( { changeType: 'change', } );
 
+  handleChangePublic = e => {
+    e.stopPropagation();
+
+    const { target: { checked, value, name: key, }, } = e;
+    const { changePublic, } = this.props;
+
+    checked &&
+      changePublic( {
+        key,
+        value,
+      } );
+  };
+
   render () {
     const {
       photos,
@@ -131,9 +149,9 @@ export default class UserProfile extends Component {
       emails,
       providers,
       publicProfile,
-      changePublic,
       form,
       changePasswordStatus,
+      isChangingPublic,
       changingPassword,
       changePasswordResponse,
     } = this.props;
@@ -141,163 +159,124 @@ export default class UserProfile extends Component {
     const { changeType, } = this.state;
 
     return publicProfile ? (
-      <div className={ gStyles.cardStyle }>
-        <div className={ gStyles.cardHeader }>
+      <Container>
+        <Header>
           <h1>User Profile</h1>
-        </div>
-        <div className={ gStyles.cardTop }>
-          <Item
-            className={ gStyles.itemLabel }
-            colon={ false }
-            label={ <Divider style={ { marginBottom: 0, } }>Profile Picture</Divider> }>
-            <RadioGroup value={ publicProfile.photos }>
-              <RadioButton
-                onClick={ () =>
-                  changePublic( {
-                    key   : 'photos',
-                    value : 'Anonymous',
-                  } )
-                }
-                style={ {
-                  display : 'inline-block',
-                  height  : 120,
-                  padding : 10,
-                  width   : 120,
-                } }
-                value='Anonymous'>
-                <img
-                  height='100px'
-                  src={ noImage }
-                  width='100px' />
-              </RadioButton>
-              {photos &&
-                photos.filter( ( url, i, arr ) => arr.indexOf( url ) === i ).map( url => (
-                  <RadioButton
-                    key={ url }
-                    onClick={ () =>
-                      changePublic( {
-                        key   : 'photos',
-                        value : url,
-                      } )
-                    }
-                    style={ {
-                      display : 'inline-block',
-                      height  : 120,
-                      padding : 10,
-                      width   : 120,
-                    } }
-                    value={ url }>
-                    <img
-                      height='100px'
-                      src={ url }
-                      width='100px' />
-                  </RadioButton>
-                ) )}
-            </RadioGroup>
-          </Item>
-          <Item
-            className={ gStyles.itemLabel }
-            colon={ false }
-            label={ <Divider style={ { marginBottom: 0, } }>Display Name</Divider> }>
-            <RadioGroup value={ publicProfile.displayNames }>
-              <RadioButton
-                onClick={ () =>
-                  changePublic( {
-                    key   : 'displayNames',
-                    value : 'Anonymous',
-                  } )
-                }
-                value='Anonymous'>
-                Anonymous
-              </RadioButton>
-              {displayNames &&
-                displayNames.filter( ( name, i, arr ) => arr.indexOf( name ) === i ).map( name => (
-                  <RadioButton
-                    key={ name }
-                    onClick={ () =>
-                      changePublic( {
-                        key   : 'displayNames',
-                        value : name,
-                      } )
-                    }
-                    value={ name }>
-                    {name}
-                  </RadioButton>
-                ) )}
-            </RadioGroup>
-          </Item>
-          <Item
-            className={ gStyles.itemLabel }
-            colon={ false }
-            label={ <Divider style={ { marginBottom: 0, } }>Email</Divider> }>
-            <RadioGroup value={ publicProfile.emails }>
-              <RadioButton
-                onClick={ () =>
-                  changePublic( {
-                    key   : 'emails',
-                    value : 'Anonymous',
-                  } )
-                }
-                value='Anonymous'>
-                Anonymous
-              </RadioButton>
-              {emails &&
-                emails.filter( ( email, i, arr ) => arr.indexOf( email ) === i ).map( email => (
-                  <RadioButton
-                    key={ email }
-                    onClick={ () =>
-                      changePublic( {
-                        key   : 'emails',
-                        value : email,
-                      } )
-                    }
-                    value={ email }>
-                    {email}
-                  </RadioButton>
-                ) )}
-            </RadioGroup>
-          </Item>
-        </div>
-        <div className={ gStyles.cardBottom }>
-          <Item className={ gStyles.buttonsGroup }>
-            {providers.local && (
-              <Button
-                className={ gStyles.margin10 }
-                onClick={ this.handleClickChange }>
-                Change Password
-              </Button>
-            )}
-            {!providers.local && (
-              <Button
-                className={ gStyles.margin10 }
-                onClick={ this.handleClickCreate }>
-                Create Username & Password
-              </Button>
-            )}
-          </Item>
-          <Item className={ gStyles.buttonsGroup }>
-            {!providers.google && (
-              <Button
-                className={ gStyles.marginMid }
-                href={ authEndpointRoute( 'google' ) }
-                htmlType='button'
-                icon='google'
-                type='dashed'>
-                {'Link With Google'}
-              </Button>
-            )}
-            {!providers.facebook && (
-              <Button
-                className={ gStyles.marginMid }
-                href={ authEndpointRoute( 'facebook' ) }
-                htmlType='button'
-                icon='facebook'
-                type='dashed'>
-                {'Link With Facebook'}
-              </Button>
-            )}
-          </Item>
-        </div>
+        </Header>
+        <Body>
+          <StrikeTitle>Picture</StrikeTitle>
+          <span>
+            <RadioButton
+              checked={ publicProfile.photos === 'Anonymous' }
+              disabled={ isChangingPublic }
+              id='photoAnonymous'
+              name='photos'
+              onChange={ this.handleChangePublic }
+              value='Anonymous'>
+              <img
+                height='100px'
+                src={ noImage }
+                width='100px' />
+            </RadioButton>
+            {photos &&
+              photos.filter( ( url, i, arr ) => arr.indexOf( url ) === i ).map( url => (
+                <RadioButton
+                  checked={ publicProfile.photos === url }
+                  disabled={ isChangingPublic }
+                  id={ url }
+                  key={ url }
+                  name='photos'
+                  onChange={ this.handleChangePublic }
+                  value={ url }>
+                  <img
+                    height='100px'
+                    src={ url }
+                    width='100px' />
+                </RadioButton>
+              ) )}
+          </span>
+          <StrikeTitle>Display Name</StrikeTitle>
+          <span>
+            <RadioButton
+              checked={ publicProfile.displayNames === 'Anonymous' }
+              disabled={ isChangingPublic }
+              id='displayNamesAnonymous'
+              name='displayNames'
+              onChange={ this.handleChangePublic }
+              value='Anonymous'>
+              Anonymous
+            </RadioButton>
+            {displayNames &&
+              displayNames.filter( ( name, i, arr ) => arr.indexOf( name ) === i ).map( name => (
+                <RadioButton
+                  checked={ publicProfile.displayNames === name }
+                  disabled={ isChangingPublic }
+                  id={ name }
+                  key={ name }
+                  name='displayNames'
+                  onChange={ this.handleChangePublic }
+                  value={ name }>
+                  {name}
+                </RadioButton>
+              ) )}
+          </span>
+          <StrikeTitle>Email</StrikeTitle>
+          <span>
+            <RadioButton
+              checked={ publicProfile.emails === 'Anonymous' }
+              disabled={ isChangingPublic }
+              id='emailsAnonymous'
+              name='emails'
+              onChange={ this.handleChangePublic }
+              value='Anonymous'>
+              Anonymous
+            </RadioButton>
+            {emails &&
+              emails.filter( ( email, i, arr ) => arr.indexOf( email ) === i ).map( email => (
+                <RadioButton
+                  checked={ publicProfile.emails === email }
+                  disabled={ isChangingPublic }
+                  id={ email }
+                  key={ email }
+                  name='emails'
+                  onChange={ this.handleChangePublic }
+                  value={ email }>
+                  {email}
+                </RadioButton>
+              ) )}
+          </span>
+        </Body>
+        <Footer>
+          {providers.local && (
+            <Button
+              onClick={ this.handleClickChange }
+              variant='primary'>
+              Change Password
+            </Button>
+          )}
+          {!providers.local && (
+            <Button
+              onClick={ this.handleClickCreate }
+              variant='primary'>
+              Create Username & Password
+            </Button>
+          )}
+          <br />
+          {!providers.google && (
+            <Button
+              href={ authEndpointRoute( 'google' ) }
+              variant='secondary'>
+              <FontAwesomeIcon icon={ faGoogle } /> Link With Google
+            </Button>
+          )}
+          {!providers.facebook && (
+            <Button
+              href={ authEndpointRoute( 'facebook' ) }
+              variant='secondary'>
+              <FontAwesomeIcon icon={ faFacebook } /> Link With Facebook
+            </Button>
+          )}
+        </Footer>
         <Modal
           footer={ null }
           onCancel={ () => {
@@ -374,7 +353,7 @@ export default class UserProfile extends Component {
             </Form>
           )}
         </Modal>
-      </div>
+      </Container>
     )
       : <Loading />;
   }

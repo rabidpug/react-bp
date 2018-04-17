@@ -1,30 +1,31 @@
 import { subscribePush, unsubscribePush, } from 'Client/webpush';
 
-import { Button, } from 'antd';
+import Button from 'Components/Button';
+import Card from 'Components/Card';
 import React from 'react';
-import gStyles from 'Styles/global';
 
+const { Container, Header, Body, Footer, } = Card;
 const Home = () => (
-  <div className={ gStyles.cardStyle }>
-    <div className={ gStyles.cardHeader }>
+  <Container>
+    <Header>
       <h1>Welcome to React ENFRAMR!</h1>
-    </div>
-    <div className={ gStyles.cardTop }>
+    </Header>
+    <Body>
       <p> A Full Stack React Boilerplate with lots of stuff built in to save me time.</p>
-    </div>
-    <div className={ gStyles.cardBottom }>
+    </Body>
+    <Footer>
       <Button
         onClick={ subscribePush }
-        type='primary'>
+        variant='primary'>
         Subscribe
       </Button>
       <Button
         onClick={ unsubscribePush }
-        type='secondary'>
+        variant='secondary'>
         Unsubscribe
       </Button>
-    </div>
-  </div>
+    </Footer>
+  </Container>
 );
 
 export default Home;

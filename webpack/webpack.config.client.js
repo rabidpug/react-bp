@@ -160,6 +160,7 @@ module.exports = {
           /\.woff$/,
           /\.woff2$/,
           /\.eot$/,
+          /\.svg$/,
         ],
         use: {
           loader  : 'url-loader',

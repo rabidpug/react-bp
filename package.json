@@ -5,6 +5,10 @@
   },
   "sideEffects": false,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.0-11",
+    "@fortawesome/free-brands-svg-icons": "^5.1.0-8",
+    "@fortawesome/free-solid-svg-icons": "^5.1.0-8",
+    "@fortawesome/react-fontawesome": "^0.1.0-8",
     "antd": "^3.4.1",
     "app-root-path": "^2.0.1",
     "axios": "^0.18.0",
@@ -56,6 +60,7 @@
   },
   "description": "A react boilerplate",
   "devDependencies": {
+    "@storybook/react": "^3.4.1",
     "autoprefixer": "^8.3.0",
     "axios-mock-adapter": "^1.15.0",
     "babel-cli": "^6.26.0",
@@ -74,6 +79,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
     "babel-register": "^6.26.0",
+    "babel-runtime": "^6.26.0",
     "better-npm-run": "^0.1.0",
     "compression-webpack-plugin": "^1.1.11",
     "copy-webpack-plugin": "^4.5.1",

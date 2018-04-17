@@ -25,7 +25,7 @@ const userIsNotAuthenticated = connectedReduxRedirect( {
     dispatch( replace( redirect ) );
   },
   redirectPath       : '/',
-  wrapperDisplayName : 'userIsAuthenticated',
+  wrapperDisplayName : 'userIsNotAuthenticated',
 } );
 
 const content = [

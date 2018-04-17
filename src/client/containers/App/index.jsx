@@ -2,7 +2,7 @@ import { CSSTransition, TransitionGroup, } from 'react-transition-group';
 import React, { Component, } from 'react';
 import { Switch, withRouter, } from 'react-router-dom';
 
-import { Layout, } from 'antd';
+import Layout from 'Components/Layout';
 import actionMenu from 'Routes/actionMenu';
 import { connect, } from 'react-redux';
 import content from 'Routes/content';
@@ -11,10 +11,7 @@ import { hot, } from 'react-hot-loader';
 import mapApp from './map';
 import navMenu from 'Routes/navMenu';
 import { renderRoutes, } from 'react-router-config';
-import styles from 'Styles/App';
-import { subscribePush, } from '../../webpush';
-
-const { Content, } = Layout;
+import { subscribePush, } from 'Client/webpush';
 
 @hot( module )
 @withRouter
@@ -63,24 +60,20 @@ export default class App extends Component {
     };
 
     return (
-      <Layout className={ styles.layoutStyle }>
+      <Layout.Container parent>
         {renderRoutes( navMenu )}
-        <Layout>
+        <Layout.Container>
           {renderRoutes( actionMenu )}
-          <Content className={ styles.bodyStyle }>
-            <TransitionGroup>
-              <CSSTransition
-                classNames={ fadeTransition }
-                key={ currentKey }
-                timeout={ timeout }>
-                <div className={ styles.contentStyle }>
-                  <Switch location={ location }>{renderRoutes( content )}</Switch>
-                </div>
-              </CSSTransition>
-            </TransitionGroup>
-          </Content>
-        </Layout>
-      </Layout>
+          <TransitionGroup component={ Layout.Content }>
+            <CSSTransition
+              classNames={ fadeTransition }
+              key={ currentKey }
+              timeout={ timeout }>
+              <Switch location={ location }>{renderRoutes( content )}</Switch>
+            </CSSTransition>
+          </TransitionGroup>
+        </Layout.Container>
+      </Layout.Container>
     );
   }
 }

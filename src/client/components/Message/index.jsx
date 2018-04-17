@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import moment from 'moment';
 import noImage from 'Assets/noImage.png';
 import styles from 'Styles/Message';
-const urlsFinder = /(?<=^| )(?:http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?([a-z0-9]+(?:[-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(?::[0-9]{1,5})?(?:\/.*)?)(?=$| )/gi;
+const urlsFinder = /(^| )(?:http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?([a-z0-9]+(?:[-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(?::[0-9]{1,5})?(?:\/.*)?)(?=$| )/gi;
 const Message = ( { message, timestamp, userProfile, isUser, } ) => (
   <div
     className={ classnames( styles.messageCard, {
@@ -56,8 +56,7 @@ const Message = ( { message, timestamp, userProfile, isUser, } ) => (
       <span
         dangerouslySetInnerHTML={ {
           __html: message.replace( urlsFinder,
-                                   match =>
-                                     `<a
+                                   match => `<a
             href='https://${match}'
             target='_blank'>
             ${match}

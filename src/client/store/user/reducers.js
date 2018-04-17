@@ -5,7 +5,7 @@ const reducers = {
   [types.AUTH_RESPONSE]: produce( ( state, { payload: { msg, profile, }, } ) => {
     state.authMessage = msg || '';
 
-    state.isAuthenticated = !true;
+    state.isAuthenticated = !msg;
 
     state.profile = profile || {};
   } ),

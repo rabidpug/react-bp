@@ -1,6 +1,9 @@
-import { Button, Checkbox, Form, Icon, Input, } from 'antd';
+import { Checkbox, Form, Icon, Input, } from 'antd';
 import React, { Component, } from 'react';
+import { faFacebook, faGoogle, } from '@fortawesome/free-brands-svg-icons';
 
+import Button from '../Button';
+import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import { authEndpointRoute, } from 'Shared/routes';
 import axios from 'axios';
 import { connect, } from 'react-redux';
@@ -214,14 +217,18 @@ export default class UserForm extends Component {
               /> )}
             </Item>
           )}
+          {authMessage && (
+            <Item className={ gStyles.buttonsGroup }>
+              <span>{authMessage}</span>
+            </Item>
+          )}
         </div>
         <div className={ gStyles.cardBottom }>
           <Item className={ gStyles.buttonsGroup }>
             <Button
-              className={ gStyles.marginMid }
-              htmlType='submit'
-              loading={ isGettingAuth }
-              type='primary'>
+              disabled={ isGettingAuth }
+              type='submit'
+              variant='primary'>
               {message}
             </Button>
           </Item>
@@ -231,29 +238,19 @@ export default class UserForm extends Component {
               valuePropName : 'checked',
             } )( <Checkbox onChange={ e => this.setRemember( e.target.checked ) }>Remember me</Checkbox> )}
           </Item>
-          {authMessage && (
-            <Item className={ gStyles.buttonsGroup }>
-              <span>{authMessage}</span>
-            </Item>
-          )}
           <Item className={ gStyles.buttonsGroup }>
             <Button
-              className={ gStyles.marginMid }
-              href='api/auth/google'
-              htmlType='button'
-              icon='google'
-              loading={ isGettingAuth }
-              type='dashed'>
-              {'Sign In With Google'}
+              disabled={ isGettingAuth }
+              href={ authEndpointRoute( 'google' ) }
+              variant='secondary'>
+              <FontAwesomeIcon icon={ faGoogle } /> Sign In With Google
             </Button>
             <Button
               className={ gStyles.marginMid }
-              href='api/auth/facebook'
-              htmlType='button'
-              icon='facebook'
-              loading={ isGettingAuth }
-              type='dashed'>
-              {'Sign In With Facebook'}
+              disabled={ isGettingAuth }
+              href={ authEndpointRoute( 'facebook' ) }
+              variant='secondary'>
+              <FontAwesomeIcon icon={ faFacebook } /> Sign In With Facebook
             </Button>
           </Item>
         </div>

@@ -11,6 +11,7 @@ const initialState = {
   isOnline           : true,
   isSidebarCollapsed : true,
   openKeys           : [],
+  theme              : 'main',
 };
 const actionCreators = createActions( {}, ...Object.keys( reducers ) );
 

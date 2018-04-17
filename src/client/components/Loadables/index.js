@@ -7,7 +7,7 @@ export const Welcome = Loadable( {
   timeout : 10000,
 } );
 export const Home = Loadable( {
-  loader  : () => import( /*webpackChunkName: "Home" */ 'Components/Home' ),
+  loader  : () => import( /*webpackChunkName: "Home" */ 'Containers/Home' ),
   loading : Loading,
   timeout : 10000,
 } );
