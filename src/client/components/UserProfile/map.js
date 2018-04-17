@@ -11,7 +11,7 @@ const mapUserProfile = {
     ...store.user.get.profile( state ),
     changePasswordStatus : store.user.get.changePasswordStatus( state ),
     changingPassword     : store.inProgress.get.inProgress( state, [ store.inProgress.types.CHANGING_PASSWORD, ] ),
-    isChangingPublic     : store.inProgress.get.inProgress( state, [ store.inProgress.types.PUBLIC, ] ),
+    isChangingPublic     : store.inProgress.get.inProgress( state, [ store.inProgress.types.CHANGE_PUBLIC, ] ),
     isGettingProfile     : store.inProgress.get.inProgress( state, [ store.inProgress.types.GETTING_PROFILE, ] ),
   } ),
 };
