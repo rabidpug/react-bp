@@ -4,7 +4,9 @@ import axios from 'axios';
 import { push, } from 'react-router-redux';
 import store from 'Store';
 
-export const refreshAuthToken = ( callback, data, failureCallback ) => dispatch => {
+export const refreshAuthToken = (
+  callback, data, failureCallback, inProgressToggle
+) => dispatch => {
   const refreshToken = localStorage.getItem( 'refreshToken' ) || sessionStorage.getItem( 'refreshToken' );
 
   axios
@@ -13,11 +15,15 @@ export const refreshAuthToken = ( callback, data, failureCallback ) => dispatch 
       if ( res.data.token ) {
         ( JSON.parse( localStorage.getItem( 'remember' ) ) ? localStorage : sessionStorage ).setItem( 'JWT', res.data.token );
 
+        dispatch( store.inProgress.set.toggleInProgress( inProgressToggle ) );
+
         dispatch( callback( data ) );
       } else throw new Error( 'Token Refresh Failed' );
     } )
     .catch( e => {
       failureCallback && dispatch( failureCallback( e.response.data ) );
+
+      dispatch( store.inProgress.set.toggleInProgress( inProgressToggle ) );
 
       dispatch( store.user.set.logoutUser() );
     } );
@@ -50,8 +56,11 @@ export const getProfile = () => dispatch => {
       dispatch( store.user.set.profileResponse( res.data.profile ) );
     } )
     .catch( e => {
-      if ( e.response.status === 401 ) dispatch( refreshAuthToken( getProfile, null, store.user.set.profileResponse ) );
-      else {
+      if ( e.response.status === 401 ) {
+        dispatch( refreshAuthToken(
+          getProfile, null, store.user.set.profileResponse, store.inProgress.types.GETTING_PROFILE
+        ) );
+      } else {
         dispatch( store.inProgress.set.toggleInProgress( store.inProgress.types.GETTING_PROFILE ) );
 
         dispatch( store.user.set.profileResponse( e.response.data ) );
@@ -98,12 +107,15 @@ export const changePublic = ( { key, value, } ) => dispatch => {
     } )
     .catch( e => {
       if ( e.response.status === 401 ) {
-        dispatch( refreshAuthToken( changePublic,
-                                    {
-                                      key,
-                                      value,
-                                    },
-                                    store.user.set.changePublicResponse ) );
+        dispatch( refreshAuthToken(
+          changePublic,
+          {
+            key,
+            value,
+          },
+          store.user.set.changePublicResponse,
+          store.inProgress.types.GETTING_PROFILE
+        ) );
       } else {
         dispatch( store.inProgress.set.toggleInProgress( store.inProgress.types.CHANGE_PUBLIC ) );
 
@@ -130,8 +142,11 @@ export const linkAuth = newToken => dispatch => {
       dispatch( authSuccess( res.data ) );
     } )
     .catch( e => {
-      if ( e.response.status === 401 ) dispatch( refreshAuthToken( linkAuth, newToken, store.user.set.authResponse ) );
-      else dispatch( store.user.set.authResponse( e.response.data ) );
+      if ( e.response.status === 401 ) {
+        dispatch( refreshAuthToken(
+          linkAuth, newToken, store.user.set.authResponse, store.inProgress.types.GETTING_PROFILE
+        ) );
+      } else dispatch( store.user.set.authResponse( e.response.data ) );
     } );
 };
 

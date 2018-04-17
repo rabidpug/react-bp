@@ -21,8 +21,14 @@ const setUpSocket = ( reduxStore: Object ) => {
   } );
 
   socket.on( IO_SERVER_RESPONSE, res => {
-    if ( res.msg === 'User not authorized' ) reduxStore.dispatch( store.user.set.refreshAuthToken( store.greeter.set.sayHello, res.values, store.greeter.set.sayHelloResponse ) );
-    else reduxStore.dispatch( store.greeter.set.sayHelloResponse( res ) );
+    if ( res.msg === 'User not authorized' ) {
+      reduxStore.dispatch( store.user.set.refreshAuthToken(
+        store.greeter.set.sayHello,
+        res.values,
+        store.greeter.set.sayHelloResponse,
+        store.inProgress.types.GETTING_AUTH
+      ) );
+    } else reduxStore.dispatch( store.greeter.set.sayHelloResponse( res ) );
   } );
 
   socket.on( IO_DISCONNECT, () => {
