@@ -35,6 +35,9 @@ const RadioButtonLabel = styled.label`
   &:last-child {
     border-radius: 0 0.25rem 0.25rem 0;
   }
+  &:only-child {
+    border-radius: 0.25rem;
+  }
 `;
 const RadioButtonInput = styled.input.attrs( { type: 'radio', } )`
   margin: 0;
