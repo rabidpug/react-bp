@@ -135,7 +135,7 @@ export default class Menu extends PureComponent {
         <FontAwesomeIcon
           icon={ icon }
           style={ {
-            height     : props.vertical ? '2rem' : '2.7rem',
+            height     : props.vertical ? '2.2rem' : '3rem',
             transition : 'all 0.2s',
           } }
         />
@@ -197,7 +197,7 @@ export default class Menu extends PureComponent {
             <FontAwesomeIcon
               icon={ icon }
               style={ {
-                height     : vertical ? '2rem' : '2.7rem',
+                height     : vertical ? '2.2rem' : '3rem',
                 transition : 'all 0.2s',
               } }
             />

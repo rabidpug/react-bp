@@ -20,7 +20,7 @@ const StyledEmojiButton = styled( FontAwesomeIcon )`
   cursor: pointer;
   opacity: 0.5;
   position: absolute;
-  right: 9rem;
+  left: -1.6rem;
   top: 50%;
   color: ${styles.get.darkerGreyColour};
   transform: translateY(-50%);
@@ -29,7 +29,7 @@ const StyledEmojiButton = styled( FontAwesomeIcon )`
   }
 `;
 const EmojiPickerContainer = styled.div`
-  bottom: 4rem;
+  bottom: 2.5rem;
   line-height: normal;
   position: absolute;
   right: 1rem;
@@ -120,21 +120,23 @@ export default class SendMessage extends Component {
           type='textarea'
           value={ messageValue }
         />
-        <StyledEmojiButton
-          icon={ faSmile }
-          onClick={ this.handleEmojiClick } />
-        {isDisplayed && (
-          <EmojiPickerContainer onMouseLeave={ this.handleEmojiClick }>
-            <EmojiPicker onEmojiClick={ this.handleSelectEmoji } />
-          </EmojiPickerContainer>
-        )}
-        <Button
-          icon={ faComment }
-          loading={ loading }
-          onClick={ this.handleSubmit }
-          variant='primary'>
-          Send
-        </Button>
+        <div style={ { position: 'relative', } }>
+          <StyledEmojiButton
+            icon={ faSmile }
+            onClick={ this.handleEmojiClick } />
+          {isDisplayed && (
+            <EmojiPickerContainer onMouseLeave={ this.handleEmojiClick }>
+              <EmojiPicker onEmojiClick={ this.handleSelectEmoji } />
+            </EmojiPickerContainer>
+          )}
+          <Button
+            icon={ faComment }
+            loading={ loading }
+            onClick={ this.handleSubmit }
+            variant='primary'>
+            Send
+          </Button>
+        </div>
       </SenderContainer>
     );
   }
