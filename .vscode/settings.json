@@ -17,6 +17,7 @@
     "Client": "./src/client",
     "Components": "./src/client/components",
     "Containers": "./src/client/containers",
+    "Helpers": "./src/client/helpers",
     "Routes": "./src/client/routes",
     "Scenes": "./src/client/scenes",
     "Server": "./src/server",

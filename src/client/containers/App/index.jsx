@@ -60,9 +60,9 @@ export default class App extends Component {
     };
 
     return (
-      <Layout.Container parent>
+      <Layout parent>
         {renderRoutes( navMenu )}
-        <Layout.Container>
+        <Layout>
           {renderRoutes( actionMenu )}
           <TransitionGroup component={ Layout.Content }>
             <CSSTransition
@@ -72,8 +72,8 @@ export default class App extends Component {
               <Switch location={ location }>{renderRoutes( content )}</Switch>
             </CSSTransition>
           </TransitionGroup>
-        </Layout.Container>
-      </Layout.Container>
+        </Layout>
+      </Layout>
     );
   }
 }

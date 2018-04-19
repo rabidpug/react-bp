@@ -15,7 +15,6 @@ import { hot, } from 'react-hot-loader';
 import mapUserProfile from './map';
 import noImage from 'Assets/noImage.png';
 
-const { Body, Container, Footer, Header, } = Card;
 const { Item, create, } = Form;
 
 @hot( module )
@@ -159,11 +158,11 @@ export default class UserProfile extends Component {
     const { changeType, } = this.state;
 
     return publicProfile ? (
-      <Container>
-        <Header>
+      <Card>
+        <Card.Header>
           <h1>User Profile</h1>
-        </Header>
-        <Body>
+        </Card.Header>
+        <Card.Body>
           <StrikeTitle>Picture</StrikeTitle>
           <span>
             <RadioButton
@@ -245,8 +244,8 @@ export default class UserProfile extends Component {
                 </RadioButton>
               ) )}
           </span>
-        </Body>
-        <Footer>
+        </Card.Body>
+        <Card.Footer>
           {providers.local && (
             <Button
               onClick={ this.handleClickChange }
@@ -276,7 +275,7 @@ export default class UserProfile extends Component {
               <FontAwesomeIcon icon={ faFacebook } /> Link With Facebook
             </Button>
           )}
-        </Footer>
+        </Card.Footer>
         <Modal
           footer={ null }
           onCancel={ () => {
@@ -353,7 +352,7 @@ export default class UserProfile extends Component {
             </Form>
           )}
         </Modal>
-      </Container>
+      </Card>
     )
       : <Loading />;
   }

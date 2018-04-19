@@ -63,30 +63,50 @@ const StyledButton = styled.button`
   margin: 0.5rem;
   outline: none;
   padding: 0 1rem;
+  text-decoration: none;
   touch-action: manipulation;
   user-select: none;
   white-space: nowrap;
   box-sizing: border-box;
+  position: relative;
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   ${( { variant, } ) => variantStyle[variant]};
 `;
-const Button = ( { disabled, children, href, ...props } ) => {
-  const Component = href ? StyledButton.withComponent( 'a' ) : StyledButton;
+const TextSpan = styled.div`
+  max-width: 100%;
+  text-overflow: ellipsis;
+  margin: 0;
+  margin-left: ${( { icon, disabled, } ) => icon || disabled ? '0.5rem' : 0};
+  overflow: hidden;
+`;
+const HrefButton = StyledButton.withComponent( 'a' );
+const Button = ( { disabled, children, ...props } ) => {
+  const { href, icon, } = props;
+  const Component = href ? HrefButton : StyledButton;
+  const iconStyle = {
+    left     : 5,
+    position : 'absolute',
+    top      : '25%',
+  };
 
   return (
     <Component
-      href={ href }
       { ...props }
       disabled={ disabled }>
-      {disabled ? (
-        <span>
-          <FontAwesomeIcon
-            icon={ faSpinner }
-            spin /> Loading...
-        </span>
-      )
-        : children
+      {disabled
+        ? <FontAwesomeIcon
+          icon={ faSpinner }
+          spin
+          style={ iconStyle } />
+        :         icon && <FontAwesomeIcon
+          icon={ icon }
+          style={ iconStyle } />
       }
+      <TextSpan
+        disabled={ disabled }
+        icon={ icon }>
+        {children}
+      </TextSpan>
     </Component>
   );
 };

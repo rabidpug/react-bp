@@ -95,24 +95,3 @@
   height: 1rem;
   width: 1rem;
 }
-
-.emojiPicker {
-  bottom: 25px;
-  line-height: normal;
-  position: absolute;
-  right: 10px;
-  transform-origin: bottom right;
-}
-
-.emojiButton {
-  cursor: pointer;
-  opacity: 0.5;
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.emojiButton:hover {
-  color: $primary-color;
-}

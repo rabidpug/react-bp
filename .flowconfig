@@ -11,6 +11,7 @@ module.file_ext=.scss
 module.file_ext=.less
 module.name_mapper='^Animations\(.*\)$' -> '<PROJECT_ROOT>/src/client/animations/\1'
 module.name_mapper='^Assets\(.*\)$' -> '<PROJECT_ROOT>/src/client/assets/\1'
+module.name_mapper='^Helpers\(.*\)$' -> '<PROJECT_ROOT>/src/client/helpers/\1'
 module.name_mapper='^Shared\(.*\)$' -> '<PROJECT_ROOT>/src/shared/\1'
 module.name_mapper='^Server\(.*\)$' -> '<PROJECT_ROOT>/src/server/\1'
 module.name_mapper='^Store\(.*\)$' -> '<PROJECT_ROOT>/src/client/store/\1'

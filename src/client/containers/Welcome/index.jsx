@@ -1,9 +1,9 @@
 import React, { Component, } from 'react';
 
-import Message from '../Message';
-import SendMessage from '../SendMessage';
+import Card from 'Components/Card';
+import Message from 'Components/Message';
+import SendMessage from 'Containers/SendMessage';
 import { connect, } from 'react-redux';
-import gStyles from 'Styles/global';
 import { hot, } from 'react-hot-loader';
 import mapWelcome from './map';
 
@@ -26,22 +26,11 @@ export default class Welcome extends Component {
     const { messages, publicId, } = this.props;
 
     return (
-      <div
-        className={ gStyles.cardStyle }
-        style={ {
-          display       : 'flex',
-          flexDirection : 'column',
-          minHeight     : '50%',
-        } }>
-        <div className={ gStyles.cardHeader }>
-          <h1>Welcome Messaging</h1>
-        </div>
-        <div
-          className={ gStyles.cardTop }
-          style={ {
-            display   : 'inline-block',
-            minHeight : '50%',
-          } }>
+      <Card>
+        <Card.Header>
+          <h1 style={ { margin: 0, } }>Welcome Messaging</h1>
+        </Card.Header>
+        <Card.Body>
           {messages.length === 0
             ? <p style={ { width: '100%', } }>No Messages</p>
             :             messages.map( value => (
@@ -62,11 +51,11 @@ export default class Welcome extends Component {
               float : 'left',
             } }
           />
-        </div>
-        <div className={ gStyles.cardBottom }>
+        </Card.Body>
+        <Card.Footer>
           <SendMessage />
-        </div>
-      </div>
+        </Card.Footer>
+      </Card>
     );
   }
 }

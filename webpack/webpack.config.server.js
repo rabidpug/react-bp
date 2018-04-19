@@ -45,15 +45,18 @@ const config = {
     ],
   resolve: {
     alias: {
+      Animations : path.resolve( 'src', 'client', 'animations' ),
       Assets     : path.resolve( 'src', 'client', 'assets' ),
       Client     : path.resolve( 'src', 'client' ),
       Components : path.resolve( 'src', 'client', 'components' ),
       Containers : path.resolve( 'src', 'client', 'containers' ),
+      Helpers    : path.resolve( 'src', 'client', 'helpers' ),
       Routes     : path.resolve( 'src', 'client', 'routes' ),
       Scenes     : path.resolve( 'src', 'client', 'scenes' ),
       Server     : path.resolve( 'src', 'server' ),
       Shared     : path.resolve( 'src', 'shared' ),
       Store      : path.resolve( 'src', 'client', 'store' ),
+      Styles     : path.resolve( 'src', 'client', 'styles' ),
     },
     extensions: [
       '.less',

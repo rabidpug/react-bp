@@ -2,7 +2,7 @@ import Loadable from 'react-loadable';
 import Loading from 'Components/Loading';
 
 export const Welcome = Loadable( {
-  loader  : () => import( /*webpackChunkName: "Welcome" */ 'Components/Welcome' ),
+  loader  : () => import( /*webpackChunkName: "Welcome" */ 'Containers/Welcome' ),
   loading : Loading,
   timeout : 10000,
 } );

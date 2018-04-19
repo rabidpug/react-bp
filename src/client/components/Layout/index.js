@@ -1,15 +1,21 @@
+import React, { PureComponent, } from 'react';
+
 import styled from 'styled-components';
-const Layout = {
-  Container: styled.div`
-    display: flex;
-    flex-direction: ${( { parent, } ) => parent ? 'row' : 'column'};
-    flex: auto;
-    box-sizing: border-box;
-    height: 100vh;
-    position: relative;
-  `,
-  Content: styled.div`
-    overflow: auto;
+
+const sideWidth = ( { collapsed, } ) => collapsed ? '4rem' : '12rem';
+
+const LayoutWrapper = styled.div`
+  display: flex;
+  flex-direction: ${( { parent, } ) => parent ? 'row' : 'column'};
+  flex: auto;
+  box-sizing: border-box;
+  height: 100vh;
+  position: relative;
+  transition: all 0.2s;
+`;
+
+export default class Layout extends PureComponent {
+  static Content = styled.div`
     padding: 0.75rem 0.5rem;
     flex: auto;
     box-sizing: border-box;
@@ -73,7 +79,32 @@ const Layout = {
     @media (max-width: 767.98px) {
       padding: 0;
     }
-  `,
-};
+  `;
 
-export default Layout;
+  static Header = styled.div`
+    background: rgb(255, 255, 255);
+    padding: 0px;
+    z-index: 1;
+    box-shadow: 0 0.0625rem 0.375rem 0 rgba(0, 0, 0, 0.2);
+    border-top: 0.25rem solid #ed702a;
+    height: 4rem;
+    line-height: 4rem;
+    flex: 0 0 auto;
+  `;
+
+  static SideBar = styled.div`
+    transition: all 0.2s;
+    position: relative;
+    background: #757575;
+    flex: 0 0 ${sideWidth};
+    max-width: ${sideWidth};
+    min-width: ${sideWidth};
+    width: ${sideWidth};
+  `;
+
+  render () {
+    return <LayoutWrapper { ...this.props } />;
+  }
+}
+
+// export default Layout;

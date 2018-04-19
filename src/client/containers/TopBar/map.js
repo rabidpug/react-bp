@@ -1,8 +1,7 @@
 import store from 'Store';
-import { toggleSidebar, } from 'Store/ui/actions';
 
 const mapTopBar = {
-  Dispatch : { toggleSidebar, },
+  Dispatch : { toggleSidebar: store.ui.set.toggleSidebar, },
   State    : ( state, ownProps ) => ( {
     actionMenuItems    : ownProps.route.actionMenuItems,
     isAuthenticated    : store.user.get.isAuthenticated( state ),

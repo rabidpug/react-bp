@@ -53,21 +53,29 @@ const RadioButton = ( { disabled, id, children, ...props } ) => (
   <RadioButtonLabel
     htmlFor={ id }
     { ...props }>
-    {disabled ? (
+    {disabled && (
       <span>
         <FontAwesomeIcon
           icon={ faSpinner }
-          spin /> Loading...
-      </span>
-    ) : (
-      <span>
-        {children}
-        <RadioButtonInput
-          id={ id }
-          name={ id }
-          { ...props } />
+          spin
+          style={ {
+            bottom   : 0,
+            left     : 0,
+            margin   : 'auto',
+            position : 'absolute',
+            right    : 0,
+            top      : 0,
+          } }
+        />
       </span>
     )}
+    <span>
+      {children}
+      <RadioButtonInput
+        id={ id }
+        name={ id }
+        { ...props } />
+    </span>
   </RadioButtonLabel>
 );
 

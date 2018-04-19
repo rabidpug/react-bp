@@ -4,16 +4,15 @@ import Button from 'Components/Button';
 import Card from 'Components/Card';
 import React from 'react';
 
-const { Container, Header, Body, Footer, } = Card;
 const Home = () => (
-  <Container>
-    <Header>
+  <Card>
+    <Card.Header>
       <h1>Welcome to React ENFRAMR!</h1>
-    </Header>
-    <Body>
+    </Card.Header>
+    <Card.Body>
       <p> A Full Stack React Boilerplate with lots of stuff built in to save me time.</p>
-    </Body>
-    <Footer>
+    </Card.Body>
+    <Card.Footer>
       <Button
         onClick={ subscribePush }
         variant='primary'>
@@ -24,8 +23,8 @@ const Home = () => (
         variant='secondary'>
         Unsubscribe
       </Button>
-    </Footer>
-  </Container>
+    </Card.Footer>
+  </Card>
 );
 
 export default Home;

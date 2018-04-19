@@ -3,7 +3,6 @@ import React, { Component, } from 'react';
 import { faFacebook, faGoogle, } from '@fortawesome/free-brands-svg-icons';
 
 import Button from '../Button';
-import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import { authEndpointRoute, } from 'Shared/routes';
 import axios from 'axios';
 import { connect, } from 'react-redux';
@@ -242,15 +241,17 @@ export default class UserForm extends Component {
             <Button
               disabled={ isGettingAuth }
               href={ authEndpointRoute( 'google' ) }
+              icon={ faGoogle }
               variant='secondary'>
-              <FontAwesomeIcon icon={ faGoogle } /> Sign In With Google
+              Sign In With Google
             </Button>
             <Button
               className={ gStyles.marginMid }
               disabled={ isGettingAuth }
               href={ authEndpointRoute( 'facebook' ) }
+              icon={ faFacebook }
               variant='secondary'>
-              <FontAwesomeIcon icon={ faFacebook } /> Sign In With Facebook
+              Sign In With Facebook
             </Button>
           </Item>
         </div>

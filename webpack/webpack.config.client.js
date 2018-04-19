@@ -1,6 +1,7 @@
 /*eslint-disable camelcase */
 /*eslint-disable prefer-destructuring */
 
+const BundleAnalyzerPlugin = require( 'webpack-bundle-analyzer' ).BundleAnalyzerPlugin;
 const HtmlWebPackPlugin = require( 'html-webpack-plugin' );
 const ManifestPlugin = require( 'webpack-manifest-plugin' );
 const SWPrecacheWebpackPlugin = require( 'sw-precache-webpack-plugin' );
@@ -57,6 +58,7 @@ const prodPlugs = [
     cssProcessor        : require( 'cssnano' ),
     cssProcessorOptions : { preset: 'advanced', },
   } ),
+  new BundleAnalyzerPlugin(),
 ];
 
 const devPlugs = [ new webpack.HotModuleReplacementPlugin(), ];
@@ -173,11 +175,7 @@ module.exports = {
       },
     ],
   },
-  // optimization: { splitChunks: { cacheGroups: { commons: {
-  //   chunks : 'all',
-  //   name   : 'vendor',
-  //   test   : /[\\/]node_modules[\\/]/,
-  // }, }, }, },
+  // optimization : { splitChunks: { cacheGroups: { commons: { test: /[\\/]node_modules[\\/]/, }, }, }, },
   output: {
     filename   : 'js/[name].[hash].js',
     path       : path.resolve( 'dist' ),
@@ -194,6 +192,7 @@ module.exports = {
       Client     : path.resolve( 'src', 'client' ),
       Components : path.resolve( 'src', 'client', 'components' ),
       Containers : path.resolve( 'src', 'client', 'containers' ),
+      Helpers    : path.resolve( 'src', 'client', 'helpers' ),
       Routes     : path.resolve( 'src', 'client', 'routes' ),
       Scenes     : path.resolve( 'src', 'client', 'scenes' ),
       Server     : path.resolve( 'src', 'server' ),

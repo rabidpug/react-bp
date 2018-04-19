@@ -1,11 +1,14 @@
 import { css, } from 'styled-components';
 const main = {
   darkerColour       : '#b44100',
-  darkerGreyColour   : '#808080',
-  lighterColour      : '#ffa158',
+  darkerGreyColour   : '#757575',
+  darkestGreyColour  : '#545454',
+  hoverColour        : 'rgba(237,112,42,0.4)',
+  lighterColour      : '#fa9755',
   lighterGreyColour  : '#fafafa',
+  midGreyColour      : '#f1f1f1',
   primaryColour      : '#ed702a',
-  primaryGreyColour  : '#f1f2f4',
+  primaryGreyColour  : '#cecece',
   primaryWhiteColour : '#f5f5f5',
   scrollBar          : css`
     &::-webkit-scrollbar-track {
