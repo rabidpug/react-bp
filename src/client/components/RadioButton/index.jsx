@@ -27,7 +27,7 @@ const RadioButtonLabel = styled.label`
   border-style: solid;
   user-select: none;
   border-top-width: 1.02px;
-  background: #fff;
+  background: ${( { disabled, } ) => disabled ? 'rgba(0,0,0,0.25)' : '#fff'};
   position: relative;
   &:first-child {
     border-radius: 0.25rem 0 0 0.25rem;
