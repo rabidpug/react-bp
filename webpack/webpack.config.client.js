@@ -1,7 +1,7 @@
 /*eslint-disable camelcase */
 /*eslint-disable prefer-destructuring */
 
-const BundleAnalyzerPlugin = require( 'webpack-bundle-analyzer' ).BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require( 'webpack-bundle-analyzer' ).BundleAnalyzerPlugin;
 const HtmlWebPackPlugin = require( 'html-webpack-plugin' );
 const ManifestPlugin = require( 'webpack-manifest-plugin' );
 const SWPrecacheWebpackPlugin = require( 'sw-precache-webpack-plugin' );
@@ -58,7 +58,7 @@ const prodPlugs = [
     cssProcessor        : require( 'cssnano' ),
     cssProcessorOptions : { preset: 'advanced', },
   } ),
-  new BundleAnalyzerPlugin(),
+  // new BundleAnalyzerPlugin(),
 ];
 
 const devPlugs = [ new webpack.HotModuleReplacementPlugin(), ];

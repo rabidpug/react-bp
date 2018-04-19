@@ -17,7 +17,7 @@ const RadioButtonLabel = styled.label`
   touch-action: manipulation;
   user-select: none;
   white-space: nowrap;
-  text-overflow: ellipse;
+  text-overflow: ellipsis;
   box-sizing: border-box;
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   margin: 0;
@@ -27,7 +27,7 @@ const RadioButtonLabel = styled.label`
   border-style: solid;
   user-select: none;
   border-top-width: 1.02px;
-  background: ${( { disabled, } ) => disabled ? 'rgba(0,0,0,0.25)' : '#fff'};
+  background-color: ${( { disabled, } ) => disabled ? 'rgba(0,0,0,0.1)' : '#fff'};
   position: relative;
   &:first-child {
     border-radius: 0.25rem 0 0 0.25rem;
@@ -51,6 +51,7 @@ const RadioButtonInput = styled.input.attrs( { type: 'radio', } )`
 `;
 const RadioButton = ( { disabled, id, children, ...props } ) => (
   <RadioButtonLabel
+    disabled={ disabled }
     htmlFor={ id }
     { ...props }>
     {disabled && (
@@ -60,6 +61,7 @@ const RadioButton = ( { disabled, id, children, ...props } ) => (
           spin
           style={ {
             bottom   : 0,
+            color    : '#000',
             left     : 0,
             margin   : 'auto',
             position : 'absolute',
