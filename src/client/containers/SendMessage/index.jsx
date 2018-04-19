@@ -132,7 +132,6 @@ export default class SendMessage extends Component {
           icon={ faComment }
           loading={ loading }
           onClick={ this.handleSubmit }
-          style={ { width: '7rem', } }
           variant='primary'>
           Send
         </Button>
