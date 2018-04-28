@@ -103,10 +103,6 @@ module.exports = {
             },
           },
           {
-            loader  : 'postcss-loader',
-            options : { sourceMap: !isProd, },
-          },
-          {
             loader  : 'sass-loader',
             options : {
               modules   : true,
@@ -121,10 +117,6 @@ module.exports = {
           { loader: cssLoader, },
           {
             loader  : 'css-loader',
-            options : { sourceMap: !isProd, },
-          },
-          {
-            loader  : 'postcss-loader',
             options : { sourceMap: !isProd, },
           },
           {
