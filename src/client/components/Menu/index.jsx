@@ -6,7 +6,7 @@ import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import styles from 'Styles';
 
 const isSelectedStyling = css`
-  background-color: ${( { isSelected, } ) => isSelected ? styles.get.primaryColour : 'inherit'};
+  background-color: ${( { isSelected, } ) => isSelected ? styles.get.colours.primary : 'inherit'};
 `;
 const isOpenPadding = ( { vertical, showText, childCount = 0, } ) =>
   vertical && showText ? `${1 + 0.5 * childCount}rem` : '1.3rem';
@@ -17,33 +17,33 @@ const orientationStyling = ( { vertical, childCount, isSubMenu, } ) =>
         height: 2.2rem;
         line-height: 2rem;
         width: 100%;
-        color: ${styles.get.primaryWhiteColour};
+        color: ${styles.get.colours.whiteL2};
         &:hover {
-          background-color: ${styles.get.hoverColour};
+          background-color: ${styles.get.colours.secondary};
         }
       `
     : css`
         height: 3rem;
         line-height: 3rem;
         width: ${isSubMenu ? '100%' : 'auto'}
-        color: ${styles.get.darkerGreyColour};
+        color: ${styles.get.colours.greyD1};
         border-bottom: 1px solid rgba(0, 0, 0, 0.2);
         margin: ${childCount ? 0 : '0 0.25rem'};
         &:hover {
-          border-bottom: 2px solid ${styles.get.primaryColour};
-          color: ${styles.get.primaryColour};
+          border-bottom: 2px solid ${styles.get.colours.primary};
+          color: ${styles.get.colours.primary};
         }
       `;
 const liSubMenuStyling = ( { vertical, childCount, } ) =>
   vertical
     ? css`
         display: block;
-        color: ${styles.get.primaryWhiteColour};
+        color: ${styles.get.colours.whiteL2};
       `
     : css`
         display: flex;
         float: ${childCount === 1 && 'right'};
-        color: ${styles.get.darkerGreyColour};
+        color: ${styles.get.colours.greyD1};
         margin: 0;
       `;
 const subMenuOrientationStyling = ( { vertical, childCount, } ) =>
@@ -63,7 +63,7 @@ const subMenuOrientationStyling = ( { vertical, childCount, } ) =>
 
 const SubMenuLi = styled.li`
   transition: all 0.2s;
-  color: ${styles.get.primaryWhiteColour};
+  color: ${styles.get.colours.whiteL2};
   position: relative;
   flex: 1;
   ${isSelectedStyling};
@@ -78,8 +78,8 @@ const SubMenuUl = styled.ul`
   overflow: ${( { isOpen, } ) => isOpen ? 'inherit' : 'hidden'}
   box-shadow: ${( { vertical, } ) =>
     vertical ? 'inset 0 2px 8px rgba(0, 0, 0, 0.45)' : '0 0.125rem 0.375rem 0 rgba(0, 0, 0, 0.2)'};
-  border-color: ${styles.get.primaryWhiteColour};
-  background-color: ${( { vertical, } ) => vertical ? styles.get.darkestGreyColour : '#fff'};
+  border-color: ${styles.get.colours.whiteL2};
+  background-color: ${( { vertical, } ) => vertical ? styles.get.colours.greyD2 : '#fff'};
   max-height: ${( { isOpen, noItems, vertical, } ) => isOpen ? `${noItems * ( vertical ? 2.6 : 3.3 )}rem` : 0};
   height: auto;
 
@@ -90,7 +90,7 @@ const SubMenuTitle = styled.span`
   padding: 0 ${isOpenPadding};
   overflow: hidden;
   flex: 1;
-  color: ${styles.get.primaryWhiteColour};
+  color: ${styles.get.colours.whiteL2};
   ${isSelectedStyling};
   ${orientationStyling};
 `;

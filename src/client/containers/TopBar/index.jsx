@@ -4,12 +4,10 @@ import { faChevronLeft, faChevronRight, } from '@fortawesome/free-solid-svg-icon
 import Button from 'Components/Button';
 import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import Layout from 'Components/Layout';
-import Loading from 'Components/Loading';
 import Menu from 'Components/Menu';
 import { connect, } from 'react-redux';
 import mapTopBar from './map';
 import mappedMenus from 'Helpers/mappedMenus';
-import styles from 'Styles/TopBar';
 
 @connect( mapTopBar.State, mapTopBar.Dispatch )
 export default class TopBar extends Component {
@@ -57,13 +55,7 @@ export default class TopBar extends Component {
           variant='secondary'>
           <FontAwesomeIcon icon={ isSidebarCollapsed ? faChevronRight : faChevronLeft } />
         </Button>
-        {!isOnline && (
-          <div className={ styles.offlineSpinContainer }>
-            <Loading
-              className={ styles.offlineSpinner }
-              tip='Offline...' />
-          </div>
-        )}
+        {!isOnline && 'Offline Mode'}
         {actionMenuItems && (
           <Menu
             openKeys={ openKeys }

@@ -4,7 +4,6 @@ import { faFacebook, faGoogle, } from '@fortawesome/free-brands-svg-icons';
 
 import Button from '../Button';
 import Card from '../Card';
-import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import Loading from '../Loading';
 import RadioButton from '../RadioButton';
 import StrikeTitle from '../StrikeTitle';
@@ -264,15 +263,17 @@ export default class UserProfile extends Component {
           {!providers.google && (
             <Button
               href={ authEndpointRoute( 'google' ) }
+              icon={ faGoogle }
               variant='secondary'>
-              <FontAwesomeIcon icon={ faGoogle } /> Link With Google
+              Link With Google
             </Button>
           )}
           {!providers.facebook && (
             <Button
               href={ authEndpointRoute( 'facebook' ) }
+              icon={ faFacebook }
               variant='secondary'>
-              <FontAwesomeIcon icon={ faFacebook } /> Link With Facebook
+              Link With Facebook
             </Button>
           )}
         </Card.Footer>

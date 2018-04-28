@@ -14,7 +14,7 @@ const StrikeTitleText = styled.span`
     top: 50%;
     width: 100vw;
     height: 1px;
-    background: ${styles.get.primaryGreyColour};
+    background: ${styles.get.colours.whiteD1};
   }
   &:before {
     right: 100%;

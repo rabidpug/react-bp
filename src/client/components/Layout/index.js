@@ -1,6 +1,7 @@
 import React, { PureComponent, } from 'react';
 
 import styled from 'styled-components';
+import styles from 'Styles';
 
 const sideWidth = ( { collapsed, } ) => collapsed ? '4rem' : '12rem';
 
@@ -67,7 +68,7 @@ export default class Layout extends PureComponent {
           rgba(255, 255, 255, 0) 55%
         )
         3.5em 5.5em,
-      radial-gradient(#e5e5e5, #fff);
+      radial-gradient(${styles.get.colours.whiteD2}, #fff);
     background-color: #e5e5e5;
     background-repeat: repeat;
     background-size: 1.5em 11em, 1.5em 11em, 2.3em 8em, 2.3em 8em, 3.5em 11em, 3.5em 11em, 100% 100%;
@@ -86,7 +87,7 @@ export default class Layout extends PureComponent {
     padding: 0px;
     z-index: 1;
     box-shadow: 0 0.0625rem 0.375rem 0 rgba(0, 0, 0, 0.2);
-    border-top: 0.25rem solid #ed702a;
+    border-top: 0.25rem solid ${styles.get.colours.primary};
     height: 4rem;
     line-height: 4rem;
     flex: 0 0 auto;
@@ -95,7 +96,7 @@ export default class Layout extends PureComponent {
   static SideBar = styled.div`
     transition: all 0.2s;
     position: relative;
-    background: #757575;
+    background: ${styles.get.colours.grey};
     flex: 0 0 ${sideWidth};
     max-width: ${sideWidth};
     min-width: ${sideWidth};

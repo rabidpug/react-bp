@@ -47,7 +47,7 @@ body {
   font-weight: 400;
 }
 ::selection {
-  background: ${styles.get.primaryColour};
+  background: ${styles.get.colours.primary};
   color: #fff;
 }
 `;

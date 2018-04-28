@@ -6,7 +6,7 @@ import styles from 'Styles';
 
 const dogEar = css`
   border: 22px solid;
-  border-color: ${styles.get.lighterGreyColour} transparent transparent;
+  border-color: ${styles.get.colours.white} transparent transparent;
   bottom: auto;
   content: ' ';
   height: 0;
@@ -38,7 +38,7 @@ const textAlign = ( { alignRight, } ) =>
     text-align: ${alignRight ? 'right' : 'left'};
   `;
 const CardWrapper = styled.div`
-  background-color: #fff;
+  background-color: ${styles.get.colours.whiteL2};
   border-radius: 0.7rem;
   box-shadow: 0 0.125rem 0.375rem 0 rgba(0, 0, 0, 0.2);
   clear: both;
@@ -50,7 +50,7 @@ const CardWrapper = styled.div`
 `;
 
 const HeaderWrapper = styled.div`
-  background-color: ${styles.get.lighterGreyColour};
+  background-color: ${styles.get.colours.white};
   border-radius: 0.7rem 0.7rem 0 0;
   display: flex;
   flex-direction: row;

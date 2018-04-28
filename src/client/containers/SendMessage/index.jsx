@@ -22,10 +22,10 @@ const StyledEmojiButton = styled( FontAwesomeIcon )`
   position: absolute;
   left: -1.6rem;
   top: 50%;
-  color: ${styles.get.darkerGreyColour};
+  color: ${styles.get.colours.greyD1};
   transform: translateY(-50%);
   &:hover {
-    color: ${styles.get.hoverColour};
+    color: ${styles.get.colours.hover};
   }
 `;
 const EmojiPickerContainer = styled.div`

@@ -30,14 +30,14 @@ const InputWrapper = styled.input`
   transition: all 0.3s;
   &:hover,
   :focus {
-    border-color: ${styles.get.lighterColour};
+    border-color: ${styles.get.colours.primaryL1};
   }
   &:focus {
     outline: 0;
-    box-shadow: 0 0 0 2px ${styles.get.hoverColour};
+    box-shadow: 0 0 0 2px ${styles.get.colours.secondary};
   }
   &::placeholder {
-    color: ${styles.get.primaryGreyColour};
+    color: ${styles.get.colours.grey};
   }
 `;
 const TextArea = InputWrapper.withComponent( 'textarea' );

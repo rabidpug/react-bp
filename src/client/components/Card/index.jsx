@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import styles from 'Styles';
 
 const CardWrapper = styled.div`
-  background-color: #fff;
+  background-color: ${styles.get.colours.whiteL2};
   box-shadow: 0 0.25rem 0.375rem 0 rgba(0, 0, 0, 0.2);
   left: 0;
   display: flex;
@@ -42,14 +42,15 @@ export default class Card extends PureComponent {
   `;
 
   static Footer = styled.div`
-    background-color: ${styles.get.midGreyColour};
+    background-color: ${styles.get.colours.white};
     box-shadow: 0 0.125rem 0.375rem 0 rgba(0, 0, 0, 0.2);
     padding: 0.625rem 0;
   `;
 
   static Header = styled.div`
-    background-color: ${styles.get.lighterGreyColour};
-    padding-top: 0.625rem;
+    background-color: ${styles.get.colours.whiteL1};
+    padding-top: 0.225rem;
+    padding-bottom: 0.225rem;
     user-select: none;
   `;
 

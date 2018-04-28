@@ -22,8 +22,8 @@ const RadioButtonLabel = styled.label`
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   margin: 0;
   margin-bottom: 1rem;
-  border-color: ${( { checked, } ) => checked ? styles.get.lighterColour : styles.get.primaryGreyColour};
-  color: ${( { checked, } ) => checked ? styles.get.primaryColour : 'black'};
+  border-color: ${( { checked, } ) => checked ? styles.get.colours.primaryL1 : styles.get.colours.greyL1};
+  color: ${( { checked, } ) => checked ? styles.get.colours.primary : 'black'};
   border-style: solid;
   user-select: none;
   border-top-width: 1.02px;

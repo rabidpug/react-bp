@@ -8,36 +8,35 @@ import styles from 'Styles';
 const variantStyle = {
   primary: css`
     color: #fff;
-    background-color: ${styles.get.primaryColour};
-    border-color: ${styles.get.primaryColour};
+    background-color: ${styles.get.colours.primary};
+    border-color: ${styles.get.colours.primary};
     border-style: solid;
-    &:hover {
-      background-color: ${styles.get.lighterColour};
-      border-color: ${styles.get.lighterColour};
+    &:hover,
+    :disabled {
+      background-color: ${styles.get.colours.primaryL2};
+      border-color: ${styles.get.colours.primaryL2};
     }
     &:active {
-      background-color: ${styles.get.darkerColour};
-      border-color: ${styles.get.darkerColour};
+      background-color: ${styles.get.colours.primaryD1};
+      border-color: ${styles.get.colours.primaryD1};
     }
     &:disabled {
-      background-color: ${styles.get.lighterColour};
-      border-color: ${styles.get.lighterColour};
       opacity: 0.7;
       cursor: wait;
     }
   `,
   secondary: css`
-    color: #000;
+    color: ${styles.get.colours.greyD2};
     background-color: white;
-    border-color: ${styles.get.primaryGreyColour};
+    border-color: ${styles.get.colours.greyL2};
     border-style: solid;
     &:hover {
-      color: ${styles.get.lighterColour};
-      border-color: ${styles.get.lighterColour};
+      color: ${styles.get.colours.primaryL2};
+      border-color: ${styles.get.colours.primaryL2};
     }
     &:active {
-      color: ${styles.get.darkerColour};
-      border-color: ${styles.get.darkerColour};
+      color: ${styles.get.colours.primaryD1};
+      border-color: ${styles.get.colours.primaryD1};
     }
   `,
   tertiary: css`
@@ -46,7 +45,7 @@ const variantStyle = {
     border: 2px solid transparent;
     background-color: transparent;
     &:hover {
-      border-bottom: 2px solid ${styles.get.primaryColour};
+      border-bottom: 2px solid ${styles.get.colours.primary};
     }
   `,
 };
@@ -71,12 +70,18 @@ const StyledButton = styled.button`
   position: relative;
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   ${( { variant, } ) => variantStyle[variant]};
+  &:hover,
+  :visited,
+  :link,
+  :active {
+    text-decoration: none;
+  }
 `;
 const TextSpan = styled.div`
   max-width: 100%;
   text-overflow: ellipsis;
   margin: 0;
-  margin-left: ${( { icon, disabled, } ) => icon || disabled ? '0.5rem' : 0};
+  margin-left: ${( { icon, disabled, } ) => icon || disabled ? '0.7rem' : 0};
   overflow: hidden;
 `;
 const HrefButton = StyledButton.withComponent( 'a' );
@@ -84,7 +89,7 @@ const Button = ( { disabled, children, ...props } ) => {
   const { href, icon, } = props;
   const Component = href ? HrefButton : StyledButton;
   const iconStyle = {
-    left     : 5,
+    left     : 7,
     position : 'absolute',
     top      : '25%',
   };

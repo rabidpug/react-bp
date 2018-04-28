@@ -8,7 +8,6 @@ import store from 'Store';
 export const socket = socketIOClient( window.location.host );
 
 /* eslint-disable no-console */
-// eslint-disable-next-line no-unused-vars
 const setUpSocket = ( reduxStore: Object ) => {
   socket.on( IO_CONNECT, () => {
     console.log( '[socket.io] Connected.' );
