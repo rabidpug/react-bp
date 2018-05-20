@@ -1,7 +1,7 @@
 import store from 'Store';
 const { authSuccess, getProfile, linkAuth, } = store.user.set;
 const { isOnline, } = store.ui.set;
-const mapApp = {
+const map = {
   Dispatch: {
     authSuccess,
     getProfile,
@@ -11,4 +11,4 @@ const mapApp = {
   State: state => ( { pushSubscription: store.user.get.pushSubscription( state ), } ),
 };
 
-export default mapApp;
+export default map;

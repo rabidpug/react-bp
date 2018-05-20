@@ -5,10 +5,10 @@ import Message from 'Components/Message';
 import SendMessage from 'Containers/SendMessage';
 import { connect, } from 'react-redux';
 import { hot, } from 'react-hot-loader';
-import mapWelcome from './map';
+import map from './map';
 
 @hot( module )
-@connect( mapWelcome.State )
+@connect( map.State )
 export default class Welcome extends Component {
   componentDidMount () {
     this.scrollToBottom();

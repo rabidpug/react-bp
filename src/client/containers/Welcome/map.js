@@ -1,9 +1,9 @@
 import store from 'Store';
-const mapWelcome = {
+const map = {
   State: state => ( {
     messages : store.greeter.get.messages( state ),
     publicId : store.user.get.publicId( state ),
   } ),
 };
 
-export default mapWelcome;
+export default map;

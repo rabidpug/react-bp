@@ -1,7 +1,7 @@
 import { push, } from 'react-router-redux';
 import store from 'Store';
 const { toggleKey, toggleSidebar, } = store.ui.set;
-const mapSideBar = {
+const map = {
   Dispatch: {
     push,
 
@@ -17,4 +17,4 @@ const mapSideBar = {
   } ),
 };
 
-export default mapSideBar;
+export default map;

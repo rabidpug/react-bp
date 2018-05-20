@@ -4,10 +4,10 @@ import Layout from 'Components/Layout';
 import Menu from 'Components/Menu';
 import SlideWrap from 'Animations/SlideWrap';
 import { connect, } from 'react-redux';
-import mapSideBar from './map';
+import map from './map';
 import mappedMenus from 'Helpers/mappedMenus';
 
-@connect( mapSideBar.State, mapSideBar.Dispatch )
+@connect( map.State, map.Dispatch )
 @SlideWrap
 export default class SideBar extends Component {
   render () {

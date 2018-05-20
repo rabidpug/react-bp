@@ -1,6 +1,6 @@
 import store from 'Store';
 
-const mapTopBar = {
+const map = {
   Dispatch : { toggleSidebar: store.ui.set.toggleSidebar, },
   State    : ( state, ownProps ) => ( {
     actionMenuItems    : ownProps.route.actionMenuItems,
@@ -11,4 +11,4 @@ const mapTopBar = {
   } ),
 };
 
-export default mapTopBar;
+export default map;

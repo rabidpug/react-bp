@@ -6,7 +6,7 @@ import EmojiPicker from 'emoji-picker-react';
 import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import Input from 'Components/Input';
 import { connect, } from 'react-redux';
-import mapSendMessage from './map';
+import map from './map';
 import styled from 'styled-components';
 import styles from 'Styles';
 
@@ -44,7 +44,7 @@ const SenderContainer = styled.div`
   position: relative;
 `;
 
-@connect( mapSendMessage.State, mapSendMessage.Dispatch )
+@connect( map.State, map.Dispatch )
 export default class SendMessage extends Component {
   constructor ( props ) {
     super( props );

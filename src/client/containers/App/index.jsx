@@ -8,14 +8,14 @@ import { connect, } from 'react-redux';
 import content from 'Routes/content';
 import fadeTransition from 'Styles/fadeTransition';
 import { hot, } from 'react-hot-loader';
-import mapApp from './map';
+import map from './map';
 import navMenu from 'Routes/navMenu';
 import { renderRoutes, } from 'react-router-config';
 import { subscribePush, } from 'Client/webpush';
 
 @hot( module )
 @withRouter
-@connect( mapApp.State, mapApp.Dispatch )
+@connect( map.State, map.Dispatch )
 export default class App extends Component {
   componentDidMount () {
     const { isOnline, linkAuth, authSuccess, isGettingProfile, getProfile, } = this.props;

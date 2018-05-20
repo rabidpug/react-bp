@@ -1,6 +1,6 @@
 import store from 'Store';
 const { authUser, } = store.user.set;
-const mapUserForm = {
+const map = {
   Dispatch : { authUser, },
   State    : state => ( {
     authMessage   : store.user.get.authMessage( state ),
@@ -8,4 +8,4 @@ const mapUserForm = {
   } ),
 };
 
-export default mapUserForm;
+export default map;

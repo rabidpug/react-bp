@@ -1,6 +1,6 @@
 import store from 'Store';
 const { changePasswordResponse, changePublic, getProfile, changePassword, } = store.user.set;
-const mapUserProfile = {
+const map = {
   Dispatch: {
     changePassword,
     changePasswordResponse,
@@ -16,4 +16,4 @@ const mapUserProfile = {
   } ),
 };
 
-export default mapUserProfile;
+export default map;

@@ -2,9 +2,9 @@ import React, { Component, } from 'react';
 
 import { ThemeProvider, } from 'styled-components';
 import { connect, } from 'react-redux';
-import mapDynamicThemeProvider from './map';
+import map from './map';
 
-@connect( mapDynamicThemeProvider.State )
+@connect( map.State )
 export default class DynamicThemeProvider extends Component {
   render () {
     return <ThemeProvider { ...this.props } />;

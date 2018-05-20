@@ -6,10 +6,10 @@ import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import Layout from 'Components/Layout';
 import Menu from 'Components/Menu';
 import { connect, } from 'react-redux';
-import mapTopBar from './map';
+import map from './map';
 import mappedMenus from 'Helpers/mappedMenus';
 
-@connect( mapTopBar.State, mapTopBar.Dispatch )
+@connect( map.State, map.Dispatch )
 export default class TopBar extends Component {
   constructor ( props ) {
     super( props );

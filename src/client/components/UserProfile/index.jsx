@@ -11,13 +11,13 @@ import { authEndpointRoute, } from 'Shared/routes';
 import axios from 'axios';
 import { connect, } from 'react-redux';
 import { hot, } from 'react-hot-loader';
-import mapUserProfile from './map';
+import map from './map';
 import noImage from 'Assets/noImage.png';
 
 const { Item, create, } = Form;
 
 @hot( module )
-@connect( mapUserProfile.State, mapUserProfile.Dispatch )
+@connect( map.State, map.Dispatch )
 @create()
 export default class UserProfile extends Component {
   constructor ( props ) {
